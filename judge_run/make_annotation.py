@@ -18,7 +18,7 @@ JUDGE_TITLES = {"mtrag": "mtRAG (RB_llm + RL_F + IDK)"}
 TAXONOMY = ["knowledge_boundary", "chunking", "retrieval", "context_selection",
             "grounding", "response_coverage"]
 EXTRA_TYPES = ["not_a_failure", "outside_taxonomy", "insufficient_evidence"]
-DEFAULT_THRESHOLDS = {"f": 1.0, "mtrag": 0.6, "rb_llm_min_rating": 6.0}
+DEFAULT_THRESHOLDS = {"f": 1.0, "mtrag": 0.8, "rb_llm_min_rating": 6.0}
 
 
 def rb_band(score):
@@ -135,6 +135,7 @@ def scored_view(turn, cutoff=DEFAULT_THRESHOLDS["mtrag"]):
     notes = ["[%s] %s" % (item.get("verdict", "?"), item.get("statement", ""))
              for item in scores.get("statements") or []]
     return {"status": "judged", "label": turn["label"], "headline": headline,
+            "conditioned_score": scores.get("conditioned_score"),
             "score_band": band, "reasoning": turn.get("reasoning", ""),
             "metrics": metrics, "notes": notes,
             "score_steps": score_steps(scores, turn["label"], band, cutoff)}
@@ -157,8 +158,23 @@ def load_input_records(work_dir):
         return {record["id"]: record for record in json.load(stream)}
 
 
+def gold_evidence(index, task_id, question, gold):
+    task = index.get("tasks", {}).get(task_id)
+    if task is None:
+        return {"status": "missing", "task_id": task_id, "documents": [],
+                "message": "Original reference evidence is not available for this task."}
+    if task.get("question", "").strip() != question.strip() or gold not in task.get("gold_answers", []):
+        return {"status": "mismatch", "task_id": task_id, "documents": [],
+                "message": "Reference question or gold answer differs from this run; evidence was not attached."}
+    return {"status": "available", "task_id": task_id,
+            "documents": task["documents"], "source": index.get("source", {}),
+            "message": "Original reference-task passages; relevance labels are from the dataset."}
+
+
 def build_data(work_dir):
     work_dir = pathlib.Path(work_dir)
+    evidence_path = pathlib.Path(__file__).resolve().parent / "gold_support.json"
+    evidence_index = json.loads(evidence_path.read_text(encoding="utf-8")) if evidence_path.is_file() else {}
     inputs = load_input_records(work_dir)
     judged = load(work_dir, "mtrag")
     if not inputs and not judged:
@@ -191,10 +207,14 @@ def build_data(work_dir):
                 view = scored_view(turn, thresholds["mtrag"]) if turn is not None else not_run(
                     "turn_missing", "turn missing from output")
             selected = None if contexts is None or k - 1 >= len(contexts) else contexts[k - 1]
+            gold = golds[k - 1] if k - 1 < len(golds) else ""
+            turn_ids = source.get("metadata", {}).get("turn_ids") or []
+            task_id = "%s<::>%s" % (cid, turn_ids[k - 1] if k - 1 < len(turn_ids) else k)
             rows.append({
                 "key": "%s#%d" % (cid, k), "id": cid, "turn": k, "n_turns": len(texts),
                 "question": question, "answer": answer,
-                "gold": golds[k - 1] if k - 1 < len(golds) else "",
+                "gold": gold,
+                "gold_support": gold_evidence(evidence_index, task_id, question, gold),
                 "answerability": (str(answerability[k - 1]).upper()
                                   if answerability and k - 1 < len(answerability) and answerability[k - 1]
                                   else "not recorded"),
@@ -275,6 +295,11 @@ main{max-width:1100px;margin:12px auto;padding:0 12px}
 .correct,.high{background:#cdeed6}.incorrect,.low{background:#f6c9c9}.mid{background:#fff0c2;color:#785500}.not_judged,.not_run,.record_missing,.turn_missing{background:#e3e5e8;color:#666}
 #coverage{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}#coverage .badge{border:1px solid #cbd0d6}
 .blk{margin:6px 0;white-space:pre-wrap}.blk b{display:block;font-size:12px;color:#555}
+.evidence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.evidence>details{border:1px solid #d5d8de;border-radius:5px;padding:10px;min-width:0}
+.evidence>details>summary{font-weight:700}.evidence .blk{overflow-wrap:anywhere}
+.evidence-note{font-size:12px;color:#555;margin:8px 0;overflow-wrap:anywhere}
+@media(max-width:760px){.evidence{grid-template-columns:1fr}}
 details{margin:4px 0}summary{cursor:pointer;font-size:13px}
 .judge{border-top:1px dashed #ccd;margin-top:6px;padding-top:4px}
 .calc{margin:8px 0;padding:8px 12px;background:#f5f8fc;border-left:3px solid #5979a6;border-radius:3px;font-size:13px;line-height:1.5}
@@ -331,8 +356,8 @@ function progress(){
   document.querySelectorAll('.card[data-key]').forEach(c=>c.classList.toggle('done', done(D.rows.find(r=>r.key===c.dataset.key))));
 }
 function badge(name, v){
-  const score=v.score_band?' | RB_llm: '+v.score_band:'';
-  return el('span','badge '+(v.score_band||v.label||v.status),
+  const score=typeof v.conditioned_score==='number'?' | conditioned score: '+v.conditioned_score.toFixed(3):'';
+  return el('span','badge '+(v.label||v.status),
             'mtRAG: '+(v.label||v.status.replace('_',' '))+score);
 }
 function block(label, text){const d=el('div','blk'); d.appendChild(el('b',null,label)); d.appendChild(document.createTextNode(text||'')); return d;}
@@ -365,8 +390,18 @@ function turnCard(r){
     const jb=el('span','judges'); Object.keys(r.judges).forEach(n=>{jb.appendChild(badge(n,r.judges[n])); jb.appendChild(document.createTextNode(' '));}); hd.appendChild(jb);
     c.appendChild(hd);
     c.appendChild(block('Question', r.question)); c.appendChild(block('RAG answer', r.answer)); c.appendChild(block('Gold answer', r.gold));
-    const cx=el('details'); cx.appendChild(el('summary',null,r.contexts===null?'Selected context: not recorded':'Selected context ('+r.contexts.length+' passages)'));
-    (r.contexts||[]).forEach((p,i)=>cx.appendChild(block('['+(i+1)+']', p))); c.appendChild(cx);
+    const evidence=el('div','evidence');
+    const cx=el('details'); cx.open=true; cx.appendChild(el('summary',null,r.contexts===null?'Selected context: not recorded':'Selected context ('+r.contexts.length+' passages)'));
+    cx.appendChild(el('p','evidence-note','Passages supplied to the RAG model.'));
+    (r.contexts||[]).forEach((p,i)=>cx.appendChild(block('['+(i+1)+']', p))); evidence.appendChild(cx);
+    const gs=r.gold_support; const gx=el('details'); gx.open=true;
+    gx.appendChild(el('summary',null,'Gold supporting documents'+(gs.status==='available'?' ('+gs.documents.length+' passages)':'')));
+    gx.appendChild(el('p','evidence-note',gs.message));
+    gx.appendChild(el('p','evidence-note','Task: '+gs.task_id));
+    if(gs.status==='available' && !gs.documents.length) gx.appendChild(el('p',null,'The reference task records no supporting passages.'));
+    gs.documents.forEach((p,i)=>{gx.appendChild(block('['+(i+1)+'] '+(p.title||'Untitled'),p.text));gx.appendChild(el('p','evidence-note','Document ID: '+p.id+' | Dataset relevance: '+(p.relevance.join(', ')||'not recorded')));});
+    if(gs.source){const src=el('a',null,'Reference dataset');src.href=gs.source.dataset_url;src.target='_blank';src.rel='noopener noreferrer';gx.appendChild(src);gx.appendChild(el('p','evidence-note','Source: '+gs.source.file+' | SHA-256: '+gs.source.sha256));}
+    evidence.appendChild(gx); c.appendChild(evidence);
     const jd=el('div','judges'); Object.keys(r.judges).forEach(n=>jd.appendChild(judgeView(n,r.judges[n]))); c.appendChild(jd);
     c.appendChild(annotation(r)); return c;
 }

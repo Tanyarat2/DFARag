@@ -144,7 +144,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     g = p.add_argument_group("PASS/FAIL thresholds (the papers define scores, not a pass/fail cut)")
     g.add_argument("--f-threshold", type=float, default=1.0,
                    help="mtRAG's RL_F per-metric verdict threshold")
-    g.add_argument("--mtrag-threshold", type=float, default=0.6,
+    g.add_argument("--mtrag-threshold", type=float, default=0.8,
                    help="mtrag mode: turn is correct iff IDK-conditioned score >= this")
     g.add_argument("--rb-llm-min-rating", type=float, default=6.0,
                    help="mtrag per-metric verdict for RB_llm (1-10): correct iff rating >= this (OURS)")

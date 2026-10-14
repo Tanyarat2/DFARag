@@ -113,7 +113,13 @@ failure attribution.
 | `conditioned_score` | If ANSWERABLE/PARTIAL and IDK=yes, 0; otherwise `phi`. If UNANSWERABLE/CONVERSATIONAL, 1 only for IDK=yes, otherwise 0. If answerability is missing, `phi`. | mtRAG conditions **each metric individually** for answerable/partial/unanswerable turns. Combining first and treating conversational/missing answerability as above are local adaptations. |
 
 The project's existing binary screening rule is `correct` iff
-`conditioned_score >= 0.6`; this cutoff is not claimed to be the paper's.
+`conditioned_score >= 0.8`; this cutoff is not claimed to be the paper's.
+Exactly 0.8 passes. To apply this cutoff to an existing all-turn run without
+calling the model again, run `python -B relabel_mtrag.py --input runs/<name>/out.mtrag.json`.
+This preserves the original bytes in `out.mtrag.before-threshold-0p8.json` and
+updates screening labels, conversation labels, first failed turns and threshold
+metadata. Numeric scores, prompts and API usage are unchanged. Runs with skipped
+turns cannot be relabelled because their missing scores must first be judged.
 The `RB_llm` per-metric verdict uses `>= 6`. The page also shows these
 **project-only three levels on the raw RB_llm rating**: low `<=5`, medium
 `>5 and <=8`, high `>8`. Exactly 5 is low; exactly 8 is medium. They
@@ -130,6 +136,22 @@ omits RB_alg, and uses a shortened IDK few-shot prompt. Report this as an
 **mtRAG-style project adaptation**, not an exact replication.
 
 ## Files and output
+
+The annotation page shows selected RAG context beside original reference-task
+passages in a Gold supporting documents panel. Document IDs and dataset relevance
+labels are included. This display uses `judge_run/gold_support.json`, a separate
+evidence index; it does not modify judge inputs, saved scores or human annotations.
+Reference evidence is attached only when the task ID, question (ignoring outer
+whitespace) and gold answer match. Missing or mismatched evidence is shown explicitly.
+
+To build the index from an original MTRAG reference JSONL file, run from `judge_run`:
+
+```powershell
+python -B import_gold_support.py --reference path\to\reference.jsonl
+```
+
+The importer refuses to overwrite an existing index. Restart the annotation server
+after changing the UI code, then refresh the browser.
 
 - `run.py`: mtRAG-only entry point.
 - `prepare_input.py`: copies conversation, gold answers and selected

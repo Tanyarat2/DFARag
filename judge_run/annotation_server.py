@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Serve a local run picker and the latest annotation view for each judge run.
 
-No database and no API key are used by this server. It reads only input.json and
-out.*.json under the selected runs folder. Judge API credentials are only needed
-by the separate CLI judge commands.
+No database or API key is used by this server. Judge results are read-only;
+human annotations are saved separately in each run's annotations/PS.json,
+annotations/KH.json, and annotations/WN.json files.
 """
 
 import argparse
 import html
+import json
 import pathlib
 import re
 import sys
@@ -17,6 +18,7 @@ from urllib.parse import unquote, urlparse
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import make_annotation as annotation  # noqa: E402
+from annotation_store import AnnotationStore  # noqa: E402
 
 NAME_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z")
 JUDGES = ("mtrag",)
@@ -73,9 +75,25 @@ a.run:hover{border-color:#27827c;box-shadow:0 3px 12px #1b1f2314}.run strong{fon
 
 
 def make_handler(runs_dir):
+    runs_dir = pathlib.Path(runs_dir)
+    store = AnnotationStore(runs_dir)
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             path = unquote(urlparse(self.path).path)
+            api_match = re.fullmatch(r"/api/annotations/([^/]+)/([^/]+)", path)
+            if api_match:
+                try:
+                    data = store.read(*api_match.groups())
+                except FileNotFoundError:
+                    self.respond_json(404, {"error": "Run not found."})
+                except ValueError as exc:
+                    self.respond_json(400, {"error": str(exc)})
+                except (OSError, RuntimeError) as exc:
+                    self.respond_json(500, {"error": str(exc)})
+                else:
+                    self.respond_json(200, data)
+                return
             if path == "/" or path == "/index.html":
                 self.respond(200, picker_page(runs_dir, self.server.server_port))
                 return
@@ -88,24 +106,65 @@ def make_handler(runs_dir):
                 self.respond(404, "Run not found")
                 return
             try:
-                page = annotation.render_page(annotation.build_data(work_dir))
+                data = annotation.build_data(work_dir)
+                data["annotation_api"] = "/api/annotations/" + match.group(1)
+                page = annotation.render_page(data)
             except SystemExit as exc:
                 message = html.escape(str(exc))
                 page = ("<!doctype html><meta charset='utf-8'><title>Run unavailable</title>"
                         "<p>%s</p><p><a href='/'>Back to runs</a></p>" % message)
             else:
-                nav = ("<nav style='position:sticky;top:0;z-index:9;padding:8px 16px;"
-                       "background:#edf1f3;border-bottom:1px solid #ccd'>"
-                       "<a href='/'>All runs</a> &nbsp; | &nbsp; "
+                nav = ("<nav aria-label='Run navigation' style='padding:8px 24px;"
+                       "background:#fff;border-bottom:1px solid #dce3e1;font:12px system-ui'>"
+                       "<a href='/'>All runs</a> &nbsp; / &nbsp; "
                        "<a href='/run/%s'>Refresh latest judge outputs</a></nav>" %
                        html.escape(match.group(1), quote=True))
                 page = page.replace("<body>", "<body>" + nav, 1)
             self.respond(200, page)
 
-        def respond(self, status, body):
+        def do_POST(self):
+            path = unquote(urlparse(self.path).path)
+            match = re.fullmatch(r"/api/annotations/([^/]+)/([^/]+)", path)
+            if not match:
+                self.respond_json(404, {"error": "Not found."})
+                return
+            origin = self.headers.get("Origin")
+            if origin and origin not in ("http://" + self.headers.get("Host", ""),
+                                         "https://" + self.headers.get("Host", "")):
+                self.respond_json(403, {"error": "Cross-origin annotation writes are not allowed."})
+                return
+            if self.headers.get("Content-Type", "").split(";", 1)[0].strip() != "application/json":
+                self.respond_json(415, {"error": "Use application/json."})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                if length < 1 or length > 4 * 1024 * 1024:
+                    self.respond_json(413, {"error": "Annotation request must be between 1 byte and 4 MiB."})
+                    return
+                payload = json.loads(self.rfile.read(length))
+                if not isinstance(payload, dict) or set(payload) != {"changes"}:
+                    raise ValueError("Send a changes object.")
+                run, annotator_name = match.groups()
+                # Validate the destination before reading inputs or creating files.
+                store.path(run, annotator_name)
+                valid_keys = {row["key"] for row in annotation.build_data(runs_dir / run)["rows"]}
+                store.patch(run, annotator_name, payload["changes"], valid_keys)
+            except FileNotFoundError:
+                self.respond_json(404, {"error": "Run not found."})
+            except (ValueError, UnicodeError) as exc:
+                self.respond_json(400, {"error": str(exc)})
+            except (OSError, RuntimeError, SystemExit) as exc:
+                self.respond_json(500, {"error": str(exc)})
+            else:
+                self.respond_json(200, {"saved": True, "annotator": annotator_name})
+
+        def respond_json(self, status, data):
+            self.respond(status, json.dumps(data, ensure_ascii=False), "application/json; charset=utf-8")
+
+        def respond(self, status, body, content_type="text/html; charset=utf-8"):
             payload = body.encode("utf-8")
             self.send_response(status)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(payload)))
             self.send_header("Cache-Control", "no-store")
             self.end_headers()

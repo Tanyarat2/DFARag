@@ -86,9 +86,106 @@ from the latest JSON when refreshed. Alternatively,
 `python run.py annotate --name conversation_new` writes a static
 `runs/conversation_new/annotate.html` once and refuses to overwrite one that
 already exists. Export human annotations with the page's JSON or CSV button.
-After changing `make_annotation.py`, restart `python run.py serve` so the live
+After changing `make_annotation.py` or `annotation_template.html`, restart `python run.py serve` so the live
 server imports the new UI code; a previously generated static HTML file does
 not update on refresh.
+
+### Annotation workspace
+
+The review queue groups turns under their conversation ID. Green turns have an
+mtRAG conditioned score **>= 0.8**; red turns have a score **< 0.8**. Exactly 0.8
+passes, and turns without a valid score stay neutral. The displayed label follows
+this cutoff even when an older saved label used a different threshold. The result
+files are not rewritten. Incorrect turns show the score/conditioning reason,
+saved judge explanation, and any unsupported claims. **Judge guideline** and
+**Failure guideline** at the top left open the scoring rules and failure evidence
+requirements. Judge assessments remain visible.
+
+Select **PS**, **KH**, or **WN** in the annotator dropdown. Everyone sees the same
+conversations and can review the same turn independently. Switching profiles
+keeps the selected turn and restores that person's labels, notes, gold review,
+citations, and progress. The annotation bar stays on the right on desktop and
+stacks below the comparison on narrow displays.
+
+The live server autosaves changed turns into separate files:
+
+```text
+runs/<name>/annotations/PS.json
+runs/<name>/annotations/KH.json
+runs/<name>/annotations/WN.json
+```
+
+Changes merge by turn within the selected profile; they do not replace another
+annotator's file or alter judge outputs. Browser backups use distinct
+`annot:<run>:PS`, `annot:<run>:KH`, and `annot:<run>:WN` keys. Offline changes remain
+pending and retry when the profile is reopened or another edit is made. The save
+status in the right bar identifies the annotator and whether the work reached the
+server. Static HTML saves only in that browser; JSON exports remain a portable
+backup. Earlier shared browser annotations are retained at their original key;
+**Copy earlier labels to PS/KH/WN** explicitly copies them into the chosen profile
+without overwriting its existing work.
+
+The comparison shows three evidence columns together: **RAG answer + selected
+context**, **gold answer + gold documents**, and **corpus evidence**. Each column
+scrolls independently. On a narrow display, scroll the comparison horizontally.
+Conversation history and detailed mtRAG checks have separate views. Passage search
+highlights literal matches; it does not predict relevance.
+
+Corpus evidence is loaded automatically from RAG conversation exports in
+`conversation/*.json`, separated by each export's conversation `domain` and the
+run's recorded collection/dataset. The archive retains document IDs, titles,
+source filenames, a recorded task ID, and file hashes. Exact ID/text duplicates
+are merged; different text under the same ID is retained. These are **recorded
+passage snapshots, not a complete original corpus or retrieval candidate pool**.
+Archive absence cannot establish knowledge-boundary or retrieval failure.
+Question-word suggestions and corpus search are text-match navigation aids.
+
+**Load corpus file** can temporarily use a local JSON array, a JSON object with a
+`documents` array, or JSONL in the current collection. Each document needs a
+`text`, `contents`, or `content` string; `document_id`/`id`/`_id` and `title` are
+optional. Check the original corpus version yourself. Loaded files stay in memory
+until reload; citations retain their source and document locator in exports.
+
+Choose **Correct** or **Incorrect** in the annotation panel. For an incorrect
+answer, click one or more failure-cause checkbox cards. Each card includes a short
+description; the selected count and **Clear choices** make the set easy to review.
+Selected causes have expandable evidence guides, with links to relevant panels
+and missing original traces. These guides
+do not automatically assign a failure. Original corpus scope, indexed chunks,
+and retrieval candidates are not provided by the current annotation data, so use
+**Insufficient evidence** when those traces are needed to establish the cause.
+**Outside taxonomy** and **Insufficient evidence** are alternative outcomes: choosing
+one replaces the cause selections, and choosing a cause replaces the alternative.
+Marking the answer Correct records Not a failure and clears the failure causes.
+
+All chosen values are stored in the canonical `failure_types` array. Earlier
+`failure_type` strings load as one-item lists. JSON includes the complete array;
+CSV stores it as a JSON-encoded cell. The legacy `failure_type` field contains a
+value only when exactly one choice is selected; it stays empty for multiple
+choices. No primary cause is inferred from selection order. Autosave, offline
+backup, annotator switching, and imports preserve the complete selection.
+
+The separate **Gold answer check** records whether the reference is supported,
+questionable, or appears incorrect, with an explanation in `gold_notes`. This
+assessment (`gold_assessment`) does not change the RAG-answer label, saved gold,
+or judge scores. Both fields round-trip through JSON and CSV exports/imports.
+
+Select an exact quote in an answer or passage and click **Cite selection** or
+**Cite passage / selection** to attach it. Without a selection, the complete text
+is attached. Citations retain their source, passage locator, and quote in the new
+`evidence` export field (a JSON array; JSON-encoded in CSV). Existing annotation
+fields and historical score bands are preserved. Export filenames include the
+annotator, such as `annotations_<run>_PS.json`. Older JSON exports can still be
+imported: records tagged PS/KH/WN go to their own profiles, and records without an
+annotator go to the selected profile. Unmatched turns or unknown annotator names
+are skipped and reported. Matching imports replace that profile's annotation for
+the imported turn.
+
+**Reviewed** means a correctness decision plus one or more compatible failure causes (or an alternative outcome) for
+incorrect answers. Older labels without a cause remain labelled and can be found
+with **Unreviewed only**. Evidence citations and explanatory notes are optional.
+Use **Next unreviewed** to continue. Export JSON to retain a portable backup.
+
 For descriptive three-band agreement with older three-level human exports, run:
 
 ```powershell
@@ -137,8 +234,8 @@ omits RB_alg, and uses a shortened IDK few-shot prompt. Report this as an
 
 ## Files and output
 
-The annotation page shows selected RAG context beside original reference-task
-passages in a Gold supporting documents panel. Document IDs and dataset relevance
+The annotation page shows selected RAG context and original reference-task
+passages in side-by-side evidence columns. Document IDs and dataset relevance
 labels are included. This display uses `judge_run/gold_support.json`, a separate
 evidence index; it does not modify judge inputs, saved scores or human annotations.
 Reference evidence is attached only when the task ID, question (ignoring outer
@@ -159,13 +256,34 @@ after changing the UI code, then refresh the browser.
 - `judge_paper.py`: mtRAG score, including its required RAGAS faithfulness
   component, API transport and exact-configuration resume.
 - `make_annotation.py`: HTML view of mtRAG and binary human annotation.
+- `annotation_template.html`: self-contained review UI embedded by the generator.
 - `annotation_server.py`: local live run picker and annotation page.
+- `annotation_store.py`: validated, atomic per-annotator saves under each run.
 - `calibrate.py`: descriptive three-level human/model agreement.
 - `runs/<name>/out.mtrag.json`: per-turn scores, binary screening labels,
   reasoning and provenance. Other historical `out.*.json` files remain
   in `runs/` for audit; they are not read by the current UI.
 
 The human export stores the current binary choice in `human_label`. It retains
-`human_score_band` only for historical three-level annotations. Failure type is
+`human_score_band` only for historical three-level annotations. Failure causes are
 selected separately from the locked six-category taxonomy. Do not equate
 a quality band with a failure cause.
+
+## UI checks
+
+From the repository root, run:
+
+```powershell
+python -m unittest discover -s judge_run -p 'test_annotation*.py' -v
+```
+
+The checks cover safe data embedding, missing evidence, and preservation of judge
+statement reasons. When Chrome or Edge is installed, an isolated headless browser
+also checks desktop and mobile annotation workflows, legacy imports, citations,
+exports, filters, top-left guidelines, and the right annotation bar. No judge API calls are made.
+The checks also verify the exact 0.8 boundary, unchanged saved outputs, grouped
+conversation IDs, corpus isolation/deduplication, and independent gold review.
+Persistence checks use temporary run folders to verify separate PS/KH/WN files,
+HTTP validation, server reload, offline-draft recovery, and profile-aware imports.
+They also cover multiple failure selections, deselection, alternative outcomes,
+legacy single-cause migration, and complete array round-trips through autosave and exports.

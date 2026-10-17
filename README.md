@@ -97,6 +97,12 @@ comparison. Secondary types can be recorded separately. If the target becomes al
 failure causes, both model outputs and evaluation must instead be consistently
 multi-label. Record unresolved evidence and false-positive screening cases explicitly.
 
+The annotation UI supports multiple failure causes per turn in `failure_types`,
+including migration of older single-cause labels. It does not infer a primary
+cause. Using these annotations in the planned single-label comparison requires
+an explicit adjudicated primary label; a multi-label evaluation must retain the
+complete selected set for both human and model predictions.
+
 Do not confuse the **gold answer** (answer correctness), **human gold failure label**
 (attribution correctness), or **conditioned score** (screening).
 

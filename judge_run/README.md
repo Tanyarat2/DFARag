@@ -8,17 +8,54 @@ it does not assign one of the six failure causes.
 
 ## Commands (PowerShell)
 
+Judge an entire file from `conversation/` with one command (from `judge_run`):
+
+```powershell
+python -B run.py judge --src conversation_vector --fresh
+```
+
+This reads `../conversation/conversation_vector.json`, prepares every turn, and
+judges it with `qwen/qwen3-32b` through OpenRouter. Only `OPENROUTER_API_KEY`
+needs to be set in this terminal. Defaults match the Qwen3 pilot: 4096 reasoning
+tokens, 8192 total completion tokens per request, and a correct/incorrect cutoff
+of 0.8. The default run name is `conversation_vector_q3_32b`.
+
+`--fresh` moves an existing run (including human annotation files) to a sibling
+`<name>_backup_<timestamp>` folder before preparing the new one. Omit it for a
+new run name. Source, gold references, selected passages and API-key presence are
+checked before archiving. Browser drafts are keyed by run name; export any
+browser-only drafts before reusing that name. No existing run is moved during
+`--dry-run`.
+
+Change `--src` to another JSON filename or stem in `conversation/`, or pass a full
+file path. Set `--name` to choose a different output folder. For example:
+
+```powershell
+python -B run.py judge --src conversation_vector --name conversation_vector_all_q3_32b
+python -B run.py judge --src conversation_vector --fresh --dry-run
+```
+
+Gold answers are loaded from the original reference JSONL when available, or from
+the existing `gold_support.json` index. No per-run reference file or manual input
+preparation is needed. Cached references must match both task ID and question;
+new tasks need matching gold answers supplied with `--reference`. The index does
+not contain answerability labels, so exports using it must record answerability.
+Use `--model`, `--base-url`, and `--api-key-env` for another judge/API. These options
+belong to `judge`; the older prepared-input `mtrag` workflow below still uses
+`JUDGE_MODEL`, `JUDGE_BASE_URL`, and `JUDGE_API_KEY_ENV`.
+
+### Existing prepared-input workflow
+
 Create a new run name so previous outputs are not overwritten:
 
 ```powershell
-python run.py prepare --name conversation_new --limit 3
+python run.py prepare --src conversation_vector --name conversation_new --limit 3
 python run.py preview --name conversation_new
 ```
 
-`prepare` reads `../conversation.json` and writes
-`runs/conversation_new/input.json`. For a different source, use
-`python prepare_input.py --src ..\conversation1.json --out runs/conversation1`,
-then continue with `--name conversation1`. The preparer preserves selected
+`prepare --src conversation_vector` reads `../conversation/conversation_vector.json`
+and writes `runs/conversation_new/input.json`. The older `prepare` command without
+`--src` still defaults to `../conversation.json`. The preparer preserves selected
 passages, reference answers, answerability and recorded history. `preview`
 writes `preview.json` without any paid API call.
 

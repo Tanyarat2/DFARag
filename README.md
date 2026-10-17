@@ -148,6 +148,24 @@ it does not assign one of the six failure causes.
 
 ## Commands (PowerShell)
 
+From `judge_run`, judge all turns in `conversation/conversation_vector.json`:
+
+```powershell
+python -B run.py judge --src conversation_vector --fresh
+```
+
+Only `OPENROUTER_API_KEY` needs to be set. The command prepares the input and
+judges it with Qwen3-32B, using 4096 reasoning tokens, 8192 total completion tokens
+per request, and a 0.8 cutoff. The run name defaults to `conversation_vector_q3_32b`;
+use `--name` to change it. `--fresh` archives the previous run and its saved human
+annotations to a timestamped sibling folder. Export browser-only drafts before
+reusing a run name. Gold answers are found automatically in the original reference
+JSONL or the cached `judge_run/gold_support.json`; missing/mismatched tasks fail
+before any API call. Add `--dry-run` to validate without changing files or calling
+the API. For another export, change `--src` to its filename in `conversation/`.
+
+The older prepared-input workflow is also available:
+
 Create a new run name so previous outputs are not overwritten:
 
 ```powershell
@@ -158,8 +176,9 @@ Copy-Item runs/conversation_vector_q25/input.json runs/conversation_new/input.js
 This reuses the prepared input so judge models evaluate the same cases.
 The `prepare` stage defaults to `../conversation.json`, which is not supplied in
 this checkout. For a new RAG export, call `prepare_input.py` with an explicit source
-and the original MTRAG reference JSONL file. The reference JSONL is needed for gold
-answers; `gold_support.json` is a display index, not that reference file.
+and optionally `--reference` for a specific MTRAG reference JSONL. When omitted,
+the preparer finds the original reference or uses matching gold answers in the
+local `gold_support.json` index.
 
 Set the approved model and API key environment variables in the same session,
 then run mtRAG. The key itself must be set in `OPENROUTER_API_KEY` and is not

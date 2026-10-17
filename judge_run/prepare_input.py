@@ -10,7 +10,8 @@ Missing evidence stays unknown; a recorded empty passage list stays empty.
 
 A RAG export (top-level "conversations" with per-turn question/answer/passages, e.g.
 conversation_raptor.json) is also accepted; it has no gold answers, so they are read from
-the official MTRAG reference tasks (--reference) by task_id.
+the official MTRAG reference tasks (--reference) by task_id. When the original
+reference file is unavailable, the local gold_support.json index is used.
 """
 
 import argparse
@@ -18,6 +19,8 @@ import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+DEFAULT_REFERENCE = ROOT / "mtrag_three_rag" / "_data" / "reference.jsonl"
+GOLD_SUPPORT = pathlib.Path(__file__).resolve().with_name("gold_support.json")
 
 ANSWERABILITY_VALUES = {"ANSWERABLE", "UNANSWERABLE", "PARTIAL", "CONVERSATIONAL",
                         "UNKNOWN", "YES", "NO"}
@@ -70,14 +73,44 @@ def preserve_optional_turn_fields(source_input, metadata, target, turns, record_
         target[field] = values
 
 
-def records_from_rag_export(export, reference_path, limit=None):
-    """Judge input from a RAG export; gold answers come from MTRAG reference targets."""
+def load_reference(reference_path=None):
+    """Read original tasks or the existing gold index without making helper files."""
+    path = pathlib.Path(reference_path) if reference_path is not None else (
+        DEFAULT_REFERENCE if DEFAULT_REFERENCE.is_file() else GOLD_SUPPORT)
+    if not path.is_file():
+        raise ValueError("Gold answers not found. Supply --reference with an MTRAG reference file "
+                         "or gold_support.json. Missing: %s" % path)
     reference = {}
-    with open(reference_path, encoding="utf-8") as stream:
-        for line in stream:
-            if line.strip():
+    if path.suffix.lower() == ".json":
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict) or not isinstance(payload.get("tasks"), dict):
+            raise ValueError("Reference JSON must be a gold_support.json index: %s" % path)
+        for task_id, task in payload["tasks"].items():
+            reference[task_id] = {
+                "task_id": task_id, "_question": task["question"],
+                "targets": [{"text": text} for text in task.get("gold_answers", [])],
+            }
+    else:
+        with path.open(encoding="utf-8") as stream:
+            for line in stream:
+                if not line.strip():
+                    continue
                 task = json.loads(line)
-                reference[task["task_id"]] = task
+                task_id = task["task_id"]
+                if task_id in reference:
+                    raise ValueError("Duplicate reference task: %s" % task_id)
+                questions = [m["text"] for m in task.get("input", [])
+                             if m.get("speaker") == "user"]
+                if questions:
+                    task["_question"] = questions[-1]
+                reference[task_id] = task
+    print("Gold answers: %s" % path)
+    return reference
+
+
+def records_from_rag_export(export, reference_path=None, limit=None):
+    """Judge input from a RAG export; gold answers come from MTRAG reference targets."""
+    reference = load_reference(reference_path)
     records = []
     conversations = export["conversations"]
     for conv in conversations[:limit] if limit else conversations:
@@ -89,6 +122,10 @@ def records_from_rag_export(export, reference_path, limit=None):
             task = reference.get(turn["task_id"])
             if task is None or not task.get("targets"):
                 raise ValueError("no MTRAG reference answer for %s" % turn["task_id"])
+            if ("_question" in task and
+                    task["_question"].strip() != turn["question"].strip()):
+                raise ValueError("Reference question does not match %s. Supply matching gold answers "
+                                 "with --reference." % turn["task_id"])
             labels = turn.get("answerability")
             if labels is None:
                 # Some RAG exports omit this field even though the official task
@@ -112,21 +149,12 @@ def records_from_rag_export(export, reference_path, limit=None):
     return records
 
 
-ap = argparse.ArgumentParser()
-ap.add_argument("--src", type=pathlib.Path, default=ROOT / "conversation.json")
-ap.add_argument("--out", type=pathlib.Path, default=ROOT / "work")
-ap.add_argument("--limit", type=int, help="first N conversations only (pilot)")
-ap.add_argument("--reference", type=pathlib.Path,
-                default=ROOT / "mtrag_three_rag" / "_data" / "reference.jsonl",
-                help="MTRAG reference tasks used for gold answers when --src is a RAG export")
-a = ap.parse_args()
-
-src = json.load(open(a.src, encoding="utf-8"))
-inp = []
-if isinstance(src, dict) and "conversations" in src:
-    inp = records_from_rag_export(src, a.reference, a.limit)
-else:
-    for r in src[: a.limit] if a.limit else src:
+def prepare_records(source, reference=None, limit=None):
+    src = json.loads(pathlib.Path(source).read_text(encoding="utf-8"))
+    if isinstance(src, dict) and "conversations" in src:
+        return records_from_rag_export(src, reference, limit)
+    inp = []
+    for r in src[:limit] if limit else src:
         i, m = r["input"], r["input"]["metadata"]
         n = sum(x["role"] == "assistant" for x in i["conversation"])
         if n != len(i["ground_truth_answers"]):
@@ -139,8 +167,34 @@ else:
             record["contexts"] = ctx
         preserve_optional_turn_fields(i, m, record, n, r["id"])
         inp.append(record)
+    return inp
 
-a.out.mkdir(parents=True, exist_ok=True)
-json.dump(inp, open(a.out / "input.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-print("%d conversations, %d turns -> %s" % (len(inp), sum(len(r["ground_truth_answers"]) for r in inp),
-                                           a.out / "input.json"))
+
+def write_input(records, folder):
+    folder = pathlib.Path(folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    with (folder / "input.json").open("w", encoding="utf-8") as stream:
+        json.dump(records, stream, ensure_ascii=False, indent=1)
+    print("%d conversations, %d turns -> %s" % (
+        len(records), sum(len(r["ground_truth_answers"]) for r in records), folder / "input.json"))
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--src", type=pathlib.Path, default=ROOT / "conversation.json")
+    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "work")
+    ap.add_argument("--limit", type=int, help="first N conversations only (pilot)")
+    ap.add_argument("--reference", type=pathlib.Path,
+                    help="gold reference JSONL or gold_support.json; auto-detected when omitted")
+    args = ap.parse_args(argv)
+    if args.limit is not None and args.limit < 1:
+        ap.error("--limit must be positive")
+    try:
+        records = prepare_records(args.src, args.reference, args.limit)
+        write_input(records, args.out)
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        ap.exit(1, "Preparation failed: %s\n" % exc)
+
+
+if __name__ == "__main__":
+    main()

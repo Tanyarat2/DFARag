@@ -171,6 +171,7 @@ li{margin:6px 0}
 .workspace{padding:24px}
 .queue-legend{display:flex;gap:5px;flex-wrap:wrap}
 .queue-group{border:0;padding:0;flex-shrink:0}
+.queue-group[data-clipped=true]:not([open]){visibility:hidden;pointer-events:none}
 .queue-group>summary{list-style:none;padding:7px;font-size:12px;border-radius:6px;background:#edf1ef}
 .queue-group[open]>summary{position:sticky;top:0;z-index:3}
 .queue-group>summary::-webkit-details-marker{display:none}
@@ -185,7 +186,6 @@ li{margin:6px 0}
 .conversation-complete{flex-shrink:0;color:var(--accent);font-size:10px;font-weight:700;white-space:nowrap}
 .conversation-label-state{display:block;margin-top:3px;font-size:10px;color:var(--muted)}
 .queue-group[data-labelled=true] .conversation-label-state{color:var(--accent);font-weight:650}
-.queue-item[data-label-target=true][data-labelled=true]{background:#def0e4;border-left-color:#3b9565}
 .queue-item[data-reviewed=true] .review-state{color:var(--accent);font-weight:650}
 .first-failure{display:inline-block;font-size:10px;margin:3px 0 6px}
 .review-toggle{display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer}
@@ -457,6 +457,19 @@ function firstIncorrectTurns(){const first=new Map();D.rows.forEach(r=>{if(mtLab
 function save(){const state=getProfile(currentAnnotator);state.annotations=A;captureProfile(state);progress();updateSaveStatus();if(D.annotation_api&&state.dirty.size){clearTimeout(state.timer);state.timer=setTimeout(()=>flushProfile(state.name),350);}}
 function progress(){const n=D.rows.filter(reviewed).length,targets=[...firstIncorrectTurns().values()],labelledCount=targets.filter(failureLabelled).length;$('progress').textContent=n+' / '+D.rows.length;$('progressFill').style.width=(D.rows.length?n/D.rows.length*100:0)+'%';$('reviewedCount').textContent='Reviewed turns · all conversations';$('labelProgress').textContent=labelledCount+' / '+targets.length;$('labelProgressFill').style.width=(targets.length?labelledCount/targets.length*100:0)+'%';$('labelledCount').textContent='First incorrect · ≥1 failure choice';}
 function filtered(){const q=$('search').value.trim().toLowerCase();return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!q||(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q)));}
+let queueEdgeObserver;
+function observeQueueEdges(){
+  queueEdgeObserver?.disconnect();
+  if(typeof IntersectionObserver!=='function')return;
+  const root=$('queue');
+  queueEdgeObserver=new IntersectionObserver(entries=>{
+    for(const entry of entries){
+      const bounds=entry.boundingClientRect,viewport=entry.rootBounds;
+      entry.target.dataset.clipped=String(!!viewport&&bounds.height<=root.clientHeight&&(bounds.top<viewport.top-1||bounds.bottom>viewport.bottom+1));
+    }
+  },{root,threshold:[0,1]});
+  root.querySelectorAll('.queue-group').forEach(group=>queueEdgeObserver.observe(group));
+}
 function queue(){
   const root=$('queue');root.replaceChildren();queueButtons.clear();const rows=filtered(),groups=new Map(),targets=firstIncorrectTurns(),allTurns=new Map();
   D.rows.forEach(r=>{if(!allTurns.has(r.id))allTurns.set(r.id,[]);allTurns.get(r.id).push(r);});
@@ -479,13 +492,15 @@ function queue(){
       const b=button('',()=>openTurn(r.key),'queue-item');b.dataset.key=r.key;queueButtons.set(r.key,b);b.dataset.judge=mtLabel(r)||'unscored';b.dataset.reviewed=String(reviewed(r));b.dataset.labelTarget=String(target?.key===r.key);b.dataset.labelled=String(target?.key===r.key&&complete);
       b.setAttribute('aria-current',String(r.key===activeKey));b.title=r.question;
       const m=el('div','queue-meta');m.append(el('b',null,'Turn '+r.turn),el('span','review-state',reviewed(r)?'✓ Reviewed':labelled(r)&&!annotationComplete(r)?'Needs cause':'To review'));
-      const status=el('div','turn-status judges');status.append(el('span',null,mtLabel(r)?mtLabel(r)[0].toUpperCase()+mtLabel(r).slice(1):'Not scored'),el('span',null,scoreLabel(r.judges.mtrag)));
+      const status=el('div','turn-status judges'),judgeLabel=mtLabel(r)?mtLabel(r)[0].toUpperCase()+mtLabel(r).slice(1):'Not scored',failureDone=b.dataset.labelled==='true';
+      status.title='mtRAG: '+judgeLabel+' · '+scoreLabel(r.judges.mtrag);status.setAttribute('aria-label',(failureDone?'Failure labelled. ':'')+status.title);
+      status.append(el('span',null,judgeLabel),el('span',null,scoreLabel(r.judges.mtrag)));
       b.append(m);if(target?.key===r.key)b.append(el('span','badge first-failure','First incorrect'));b.append(el('div','queue-question',r.question||'(No question)'),status);list.append(b);
     });
     group.append(list);root.append(group);
   }
   if(!rows.length)root.append(el('p','hint','No turns match these filters.'));
-  focusQueueTurn();progress();
+  focusQueueTurn();observeQueueEdges();progress();
 }
 function focusQueueTurn(){
   const root=$('queue'),current=queueButtons.get(activeKey);if(!current)return false;
@@ -772,7 +787,7 @@ $('judgeGuideButton').onclick=()=>openGuideline('judge');$('failureGuideButton')
 $('title').textContent=D.run;$('crit').innerHTML=D.criteria_html;
 D.failure_types.forEach(type=>{const g=guides[type],section=el('section','guideline-entry');section.append(el('h3',null,g.title),el('p',null,g.check));const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));section.append(list);if(g.missing)section.append(el('p','hint',g.missing));$('failureGuideContent').append(section);});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')profiles.forEach(state=>flushProfile(state.name));});
-function fitQueue(){document.querySelector('.queue').style.setProperty('--queue-offset',Math.ceil(document.querySelector('.layout').getBoundingClientRect().top+window.scrollY)+'px');}
+function fitQueue(){document.querySelector('.queue').style.setProperty('--queue-offset',Math.ceil(document.querySelector('.layout').getBoundingClientRect().top+window.scrollY)+'px');observeQueueEdges();}
 window.addEventListener('resize',fitQueue);fitQueue();
 const annotationReady=switchAnnotator(currentAnnotator);
 </script>

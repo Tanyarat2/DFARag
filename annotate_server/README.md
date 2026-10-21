@@ -153,8 +153,8 @@ The sidebar tracks two independent measures for the selected reviewer:
   to mark any turn, including a later or unlabelled turn. Every reviewed card shows
   **✓ Reviewed**. Checking review completion alone never creates a failure label.
 
-Each target has a **First incorrect** badge. Its conversation header and target
-card turn green when at least one failure checkbox is selected on that first
+Each target has a **First incorrect** badge. Its conversation header
+turns green when at least one failure checkbox is selected on that first
 incorrect turn, and a **✓ Labelled** mark appears beside the conversation ID.
 Clearing its last failure choice removes the label count and completion mark.
 Conversations whose every turn has a valid correct mtRAG score
@@ -163,6 +163,11 @@ labels or receive the annotation-completion mark. Missing scores remain neutral.
 Colors and completion marks use every turn in the conversation, including hidden
 or filtered turns. Collapsed groups hide their turn containers and have no empty
 box or separator border.
+Partly clipped collapsed cards are hidden at the scroll edges until scrolling
+brings the complete card into view. Incorrect turn cards and their verdict text
+remain red after labelling. Completion appears separately as **✓ Labelled** beside
+the conversation ID and a green conversation header. Stored judge scores and
+independent per-turn review marks remain unchanged.
 
 Counts and target selection always use the full run, even when search or filters hide the
 first incorrect turn. Review marks and both counters are separate for PS, KH, and WN.

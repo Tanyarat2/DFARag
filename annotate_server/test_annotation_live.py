@@ -326,7 +326,12 @@ PROGRESSIVE_CHECKS = r"""
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Correct alone and its automatic Not a failure value do not count as a checked failure choice');
     A['case#1']={human_label:'incorrect',failure_types:['grounding']};save();queue();
     assert(document.getElementById('labelProgress').textContent==='1 / 1','First incorrect turn counts its conversation once');
-    assert(document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='true'&&document.querySelector('.queue-item[data-key="case#1"]').dataset.labelled==='true','Completed first failure marks the conversation and target turn green');
+    assert(document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='true'&&document.querySelector('.queue-item[data-key="case#1"]').dataset.labelled==='true','Completed first failure marks the conversation and target as labelled');
+    const completedStatus=document.querySelector('.queue-item[data-key="case#1"] .turn-status');
+    assert(completedStatus.textContent.includes('Incorrect')&&completedStatus.title.includes('mtRAG: Incorrect'),'Labelling preserves the original visible judge verdict');
+    assert(getComputedStyle(completedStatus).color===getComputedStyle(document.querySelector('.queue-item[data-key="case#2"] .turn-status')).color,'Labelled and unlabelled incorrect verdicts retain the same red text');
+    assert(getComputedStyle(document.querySelector('.queue-item[data-key="case#1"]')).backgroundColor===getComputedStyle(document.querySelector('.queue-item[data-key="case#2"]')).backgroundColor,'Labelling does not change an incorrect turn card from red to green');
+    assert(document.querySelector('.queue-item[data-key="case#2"] .turn-status').textContent.includes('Incorrect'),'Later unlabelled incorrect cards retain the judge verdict');
     assert(document.querySelector('.queue-group[data-id="case"] .conversation-ident .conversation-complete').textContent==='✓ Labelled','First-failure completion has an explicit mark beside the conversation ID');
     const allCorrectGroup=document.querySelector('.queue-group[data-id="other"]');
     assert(allCorrectGroup.dataset.allCorrect==='true'&&allCorrectGroup.textContent.includes('All turns correct'),'All-correct conversations are green without contributing failure labels');
@@ -338,6 +343,15 @@ PROGRESSIVE_CHECKS = r"""
     unscored.judges.mtrag=savedJudge;queue();
     const closedGroup=document.querySelector('.queue-group[data-id="case"]');closedGroup.open=false;
     assert(getComputedStyle(closedGroup.querySelector('.queue-turns')).display==='none'&&getComputedStyle(closedGroup).borderBottomWidth==='0px','Collapsed conversations have no empty turn box or separator border');
+    const scrollingList=document.getElementById('queue'),savedHeight=scrollingList.style.height,savedFlex=scrollingList.style.flex;
+    const clippedGroup=document.querySelector('.queue-group[data-id="other"]');clippedGroup.open=false;
+    scrollingList.style.flex='none';scrollingList.style.height=(closedGroup.offsetHeight+45)+'px';scrollingList.scrollTop=0;observeQueueEdges();
+    await wait(()=>clippedGroup.dataset.clipped==='true');
+    assert(getComputedStyle(clippedGroup).visibility==='hidden','Partially cut-off closed conversation cards do not leave a rectangular preview at the list edge');
+    scrollingList.scrollTop=scrollingList.scrollHeight;
+    await wait(()=>clippedGroup.dataset.clipped==='false');
+    assert(getComputedStyle(clippedGroup).visibility==='visible','Scrolling the clipped conversation fully into view reveals its complete card');
+    scrollingList.style.height=savedHeight;scrollingList.style.flex=savedFlex;observeQueueEdges();
     document.getElementById('fTodo').checked=true;applyFilters();
     assert(document.getElementById('labelProgress').textContent==='1 / 1','Filtering out the first failure does not change the conversation label count');
     assert(document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='true','Filtered conversation uses the original first failure, not its first visible turn');
@@ -359,6 +373,7 @@ PROGRESSIVE_CHECKS = r"""
     openTurn('case#1');document.getElementById('clearFailureChoices').click();
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='false','Clearing the first failure cause removes conversation completion');
     assert(!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Clearing the first-failure annotation also removes its ID completion mark');
+    assert(document.querySelector('.queue-item[data-key="case#1"] .turn-status').textContent.includes('Incorrect'),'Clearing the final failure choice preserves the original judge verdict on its card');
     await fetch('/test/result',{method:'POST',body:JSON.stringify({status:'pass',checks})});
   }catch(error){await fetch('/test/result',{method:'POST',body:JSON.stringify({status:'fail',checks,error:error.message+'\n'+error.stack})});}
 })();

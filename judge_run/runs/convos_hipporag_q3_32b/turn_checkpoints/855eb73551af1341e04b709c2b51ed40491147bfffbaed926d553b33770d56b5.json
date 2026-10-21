@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "fingerprint": "855eb73551af1341e04b709c2b51ed40491147bfffbaed926d553b33770d56b5",
+  "id": "2f013337236ea4635ad106813275dab7",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer effectively summarizes the key advantages and disadvantages of Immutable data storage as outlined in the document and reference answer. It accurately highlights data integrity, compliance with regulations (SEC, FINRA, CFTC), and industry suitability (finance, healthcare) as advantages. The disadvantages are also well-captured, including limited flexibility (irreversible rete",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Immutable data storage offers advantages such as data integrity.",
+            "verdict": "yes",
+            "reason": "The context states that Immutable Object Storage preserves electronic records and maintains data integrity."
+          },
+          {
+            "statement": "Immutable data storage provides non-erasable and non-rewritable storage.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that data is stored in a WORM (Write-Once-Read-Many), non-erasable and non-rewritable manner."
+          },
+          {
+            "statement": "Immutable data storage ensures compliance with regulations like SEC, FINRA, and CFTC rules.",
+            "verdict": "yes",
+            "reason": "The context lists compliance with SEC Rule 17a-4(f), FINRA Rule 4511(c), and CFTC Rule 1.31(c)-(d) as key considerations for the feature."
+          },
+          {
+            "statement": "Immutable data storage ensures long-term retention of data.",
+            "verdict": "yes",
+            "reason": "The context highlights long-term retention policies and their use for industries requiring non-rewritable and non-erasable storage."
+          },
+          {
+            "statement": "Immutable data storage prevents unauthorized modifications to data.",
+            "verdict": "yes",
+            "reason": "The context describes retention policies as enforcing a WORM model, which prevents modification or deletion of objects during the retention period."
+          },
+          {
+            "statement": "Immutable data storage is suitable for industries like finance and healthcare.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists finance, healthcare, and other industries as use cases for Immutable Object Storage."
+          },
+          {
+            "statement": "A disadvantage of immutable data storage is limited flexibility (e.g., no deletion or modification during retention periods).",
+            "verdict": "yes",
+            "reason": "The context states that policies cannot be altered until the retention period expires and objects cannot be deleted even by IBM Cloud administrators."
+          },
+          {
+            "statement": "Immutable data storage restricts the use of high-speed transfer tools.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that Aspera high-speed transfer cannot be used with buckets having a retention policy."
+          },
+          {
+            "statement": "Immutable data storage requires careful planning to avoid irreversible data storage.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that enabling permanent retention is irreversible and users must validate the need for permanent storage."
+          },
+          {
+            "statement": "Immutable data storage is region-specific and requires a Standard pricing plan.",
+            "verdict": "yes",
+            "reason": "The context states that the feature is available in certain regions and requires a Standard pricing plan."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 5887,
+    "completion_tokens": 2796,
+    "total_tokens": 8683,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 4,
+    "reasoning_tokens": 2493,
+    "reasoning_budget_verified_calls": 4
+  },
+  "elapsed_seconds": 114.473
+}

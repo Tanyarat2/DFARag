@@ -431,18 +431,70 @@
           "conditioned": "incorrect"
         }
       }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document and reference answer, accurately describing IBM Cloudant Query's use of Mongo-style syntax, the combination of view and search index, and the importance of creating indexes for performance. It correctly mentions the `_find` API and logical operators, aligning with the document's emphasis on index creation and performance implications. Howev",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "IBM Cloudant Query uses a Mongo-style query syntax for searching documents.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IBM Cloudant Query uses Mongo-style query syntax for searching documents."
+          },
+          {
+            "statement": "IBM Cloudant Query combines a view and a search index.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IBM Cloudant Query is a combination of a view and a search index."
+          },
+          {
+            "statement": "IBM Cloudant Query allows querying without explicit indexes, but creating indexes is recommended for efficiency.",
+            "verdict": "yes",
+            "reason": "The context explains that IBM Cloudant Query can query without explicit indexes using the _all_docs index, which is inefficient, and recommends creating indexes for better performance."
+          },
+          {
+            "statement": "The `_find` API is used to execute queries in IBM Cloudant Query.",
+            "verdict": "yes",
+            "reason": "The context mentions that a subset of IBM Cloudant Search capabilities is surfaced via the _find API for IBM Cloudant Query."
+          },
+          {
+            "statement": "The `_find` API supports logical operators, range queries, and faceting.",
+            "verdict": "yes",
+            "reason": "The context describes that Lucene's query language (used by IBM Cloudant Search and the _find API) supports logical operators, range queries, and faceting."
+          },
+          {
+            "statement": "For more information, refer to the IBM Cloudant Query documentation.",
+            "verdict": "yes",
+            "reason": "The context includes links to IBM Cloudant Query documentation, confirming this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
     }
   ],
   "usage": {
     "max_requested_completion_tokens": 16384,
     "max_requested_reasoning_tokens": 8192,
-    "prompt_tokens": 43803,
-    "completion_tokens": 27852,
-    "total_tokens": 71655,
+    "prompt_tokens": 50311,
+    "completion_tokens": 37758,
+    "total_tokens": 88069,
     "is_byok": 0,
-    "completion_budget_verified_calls": 31,
-    "reasoning_tokens": 26714,
-    "reasoning_budget_verified_calls": 31
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 37167,
+    "reasoning_budget_verified_calls": 36
   },
-  "elapsed_seconds": 711.328
+  "elapsed_seconds": 1001.335
 }

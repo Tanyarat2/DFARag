@@ -1,0 +1,340 @@
+{
+  "version": 1,
+  "fingerprint": "9d71e2d9ea7799f438dd77a8d8743f782effe68279f7404d0367b1f556b7c28e",
+  "id": "dd6b6ffd177f2b311abe676261279d2f",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.750, IDK=1.0, answerability=UNANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer incorrectly references the 2017 Arizona Cardinals season, which is entirely unrelated to the user's question about the \"current week.\" The documents provided are exclusively about the 2017 season, and the assistant fails to recognize that this data is outdated and irrelevant to the present context. While the assistant correctly notes the lack of current-week information, the",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 0.75,
+        "idk": 1.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.42857142857142855,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The Arizona Cardinals played their Week 4 game on October 1, 2017.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that in 2017 Week 4 (October 1), the 49ers played at Arizona Cardinals."
+          },
+          {
+            "statement": "The Arizona Cardinals played against the 49ers in their Week 4 game.",
+            "verdict": "yes",
+            "reason": "The context confirms that in 2017 Week 4, the 49ers played at Arizona Cardinals, indicating the Cardinals faced the 49ers in this game."
+          },
+          {
+            "statement": "The Arizona Cardinals played their Week 4 game at the University of Phoenix Stadium.",
+            "verdict": "yes",
+            "reason": "The context specifies that the 2017 season was the 12th at University of Phoenix Stadium, and the Week 4 game was a home game (49ers at Arizona), which would have been held there."
+          },
+          {
+            "statement": "There is no specific information provided about their game schedule for the current week.",
+            "verdict": "no",
+            "reason": "The context provides detailed information about the Week 4 game, including date, opponent, venue, and other specifics, contradicting the claim of no information."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the Arizona Cardinals played a game outside the US in 2017 (London) as stated in the provided document. It also appropriately notes that this information pertains to the 2017 season and does not address the current week, aligning with the previous conversation's context. The reference answer includes an additional 2005 Mexico game, but this is not m",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The Arizona Cardinals played a road game outside the US in 2017.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Cardinals played a road game in London as part of the NFL London Games in 2017."
+          },
+          {
+            "statement": "The 2017 road game of the Arizona Cardinals took place in London.",
+            "verdict": "yes",
+            "reason": "The context specifies the 2017 road game in London."
+          },
+          {
+            "statement": "The Arizona Cardinals' 2017 international game was held at Twickenham Stadium.",
+            "verdict": "yes",
+            "reason": "The context mentions the 2017 international game was at Twickenham Stadium."
+          },
+          {
+            "statement": "The Arizona Cardinals played against the Los Angeles Rams during their 2017 international game.",
+            "verdict": "yes",
+            "reason": "The context states the 2017 international game was against the Los Angeles Rams."
+          },
+          {
+            "statement": "The information about the Arizona Cardinals playing outside the US is specific to the 2017 season.",
+            "verdict": "yes",
+            "reason": "The context only provides information about the 2017 season, not other seasons."
+          },
+          {
+            "statement": "As of the current week, no information is available regarding the Arizona Cardinals playing outside the US.",
+            "verdict": "yes",
+            "reason": "The context does not mention any information about the current week or future games."
+          },
+          {
+            "statement": "The provided data does not specify if the Arizona Cardinals have an international game this week.",
+            "verdict": "yes",
+            "reason": "The context does not provide any data about the current week's games."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.545 (threshold 0.80). RB_llm justification: The assistant's answer is **partially faithful** to the document but contains a critical misstatement. The document explicitly states that the Arizona Cardinals were previously the Chicago Cardinals and moved to St. Louis after the 1959 season. The assistant incorrectly claims \"the Chicago Cardinals franchise is distinct from the Arizona Cardinals,\" which contradicts the document's assertion that ",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5454545454545454,
+        "conditioned_score": 0.5454545454545454,
+        "statements": [
+          {
+            "statement": "The Arizona Cardinals and the Chicago Cardinals are not the same team.",
+            "verdict": "no",
+            "reason": "The context states that the Arizona Cardinals were previously the Chicago Cardinals, indicating they are the same team. The statement claims they are not the same, which is incorrect."
+          },
+          {
+            "statement": "The Arizona Cardinals were previously known as the Chicago Cardinals.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the Arizona Cardinals were known as the Chicago Cardinals before moving to St. Louis and later to Arizona."
+          },
+          {
+            "statement": "The Arizona Cardinals played in Chicago until moving to St. Louis after the 1959 season.",
+            "verdict": "yes",
+            "reason": "The context confirms the team played in Chicago until moving to St. Louis after the 1959 season, which aligns with the statement."
+          },
+          {
+            "statement": "The Chicago Cardinals franchise is a separate entity from the Arizona Cardinals.",
+            "verdict": "no",
+            "reason": "The context indicates the Chicago Cardinals and Arizona Cardinals are the same franchise, not separate entities. The statement is false."
+          },
+          {
+            "statement": "The Arizona Cardinals and the Chicago Cardinals share a historical connection.",
+            "verdict": "yes",
+            "reason": "The context establishes a direct historical link between the Arizona Cardinals and the Chicago Cardinals through relocation and name changes."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that the NFL has 32 teams, aligning with the reference answer. It also appropriately references the document's mention of the league being \"a 32-team league divided into two conferences,\" which provides context without introducing irrelevant details. The answer is faithful to the document, as the 32-team count is explicitly confirmed in the provided text. It",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The NFL has 32 teams.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the NFL is a 32-team league."
+          },
+          {
+            "statement": "The NFL is divided into two conferences.",
+            "verdict": "yes",
+            "reason": "The context mentions the NFL is divided into two conferences: American Football Conference (AFC) and National Football Conference (NFC)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that the NFL playoffs consist of 12 teams, with six from each conference (AFC and NFC), aligning with the reference answer and the documents. It also accurately includes the historical context that the 12-team format was established in 1990 with the addition of a third wild-card team per conference. The documents explicitly confirm the 12-team structure and ",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The NFL playoffs currently include 12 teams.",
+            "verdict": "yes",
+            "reason": "The context states that since 1990, the playoffs have included twelve teams, which is six from each conference."
+          },
+          {
+            "statement": "Six teams from each of the two conferences (AFC and NFC) participate in the NFL playoffs.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the tournament brackets are made up of six teams from each conference."
+          },
+          {
+            "statement": "The current NFL playoff structure has been in place since the 1990 season.",
+            "verdict": "yes",
+            "reason": "The context notes that the current 12-team playoff structure (six teams per conference) has been in place since 1990, despite the division realignment in 2002."
+          },
+          {
+            "statement": "In 1990, a third wild-card team was added to each conference, increasing the total number of playoff teams to twelve.",
+            "verdict": "yes",
+            "reason": "The context confirms that the 1990 season added a third wild-card team to each conference, resulting in twelve total playoff teams."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the Pittsburgh Steelers as the team with the most Super Bowl wins (six) and accurately notes the New England Patriots' record for the most appearances (ten) with five wins. The information aligns with the documents, which explicitly state the Steelers' six titles and the Patriots' five wins and ten appearances. The assistant's answer is faithful to the p",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The Pittsburgh Steelers have won the most Super Bowls with six championships.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Pittsburgh Steelers have the most Super Bowl championship titles with six."
+          },
+          {
+            "statement": "The New England Patriots have the most Super Bowl appearances with ten.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that the Patriots have the most Super Bowl appearances, with ten."
+          },
+          {
+            "statement": "The New England Patriots have five Super Bowl wins.",
+            "verdict": "yes",
+            "reason": "The context lists five specific Super Bowl victories for the Patriots (XXXVI, XXXVIII, XXXIX, XLIX, and LI)."
+          },
+          {
+            "statement": "The Steelers hold the record for the most Super Bowl titles.",
+            "verdict": "yes",
+            "reason": "The context confirms the Steelers have six Super Bowl titles, the most in history."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.462 (threshold 0.80). RB_llm justification: The assistant's answer is incorrect and incomplete. The documents explicitly state that the New England Patriots have made **10 Super Bowl appearances**, with Super Bowl LII being their 10th (e.g., \"Super Bowl LII... was the Patriots' tenth Super Bowl appearance\"). The assistant's response of \"nine times\" contradicts this key detail. The reference answer correctly identifies the 10th appearance, a",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.46153846153846145,
+        "conditioned_score": 0.46153846153846145,
+        "statements": [
+          {
+            "statement": "The New England Patriots have played in the Super Bowl nine times.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Patriots have made nine Super Bowl appearances, including mentions in multiple sections such as 'the Patriots have appeared in the Super Bowl nine times in franchise history' and 'reached their 9th Super Bowl' in 2016."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies Bill Belichick as the New England Patriots' coach, which is directly supported by the documents. The response is concise and directly addresses the user's question without unnecessary elaboration. While the reference answer includes additional context (e.g., Belichick's hiring year and 200th win milestone), the user's question only asked for the coach's ",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The New England Patriots' coach is Bill Belichick.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Bill Belichick is the head coach of the Patriots in multiple sections, including the 2008 staff and the most recent staff listings."
+          },
+          {
+            "statement": "Bill Belichick is the head coach of the New England Patriots.",
+            "verdict": "yes",
+            "reason": "The context repeatedly refers to Bill Belichick as the head coach of the Patriots, including in the 2008 season staff and the latest staff information."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 21550,
+    "completion_tokens": 20606,
+    "total_tokens": 42156,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 32,
+    "reasoning_tokens": 18589,
+    "reasoning_budget_verified_calls": 32
+  },
+  "elapsed_seconds": 1027.466
+}

@@ -1,0 +1,480 @@
+{
+  "version": 1,
+  "fingerprint": "e3edd9be3ea58369a19797e20ad47fac18553fa963aa467a14ba156514b2de98",
+  "id": "94d04f2cd47fee9a0aaa13fa3ae1de53",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly distinguishes between Market Cap and NAV by defining each metric and highlighting their key differences. It accurately states that Market Cap is calculated as share price multiplied by the number of shares, reflecting market expectations of future performance, while NAV is derived from (assets - liabilities) divided by shares, representing book value. The answer al",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Market Cap is the total value of a company's outstanding shares, calculated as the share price multiplied by the number of shares.",
+            "verdict": "yes",
+            "reason": "The context explicitly defines market cap as the current share price multiplied by the number of shares, which matches the statement."
+          },
+          {
+            "statement": "Market Cap reflects market expectations of future performance.",
+            "verdict": "yes",
+            "reason": "The context states that share price (and thus market cap) is influenced by investors' expectations of future performance, not just current NAV."
+          },
+          {
+            "statement": "NAV (Net Asset Value) is the total value of a company's assets minus liabilities, divided by the number of shares, representing the book value.",
+            "verdict": "yes",
+            "reason": "The context defines NAV as the company's worth divided by shares, equivalent to book value, which aligns with the statement."
+          },
+          {
+            "statement": "Market Cap can differ from NAV because it includes investor expectations and future growth potential, while NAV is based on current asset values.",
+            "verdict": "yes",
+            "reason": "The context explains that market cap incorporates future expectations (e.g., Amazon's P/B ratio of 13) and contrasts it with NAV, which is based on current asset values."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.800, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.686 (threshold 0.80). RB_llm justification: The assistant's answer addresses several key factors from the document, such as evaluating personal circumstances, assessing financial health, market position, growth potential, and the importance of business valuation. It aligns with the document's emphasis on the advantages of purchasing an established business (e.g., economies of scale) and the need for industry-specific knowledge in valuation.",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.8,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6857142857142856,
+        "conditioned_score": 0.6857142857142856,
+        "statements": [
+          {
+            "statement": "Evaluating your exact situation and determining what is best for you is a key factor when purchasing a business, as no advice is universally applicable.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'no advice is universal' and emphasizes evaluating one's exact situation to determine the best course of action."
+          },
+          {
+            "statement": "Assessing the business's financial health, market position, and potential for growth is essential when considering a purchase.",
+            "verdict": "no",
+            "reason": "The context does not mention financial health, market position, or growth potential as factors to consider in the decision-making process."
+          },
+          {
+            "statement": "Purchasing an established company can provide advantages such as economies of scale and opportunities for productivity improvements.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that acquiring an established company can generate economies of scale and improve productivity for entrepreneurs."
+          },
+          {
+            "statement": "Understanding the business's valuation, including value drivers and industry-specific knowledge, is crucial in the decision-making process.",
+            "verdict": "yes",
+            "reason": "The context highlights the importance of business valuation services and the need for understanding value drivers and industry knowledge, as mentioned in the reference to Kirk Kleckner valuation businesses."
+          },
+          {
+            "statement": "The decision to purchase a business should align with your personal and professional goals to ensure long-term success.",
+            "verdict": "yes",
+            "reason": "The context emphasizes evaluating one's 'exact situation' and doing what is 'best for you,' implying alignment with personal and professional goals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document and reference answer, accurately conveying that stock ownership grants partial ownership but not control unless a majority (typically over 50%) of voting shares are held. It correctly highlights the rarity of such control in public companies and addresses factors like bylaws and share classes that may restrict control. While the reference answer e",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Purchasing stocks gives you partial ownership of a company, but it does not necessarily grant you control over it.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that owning a share makes you a part owner, but control depends on shareholding size (e.g., >50% required for control)."
+          },
+          {
+            "statement": "Ownership is proportional to the number of shares you hold.",
+            "verdict": "yes",
+            "reason": "The context clarifies ownership is by percentage (e.g., 0.6% ownership for 5.5 million shares of 914 million outstanding)."
+          },
+          {
+            "statement": "To gain control, you would typically need to own a majority of the company's voting shares, often more than 50%.",
+            "verdict": "yes",
+            "reason": "The context states that owning >50% of shares grants the right to elect a majority of directors, enabling control."
+          },
+          {
+            "statement": "This is rare, especially in publicly traded companies, as ownership is usually spread among many shareholders.",
+            "verdict": "yes",
+            "reason": "The context notes that publicly traded companies spread ownership (e.g., Apple's 0.6% ownership by an individual) to raise capital and ensure liquidity."
+          },
+          {
+            "statement": "You have some influence through voting rights.",
+            "verdict": "yes",
+            "reason": "The context mentions shareholders can voice opinions and vote via proxy, though control is limited to board decisions."
+          },
+          {
+            "statement": "Significant control usually requires a substantial shareholding.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that control requires >50% ownership, which is a substantial shareholding."
+          },
+          {
+            "statement": "Control may be restricted by company bylaws or different classes of shares with varying voting rights.",
+            "verdict": "yes",
+            "reason": "The context explicitly describes bylaws (e.g., staggered director elections) and different share classes (e.g., A/B shares with differing voting rights) as barriers to control."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the core aspects of business valuation by highlighting factors like assets, liabilities, profitability, and risk, which align with the document's emphasis on fundamental analysis and the distinction between price and value. It correctly notes that value is not always reflected in market price and mentions the example of individual assets being worth more than the c",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Business value is determined by factors like assets, liabilities, profitability, and risk.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that business valuation considers assets, liabilities, risk, and profitability."
+          },
+          {
+            "statement": "Business value is often calculated as assets minus liabilities.",
+            "verdict": "yes",
+            "reason": "The context mentions that value is theoretically calculated as assets minus liabilities, even though it notes this is not practical in the real world."
+          },
+          {
+            "statement": "Value can also be assessed using the company's earnings and required rate of return.",
+            "verdict": "yes",
+            "reason": "The context provides an example where earnings ($100/year) and required return (10% or 20%) are used to determine value."
+          },
+          {
+            "statement": "Business value can differ from share market price.",
+            "verdict": "yes",
+            "reason": "The context distinguishes between price (what you pay) and value (what you get), implying they can differ."
+          },
+          {
+            "statement": "Market price reflects investor willingness to pay, whereas value is based on fundamental analysis.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that price is what you pay (market price) and value is based on fundamental analysis."
+          },
+          {
+            "statement": "In some cases, individual company assets may be worth more than the company as a whole.",
+            "verdict": "yes",
+            "reason": "The context provides an example where the land (an asset) is worth millions, but the poorly run company as a whole is worthless."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.857, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.632 (threshold 0.80). RB_llm justification: The assistant's answer addresses general decision-making strategies (e.g., satisficer vs. maximizer, self-compassion) and aligns with the document's content. However, it fails to connect to the business context implied by the previous conversation (e.g., purchasing businesses, value, profit-driven decisions). The reference answer emphasizes profit as the core driver of business decisions, the nece",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.8571428571428571,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.631578947368421,
+        "conditioned_score": 0.631578947368421,
+        "statements": [
+          {
+            "statement": "Good decisions often involve considering your exact situation.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that you need to evaluate your exact situation and do what is best for you."
+          },
+          {
+            "statement": "Good decisions often involve considering the time spent evaluating options.",
+            "verdict": "yes",
+            "reason": "The context advises deliberately limiting the time spent on small decisions as a strategy for satisficers."
+          },
+          {
+            "statement": "Good decisions often involve considering whether you aim to be a satisficer or maximizer.",
+            "verdict": "yes",
+            "reason": "The context discusses the distinction between satisficers and maximizers and encourages adopting the satisficer approach."
+          },
+          {
+            "statement": "It is important to evaluate what is best for you.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that you should do what is best for you after evaluating your situation."
+          },
+          {
+            "statement": "It is important to practice making decisions that align with your goals.",
+            "verdict": "no",
+            "reason": "The context mentions practicing the skill of being a satisficer but does not explicitly connect this to aligning with personal goals."
+          },
+          {
+            "statement": "Recognizing that no advice is universal contributes to making better decisions.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that no advice is universal and emphasizes evaluating one's own situation."
+          },
+          {
+            "statement": "Being good to yourself can contribute to making better decisions.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises deciding to be good to yourself and practicing this as part of the decision-making process."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer addresses key aspects of employee management from the document, such as fair compensation, benefits, company culture, and recognition. It aligns with the document's emphasis on creating a supportive environment and fostering a sense of belonging. However, it omits the structural \"layers\" concept from the reference answer, which explains how employee roles evolve as a company",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Employees are crucial to a company's success and well-being.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that employees' work is valuable to the company and that their attitudes directly impact job satisfaction, implying their importance to the company's success."
+          },
+          {
+            "statement": "Fair compensation influences employee satisfaction and engagement.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that low wages contribute to employee dissatisfaction and suggests that a living wage would reduce jaded attitudes, directly linking fair compensation to satisfaction."
+          },
+          {
+            "statement": "Health benefits influence employee satisfaction and engagement.",
+            "verdict": "yes",
+            "reason": "The context lists health benefits as a key factor employers should provide, implying their role in improving employee satisfaction and engagement."
+          },
+          {
+            "statement": "Opportunities for growth influence employee satisfaction and engagement.",
+            "verdict": "yes",
+            "reason": "The context mentions educational and retirement opportunities as necessary for employees, suggesting these growth opportunities impact satisfaction and engagement."
+          },
+          {
+            "statement": "A supportive work environment influences employee satisfaction and engagement.",
+            "verdict": "yes",
+            "reason": "The context highlights the importance of comfortable office furniture, functional equipment, and amenities to create a pleasant work environment, which supports employee satisfaction."
+          },
+          {
+            "statement": "A positive company culture that values employees can lead to higher morale.",
+            "verdict": "yes",
+            "reason": "The context emphasizes fostering a culture where employees feel valued, supported, and part of a family, which directly correlates with higher morale."
+          },
+          {
+            "statement": "A positive company culture that values employees can lead to increased creativity.",
+            "verdict": "yes",
+            "reason": "The context states that a positive work environment where employees enjoy being at work encourages creativity, directly linking culture to creativity."
+          },
+          {
+            "statement": "A positive company culture that values employees can lead to enhanced productivity.",
+            "verdict": "yes",
+            "reason": "While not explicitly stated, the context implies that a supportive culture and enjoyable work environment would lead to increased productivity through employee engagement and creativity."
+          },
+          {
+            "statement": "Employers should focus on building relationships.",
+            "verdict": "yes",
+            "reason": "The context advocates for creating a family-like support system and social events, which require building relationships with employees."
+          },
+          {
+            "statement": "Employers should focus on recognizing hard work.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions recognizing employees through initiatives like 'employee of the month' and acknowledging their hard work."
+          },
+          {
+            "statement": "Employers should focus on creating a sense of belonging.",
+            "verdict": "yes",
+            "reason": "The context emphasizes making employees feel part of a family and support system, which directly relates to creating a sense of belonging."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the question of \"Why sell?\" by highlighting key reasons such as portfolio rebalancing, debt repayment, strategy adjustment, loss of confidence, and reinvestment. It aligns with the document's emphasis on financial goals, strategy misalignment, and the need for liquidity. However, it omits specific points from the reference answer and document, such as selling when ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Selling an investment can be necessary to rebalance your portfolio.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that selling investments is done to rebalance portfolios."
+          },
+          {
+            "statement": "Selling an investment can be necessary to pay off debts.",
+            "verdict": "yes",
+            "reason": "The context lists paying off debt as a reason to sell investments."
+          },
+          {
+            "statement": "Selling an investment can be necessary to adjust your strategy.",
+            "verdict": "yes",
+            "reason": "The context mentions selling when the stock no longer fits the strategy."
+          },
+          {
+            "statement": "Selling may be necessary if you no longer have confidence in the company.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that losing faith in the company is a reason to sell."
+          },
+          {
+            "statement": "Selling may be necessary if you wish to reinvest the proceeds elsewhere.",
+            "verdict": "yes",
+            "reason": "The context describes selling to take principal out and buy something else, aligning with reinvestment."
+          },
+          {
+            "statement": "The decision to sell often depends on your financial goals.",
+            "verdict": "yes",
+            "reason": "The context emphasizes selling based on strategy and financial needs, which are tied to goals."
+          },
+          {
+            "statement": "The decision to sell often depends on the current market conditions.",
+            "verdict": "yes",
+            "reason": "The context explains that market alignment (price and buyer willingness) affects sales, implying market conditions matter."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it directly incorporates the eight numbered points about purchasing a business (e.g., funding requirements, market knowledge, inventory control) and the final note about maximizing value through buyer alignment. These points are explicitly listed in the document. However, the reference answer focuses on financial advisors and their compens",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Ensure you have enough funds to run the business and pay yourself for the first year, plus 30%.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the first point in the list of advice."
+          },
+          {
+            "statement": "Know your market, its strengths and weaknesses, and develop a niche.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the second point in the list of advice."
+          },
+          {
+            "statement": "Focus on selling services rather than just merchandise.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the third point in the list of advice."
+          },
+          {
+            "statement": "Listen to customers but avoid following their advice blindly.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the fourth point in the list of advice."
+          },
+          {
+            "statement": "Set both company and personal goals.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the fifth point in the list of advice."
+          },
+          {
+            "statement": "Plan and control inventory, keeping it as minimal as possible.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the sixth point in the list of advice."
+          },
+          {
+            "statement": "Market your business effectively, understanding the differences between marketing, advertising, and sales.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the seventh point in the list of advice."
+          },
+          {
+            "statement": "Keep operations simple and focused, expecting to work long hours initially.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this as the eighth point in the list of advice."
+          },
+          {
+            "statement": "Consider the value of the business based on the buyer's needs and goals.",
+            "verdict": "yes",
+            "reason": "The context discusses how a company's value varies depending on the buyer's motivations and resources."
+          },
+          {
+            "statement": "Seek experienced guidance to maximize the price.",
+            "verdict": "yes",
+            "reason": "The context mentions FNBC Florida's methodology for maximizing price and references support from organizations like the Small Business Administration."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 21315,
+    "completion_tokens": 29447,
+    "total_tokens": 50762,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 33,
+    "reasoning_tokens": 29685,
+    "reasoning_budget_verified_calls": 33
+  },
+  "elapsed_seconds": 1083.243
+}

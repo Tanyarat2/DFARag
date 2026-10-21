@@ -1,0 +1,450 @@
+{
+  "version": 1,
+  "fingerprint": "8b7e8f5b33a580400d7155f5731f731439f7909dc3e7e07f1f35e1f7977a32c0",
+  "id": "6528deeee4180c1b2b770a2929482e82",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant correctly identifies agriculture as the largest employer in India, citing 52% of the workforce, which aligns with the document's \"Labour in India\" section. However, the assistant's answer introduces a critical inconsistency by stating both the retail industry (57% workforce) and the textile industry (35 million direct jobs) as second-largest employers. The document clarifies that the",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The agriculture sector is the largest employment provider in India, employing about 52% of the workforce.",
+            "verdict": "yes",
+            "reason": "The context states that agricultural and allied sectors accounted for 52.1% of the total workforce in 2009-10, and the 'Labour in India' section confirms agriculture employs 52% of labor."
+          },
+          {
+            "statement": "The retail industry is the second-largest employer in India, contributing to 57% of the workforce.",
+            "verdict": "no",
+            "reason": "The context claims the retail industry employed 57% of the workforce in 2016, but this contradicts the assertion that agriculture is the largest employer. If retail employed 57%, it would surpass agriculture (52%), making the statement invalid."
+          },
+          {
+            "statement": "The textile industry is the second-largest employment generating sector after agriculture, offering direct employment to over 35 million people.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the textile industry is the second-largest employment generator after agriculture and provides direct employment to over 35 million."
+          },
+          {
+            "statement": "The agriculture sector remains the largest employer in India.",
+            "verdict": "yes",
+            "reason": "The context confirms agriculture is the largest employer, with 52% of the workforce in 2009-10 and the retail industry being the second-largest employer after agriculture."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies agriculture as the largest employer in India, aligning with the previous conversation and documents. However, it omits critical data points from the documents, such as the 59% employment figure in 2016 and the 23% GDP contribution, which are present in the reference answer. The assistant also fails to mention the decline in agriculture's GDP contribution",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Agriculture is a very important sector in India.",
+            "verdict": "yes",
+            "reason": "The context states that agriculture is the largest employer in India, indicating its significant role."
+          },
+          {
+            "statement": "Agriculture is the largest employer in India.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the retail industry is the second largest employer after agriculture."
+          },
+          {
+            "statement": "Agriculture employs a significant portion of the workforce in India.",
+            "verdict": "yes",
+            "reason": "Since agriculture is the largest employer and the retail industry (second largest) employs 57% of the workforce, agriculture must employ a larger portion, making it significant."
+          },
+          {
+            "statement": "The exact percentage of the workforce employed in agriculture is not specified.",
+            "verdict": "yes",
+            "reason": "The context provides the percentage for the retail industry (57%) but does not mention the exact percentage for agriculture."
+          },
+          {
+            "statement": "The retail industry is the second-largest employer in India, with 57% of the workforce.",
+            "verdict": "yes",
+            "reason": "The context directly states that the retail industry employs 57% of the workforce and is the second largest employer."
+          },
+          {
+            "statement": "Agriculture remains the most critical sector in terms of employment in India.",
+            "verdict": "yes",
+            "reason": "The context confirms agriculture is the largest employer, making it the most critical sector for employment."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document, as it correctly lists major agricultural products like rice, wheat, cotton, tea, and cashew nuts. It also mentions dairy and silk, which are present in the document. However, it omits specific rankings (e.g., second-largest producer of rice/wheat) and unique details like cashew nut shell liquid and historical domestication of crops, which",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Indian agriculture produces a variety of crops and products, including rice, wheat, oilseed, cotton, jute, tea, sugarcane, and potatoes.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists these products as major agricultural outputs of India."
+          },
+          {
+            "statement": "It also includes milk, fruits, vegetables, pulses, and cashew nuts.",
+            "verdict": "yes",
+            "reason": "The context states India is the largest producer of milk, pulses, and cashew kernels, and second-largest in fruits and vegetables."
+          },
+          {
+            "statement": "Additionally, India is a major producer of silk, basmati rice, and various spices.",
+            "verdict": "yes",
+            "reason": "The context mentions India as the second-largest producer of silk, exports Basmati rice, and includes spices among exported agricultural products."
+          },
+          {
+            "statement": "The sector contributes significantly to the country's economy and exports, with products like Basmati rice, wheat, and tea being particularly notable.",
+            "verdict": "yes",
+            "reason": "The context highlights agricultural exports (including Basmati rice, wheat, tea) and their economic contribution, such as 10% of export earnings."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the provided documents, as it correctly notes the lack of specific income data for agricultural workers in India. The documents mention employment statistics (52% in agriculture) but do not include the income figures cited in the reference answer (e.g., Rs. 80 or Rs. 7.20). The assistant appropriately acknowledges this gap in the data. However, the answer is i",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "A significant portion of India's workforce is engaged in the agriculture sector, with 52% employed in agriculture, dairy, horticulture, and related occupations.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that agriculture, dairy, horticulture, and related occupations employ 52% of India's labor force."
+          },
+          {
+            "statement": "The evidence does not provide specific information about the income levels of Indian people working in the agriculture industry.",
+            "verdict": "yes",
+            "reason": "The context discusses employment rates and sectors but does not mention income levels or wages for agricultural workers."
+          },
+          {
+            "statement": "The responder does not have specific information on whether Indian people working in the agriculture industry make money.",
+            "verdict": "yes",
+            "reason": "The context does not provide data on earnings or financial status of agricultural workers, so the responder cannot confirm this."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies cashew kernels as the edible part of the cashew nut and cashew nut shell liquid (CNSL) as a byproduct with industrial applications. It aligns with the documents, which describe CNSL as a natural resin used in pharmaceuticals, antioxidants, and biomaterials. However, the assistant omits key details from the documents and reference answer, such as CNSL's u",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Cashew kernels are the edible part of the cashew nut.",
+            "verdict": "yes",
+            "reason": "The context states that cashew kernels are the part of the cashew nut that is consumed and processed into food products."
+          },
+          {
+            "statement": "Cashew kernels are commonly used in cooking and food products.",
+            "verdict": "yes",
+            "reason": "The context mentions cashew nuts are eaten in recipes, as cheese, or butter, implying kernel use."
+          },
+          {
+            "statement": "Cashew nut shell liquid (CNSL), also known as cashew shell oil, is a byproduct of processing cashew nuts.",
+            "verdict": "yes",
+            "reason": "The context explicitly states CNSL is a byproduct of processing cashew nuts."
+          },
+          {
+            "statement": "Cashew nut shell liquid is a natural resin found in the honeycomb structure of the cashew shell.",
+            "verdict": "yes",
+            "reason": "The context describes CNSL as a natural resin in the honeycomb structure of the cashew nutshell."
+          },
+          {
+            "statement": "Cashew nut shell liquid has various industrial applications.",
+            "verdict": "yes",
+            "reason": "The context lists CNSL uses in drugs, antioxidants, fungicides, biomaterials, and other industrial applications."
+          },
+          {
+            "statement": "Cashew nut shell liquid is used in pharmaceuticals, antioxidants, and biomaterials.",
+            "verdict": "yes",
+            "reason": "The context explicitly states CNSL is a raw material for drugs, antioxidants, and biomaterials."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is more comprehensive and accurate compared to the reference answer. It correctly identifies the retail industry as the second-largest employer in India, citing precise data from the document (e.g., $482 billion GDP contribution in 2016, 57% of the workforce). It also highlights key structural aspects (mom-and-pop stores, expanding supermarkets) and challenges (infrastructur",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The retail industry in India is the second-largest employer after agriculture, contributing $482 billion to the GDP in 2016 and employing 249.94 million people.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the retail industry contributed $482 billion (22% of GDP) and employed 249.94 million people (57% of the workforce) in 2016, and that it is the second-largest employer after agriculture."
+          },
+          {
+            "statement": "It is one of the top-five retail markets globally, projected to reach $1.3 trillion by 2020.",
+            "verdict": "yes",
+            "reason": "The context mentions that the Indian retail market is one of the top-five retail markets in the world by economic value and is projected to reach $1.3 trillion by 2020."
+          },
+          {
+            "statement": "The industry is dominated by local mom-and-pop stores, owner-manned shops, and street vendors, with retail supermarkets expanding.",
+            "verdict": "yes",
+            "reason": "The context states that India's retail industry mostly consists of local mom-and-pop stores, owner-manned shops, and street vendors, and that retail supermarkets are expanding with a 4% market share in 2008."
+          },
+          {
+            "statement": "However, growth is limited by infrastructure issues, regulations, and red tape.",
+            "verdict": "yes",
+            "reason": "The context highlights challenges such as lack of back-end warehouse infrastructure, state-level permits, red tape, compliance with over thirty regulations, and taxes that limit the growth of organized retail."
+          },
+          {
+            "statement": "The Indian retail market is also characterized by a lack of efficient networks, leading to significant agricultural produce spoilage.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the lack of infrastructure and efficient retail networks causes a third of India's agricultural produce to be lost from spoilage."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document and previous conversation, as it correctly lists major industries (textiles, telecommunications, chemicals, pharmaceuticals, etc.) and accurately notes the textile industry's employment figures and the service sector's GDP contribution. However, it omits specific details from the document, such as the pharmaceutical industry's global growth, f",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Textiles is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists textiles as a major industry in India."
+          },
+          {
+            "statement": "Telecommunications is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context includes telecommunications in the list of major industries in India."
+          },
+          {
+            "statement": "Chemicals is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists chemicals as a major industry in India."
+          },
+          {
+            "statement": "Pharmaceuticals is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context includes pharmaceuticals in the list of major industries in India."
+          },
+          {
+            "statement": "Biotechnology is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists biotechnology as a major industry in India."
+          },
+          {
+            "statement": "Food processing is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context includes food processing in the list of major industries in India."
+          },
+          {
+            "statement": "Steel is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists steel as a major industry in India."
+          },
+          {
+            "statement": "Transport equipment is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context includes transport equipment in the list of major industries in India."
+          },
+          {
+            "statement": "Cement is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists cement as a major industry in India."
+          },
+          {
+            "statement": "Mining is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context includes mining in the list of major industries in India."
+          },
+          {
+            "statement": "Petroleum is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists petroleum as a major industry in India."
+          },
+          {
+            "statement": "Machinery is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context includes machinery in the list of major industries in India."
+          },
+          {
+            "statement": "Software is an Indian industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists software as part of India's services sector and major industries."
+          },
+          {
+            "statement": "The textile industry is the second-largest employment-generating sector in India, providing direct employment to over 35 million people.",
+            "verdict": "yes",
+            "reason": "The context states that the textile industry is the second-largest employment-generating sector in India and offers direct employment to over 35 million people."
+          },
+          {
+            "statement": "The service sector is the largest contributor to India's GDP, encompassing activities like software, IT, banking, insurance, and hospitality.",
+            "verdict": "yes",
+            "reason": "The context confirms the service sector contributes 55.6% of GDP and includes software, IT, banking, insurance, and hospitality."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly cites the 5.8% average GDP growth over the past two decades, the 6.1% growth in 2011–12, and the 8% projected annual growth until 2050. It also accurately references the PwC report’s projection of India overtaking the U.S. in GDP (PPP) by 2045. However, it omits key historical context (e.g., 1991 liberalization, 7.5% growth pr",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "India's average annual GDP growth rate over the past two decades is 5.8%.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that India's average annual GDP growth rate over the past two decades was 5.8%."
+          },
+          {
+            "statement": "India's GDP growth rate reached 6.1% during 2011-12.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that India's GDP growth rate reached 6.1% during 2011--12."
+          },
+          {
+            "statement": "India is among the world's fastest-growing major economies.",
+            "verdict": "yes",
+            "reason": "The context states that India is considered one of the fastest-growing major economies and surpassed China as the fastest-growing major economy in 2015 and 2018."
+          },
+          {
+            "statement": "India's GDP at purchasing power parity is projected to overtake the United States' by 2045.",
+            "verdict": "yes",
+            "reason": "The context cites a 2011 PricewaterhouseCoopers report projecting that India's GDP at PPP could overtake the United States' by 2045."
+          },
+          {
+            "statement": "India's GDP is expected to grow at an annualized average of 8% until 2050.",
+            "verdict": "yes",
+            "reason": "The context states that Indian GDP is expected to grow at an annualized average of 8% until 2050, as per the PricewaterhouseCoopers report."
+          },
+          {
+            "statement": "Bureaucracy may slow India's economic growth.",
+            "verdict": "yes",
+            "reason": "The context explicitly notes that bureaucracy significantly slows India's economic growth."
+          },
+          {
+            "statement": "Poor infrastructure may hinder India's economic growth.",
+            "verdict": "yes",
+            "reason": "The context states that poor infrastructure is a factor slowing India's economic growth."
+          },
+          {
+            "statement": "Inflexible labor laws may impede India's economic growth.",
+            "verdict": "yes",
+            "reason": "The context mentions that inflexible labor laws, particularly the inability to lay off workers during business slowdowns, hinder economic growth."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 24985,
+    "completion_tokens": 19668,
+    "total_tokens": 44653,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 32,
+    "reasoning_tokens": 16948,
+    "reasoning_budget_verified_calls": 32
+  },
+  "elapsed_seconds": 982.371
+}

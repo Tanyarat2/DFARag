@@ -1,0 +1,375 @@
+{
+  "version": 1,
+  "fingerprint": "20b489460d2bbf7c2461d191dc5175f48cdaf1da03b5bf1ce6d9a7329b85e5ff",
+  "id": "29e3ec96a6e8916a0326ebcdab78abae",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies Lord Linlithgow as the Viceroy during the Quit India Movement, aligning precisely with the reference answer. While the provided documents mention the Viceroy in various contexts (e.g., the August Offer, 1939 war declaration), they do not explicitly name Lord Linlithgow. However, the assistant's response is faithful to the reference answer and does not in",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The viceroy at the time of the Quit India Movement was Lord Linlithgow.",
+            "verdict": "yes",
+            "reason": "The context refers to 'the Viceroy' during the Quit India Movement (1942) and mentions Lord Linlithgow as the viceroy during the August Offer (1940) and Cripps Mission (1942), aligning with historical records of his tenure (1936–1943)."
+          },
+          {
+            "statement": "Lord Linlithgow served as the viceroy during the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context explicitly links the Viceroy to the Quit India Movement (e.g., the August Offer in 1940 and Cripps Mission in 1942) and historically identifies Lord Linlithgow as viceroy during this period (1936–1943)."
+          },
+          {
+            "statement": "The Quit India Movement took place under the viceroyalty of Lord Linlithgow.",
+            "verdict": "yes",
+            "reason": "The Quit India Movement occurred in 1942, during Lord Linlithgow's tenure as viceroy (1936–1943), as confirmed by the context's references to the Viceroy's role in related events like the Cripps Mission and August Offer."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies Lord Linlithgow's issuance of the \"August Offer\" in 1942 and its rejection by the Congress and Muslim League, which aligns with the reference answer and documents. It also accurately notes his cable to Churchill describing the Quit India Movement as \"the most serious rebellion since 1857,\" a detail present in the documents. However, the assistant's respo",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The viceroy at the time of the Quit India Movement was Lord Linlithgow.",
+            "verdict": "no",
+            "reason": "The context does not explicitly name the viceroy as Lord Linlithgow."
+          },
+          {
+            "statement": "He issued the \"August Offer\" in 1942, which aimed to pacify Indian demands.",
+            "verdict": "yes",
+            "reason": "The context states the Viceroy issued the August Offer in 1942 to pacify Indians during the worsening war situation."
+          },
+          {
+            "statement": "The August Offer was rejected by the Congress and the Muslim League.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Congress rejected the offer, followed by the Muslim League."
+          },
+          {
+            "statement": "He cabled Winston Churchill that the Quit India movement was \"by far the most serious rebellion since that of 1857.\"",
+            "verdict": "yes",
+            "reason": "The context directly states the viceroy cabled Churchill with this assessment."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the opposition to the Quit India Movement was not centralized under a single leader but rather composed of multiple groups and entities, such as the Muslim League, Hindu Mahasabha, and princely states. This aligns with the document's information, which explicitly lists these groups as opponents. However, the assistant's response is incomplete and om",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The opposition leader for the Quit India Movement was not a single individual but a collective of groups and leaders.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists multiple groups (Muslim League, Hindu Mahasabha, RSS, CPI, princely states) and entities (British authorities, Viceroy's Council, Indian Imperial Police, etc.) as opposing the movement, emphasizing collective opposition."
+          },
+          {
+            "statement": "The Muslim League opposed the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context directly states the Muslim League was among the groups opposed to the movement and that the British had their support."
+          },
+          {
+            "statement": "The Hindu Mahasabha opposed the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists the Hindu Mahasabha as one of the groups opposing the movement."
+          },
+          {
+            "statement": "The Rashtriya Swayamsevak Sangh opposed the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists the RSS as one of the groups opposing the movement."
+          },
+          {
+            "statement": "The Communist Party of India opposed the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists the Communist Party of India as one of the groups opposing the movement."
+          },
+          {
+            "statement": "The princely states opposed the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context states the princes were strongly opposed and funded opposition, with the movement having less support in princely states."
+          },
+          {
+            "statement": "The evidence does not identify a single opposition leader but emphasizes collective opposition from multiple entities.",
+            "verdict": "yes",
+            "reason": "The context highlights multiple groups and entities (e.g., Muslim League, princely states, British authorities) as collectively opposing the movement, with no single individual identified as the opposition leader."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies Sardar Vallabhbhai Patel as a key leader in the Indian independence movement and highlights his pivotal role in the Quit India Movement, including his advocacy for civil disobedience and his threat to resign from the Congress if the movement was not approved. It also notes his instrumental efforts in mobilizing the Indian populace. However, the answer om",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Vallabhbhai Patel, also known as Sardar Patel, was a prominent leader in the Indian independence movement.",
+            "verdict": "yes",
+            "reason": "The context explicitly states Patel was a successful lawyer, organized peasants in Gujarat, became influential in Gujarat, and rose to leadership in the Indian National Congress, all of which establish his prominence in the independence movement. The title 'Sardar Patel' is also used in the text."
+          },
+          {
+            "statement": "He was a key supporter of the Quit India Movement, which was launched in 1942.",
+            "verdict": "yes",
+            "reason": "The context mentions Patel was a 'fervent supporter' of the Quit India Movement and that the All India Congress Committee approved the campaign on 7 August 1942, directly linking him to the movement's launch in that year."
+          },
+          {
+            "statement": "Patel played a crucial role in organizing and promoting the movement, advocating for civil disobedience against British rule.",
+            "verdict": "yes",
+            "reason": "The text highlights Patel's role in organizing the Congress for elections, promoting the Quit India Movement, delivering speeches, raising funds, and preparing a second tier of command. It also notes his advocacy for civil disobedience, such as refusing to pay taxes and participating in protests."
+          },
+          {
+            "statement": "He was deeply committed to the cause and even threatened to resign from the Congress if the movement was not approved.",
+            "verdict": "yes",
+            "reason": "The context explicitly states Patel 'stated his intention to resign from the Congress if the revolt were not approved,' demonstrating his commitment to the movement."
+          },
+          {
+            "statement": "Patel's efforts were instrumental in mobilizing the Indian populace and contributing to the eventual transfer of power to India.",
+            "verdict": "yes",
+            "reason": "The text credits Patel's organizing work with ensuring the success of the rebellion and notes that when he was released in 1945, he realized the British were preparing to transfer power. Historians also attribute the movement's impact to his efforts, linking his actions to the eventual transfer of power."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer provides a pronunciation for \"Vallabhbhai\" as \"Val-uh-bhay\" or \"Val-uh-bhay.\" However, the documents provided do not include any information about the pronunciation of the name. The reference answer correctly states that the pronunciation is not found in the documents. **Faithfulness**: The assistant's answer is not faithful to the documents, as they do not mention pronuncia",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.0,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.0,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Vallabhbhai is pronounced as \"Val-uh-bhay\".",
+            "verdict": "no",
+            "reason": "The context does not provide any information about the pronunciation of Vallabhbhai Patel's name."
+          },
+          {
+            "statement": "Vallabhbhai is pronounced as \"Val-uh-bhay\".",
+            "verdict": "no",
+            "reason": "The context does not provide any information about the pronunciation of Vallabhbhai Patel's name."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly acknowledges that while the Quit India Movement was non-violent in intent, violence did occur. It mentions attacks on government infrastructure (post offices, railway stations) and the British response (mass detentions), aligning with the documents. However, it omits specific details from the documents, such as the exact numbers of post offices (550), railway stati",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The Quit India Movement was primarily non-violent.",
+            "verdict": "yes",
+            "reason": "The context states the movement was based on non-violence as per the Congress Working Committee's resolution, though some violent incidents occurred."
+          },
+          {
+            "statement": "There were instances of violence during the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions attacks on government buildings, post offices, railway stations, and violence in Bihar."
+          },
+          {
+            "statement": "Some civilians were killed in the violence.",
+            "verdict": "yes",
+            "reason": "The context notes hundreds of civilians were killed, shot by police and army."
+          },
+          {
+            "statement": "There were attacks on government buildings, post offices, and railway stations.",
+            "verdict": "yes",
+            "reason": "The context lists specific numbers of attacked post offices, railway stations, and destroyed police stations."
+          },
+          {
+            "statement": "The British responded with mass detentions and heavy-handed suppression.",
+            "verdict": "yes",
+            "reason": "The context describes mass arrests, fines, public flogging, and deployment of troops to restore order."
+          },
+          {
+            "statement": "The movement aimed for non-violence.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the movement's foundation was non-violence as per the Congress Working Committee's resolution."
+          },
+          {
+            "statement": "The situation escalated in parts of the country, leading to sporadic violence.",
+            "verdict": "yes",
+            "reason": "The context mentions sporadic small-scale violence and the greatest violence in Bihar."
+          },
+          {
+            "statement": "Some individuals involved in the movement ended up in violence.",
+            "verdict": "yes",
+            "reason": "The context implies some participants engaged in violent acts like attacking government buildings, though it does not specify individuals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=1.0, answerability=PARTIAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the provided documents, as they explicitly state that the retrieved evidence does not contain specific population figures for the Quit India Movement era (1942–1945). The reference answer includes estimates from 1920, 1947, and 1951, but these are not present in the given documents. The assistant correctly avoids extrapolating or inventing data not found in th",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "PARTIAL",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The retrieved evidence does not provide specific information about the population during the Quit India Movement.",
+            "verdict": "yes",
+            "reason": "The context discusses the movement's impact, protests, and regional activities but does not mention specific population statistics or demographic details."
+          },
+          {
+            "statement": "Therefore, I do not have specific information to answer the question about the population back then.",
+            "verdict": "yes",
+            "reason": "Since the context lacks specific population data, the conclusion logically follows that such information is unavailable."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.720 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, as it correctly identifies the post-independence period's slow growth (\"Hindu rate of growth\") and the delayed economic reforms in the late 1970s and 1990s. The documents explicitly mention the 1970s reforms under Morarji Desai and the 1990s liberalization, aligning with the assistant's response. The reference answer focuses on the 1990s, but th",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.72,
+        "conditioned_score": 0.72,
+        "statements": [
+          {
+            "statement": "The Indian economy did not see significant growth right after independence.",
+            "verdict": "yes",
+            "reason": "The context states that the growth rate in the first three decades was called the 'Hindu rate of growth' due to unfavorable comparisons with other Asian countries, indicating slow growth."
+          },
+          {
+            "statement": "The early years of post-independence India focused on self-sufficiency and heavy industrialization.",
+            "verdict": "yes",
+            "reason": "The context mentions policies emphasizing import substitution industrialization and rapid development of heavy industry by public and private sectors, aligning with self-sufficiency and heavy industrialization."
+          },
+          {
+            "statement": "This period, known as the 'Hindu rate of growth,' had slower economic growth compared to other Asian countries.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the 'Hindu rate of growth' was a term used because of the unfavorable comparison with growth rates in other Asian countries."
+          },
+          {
+            "statement": "Significant economic growth in India started in the late 1970s.",
+            "verdict": "no",
+            "reason": "The context notes policy changes in the late 1970s but does not explicitly state that significant growth began then. The 'Hindu rate of growth' period is described as spanning the first three decades (1947-1977), implying the late 1970s were still within that period."
+          },
+          {
+            "statement": "The 1990s economic reforms led to more substantial development in the Indian economy.",
+            "verdict": "no",
+            "reason": "The context does not mention the 1990s or economic reforms from that period, so there is no information to support this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 23278,
+    "completion_tokens": 16773,
+    "total_tokens": 40051,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 32,
+    "reasoning_tokens": 14456,
+    "reasoning_budget_verified_calls": 32
+  },
+  "elapsed_seconds": 563.719
+}

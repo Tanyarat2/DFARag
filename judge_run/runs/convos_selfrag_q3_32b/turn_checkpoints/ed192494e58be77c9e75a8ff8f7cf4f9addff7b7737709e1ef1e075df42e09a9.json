@@ -1,0 +1,442 @@
+{
+  "version": 1,
+  "fingerprint": "ed192494e58be77c9e75a8ff8f7cf4f9addff7b7737709e1ef1e075df42e09a9",
+  "id": "47b2471404382af6e973013ab1cf96b9",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that Lite pricing plans are available with all account types in IBM Cloud and mentions the key detail about having one instance per service, which aligns with the document and reference answer. It directly quotes the relevant evidence from the document, ensuring faithfulness. The response is concise and directly addresses the user's question without unnecess",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Yes, Lite pricing plans are available with all account types in IBM Cloud.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'Lite pricing plans are available with all account types.'"
+          },
+          {
+            "statement": "Lite pricing plans are available with all account types. You can have one instance of a Lite plan for each service.",
+            "verdict": "yes",
+            "reason": "The context directly states this exact sentence."
+          },
+          {
+            "statement": "This confirms that Lite plans are accessible across different account types.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'Lite pricing plans are available with all account types,' which aligns with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer to the current turn's question \"What is it?\" is problematic. The question is vague, but in the context of the previous conversation about IBM Cloud's Lite pricing plans, \"it\" logically refers to the Lite plan. The assistant failed to recognize this context and instead requested clarification, which is not helpful. The reference answer correctly explains the Lite plan's featu",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 0.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.0,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The question 'What is it?' is considered too vague because it lacks sufficient context for a specific answer.",
+            "verdict": "no",
+            "reason": "The context does not discuss the vagueness of questions or the need for additional context to answer them. It provides explanations about Hyper-V, SSL certificates, and protocols, but no analysis of question formulation."
+          },
+          {
+            "statement": "The responder is requesting additional details or clarification from the user to address the ambiguity in the question.",
+            "verdict": "no",
+            "reason": "The context is purely informational and does not include any interaction or dialogue where a responder would ask for clarification. There is no mention of a responder or user interaction."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer accurately defines an IBM Cloud account as a container for managing resources, users, and access, and correctly distinguishes between stand-alone and enterprise accounts, including their billing structures. It also mentions management via the console or CLI, which aligns with the document. The answer is faithful to the document, as it does not include information beyond what",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "An account in IBM Cloud is a container for managing resources, users, and access.",
+            "verdict": "yes",
+            "reason": "The context states that an enterprise account contains users and access for managing the enterprise and billing, and users can create, use, and collaborate on resources."
+          },
+          {
+            "statement": "An account allows an account owner to add users, assign roles and permissions, manage billing, and more.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that stand-alone accounts allow the owner to add users, assign roles, and manage billing."
+          },
+          {
+            "statement": "There are two types of accounts: stand-alone and enterprise.",
+            "verdict": "yes",
+            "reason": "The context clearly distinguishes between stand-alone accounts and enterprises as two distinct types of accounts."
+          },
+          {
+            "statement": "A stand-alone account manages its own billing.",
+            "verdict": "yes",
+            "reason": "The context states that stand-alone accounts control their own billing, unlike enterprise accounts."
+          },
+          {
+            "statement": "An enterprise account manages billing for multiple accounts, with costs rolled up and paid from the enterprise account.",
+            "verdict": "yes",
+            "reason": "The context explains that an enterprise manages billing for the entire company, with costs from multiple accounts rolled up and paid from the enterprise account."
+          },
+          {
+            "statement": "Accounts can be viewed and managed through the IBM Cloud console or CLI.",
+            "verdict": "yes",
+            "reason": "The context describes using the IBM Cloud console menu bar and the CLI command `ibmcloud account list` to view and manage accounts."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.875, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.712 (threshold 0.80). RB_llm justification: The assistant's answer addresses the question of creating an IBM Cloud account by mentioning two primary methods: accepting an invitation or registering as a new user. It correctly notes that new users receive an email with necessary information and that credit card verification is required for new accounts. However, it omits critical steps outlined in the reference answer and document, such as vi",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.875,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7118644067796611,
+        "conditioned_score": 0.7118644067796611,
+        "statements": [
+          {
+            "statement": "To create an account on IBM Cloud, you can accept an invitation from an existing account owner or organization manager.",
+            "verdict": "yes",
+            "reason": "The context states that the account owner, organization manager, or a user with correct permissions can invite you to join their account."
+          },
+          {
+            "statement": "To create an account on IBM Cloud, you can register as a new user.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention creating a new account via registration; it focuses on joining existing accounts via invitations."
+          },
+          {
+            "statement": "If you're new to IBM Cloud, you'll receive an email with all the necessary information.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that new users receive an email with necessary information when invited."
+          },
+          {
+            "statement": "As an existing member, you can accept the invitation through your notifications.",
+            "verdict": "yes",
+            "reason": "The context confirms existing members can accept invitations via notifications."
+          },
+          {
+            "statement": "As an existing member, you can accept the invitation by email.",
+            "verdict": "yes",
+            "reason": "The context explicitly states existing members can accept invitations by email."
+          },
+          {
+            "statement": "As an existing member, you can accept the invitation by using the CLI to onboard to the new account.",
+            "verdict": "yes",
+            "reason": "The context confirms existing members can use the CLI to onboard to a new account."
+          },
+          {
+            "statement": "If you're creating a new account, you'll need to provide credit card information for identity verification.",
+            "verdict": "yes",
+            "reason": "The context states new accounts created after October 2021 require credit card information for identity verification."
+          },
+          {
+            "statement": "If you're creating a new account, you'll have access to all Free and Lite plans after registration.",
+            "verdict": "yes",
+            "reason": "The context confirms new Pay-As-You-Go accounts gain access to all Free and Lite plans after registration."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.667, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the 1 GB storage limit for the IBM Cloudant Lite plan, which is directly supported by the document. However, it fails to address the key information in the reference answer about the 256 MB of free instantaneous runtime memory per month for Cloud Foundry apps in older Lite accounts, nor does it mention the reactivation requirements or the distinction bet",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.6666666666666666,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5714285714285714,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The Lite plan provides 1024 megabytes of storage per month.",
+            "verdict": "no",
+            "reason": "The context states the Lite plan includes 1 GB of storage, but it does not specify a monthly limit. The 'per month' phrasing is incorrect."
+          },
+          {
+            "statement": "Exceeding the 1-GB storage limit will result in IBM Cloudant blocking your account from writing new data.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that exceeding the 1-GB limit blocks new data writes."
+          },
+          {
+            "statement": "To resolve the blockage, you must either delete enough data to stay under the 1-GB limit or upgrade to a higher plan.",
+            "verdict": "yes",
+            "reason": "The context confirms these are the two options provided to resolve the blockage."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.750, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the documents, as the documents do not address whether the Lite plan must be purchased with other products. The assistant incorrectly assumes an answer (\"you do not need to purchase the Lite plan with other products\") without evidence from the provided text. While the assistant mentions upgrading to a paid plan for features, this is a tangential point not ",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.42857142857142855,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Upgrading to a paid plan like the Plus plan is required to access customization features when using the Lite pricing plan.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that users of the Lite plan cannot use customization and must upgrade to a paid plan (e.g., Plus) to access it."
+          },
+          {
+            "statement": "The Lite pricing plan is designed for users to trial the service before making a purchase commitment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Lite plan is intended for users who want to try out the service before committing to a purchase."
+          },
+          {
+            "statement": "The Lite plan does not require purchasing it alongside other products.",
+            "verdict": "no",
+            "reason": "The context does not mention any requirement to purchase the Lite plan alongside other products, so this statement is not supported by the provided information."
+          },
+          {
+            "statement": "Upgrading to a paid plan is necessary to access all features fully.",
+            "verdict": "yes",
+            "reason": "The context states that the Plus plan provides access to all features (e.g., customization), which are unavailable in the Lite plan, and that the Lite plan has limitations like deletion after inactivity."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.766 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies three types of pricing plans (Lite, Standard, and Dedicated Hardware) based on the document, which focuses on IBM Cloudant and Db2 on Cloud offerings. The reference answer, however, discusses account types (Pay-As-You-Go, Subscription, and educational accounts) rather than pricing plans. The user's question, \"How many types does it offer?\" is ambiguous b",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7659574468085106,
+        "conditioned_score": 0.7659574468085106,
+        "statements": [
+          {
+            "statement": "IBM Cloud offers two main pricing plans: Lite and Standard.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the available plans include Lite and Standard, and these are referred to as the main plans."
+          },
+          {
+            "statement": "There is an optional Dedicated Hardware plan.",
+            "verdict": "yes",
+            "reason": "The context mentions an optional Dedicated Hardware plan available for an extra monthly fee, which is an add-on to the Standard plan."
+          },
+          {
+            "statement": "Therefore, IBM Cloud offers three types of pricing plans.",
+            "verdict": "no",
+            "reason": "The Dedicated Hardware plan is an optional add-on to the Standard plan, not a separate main pricing plan. The main plans remain Lite and Standard."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer provides a clear explanation of IBM Cloud's Enterprise feature, covering key aspects like the enterprise account hierarchy, consolidated billing, account groups, and access management. It aligns with the document's description of the enterprise structure and its functionalities. However, it omits critical details from the reference answer and document, such as the requiremen",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Enterprise is a feature in IBM Cloud that allows organizations to manage multiple IBM Cloud accounts under a single structure.",
+            "verdict": "yes",
+            "reason": "The context describes an enterprise as a structure for organizing accounts by geography or department, with a parent enterprise account and account groups."
+          },
+          {
+            "statement": "It includes an enterprise account, which serves as the parent account for all other accounts in the enterprise and manages billing for the entire organization.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the enterprise account is the parent and handles billing for all accounts."
+          },
+          {
+            "statement": "Accounts can be organized into account groups for better management.",
+            "verdict": "yes",
+            "reason": "The context mentions account groups as a way to organize related accounts."
+          },
+          {
+            "statement": "Enterprises provide consolidated billing, unified usage reporting, and centralized access management.",
+            "verdict": "yes",
+            "reason": "The context discusses consolidated billing, top-down usage reporting, and user management requiring invitations and policies."
+          },
+          {
+            "statement": "Users can monitor resource usage across accounts but cannot directly manage resources in child accounts without being invited and assigned appropriate access policies.",
+            "verdict": "yes",
+            "reason": "The context clarifies that enterprise users can monitor usage but need invitations and roles to manage child account resources."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the default support plan for enterprise accounts, which is accurate and aligns with the document. However, it fails to mention critical aspects of enterprise support such as consolidated billing, top-down usage reporting, and granular access management for users, all of which are detailed in the reference answer and document. The assistant also omits information ab",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Support for IBM Cloud is provided through various channels.",
+            "verdict": "yes",
+            "reason": "The context mentions multiple methods including support cases, support levels, and proactive support."
+          },
+          {
+            "statement": "IBM Cloud's internal support network is available for support.",
+            "verdict": "yes",
+            "reason": "The context states that IBM Support uses the internal support network for proactive access."
+          },
+          {
+            "statement": "Contact IBM Cloud support team via the provided link to get assistance.",
+            "verdict": "yes",
+            "reason": "The context includes a direct link to the IBM Cloud support team."
+          },
+          {
+            "statement": "Provide entity ID when opening a support ticket.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists the entity ID as required information."
+          },
+          {
+            "statement": "Provide scope when opening a support ticket.",
+            "verdict": "yes",
+            "reason": "The scope is listed as one of the required details in the context."
+          },
+          {
+            "statement": "Provide detailed description of the issue when opening a support ticket.",
+            "verdict": "yes",
+            "reason": "The context specifies that a detailed description of the issue is necessary."
+          },
+          {
+            "statement": "Provide additional details when opening a support ticket to help process quickly.",
+            "verdict": "yes",
+            "reason": "The context advises providing any other information to help process the ticket quickly."
+          },
+          {
+            "statement": "IBM Cloud offers Basic and Advanced Support levels.",
+            "verdict": "yes",
+            "reason": "Both Basic and Advanced Support are described in the context."
+          },
+          {
+            "statement": "Support levels are tailored for different environments and requirements.",
+            "verdict": "yes",
+            "reason": "The context explains that Basic is for non-production and Advanced for critical applications."
+          },
+          {
+            "statement": "Enterprise accounts default to the highest support plan within the enterprise.",
+            "verdict": "yes",
+            "reason": "The context states that enterprise accounts default to the highest support plan."
+          },
+          {
+            "statement": "IBM Cloud's technical support team is available 24/7.",
+            "verdict": "yes",
+            "reason": "The context mentions the team is available 24/7."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 49673,
+    "completion_tokens": 20899,
+    "total_tokens": 70572,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 37,
+    "reasoning_tokens": 19969,
+    "reasoning_budget_verified_calls": 37
+  },
+  "elapsed_seconds": 547.916
+}

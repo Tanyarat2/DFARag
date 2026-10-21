@@ -1,0 +1,507 @@
+{
+  "version": 1,
+  "fingerprint": "925314d5bd4b933f2b65c9ee6caa3c2d1a7e1a90113a5e7b629d48cf8fb9f558",
+  "id": "1c74814752c3f9d4ed0b99c16e1ed192",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.556, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.465 (threshold 0.80). RB_llm justification: The assistant's answer partially addresses the user's question about alternative salary means by mentioning performance-based bonuses, profit-sharing, stock options, and flexible compensation packages. However, it diverges significantly by focusing on salary transparency issues (e.g., employee dissatisfaction, perceived inequities) and the document's critique of salary transparency, which are not ",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.5555555555555556,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.46511627906976744,
+        "conditioned_score": 0.46511627906976744,
+        "statements": [
+          {
+            "statement": "Alternative means of salary for employees can include performance-based bonuses.",
+            "verdict": "no",
+            "reason": "The context does not mention performance-based bonuses as an alternative to salary."
+          },
+          {
+            "statement": "Alternative means of salary for employees can include profit-sharing.",
+            "verdict": "no",
+            "reason": "The context does not mention profit-sharing as an alternative to salary."
+          },
+          {
+            "statement": "Alternative means of salary for employees can include stock options.",
+            "verdict": "no",
+            "reason": "The context does not mention stock options as an alternative to salary."
+          },
+          {
+            "statement": "Alternative means of salary for employees can include flexible compensation packages.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions examples like flexible schedules or reduced hours as alternatives to salary increases."
+          },
+          {
+            "statement": "The retrieved evidence highlights potential issues with transparency in salary information.",
+            "verdict": "yes",
+            "reason": "The context discusses problems like bitterness, poaching, and reduced productivity due to salary transparency."
+          },
+          {
+            "statement": "These issues can lead to employee dissatisfaction.",
+            "verdict": "yes",
+            "reason": "The context states that salary transparency can cause bitterness and lower morale, which are forms of dissatisfaction."
+          },
+          {
+            "statement": "These issues can lead to reduced productivity due to perceived inequities.",
+            "verdict": "yes",
+            "reason": "The context explicitly links salary transparency to reduced productivity caused by perceived inequities."
+          },
+          {
+            "statement": "Higher wages can attract talent but may not always be justified by employee output.",
+            "verdict": "yes",
+            "reason": "The context acknowledges that higher wages attract talent but warns against paying more than employees produce."
+          },
+          {
+            "statement": "The evidence emphasizes the importance of fair and transparent compensation practices.",
+            "verdict": "no",
+            "reason": "The context critiques full salary transparency and highlights its drawbacks, not its importance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that employers must report salaries and withhold income taxes, referencing the W-4 and W-2 forms as required by the document. It aligns with the document's emphasis on legal obligations and form requirements. However, it omits key details from the reference answer, such as the employee's responsibility if withholding fails, the role of the W-4 in determining",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Employers are required to report their employees' salaries and withhold money for income tax purposes.",
+            "verdict": "yes",
+            "reason": "The context states that employers must deduct taxes and send them to the IRS, and mentions the use of W-2 forms for reporting, which aligns with the requirement to report salaries and withhold taxes."
+          },
+          {
+            "statement": "Employers must deduct taxes from employees' paychecks and send them to the IRS.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that employers are legally required to deduct taxes from paychecks and send them to the IRS."
+          },
+          {
+            "statement": "If an employer withholds federal income tax, they need a completed Form W-4 from the employee.",
+            "verdict": "yes",
+            "reason": "The context specifies that a completed Form W-4 is required if the employer agrees to withhold federal income tax at the employee's request."
+          },
+          {
+            "statement": "Employers must complete Form W-2 for each employee and file it with the IRS.",
+            "verdict": "yes",
+            "reason": "The context states that Form W-2 is required for each employee if taxes like Social Security, Medicare, or federal income tax are withheld, and it must be filed with the IRS."
+          },
+          {
+            "statement": "This process ensures that taxes are properly reported and withheld.",
+            "verdict": "yes",
+            "reason": "The context outlines the procedures (e.g., W-4 and W-2 forms) that ensure taxes are reported and withheld correctly, even if the exact phrase is not used."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.462 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the user's context as an employer and fails to address the core question. The user is asking why *they* (as an employer) must pay income tax, but the assistant shifts the focus to the individual's tax obligations, which is irrelevant to the employer's role. The reference answer and documents clarify that employers are responsible for withholding and remitt",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.46153846153846145,
+        "conditioned_score": 0.46153846153846145,
+        "statements": [
+          {
+            "statement": "Even though your employees may not be directly responsible for paying income tax, you are still required to pay income tax on your own earnings.",
+            "verdict": "yes",
+            "reason": "The context states that employers deduct taxes (e.g., PAYE) from employees' salaries, implying the employer handles the payment, while self-employed individuals must file and pay their own taxes. The statement aligns with this by emphasizing the employer's responsibility for employees' taxes."
+          },
+          {
+            "statement": "Income tax is typically levied on the individual's income, not the employer's.",
+            "verdict": "yes",
+            "reason": "The context clarifies that tax is based on the individual's income (e.g., employees' salaries) and that employers act as withholding agents. This supports the statement that the tax liability is on the individual, not the employer."
+          },
+          {
+            "statement": "Depending on your country of residence and the nature of your employment, you may be subject to income tax obligations.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that tax obligations depend on the country and employment status (e.g., self-employed vs. employee), directly supporting this statement."
+          },
+          {
+            "statement": "It is advisable to consult a tax professional for specific guidance based on your situation.",
+            "verdict": "yes",
+            "reason": "The context repeatedly emphasizes consulting a licensed tax accountant due to varying laws and treaties, directly endorsing this advice."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.889, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.716 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies common types of deductions (income tax, social security, health insurance, retirement contributions, etc.) and notes their typical handling by employers. It aligns with the document's mention of deductions like insurance and flexible spending accounts. However, it omits key elements from the reference answer, such as the calculation of allowances based o",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.8888888888888888,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7164179104477612,
+        "conditioned_score": 0.7164179104477612,
+        "statements": [
+          {
+            "statement": "Common types of deductions from an employee's salary include income tax.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that employers deduct taxes from paychecks in Canada."
+          },
+          {
+            "statement": "Common types of deductions from an employee's salary include social security contributions.",
+            "verdict": "no",
+            "reason": "The context does not mention social security contributions specifically."
+          },
+          {
+            "statement": "Common types of deductions from an employee's salary include health insurance premiums.",
+            "verdict": "yes",
+            "reason": "The context lists health insurance (e.g., life or accident insurances) as deductions."
+          },
+          {
+            "statement": "Common types of deductions from an employee's salary include retirement plan contributions such as 401(k) or IRA.",
+            "verdict": "yes",
+            "reason": "The context mentions IRA contributions as deductions but does not explicitly reference 401(k)."
+          },
+          {
+            "statement": "Common types of deductions from an employee's salary include other benefits like life insurance or flexible spending accounts.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists life insurance and flexible spending accounts as deductions."
+          },
+          {
+            "statement": "Deductions are typically outlined on a pay stub.",
+            "verdict": "yes",
+            "reason": "The context states that pay stubs show all deductions and how the actual payment is calculated."
+          },
+          {
+            "statement": "Deductions are calculated based on the employee's earnings and applicable laws.",
+            "verdict": "yes",
+            "reason": "The context mentions that employers deduct calculated amounts based on earnings and laws."
+          },
+          {
+            "statement": "Employers often handle deductions on behalf of employees to ensure compliance with tax and benefit regulations.",
+            "verdict": "yes",
+            "reason": "The context states that employers remit taxes and handle deductions to ensure compliance."
+          },
+          {
+            "statement": "Some deductions may be optional, allowing employees to choose participation in certain programs.",
+            "verdict": "yes",
+            "reason": "The context notes that some deductions are under employee control through benefit elections."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses FICA by explaining employer withholding, employer responsibility for underpayment, employee refund processes, and the self-employment tax rate. However, it omits critical details from the reference answer and document, such as the split of FICA taxes between employer and employee, the funding mechanism (benefits for retirees), the distinction between employee and s",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "FICA (Federal Insurance Contributions Act) taxes are withheld from an employee's paycheck by the employer.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that in a normal employment situation, FICA tax is taken out of the paycheck by the employer."
+          },
+          {
+            "statement": "These taxes fund Social Security and Medicare programs.",
+            "verdict": "yes",
+            "reason": "The context refers to FICA taxes as 'Social Security, medicare' and implies they fund these programs."
+          },
+          {
+            "statement": "If an employer withholds less than the correct amount, they are responsible for the underpayment, not the employee.",
+            "verdict": "yes",
+            "reason": "The context states that if an employer withholds less than the correct amount, they owe the underpayment, not the employee."
+          },
+          {
+            "statement": "Employers cannot refund withheld FICA taxes as they are sent to the IRS, so employees must seek refunds through tax returns.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that employers cannot refund withheld FICA taxes and employees must seek refunds through tax returns."
+          },
+          {
+            "statement": "If an employer refuses to refund, employees can file Form 843.",
+            "verdict": "yes",
+            "reason": "The context states that employees can file Form 843 if an employer refuses to refund FICA taxes."
+          },
+          {
+            "statement": "Self-employed individuals pay the full 15.3% FICA tax, which is reported on their tax return.",
+            "verdict": "yes",
+            "reason": "The context states that self-employed individuals pay the full 15.3% FICA tax and this is reported on their tax return."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that personal income tax and corporate tax are distinct, noting that personal income tax applies to individual earnings while corporate tax applies to company profits. It also mentions differences in calculation and timing, which aligns with the document's discussion of tax bases (revenues vs. profits). However, the assistant's response lacks the depth a",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Personal income tax and corporate tax are not the same.",
+            "verdict": "yes",
+            "reason": "The context explicitly contrasts how personal income tax (on revenues) and corporate tax (on profits) are applied, highlighting their differences."
+          },
+          {
+            "statement": "Personal income tax is levied on an individual's earnings.",
+            "verdict": "yes",
+            "reason": "The context states that persons pay tax on their revenues (personal income), which includes earnings."
+          },
+          {
+            "statement": "Corporate tax is applied to a company's profits.",
+            "verdict": "yes",
+            "reason": "The context directly states that corporations pay tax on their profits (operating income)."
+          },
+          {
+            "statement": "Individuals pay taxes on their revenues.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that persons pay taxes on their revenues (personal income)."
+          },
+          {
+            "statement": "Corporations pay taxes on their profits.",
+            "verdict": "yes",
+            "reason": "The context directly states that corporations pay taxes on their profits (operating income)."
+          },
+          {
+            "statement": "The tax systems for individuals and corporations differ in terms of how taxes are calculated and when they are paid.",
+            "verdict": "yes",
+            "reason": "The context discusses differences in tax calculation (revenues vs. profits), payment timing (quarterly for corporations vs. individual income tax withholdings), and structural distinctions like National Insurance contributions."
+          },
+          {
+            "statement": "Personal income tax and corporate tax are distinct.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the distinct treatment of personal income tax (on revenues) and corporate tax (on profits), confirming their distinction."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.833, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.625 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the provided document, as it accurately reflects the document's discussion on investment types (e.g., low-maintenance vs. high-maintenance investments) and the importance of risk assessment. However, it **fails to address the tax-related aspects** of investments (e.g., taxation of dividends, capital gains, IRAs, tax-exempt funds) emphasized in the referenc",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.625,
+        "conditioned_score": 0.625,
+        "statements": [
+          {
+            "statement": "Investments can vary widely in terms of risk, return, and effort required.",
+            "verdict": "yes",
+            "reason": "The context contrasts investments like houses (requiring maintenance) with stocks, gold, and bank deposits (requiring minimal effort), highlighting differences in risk, return, and effort."
+          },
+          {
+            "statement": "Some investments, like common stock, gold, or money in the bank, may grow in value with minimal ongoing effort.",
+            "verdict": "yes",
+            "reason": "The passage explicitly states that common stock, gold, and money in the bank can be left alone and may gain or lose value without neglect."
+          },
+          {
+            "statement": "Others, such as real estate or businesses, often require maintenance and active management.",
+            "verdict": "yes",
+            "reason": "The context references houses and racehorses as examples of investments needing constant effort to maintain value, aligning with real estate and businesses."
+          },
+          {
+            "statement": "The passage emphasizes that investments needing constant care may not always be the most profitable.",
+            "verdict": "yes",
+            "reason": "The text directly states that investments requiring continuous effort may not always yield the highest profits."
+          },
+          {
+            "statement": "It also highlights the importance of understanding the risks and benefits associated with different types of investments.",
+            "verdict": "yes",
+            "reason": "The passage repeatedly discusses the need to evaluate risks and benefits for various investments, such as houses versus stocks."
+          },
+          {
+            "statement": "However, the specific details about your investments depend on your goals and circumstances.",
+            "verdict": "no",
+            "reason": "The context does not mention personal goals or circumstances as factors in investment decisions."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that practices vary by state, which aligns with the document's mention of inconsistency. However, it lacks the specific details from the reference answer, such as the seven states without income tax, distinctions between state and federal tax obligations for non-residents, and the treatment of foreign income exclusion. The document provided does not incl",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The question of whether certain practices or regulations are the same across the entire USA is not universally consistent.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'It's not consistent across the states' and discusses regional variations in implementation."
+          },
+          {
+            "statement": "Evidence suggests that these practices vary significantly by state, with some states having different implementations or regulations.",
+            "verdict": "yes",
+            "reason": "The context highlights that 'most states have some implementation' but 'fully regulated states don't have all of them,' and provides examples of regional disparities (e.g., southeast, Rockies, PNW, AZ)."
+          },
+          {
+            "statement": "One passage mentions that 'it's not consistent across the states'.",
+            "verdict": "yes",
+            "reason": "The first sentence of the context directly states 'It's not consistent across the states.'"
+          },
+          {
+            "statement": "Differences in opportunities and laws exist depending on the region.",
+            "verdict": "yes",
+            "reason": "The context references regional variations (e.g., 'look at the southeast, the rockies, the PNW, AZ there are zero or few opportunities') and discusses state-specific implementations."
+          },
+          {
+            "statement": "It is clear that these practices are not the same all over the USA.",
+            "verdict": "yes",
+            "reason": "The context repeatedly emphasizes inconsistency across states and regions, including specific examples of differing implementations and opportunities."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.857, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.632 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about job loss by focusing on personal financial preparedness, such as saving, reducing expenses, and job search strategies. However, it omits key information from the reference answer and document, particularly the role of unemployment insurance, eligibility criteria, and state-specific variations. The reference answer emphasizes unemployment b",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.8571428571428571,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.631578947368421,
+        "conditioned_score": 0.631578947368421,
+        "statements": [
+          {
+            "statement": "Having financial preparedness is important when you lose your job.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need to have cash in the bank to cover bills during unemployment, highlighting the importance of financial preparedness."
+          },
+          {
+            "statement": "Aim to save enough money to cover your expenses during the job search period.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the need to save enough to pay bills for the duration of the job search."
+          },
+          {
+            "statement": "Starting the job search early can reduce stress and uncertainty.",
+            "verdict": "yes",
+            "reason": "The context advises not waiting to be fired and to start the job search immediately, implying early action reduces stress."
+          },
+          {
+            "statement": "Avoid unnecessary spending when unemployed.",
+            "verdict": "yes",
+            "reason": "The context directly instructs to 'not spend any money you don't need to' during unemployment."
+          },
+          {
+            "statement": "Consider alternative income sources if possible during unemployment.",
+            "verdict": "no",
+            "reason": "The context does not mention alternative income sources or strategies like side gigs."
+          },
+          {
+            "statement": "Planning ahead can ease the transition period after job loss.",
+            "verdict": "yes",
+            "reason": "The context discusses planning by saving money and starting the job search early, which aligns with planning ahead."
+          },
+          {
+            "statement": "Maintaining an emergency fund can ease the transition period after job loss.",
+            "verdict": "yes",
+            "reason": "The context emphasizes having cash in the bank for bills during unemployment, which is equivalent to an emergency fund."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 25546,
+    "completion_tokens": 22151,
+    "total_tokens": 47697,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 20796,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 839.241
+}

@@ -1,0 +1,493 @@
+{
+  "version": 1,
+  "fingerprint": "1397d0df556a63c2d7c559bdb2ae26f39c034e390520e715ac7ceaa79dde4438",
+  "id": "f1121a39d8a9e36eaef4c2367bd43532",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and reference answer, covering the key approaches: liquidation value, discounted cash flow analysis, and EBITDA/SDE multiples. It also incorporates additional relevant advice from the document, such as market research and consulting a business broker. However, it omits specific examples like the 2011 hospitality industry EBITDA multiplier ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Liquidation value is a method for pricing a small business that considers the net worth of assets if the business were sold immediately.",
+            "verdict": "yes",
+            "reason": "The context defines liquidation value as the net worth of assets (land, house, furnishings, etc.) minus liabilities if sold immediately."
+          },
+          {
+            "statement": "Discounted cash flow analysis involves projecting future earnings and discounting them to present value.",
+            "verdict": "yes",
+            "reason": "The context explains discounted cash flow analysis by projecting earnings (e.g., $100,000/year) and discounting them using a formula (e.g., 100,000 / (0.08 - 0.03))."
+          },
+          {
+            "statement": "EBITDA or SDE multiples are based on industry standards and annual earnings.",
+            "verdict": "yes",
+            "reason": "The context states that EBITDA multiples (e.g., 13.8 for hospitality) and SDE are based on industry standards and annual earnings."
+          },
+          {
+            "statement": "The liquidation value considers the net worth of assets if the business were sold immediately.",
+            "verdict": "yes",
+            "reason": "This is a restatement of the first statement, which is supported by the context."
+          },
+          {
+            "statement": "Discounted cash flow involves projecting future earnings and discounting them to present value.",
+            "verdict": "yes",
+            "reason": "This is a restatement of the second statement, which is supported by the context."
+          },
+          {
+            "statement": "EBITDA and SDE multiples are based on industry standards and annual earnings.",
+            "verdict": "yes",
+            "reason": "This is a restatement of the third statement, which is supported by the context."
+          },
+          {
+            "statement": "Market research is an important factor in pricing a small business.",
+            "verdict": "yes",
+            "reason": "The context mentions researching industry multipliers and using online tools, which are forms of market research."
+          },
+          {
+            "statement": "Negotiation with the seller is an important factor in pricing a small business.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a buyer should negotiate with the owner after determining the business's value."
+          },
+          {
+            "statement": "Consulting a business broker can provide specific guidance for pricing a small business.",
+            "verdict": "yes",
+            "reason": "The context advises looking for business broker websites and enlisting a broker for the transaction."
+          },
+          {
+            "statement": "Using valuation tools can be helpful for pricing a small business.",
+            "verdict": "yes",
+            "reason": "The context references an online SME valuation tool for EBITDA-based valuation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.900, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.847 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document, as it highlights key points such as lack of planning, poor financial management, and customer service issues, which are explicitly mentioned in the document. It also addresses the nuance that some closures are intentional (e.g., planned exits), aligning with the document's discussion of voluntary closures. However, the assistant omits spe",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.9,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8470588235294118,
+        "conditioned_score": 0.8470588235294118,
+        "statements": [
+          {
+            "statement": "The primary reasons small businesses fail include lack of proper planning.",
+            "verdict": "yes",
+            "reason": "The context mentions that many people starting businesses don't put time into research or planning due to fear of failure, and the author attributes their success to careful planning."
+          },
+          {
+            "statement": "The primary reasons small businesses fail include insufficient market research.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention market research as a primary reason for failure."
+          },
+          {
+            "statement": "The primary reasons small businesses fail include poor financial management.",
+            "verdict": "yes",
+            "reason": "The context discusses debt management issues and financial inefficiencies as problems in small businesses."
+          },
+          {
+            "statement": "Many businesses fail due to unrealistic ideas.",
+            "verdict": "yes",
+            "reason": "The context states that 99% of startups at events have 'ridiculous ideas' or no way to make money."
+          },
+          {
+            "statement": "Many businesses fail due to an inability to generate revenue.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that many startups lack a viable way to make money."
+          },
+          {
+            "statement": "Some businesses close voluntarily, such as through planned exits or retirement, which can be mistaken for failure.",
+            "verdict": "yes",
+            "reason": "The context highlights that one-third of closed businesses were successful and closed via planned exits, retirement, or sales."
+          },
+          {
+            "statement": "Many small businesses are not intended to last indefinitely and may serve as temporary income sources for owners.",
+            "verdict": "yes",
+            "reason": "The context describes many small businesses as job replacement or temporary income ventures, with owners moving on after a period."
+          },
+          {
+            "statement": "Customer service issues are noted as a reason for small business failure.",
+            "verdict": "yes",
+            "reason": "The consulting section explicitly mentions customer service as a problem when businesses grow."
+          },
+          {
+            "statement": "Debt management problems are noted as a reason for small business failure.",
+            "verdict": "yes",
+            "reason": "The context discusses debt management issues, including both excessive debt and overly conservative approaches."
+          },
+          {
+            "statement": "The overarching theme in small business failure is the importance of strategic planning and adaptability in business operations.",
+            "verdict": "yes",
+            "reason": "The context emphasizes research, planning, and knowing when to exit markets as critical factors, aligning with strategic planning and adaptability."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.889, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.716 (threshold 0.80). RB_llm justification: The assistant's answer addresses key factors for a business to move forward, such as hard work, effective management, customer focus, and cost control. However, it omits several critical elements from the reference answer and document, including the importance of a solid business model, competitive advantage, proactive marketing/sales, customer-centric design, and avoiding sunk costs. The assistan",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.8888888888888888,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7164179104477612,
+        "conditioned_score": 0.7164179104477612,
+        "statements": [
+          {
+            "statement": "Hard work is a key factor in a business's continued growth and success.",
+            "verdict": "yes",
+            "reason": "The context states that hard work is a prerequisite for being in a position to benefit from luck, directly linking it to success."
+          },
+          {
+            "statement": "Effective management contributes to a business's sustained growth and success.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of viewing the business from the customer's perspective, which aligns with effective management principles."
+          },
+          {
+            "statement": "A customer-focused approach is essential for a business to move forward.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the need to look at the business from the customer's perspective, highlighting its importance."
+          },
+          {
+            "statement": "Hard work and risk-taking are prerequisites for business success.",
+            "verdict": "yes",
+            "reason": "The context states that successful business owners work tirelessly and take significant risks, directly supporting this claim."
+          },
+          {
+            "statement": "Addressing inefficiencies in operations and finances helps sustain business growth.",
+            "verdict": "yes",
+            "reason": "The context highlights inefficiencies in finances and operations as problems to address for growth, directly supporting this statement."
+          },
+          {
+            "statement": "Maintaining strong customer service is crucial for business success.",
+            "verdict": "yes",
+            "reason": "The context identifies customer service as a critical issue for small businesses, emphasizing its importance for success."
+          },
+          {
+            "statement": "Ensuring employee satisfaction is vital for a business's continued growth.",
+            "verdict": "no",
+            "reason": "The context mentions employee turnover but does not explicitly discuss employee satisfaction as a factor for growth."
+          },
+          {
+            "statement": "Cost control is necessary to drive long-term profitability and expansion.",
+            "verdict": "yes",
+            "reason": "The context discusses cost control (e.g., Amazon's reinvestment and McDonald's cost management) as a key factor for profitability and expansion."
+          },
+          {
+            "statement": "Strategic reinvestment supports a business's long-term expansion and profitability.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Amazon's reinvestment in growth initiatives as a driver for long-term expansion and profitability."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is generally aligned with the reference and document but lacks some key elements. It correctly emphasizes trust, open communication, and leading by example, which are present in both the reference and document. However, it omits critical aspects like empathy, understanding employees' real skills, and creating a comfortable work environment (e.g., office amenities) highlighte",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A good manager fosters a positive and trusting environment.",
+            "verdict": "yes",
+            "reason": "The context describes a manager who trusts employees and promotes a positive atmosphere, such as allowing flexibility and fostering open communication."
+          },
+          {
+            "statement": "A good manager should avoid micromanagement.",
+            "verdict": "yes",
+            "reason": "The manager explicitly states they do not micromanage and treat employees as adults, which is directly mentioned in the context."
+          },
+          {
+            "statement": "A good manager should promote open communication.",
+            "verdict": "yes",
+            "reason": "The open door policy and the ability to discuss problems with the manager are highlighted in the context."
+          },
+          {
+            "statement": "A good manager should create a culture of happiness and innovation.",
+            "verdict": "yes",
+            "reason": "The CEO's focus on employee happiness and core values like fostering happiness and innovation are explicitly stated."
+          },
+          {
+            "statement": "A good manager must lead by example.",
+            "verdict": "yes",
+            "reason": "The advice to learn the job and help out, as well as the SVP's example of leading by doing the work, are mentioned."
+          },
+          {
+            "statement": "A good manager must stay calm under pressure.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises staying calm even when things are going badly to maintain efficiency."
+          },
+          {
+            "statement": "A good manager must be assertive while explaining decisions.",
+            "verdict": "yes",
+            "reason": "The advice to be assertive and explain the 'why' behind decisions is directly included in the context."
+          },
+          {
+            "statement": "Trust is crucial, as it builds respect and ensures employees follow guidance.",
+            "verdict": "yes",
+            "reason": "The manager trusts employees until they prove otherwise, and the context emphasizes trust as foundational to management."
+          },
+          {
+            "statement": "A good manager values their team's input.",
+            "verdict": "yes",
+            "reason": "The open door policy and the CEO's willingness to take input on policies and decisions are mentioned."
+          },
+          {
+            "statement": "A good manager encourages growth.",
+            "verdict": "yes",
+            "reason": "The core value of growth and the SVP's emphasis on hiring for attitude and growth are highlighted."
+          },
+          {
+            "statement": "A good manager maintains professionalism.",
+            "verdict": "yes",
+            "reason": "The SVP emphasizes professionalism and treating everyone with respect, which is supported by the context."
+          },
+          {
+            "statement": "A good manager treats everyone with respect regardless of their position or age.",
+            "verdict": "yes",
+            "reason": "The SVP's example of treating admins with respect and avoiding age-based favoritism is explicitly mentioned."
+          },
+          {
+            "statement": "These qualities contribute to a successful and motivated workplace.",
+            "verdict": "yes",
+            "reason": "The context describes a happy, motivated workplace with high engagement and success, directly linking the mentioned qualities to positive outcomes."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.724 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it captures key points such as hiring based on affordability and availability, assessing skill sets, and the importance of employee retention due to high demand for skilled workers. It also mentions the ramping-up period for new hires, which is explicitly stated in the document. However, it omits some critical aspects from the document, su",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7241379310344828,
+        "conditioned_score": 0.7241379310344828,
+        "statements": [
+          {
+            "statement": "Companies identify the skills they need and hire individuals who can fulfill those roles, often considering affordability and availability.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that companies hire people they need and can afford, which aligns with the statement."
+          },
+          {
+            "statement": "The hiring process involves assessing candidates' skill sets and organizing them to meet job requirements.",
+            "verdict": "no",
+            "reason": "The context explicitly rejects the idea of assessing and organizing people, stating it 'doesn't work like that' and instead emphasizes hiring based on need and affordability."
+          },
+          {
+            "statement": "Proper treatment of employees is crucial for retention, especially given the high demand for skilled workers.",
+            "verdict": "yes",
+            "reason": "The context emphasizes treating employees well to retain them, citing the high demand for skilled workers and the laws of supply and demand."
+          },
+          {
+            "statement": "Companies may face challenges in finding talent due to the time required for new hires to adapt to specific roles.",
+            "verdict": "yes",
+            "reason": "The context criticizes the 'Fast Food/1-hour photo mentality' where companies expect pre-made skills, implying that the expectation of immediate expertise (rather than adaptation time) leads to talent shortages."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document and reference answer, as it correctly identifies common non-salary benefits like health insurance, retirement plans, paid time off, dental/vision coverage, tuition reimbursement, and job training. These align with the document's examples (e.g., Apple's 401K matching, health benefits with no copays, and training programs). However, the assis",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The basic benefits that a company provides to its employees besides salary include health insurance.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions health benefits including annual physicals, dental checks, and vision exams."
+          },
+          {
+            "statement": "The basic benefits that a company provides to its employees besides salary include retirement plans like 401Ks.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions a 401K with conservative investments and stock appreciation benefits."
+          },
+          {
+            "statement": "The basic benefits that a company provides to its employees besides salary include paid time off.",
+            "verdict": "yes",
+            "reason": "The context explicitly describes accrued paid time off, including the ability to take 3 weeks off by Year 5."
+          },
+          {
+            "statement": "The basic benefits that a company provides to its employees besides salary include dental and vision coverage.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions dental and vision coverage, including exams and financial support for glasses/contacts."
+          },
+          {
+            "statement": "The basic benefits that a company provides to its employees besides salary include tuition reimbursement.",
+            "verdict": "yes",
+            "reason": "The context explicitly references tuition reimbursement programs as a benefit."
+          },
+          {
+            "statement": "The basic benefits that a company provides to its employees besides salary include job training programs.",
+            "verdict": "yes",
+            "reason": "The context explicitly discusses job training for employees showing aptitude for different roles."
+          },
+          {
+            "statement": "These benefits contribute to employee well-being and job satisfaction.",
+            "verdict": "yes",
+            "reason": "The context describes benefits (e.g., health, retirement, time off) as positive contributors to quality of life and stability."
+          },
+          {
+            "statement": "These benefits help retain talent and support long-term career growth.",
+            "verdict": "yes",
+            "reason": "The context implies retention and growth through benefits like training, tuition reimbursement, and time off."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.600 (threshold 0.80). RB_llm justification: The assistant's answer addresses some key employee-related expenses beyond remuneration, such as taxes, benefits (health, life, disability insurance), and education. However, it includes elements like \"accounting and auditing fees\" and \"licensing costs,\" which are more general business overhead rather than employee-specific expenses. The reference answer provides a clearer, more structured breakdo",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6,
+        "conditioned_score": 0.6,
+        "statements": [
+          {
+            "statement": "A company may have expenses such as taxes.",
+            "verdict": "no",
+            "reason": "The context discusses individual taxes but does not explicitly state that companies have taxes as an expense."
+          },
+          {
+            "statement": "A company may have expenses such as accounting and auditing fees.",
+            "verdict": "no",
+            "reason": "The context mentions accounting and auditing as costs individuals must handle, not as company expenses."
+          },
+          {
+            "statement": "A company may have expenses such as licensing costs.",
+            "verdict": "no",
+            "reason": "The context refers to licensing as a cost borne by individuals, not as a company expense."
+          },
+          {
+            "statement": "A company may have expenses such as overhead for office expenses.",
+            "verdict": "no",
+            "reason": "The context discusses overhead as something individuals must factor into their rates, not as a company expense."
+          },
+          {
+            "statement": "There might be costs related to health insurance.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions health insurance as an expense individuals must cover."
+          },
+          {
+            "statement": "There might be costs related to life insurance.",
+            "verdict": "yes",
+            "reason": "The context includes life insurance as an expense individuals must account for."
+          },
+          {
+            "statement": "There might be costs related to disability coverage.",
+            "verdict": "yes",
+            "reason": "The context lists disability as an expense individuals must cover."
+          },
+          {
+            "statement": "There might be costs related to employee education.",
+            "verdict": "yes",
+            "reason": "The context mentions work-related education as a deductible expense for individuals."
+          },
+          {
+            "statement": "These expenses are often indirectly paid through the employees' rates or salaries.",
+            "verdict": "yes",
+            "reason": "The context states that these expenses should be built into the rates or salaries."
+          },
+          {
+            "statement": "Some companies may require employees to handle certain expenses themselves, depending on their policies and agreements.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that companies may require employees to cover expenses unless specified in a contract."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 27980,
+    "completion_tokens": 24713,
+    "total_tokens": 52693,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 29,
+    "reasoning_tokens": 23388,
+    "reasoning_budget_verified_calls": 29
+  },
+  "elapsed_seconds": 853.311
+}

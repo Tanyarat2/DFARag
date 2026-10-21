@@ -1,0 +1,306 @@
+{
+  "version": 1,
+  "fingerprint": "53eea4c2a2098e9ee4a368228d634fe5f060bef9a868022c9b557ee2491e52f2",
+  "id": "35e6be0f2049527ae17cf77169cc4f70",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.857, IDK=0.5, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer provides some accurate procedural information about obtaining restraining orders in California, such as the types of orders available and the importance of proper service. However, it fails to address the core issue raised in the user's question: **how to obtain a restraining order without disclosing one's address to the respondent**. ### Faithfulness: The assistant's answer",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.8571428571428571,
+        "idk": 0.5,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.5454545454545454,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "To obtain a restraining order without notifying the other person of your address, you can file for a domestic violence or civil harassment restraining order.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that filing a restraining order inherently protects the petitioner's address from being disclosed to the other party. It only advises using a public or friend's computer to avoid leaving a digital trail, not that the address is hidden during the filing process."
+          },
+          {
+            "statement": "In California, you can request a restraining order online or in person.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that domestic violence restraining orders can be submitted online via e-filing, and civil harassment restraining orders also imply the possibility of online filing through similar procedures."
+          },
+          {
+            "statement": "You must provide details about the harassment or abuse you are experiencing.",
+            "verdict": "yes",
+            "reason": "The context requires detailed descriptions of harassment, stalking, threats, or harm for civil harassment restraining orders, and abuse (physical or emotional) for domestic violence orders."
+          },
+          {
+            "statement": "The court will issue a temporary order, and the other party must be served with the documents.",
+            "verdict": "yes",
+            "reason": "The context confirms that a temporary restraining order can be issued quickly (e.g., same day or next business day) and that the order is not activated until the respondent is properly served."
+          },
+          {
+            "statement": "However, you must ensure the other person is served properly, as the order is not active until they are served.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'The Restraining Order is not activated until the respondent is properly served.'"
+          },
+          {
+            "statement": "If you are concerned about your address being known, you can use a public or friend's computer to avoid leaving a digital trail.",
+            "verdict": "yes",
+            "reason": "The context advises using a public or friend's computer to avoid someone viewing browsing history, which aligns with the statement."
+          },
+          {
+            "statement": "For further assistance, contact your local Self-Help Center or visit the California Courts Self Help Guide.",
+            "verdict": "yes",
+            "reason": "The context explicitly recommends contacting local Self-Help Centers and visiting the California Courts Self Help Guide for assistance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.800, IDK=0.0, answerability=PARTIAL -> conditioned score 0.747 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents, as it accurately references key procedures such as online filing, types of restraining orders (domestic violence, \"kick-out\"), and the necessity of proper service. It aligns with the documents' emphasis on e-filing options and the role of the court clerk’s office. However, it omits specific details like form numbers (e.g., CH-200 for proof o",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.8,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.7466666666666666,
+        "conditioned_score": 0.7466666666666666,
+        "statements": [
+          {
+            "statement": "You can submit your request online or in person at the court to file an order for a restraining order without notifying the other person of your address.",
+            "verdict": "no",
+            "reason": "The context allows online submission but does not mention omitting the petitioner's address from the request. The order is not activated until served, but the statement's claim about not notifying the other person of the address is not explicitly supported."
+          },
+          {
+            "statement": "You can file a petition for a domestic violence restraining order, which can include a 'no contact' order.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a domestic violence restraining order can include a 'no contact' order."
+          },
+          {
+            "statement": "You can also request a 'kick-out' order if you need the other person to move out of your home.",
+            "verdict": "yes",
+            "reason": "The context mentions that a 'kick-out' order (referred to as a 'move-out' order) can be requested as part of a domestic violence restraining order."
+          },
+          {
+            "statement": "Ensure you follow the court's procedures for serving the respondent, as the order is not activated until the respondent is properly served.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the restraining order is not activated until the respondent is properly served."
+          },
+          {
+            "statement": "For detailed instructions, visit the court's self-help website or contact the clerk’s office.",
+            "verdict": "yes",
+            "reason": "The context provides instructions to visit the Judicial Council's self-help website and contact the clerk’s office for assistance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.714, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.755 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the Gordon D. Schaber Sacramento County Courthouse as the location for filing a Civil Harassment Restraining Order and outlines the key steps (forms, fees, service requirements). It aligns with the document by emphasizing the 5-day service deadline and the petitioner's responsibility to ensure proper service. However, it omits specific details from the d",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.7142857142857143,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7547169811320755,
+        "conditioned_score": 0.7547169811320755,
+        "statements": [
+          {
+            "statement": "You are in Sacramento.",
+            "verdict": "no",
+            "reason": "The context mentions the Gordon D. Schaber Sacramento County Courthouse and addresses in Sacramento, but it does not explicitly state that the user is in Sacramento. The information provided is general and does not confirm the user's location."
+          },
+          {
+            "statement": "To get a restraining order without notifying the other person of your address, you can file a Civil Harassment Restraining Order at the Gordon D. Schaber Sacramento County Courthouse.",
+            "verdict": "no",
+            "reason": "The context does not mention any process for filing a restraining order without notifying the respondent of the petitioner's address. The process explicitly requires serving the respondent, which would involve providing their address."
+          },
+          {
+            "statement": "You must complete and file the necessary forms.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that forms must be completed and filed, such as the Request for Civil Harassment Restraining Order (Step 1) Packet (CV\\E-CH-01) and other required documents."
+          },
+          {
+            "statement": "You must pay the filing fee (or request a waiver if applicable).",
+            "verdict": "yes",
+            "reason": "The context specifies a filing fee is required and mentions the option to request a fee waiver, particularly if the request is based on credible threats of violence or stalking."
+          },
+          {
+            "statement": "You must ensure the respondent is personally served no later than five days before the scheduled hearing.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the petitioner is responsible for serving the respondent no later than five days prior to the hearing and filing proof of service."
+          },
+          {
+            "statement": "The forms can be obtained from the court.",
+            "verdict": "yes",
+            "reason": "The context provides information about form packets (e.g., CV\\E-CH-01, CV\\E-CH-02) and instructions for obtaining them, confirming that forms are available from the court."
+          },
+          {
+            "statement": "You can seek assistance if needed.",
+            "verdict": "yes",
+            "reason": "The context mentions free workshops and self-help resources, such as Domestic Violence Restraining Order workshops, indicating assistance is available for completing forms."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about types of orders in Sacramento but has notable shortcomings. It correctly mentions \"Civil Harassment Restraining Orders\" and \"Firearms Restraining Orders\" from the documents, aligning with the reference answer's inclusion of these. However, it fails to list other critical restraining order types explicitly named in the reference answer (e.g",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "In Sacramento, the types of orders include Civil and other Non-Criminal, Criminal, Juvenile, and specific restraining orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists 'Civil and other Non-Criminal', 'Criminal', 'Juvenile', and specific restraining orders (e.g., Civil Harassment, Firearms Restraining Orders) as categories of cases handled by the court."
+          },
+          {
+            "statement": "Civil cases encompass General Civil, Limited Civil, Family Law, Probate, Unlawful Detainer, and Small Claims.",
+            "verdict": "yes",
+            "reason": "The context explicitly defines civil cases as including General Civil, Limited Civil, Family Law, Probate, Unlawful Detainer, and Small Claims."
+          },
+          {
+            "statement": "Criminal cases are divided into felony, misdemeanors, and infractions.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that criminal cases are separated into three main categories: felony, misdemeanors, and infractions."
+          },
+          {
+            "statement": "Juvenile cases involve Juvenile Justice and Juvenile Dependency.",
+            "verdict": "yes",
+            "reason": "The context explicitly defines Juvenile cases as involving Juvenile Justice (for minors who broke penal law) and Juvenile Dependency (for minors removed from parental care)."
+          },
+          {
+            "statement": "Additionally, there are restraining orders, including Civil Harassment Restraining Orders and Firearms Restraining Orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions both 'Civil Harassment Restraining Orders' and 'Firearms Restraining Orders' as specific types of restraining orders."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful, somewhat appropriate, and incomplete. It correctly identifies the civil harassment order's purpose (for non-relationship scenarios like neighbors or coworkers) and mentions consulting the California Courts Self-Help Guide, which aligns with the document. However, it omits critical procedural details from the reference answer, such as the specific form ",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The civil harassment order is one of the types of restraining orders available in California.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists 'Civil harassment' as a type of restraining order under the 'Types of restraining orders' section."
+          },
+          {
+            "statement": "It is typically sought when you are not in a relationship and not closely related to the person you need protection from, such as neighbors or coworkers.",
+            "verdict": "yes",
+            "reason": "The context states that civil harassment orders apply to situations where the individuals are not in a relationship and not closely related, such as neighbors or coworkers."
+          },
+          {
+            "statement": "To file for a civil harassment order, you would need to determine the appropriate form and process based on your specific situation.",
+            "verdict": "yes",
+            "reason": "The context advises determining the correct type of restraining order to file and mentions that the court's Self-Help Center can assist if unsure, implying the need to follow specific procedures."
+          },
+          {
+            "statement": "For detailed information on how to proceed, refer to the California Courts Self-Help Guide or consult with a local court.",
+            "verdict": "yes",
+            "reason": "The context repeatedly directs users to the California Courts Self-Help Guide and mentions consulting court resources for guidance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.000, IDK=0.0, answerability=CONVERSATIONAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's response to the user's \"Thank you!\" is appropriate and aligns well with the reference answer. The assistant acknowledges the gratitude and invites further questions, which is both polite and helpful. Since the user's message is a simple acknowledgment, the assistant's answer is concise and does not introduce any extraneous information. The documents provided in this turn are unrela",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.0,
+        "idk": 0.0,
+        "answerability": "CONVERSATIONAL",
+        "phi": 0.0,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The assistant acknowledges the thanks by saying 'You're welcome!'",
+            "verdict": "no",
+            "reason": "The context does not mention any interaction with an assistant or a response to thanks."
+          },
+          {
+            "statement": "The assistant invites the user to ask more questions if they have any.",
+            "verdict": "no",
+            "reason": "The context does not include any statements from an assistant inviting questions."
+          },
+          {
+            "statement": "The assistant encourages the user to reach out with additional questions.",
+            "verdict": "no",
+            "reason": "There is no mention of an assistant encouraging outreach in the provided context."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 32768,
+    "max_requested_reasoning_tokens": 16384,
+    "prompt_tokens": 41524,
+    "completion_tokens": 16500,
+    "total_tokens": 58024,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 26,
+    "reasoning_tokens": 14514,
+    "reasoning_budget_verified_calls": 26
+  },
+  "elapsed_seconds": 589.099
+}

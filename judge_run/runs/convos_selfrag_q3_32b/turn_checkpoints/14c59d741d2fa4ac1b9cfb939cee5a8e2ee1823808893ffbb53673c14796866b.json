@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "fingerprint": "14c59d741d2fa4ac1b9cfb939cee5a8e2ee1823808893ffbb53673c14796866b",
+  "id": "a3f07e9ed5f257db6aecd30511f03af1",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer accurately captures the core themes of unrequited love and heartbreak from the song \"Grenade,\" aligning with the document's mention of Bruno Mars's unreciprocated affection and emotional sacrifice. It correctly references the iconic lyric \"I'd catch a grenade for ya\" and notes the song's inspiration from Mars's personal experiences. However, it omits key details from the doc",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "\"Grenade\" by Bruno Mars is a pop and R&B ballad from his debut album *Doo-Wops & Hooligans* (2010).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'Grenade' is a pop and R&B ballad from Mars's debut album *Doo-Wops & Hooligans* (2010)."
+          },
+          {
+            "statement": "The song explores themes of unrequited love and heartbreak, with Mars expressing his deep affection for someone who does not reciprocate his feelings.",
+            "verdict": "yes",
+            "reason": "The context describes the song's lyrics as conveying unrequited love and heartbreak, and Mars explicitly states in an interview that the song represents loving a woman who does not love him back."
+          },
+          {
+            "statement": "The lyrics convey a sense of sacrifice and longing, as seen in lines like \"I'd catch a grenade for ya,\" symbolizing his willingness to endure pain for love.",
+            "verdict": "yes",
+            "reason": "The context includes the lyric 'I'd catch a grenade for ya' and explains the song's theme of unrequited love, which aligns with the idea of sacrifice and longing."
+          },
+          {
+            "statement": "The song was inspired by Mars's personal experiences and emotions.",
+            "verdict": "yes",
+            "reason": "The context states that Mars admitted the song was inspired by 'his love for a girl who did not love him back' and that it was therapeutic for him."
+          },
+          {
+            "statement": "It became a major hit, reaching number one in multiple countries and achieving platinum certification.",
+            "verdict": "yes",
+            "reason": "The context confirms the song reached number one in fifteen countries, topped the Billboard Hot 100, and received multiple platinum certifications from RIAA, ARIA, and Music Canada."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.766 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the writers of \"Grenade\" as The Smeezingtons (Bruno Mars, Phillip Lawrence, Ari Levine) with additional contributions from Brody Brown, Claude Kelly, and Andrew Wyatt, aligning with both the document and the reference answer. For performers, the assistant accurately states that Bruno Mars is the lead vocalist and performer, which is consistent with the d",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7659574468085106,
+        "conditioned_score": 0.7659574468085106,
+        "statements": [
+          {
+            "statement": "The writers of the song \"Grenade\" by Bruno Mars are The Smeezingtons (Bruno Mars, Phillip Lawrence, Ari Levine).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the song was written and produced by The Smeezingtons (Mars, Phillip Lawrence, Ari Levine)."
+          },
+          {
+            "statement": "Additional songwriting for the song \"Grenade\" was contributed by Brody Brown, Claude Kelly, and Andrew Wyatt.",
+            "verdict": "yes",
+            "reason": "The context confirms that Brody Brown, Claude Kelly, and Andrew Wyatt provided additional songwriting for the track."
+          },
+          {
+            "statement": "The performers of the song \"Grenade\" are Bruno Mars, who also wrote and produced it.",
+            "verdict": "no",
+            "reason": "While Bruno Mars is the lead vocalist and part of the production team (The Smeezingtons), the context also credits Ari Levine, Brody Brown, and others for instrumentation and engineering, indicating additional performers beyond Mars alone."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the promotional single release date of \"Grenade\" as September 28, 2010, which aligns with the document. While the reference answer includes additional details (Billboard Hot 100 debut and music video release), the user's question specifically asked for the release date, and the assistant provided the most direct and accurate response. The assistant's ans",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The song 'Grenade' was released by Bruno Mars.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'Grenade' is a song by Bruno Mars from his debut album."
+          },
+          {
+            "statement": "It was initially released as a promotional single on September 28, 2010.",
+            "verdict": "yes",
+            "reason": "The context confirms that 'Grenade' was released as a promotional single on September 28, 2010, by Elektra Records."
+          },
+          {
+            "statement": "The release date of 'Grenade' as a promotional single is September 28, 2010.",
+            "verdict": "yes",
+            "reason": "The context directly states that the promotional single release date was September 28, 2010."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that \"Grenade\" became a hit, citing its number one chart positions in fourteen charts, 10.2 million digital sales, and multiple platinum certifications. These details align with the document, which explicitly states similar figures (e.g., 10.2 million sales, seven-time platinum certifications). The assistant also mentions its prominence on the album, which",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "\"Grenade\" by Bruno Mars became a hit.",
+            "verdict": "yes",
+            "reason": "The context states that the song was well received by critics, reached number one in multiple countries, and was a top-selling single, all indicating it was a hit."
+          },
+          {
+            "statement": "It reached number one in fourteen different charts.",
+            "verdict": "yes",
+            "reason": "The first paragraph of the context explicitly mentions that 'Grenade' reached number one in fourteen different charts."
+          },
+          {
+            "statement": "It sold 10.2 million digital copies in 2011, making it the second most sold single of that year.",
+            "verdict": "yes",
+            "reason": "The context confirms that 'Grenade' sold 10.2 million digital copies in 2011, ranking it as the second most sold single after 'Just the Way You Are'."
+          },
+          {
+            "statement": "The song was certified seven times platinum by the RIAA and ARIA.",
+            "verdict": "yes",
+            "reason": "The context states that 'Grenade' was certified seven times platinum by both the RIAA and ARIA."
+          },
+          {
+            "statement": "It topped the Canadian Hot 100 for three non-consecutive weeks.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that 'Grenade' topped the Canadian Hot 100 for three non-consecutive weeks."
+          },
+          {
+            "statement": "It was one of the standout tracks on the album *Doo-Wops & Hooligans*.",
+            "verdict": "yes",
+            "reason": "The context states that critics considered 'Grenade' one of the standout tracks on the album *Doo-Wops & Hooligans*."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that Bruno Mars performed at the Super Bowl, specifying Super Bowl XLVIII, the date (February 2, 2014), location (MetLife Stadium), and the songs he performed (\"Locked Out of Heaven,\" \"Treasure,\" and \"Just the Way You Are\"). It aligns with the documents and reference answer on these core facts. However, the answer is incomplete in two key ways: 1. **Omissi",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Bruno Mars performed at the Super Bowl.",
+            "verdict": "yes",
+            "reason": "The context states that Bruno Mars performed at the Super Bowl XLVIII halftime show."
+          },
+          {
+            "statement": "He was part of the halftime show for Super Bowl XLVIII.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Bruno Mars as a performer in the Super Bowl XLVIII halftime show."
+          },
+          {
+            "statement": "Super Bowl XLVIII took place on February 2, 2014, at MetLife Stadium in East Rutherford, New Jersey.",
+            "verdict": "yes",
+            "reason": "The context specifies the date and location of Super Bowl XLVIII as February 2, 2014, at MetLife Stadium."
+          },
+          {
+            "statement": "Bruno Mars performed 'Locked Out of Heaven'.",
+            "verdict": "yes",
+            "reason": "The context lists 'Locked Out of Heaven' as one of the songs performed by Bruno Mars during the Super Bowl XLVIII halftime show."
+          },
+          {
+            "statement": "Bruno Mars performed 'Treasure'.",
+            "verdict": "yes",
+            "reason": "The context confirms that 'Treasure' was performed by Bruno Mars during the Super Bowl XLVIII halftime show."
+          },
+          {
+            "statement": "Bruno Mars performed 'Just the Way You Are'.",
+            "verdict": "yes",
+            "reason": "The context states that Bruno Mars performed 'Just the Way You Are' as a tribute to the United States Armed Forces during the Super Bowl XLVIII halftime show."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the performers for the most recent two Super Bowl halftime shows (XLVIII and 50) as documented in the provided text. It accurately names Bruno Mars and Red Hot Chili Peppers for Super Bowl XLVIII (2014) and Coldplay, Beyoncé, Bruno Mars, and Mark Ronson for Super Bowl 50 (2016). The answer is faithful to the document, which explicitly lists these perform",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The Super Bowl XLVIII halftime show featured Bruno Mars and Red Hot Chili Peppers.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Bruno Mars and Red Hot Chili Peppers performed at Super Bowl XLVIII halftime show, including their setlist and performance details."
+          },
+          {
+            "statement": "The Super Bowl 50 halftime show included Coldplay, Beyoncé, Bruno Mars, and Mark Ronson.",
+            "verdict": "yes",
+            "reason": "The context lists Coldplay, Beyoncé, Bruno Mars, and Mark Ronson as performers in the Super Bowl 50 halftime show, along with other details about the event."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer contains a critical error in the artist's name, which directly affects its accuracy and relevance. The user asked about \"Mario Mars,\" but the assistant responded about \"Bruno Mars,\" who is the correct artist associated with the performance at the Bowery Ballroom. While the document confirms Bruno Mars's performance on August 25, 2010, the assistant failed to address the name",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Bruno Mars performed at the Bowery Ballroom in New York City.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Mars performed at the Bowery Ballroom in New York City on August 25, 2010."
+          },
+          {
+            "statement": "Bruno Mars performed the song 'Grenade' at the Bowery Ballroom.",
+            "verdict": "yes",
+            "reason": "The context confirms that Mars performed 'Grenade' at the Bowery Ballroom as part of the event described."
+          },
+          {
+            "statement": "The performance of 'Grenade' by Bruno Mars occurred on August 25, 2010.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the date of the performance at the Bowery Ballroom as August 25, 2010."
+          },
+          {
+            "statement": "Bruno Mars's four-piece band was dressed in blue tuxedos and black skinny ties during the performance.",
+            "verdict": "yes",
+            "reason": "The context specifies that both Mars and his four-piece band were dressed in blue tuxedos and black skinny ties during the performance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 23732,
+    "completion_tokens": 13903,
+    "total_tokens": 37635,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 28,
+    "reasoning_tokens": 11353,
+    "reasoning_budget_verified_calls": 28
+  },
+  "elapsed_seconds": 528.306
+}

@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "fingerprint": "a7cb0debb2197334f4cb5fe1b4d9b4c1a37b9665dc8d6d70588efa5bbb376eed",
+  "id": "4da5a7f42f3b2dc4d875dcfa2fcdefef",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=1.0, answerability=PARTIAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, accurately reflecting that France does not typically use credit ratings and that international credit reports are not commonly collected. It appropriately addresses the user's question by focusing on the lack of such reports for French nationals and contrasts this with the U.S. system. The answer is concise and avoids unnecessary details, though ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "PARTIAL",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The concept of an \"international credit report\" for French nationals is not directly addressed in the retrieved evidence.",
+            "verdict": "yes",
+            "reason": "The context mentions France's different financial system but does not specifically discuss an international credit report for French nationals."
+          },
+          {
+            "statement": "In France, individuals do not typically have credit ratings, which contrasts with systems in the United States.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that France has a different system where people do not have credit ratings."
+          },
+          {
+            "statement": "Credit reports and scores in the United States are primarily managed by private entities such as Experian, Equifax, and TransUnion.",
+            "verdict": "yes",
+            "reason": "The context identifies the 'big three' credit bureaus in the US as private entities managing credit reports and scores."
+          },
+          {
+            "statement": "International credit histories are not commonly collected, according to the evidence provided.",
+            "verdict": "yes",
+            "reason": "The context notes that no known companies in North America collect international credit histories, though it acknowledges the possibility in Europe."
+          },
+          {
+            "statement": "There is no specific information provided about an \"international credit report\" for French nationals.",
+            "verdict": "yes",
+            "reason": "The context discusses France's financial system but does not provide specific details about international credit reports for French nationals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the documents and previous conversation, as it correctly states that a French national can obtain a US credit report via AnnualCreditReport.com and highlights the need to build local credit. However, it introduces additional steps (e.g., applying for credit cards or loans) that, while relevant to building credit, are not directly required to answer the ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A French national can obtain a credit report in the US, but it depends on their credit history and the process of building credit.",
+            "verdict": "yes",
+            "reason": "The context explains that credit history is local, and individuals must build it in the US. A credit report can only be obtained once local credit history is established."
+          },
+          {
+            "statement": "If a French national has no credit history in the US, they may need to start by applying for a credit card or loan from institutions like Discover, Bank of America, or FinTech companies like Westbon.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Discover, Bank of America, and Westbon as options for international students with no credit history to build credit in the US."
+          },
+          {
+            "statement": "French nationals can request a free credit report annually from the three major US credit bureaus (Equifax, Experian, and TransUnion) via AnnualCreditReport.com.",
+            "verdict": "yes",
+            "reason": "The context states that all individuals, regardless of nationality, are entitled to a free annual credit report from each of the three bureaus via AnnualCreditReport.com."
+          },
+          {
+            "statement": "International credit histories are not typically recognized in the US, making it essential to build local credit.",
+            "verdict": "yes",
+            "reason": "The context clarifies that credit history is local and not international, and explicitly advises building local credit through US institutions for international individuals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies key factors that can harm a credit score, such as maxing out credit cards, high utilization, late payments, canceling credit cards, and multiple credit checks. These align with the document's emphasis on utilization thresholds (50% or 33%) and the impact of canceling cards. However, the assistant omits critical details from the document and reference ans",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Maxing out your credit cards can hurt your credit score.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that maxing out credit cards hurts the credit rating."
+          },
+          {
+            "statement": "Using more than half of your available credit negatively impacts your credit score.",
+            "verdict": "yes",
+            "reason": "The context mentions that using more than 50% of available credit is a minus for the credit score."
+          },
+          {
+            "statement": "A high credit utilization rate, which is the percentage of your available credit being used, can lower your credit score.",
+            "verdict": "yes",
+            "reason": "The context emphasizes credit utilization as the biggest risk, with high usage lowering the score."
+          },
+          {
+            "statement": "Failing to pay back debts on time, such as loans or credit card balances, damages your credit.",
+            "verdict": "yes",
+            "reason": "The context warns against not paying back loans on schedule, which damages credit."
+          },
+          {
+            "statement": "Canceling credit cards can increase your credit utilization ratio, which may hurt your credit score.",
+            "verdict": "yes",
+            "reason": "The context states that canceling cards can hurt by increasing utilization."
+          },
+          {
+            "statement": "Canceling credit cards can reduce the length of your credit history, negatively affecting your credit score.",
+            "verdict": "yes",
+            "reason": "The context mentions that canceling the oldest card decreases the length of credit lines."
+          },
+          {
+            "statement": "Applying for multiple credit checks in a short period can slightly lower your credit score with each check.",
+            "verdict": "yes",
+            "reason": "The context explains that multiple credit checks (hard inquiries) hurt the score slightly."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.5, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about whether to live in the US by discussing factors like personal circumstances, tax implications, cost of living, and career opportunities. While the answer is relevant and provides a general framework for decision-making, it does not directly address the specific context from the previous conversation about credit reports for French national",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Whether you should live in the US depends on your personal circumstances, such as your financial situation, lifestyle preferences, and long-term goals.",
+            "verdict": "yes",
+            "reason": "The context discusses factors like cost of living, lifestyle choices (e.g., having kids, saving money, healthcare), and personal trade-offs (e.g., financial sacrifices for residency), which align with the statement's emphasis on personal circumstances."
+          },
+          {
+            "statement": "The US has specific tax rules for residents and non-residents, and your residency status can affect how your income is taxed.",
+            "verdict": "yes",
+            "reason": "The context explicitly explains that US tax residents are taxed on worldwide income, while non-residents are taxed only on US-sourced income, and it references the substantial presence test to determine residency status."
+          },
+          {
+            "statement": "If you are a non-resident, you may not be taxed on worldwide income, but certain types of US-sourced income may still be subject to US taxes.",
+            "verdict": "yes",
+            "reason": "The context clarifies that non-residents are generally not taxed on worldwide income but must pay US taxes on specific US-sourced income (e.g., rental property, dividends) and that treaties may apply."
+          },
+          {
+            "statement": "It is important to consider factors like cost of living, career opportunities, and potential tax obligations.",
+            "verdict": "yes",
+            "reason": "The context emphasizes cost of living, financial trade-offs (e.g., $30k budget, $100k sacrifices), and tax obligations for residents vs. non-residents, which directly support the statement."
+          },
+          {
+            "statement": "For a more accurate assessment, consult a tax professional familiar with international tax laws.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises seeking professional advice (e.g., EA/CPA with international expertise) to navigate tax treaties, residency rules, and jurisdictional complexities."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that credit activities in the US (e.g., credit cards, loans) are necessary to build a US credit report. It accurately mentions the need for an SSN/ITIN and a US address, which are key requirements from the documents. However, it omits specific examples of institutions (e.g., Discover, Bank of America, Westbon) and the role of FinTech companies in providi",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "You can engage in credit activities in the US, but typically need a US SSN or ITIN if you are a non-resident.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a US SSN is required for credit activities, and an ITIN is an alternative for non-residents with US income."
+          },
+          {
+            "statement": "A US residential address is often required by credit companies for account eligibility.",
+            "verdict": "yes",
+            "reason": "The context mentions that revolving credit companies require a US address, preferably a residential one, not a mail-drop or PO Box."
+          },
+          {
+            "statement": "Applying for a credit card or secured loan is a common way to begin building US credit history.",
+            "verdict": "yes",
+            "reason": "The context provides examples of credit cards (e.g., Discover, Bank of America) and secured loans (e.g., Westbon) as methods to build US credit history."
+          },
+          {
+            "statement": "Establishing credit in the US may require time, financial investment, and compliance with regulations for foreign nationals.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need for time, financial investment (e.g., annual fees, maintaining balances), and compliance with IRS regulations (e.g., W8BEN) for foreign nationals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and addresses the user's question about wrongful credit reporting. It correctly references the Fair Credit Reporting Act (FCRA), emphasizes the creditor's responsibility for accurate reporting, and outlines the process of disputing inaccuracies via certified letters. These points align with the document's emphasis on consumer rights and cr",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "If you are wrongfully reported in the US credit report, you have legal rights under the Fair Credit Reporting Act.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Fair Credit Reporting Act provides rights and mechanisms for disputing inaccuracies in credit reports."
+          },
+          {
+            "statement": "You can dispute the inaccurate information with the credit bureaus, and they are required to investigate and correct or remove the information if it cannot be verified.",
+            "verdict": "yes",
+            "reason": "The context explains that federal laws require credit bureaus to verify disputed information and remove it if unverified, aligning with the statement."
+          },
+          {
+            "statement": "The responsibility for accurate reporting lies with the creditors, not the credit bureaus.",
+            "verdict": "yes",
+            "reason": "The context clarifies that creditors are responsible for reporting accurate data, and credit bureaus merely act as clearinghouses without arbitrating data accuracy."
+          },
+          {
+            "statement": "You should send a certified letter to each bureau disputing the report and request a detailed explanation.",
+            "verdict": "yes",
+            "reason": "The context advises sending a certified letter with return receipt to each bureau to dispute information, as required by law."
+          },
+          {
+            "statement": "If the information is found to be incorrect, it must be removed.",
+            "verdict": "yes",
+            "reason": "The context states that unverified information must be removed from credit reports, as mandated by federal law."
+          },
+          {
+            "statement": "It is also advisable to consult with an attorney for further legal guidance.",
+            "verdict": "yes",
+            "reason": "The context repeatedly emphasizes consulting a licensed attorney for legal advice, as the provided information is not legal counsel."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.714, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.652 (threshold 0.80). RB_llm justification: The assistant's answer addresses the \"clearing period\" in the context of how long negative information remains on a credit report, which aligns with part of the document (Experian's explanation of 7–15 year timeframes). However, the reference answer focuses on the **30-day dispute resolution period** under the Fair Credit Reporting Act (FCRA), which is also part of the document but omitted by the ",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.7142857142857143,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6521739130434783,
+        "conditioned_score": 0.6521739130434783,
+        "statements": [
+          {
+            "statement": "The clearing period refers to the duration negative information remains on a credit report.",
+            "verdict": "no",
+            "reason": "The context defines 'clearing period' in the ACH transaction context (processing time for payments), not related to credit report retention periods. The duration of negative information on credit reports is governed by separate legal timeframes (e.g., 7 years for most negative items)."
+          },
+          {
+            "statement": "Negative information like missed payments and most public records typically stays on a credit report for seven years.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'potentially negative information, such as missed payments and most public record items, remain on a personal credit report for seven years.'"
+          },
+          {
+            "statement": "Chapter 7, 11, and 12 bankruptcies can remain on a credit report for up to 10 years.",
+            "verdict": "yes",
+            "reason": "The context directly states that 'Chapters 7, 11 and 12 bankruptcies, which remain for 10 years.'"
+          },
+          {
+            "statement": "Unpaid tax liens may stay on a credit report for 15 years.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'unpaid tax liens, which remain for 15 years.'"
+          },
+          {
+            "statement": "Positive information on a credit report may remain indefinitely.",
+            "verdict": "yes",
+            "reason": "The context states that 'Positive information may remain on a report indefinitely.'"
+          },
+          {
+            "statement": "Paid closed accounts generally stay on a credit report for 10 years.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'Paid closed accounts generally display for 10 years.'"
+          },
+          {
+            "statement": "The clearing period for credit reports is primarily governed by these specified timeframes for different types of information.",
+            "verdict": "no",
+            "reason": "The context defines 'clearing period' in the ACH transaction context (processing time for payments), not related to credit report retention periods. The duration of negative information on credit reports is governed by separate legal timeframes (e.g., 7 years for most negative items)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.333 (threshold 0.80). RB_llm justification: The assistant's answer is entirely off-topic and fails to address the user's request for a layman's explanation of the \"clearing period\" in the context of credit reports. The user was confused about the previous explanation of how long negative information stays on a credit report (e.g., 7 years for most items, 10 years for bankruptcies). Instead of simplifying this, the assistant incorrectly shif",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.3333333333333333,
+        "conditioned_score": 0.3333333333333333,
+        "statements": [
+          {
+            "statement": "A clearing period is the time it takes for a financial transaction, like a check or electronic payment, to be fully processed and the funds to become available.",
+            "verdict": "yes",
+            "reason": "The context explains that ACH transactions take 1-2 business days to clear due to batch processing, and checks can take 7-10 days to clear. This aligns with the definition of a clearing period as the time for funds to become available."
+          },
+          {
+            "statement": "In simple terms, it's the time between when you deposit or send money and when the recipient actually gets it.",
+            "verdict": "yes",
+            "reason": "The context clarifies that deposited checks may be 'advanced' by banks (floating) but actual transfer takes time, and ACH transactions are processed at the end of the day. This matches the description of the time gap between deposit/send and recipient receipt."
+          },
+          {
+            "statement": "This can take a few days, especially with checks, where it might take 7-10 days for the funds to clear.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that checks can take 7-10 days to clear, particularly for international transactions, which directly supports this statement."
+          },
+          {
+            "statement": "During this time, the money is considered 'floating' and not yet officially transferred.",
+            "verdict": "yes",
+            "reason": "The context describes how banks advance funds from checks as an 'interest-free loan' while the check 'floats' until it clears, confirming the concept of floating funds during the clearing period."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 32539,
+    "completion_tokens": 17775,
+    "total_tokens": 50314,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 33,
+    "reasoning_tokens": 15185,
+    "reasoning_budget_verified_calls": 33
+  },
+  "elapsed_seconds": 719.911
+}

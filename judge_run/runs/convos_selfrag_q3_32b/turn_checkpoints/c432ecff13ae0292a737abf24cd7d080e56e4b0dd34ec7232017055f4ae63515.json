@@ -1,0 +1,400 @@
+{
+  "version": 1,
+  "fingerprint": "c432ecff13ae0292a737abf24cd7d080e56e4b0dd34ec7232017055f4ae63515",
+  "id": "941445ba11ba7ba2c92c5184c9d798d6",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.857, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.771 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the documents, as it correctly states the monetary limits for businesses ($5,000) and individuals ($7,500) as per the Tuolumne County document. It accurately reflects the informal process, the prohibition of legal representation during the hearing (though pre-trial legal advice is allowed), and the availability of mediation. However, the reference answe",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.8571428571428571,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7706422018348623,
+        "conditioned_score": 0.7706422018348623,
+        "statements": [
+          {
+            "statement": "A small claims court is a specialized court designed to resolve disputes quickly and inexpensively.",
+            "verdict": "yes",
+            "reason": "The context states that in Small Claims court, disputes are settled in a fair, quick, and inexpensive manner."
+          },
+          {
+            "statement": "It allows individuals and businesses to settle minor legal matters without the need for an attorney during the hearing.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that you may not have a lawyer represent you in court (except on appeal), confirming that the process is attorney-free during hearings."
+          },
+          {
+            "statement": "Legal advice can be sought before the trial.",
+            "verdict": "yes",
+            "reason": "The context states that you may ask a lawyer for advice before going to court."
+          },
+          {
+            "statement": "The court handles cases involving amounts up to $5,000 for businesses or $7,500 for individuals.",
+            "verdict": "no",
+            "reason": "The context specifies $5,000 for businesses and $10,000 for natural persons (individuals), not $7,500 for individuals."
+          },
+          {
+            "statement": "The process is informal, with simple rules.",
+            "verdict": "yes",
+            "reason": "The context describes the rules as fairly simple and the hearing as informal."
+          },
+          {
+            "statement": "Parties may request mediation.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that mediation can be requested the day of the trial."
+          },
+          {
+            "statement": "The court provides resources and assistance to help with filing claims, preparing for court, and collecting judgments.",
+            "verdict": "yes",
+            "reason": "The context references the Small Claims Advisory Clinic, which provides legal advice on filing, preparing, and collecting judgments."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the situation can be addressed in small claims court and mentions the $10,000 limit, which aligns with the document's information. However, it omits critical details such as the **age requirement (18+ years)** for filing a claim and **specific examples of evidence** (e.g., repair receipts, photos, emails) required to support the claim. These omissio",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Yes, this situation can be addressed in small claims court.",
+            "verdict": "yes",
+            "reason": "The context explains that small claims court handles disputes for money damages up to $10,000, which aligns with the general scope of the statement."
+          },
+          {
+            "statement": "If the damage to the apartment exceeds the security deposit, you can file a claim for the difference in small claims court.",
+            "verdict": "yes",
+            "reason": "The context supports claims for monetary damages, including scenarios where the amount exceeds prior obligations (e.g., security deposit), as long as the total does not exceed the $10,000 limit."
+          },
+          {
+            "statement": "The amount claimed must not exceed the court's limit, which is typically $10,000.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that small claims court is for damages of $10,000 or less."
+          },
+          {
+            "statement": "You would need to file a claim form.",
+            "verdict": "yes",
+            "reason": "The context details the process of filing a claim form (e.g., Plaintiff's Claim and Order to Defendant) as part of the small claims procedure."
+          },
+          {
+            "statement": "You must provide evidence of the damage.",
+            "verdict": "yes",
+            "reason": "The context emphasizes preparing evidence (e.g., organizing thoughts, collecting evidence, and talking to witnesses) as part of the hearing preparation."
+          },
+          {
+            "statement": "You must follow the court's procedures for service and hearing.",
+            "verdict": "yes",
+            "reason": "The context outlines specific service methods (e.g., certified mail, personal service) and hearing requirements (e.g., proof of service, deadlines), which are mandatory."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that small claims court forms are available online, specifically under \"Online Forms\" via the Judicial Council hyperlink, as confirmed by the documents. It also accurately adds alternative methods (clerk’s office or mail) for those without internet access, which are mentioned in the documents. The reference answer is concise but omits these alternatives. The",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The forms for small claims court are typically available online.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that forms can be located on the court website under 'Online Forms'."
+          },
+          {
+            "statement": "The forms to file a small claims case are available on the court website under 'Online Forms'.",
+            "verdict": "yes",
+            "reason": "The context directly mentions this exact phrase in the Ventura County section."
+          },
+          {
+            "statement": "Accessing the Judicial Council hyperlink on the court website leads to the small claims forms.",
+            "verdict": "yes",
+            "reason": "The context specifies that the Judicial Council hyperlink is used to access the forms."
+          },
+          {
+            "statement": "Individuals without computer access can visit the clerk’s office to obtain the forms.",
+            "verdict": "yes",
+            "reason": "The context states that individuals can visit the clerk’s office to fill out the paperwork."
+          },
+          {
+            "statement": "Alternatively, individuals can request the forms to be mailed to them if they lack computer access.",
+            "verdict": "yes",
+            "reason": "The context explains that individuals can request the forms to be mailed with a self-addressed stamped envelope."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful to the documents, as it correctly notes that the specific filing fee for initiating a small claims case in Ventura County is not explicitly mentioned in the provided evidence. However, the reference answer includes detailed fee tiers for Ventura County (e.g., $30 for claims ≤$1,500, $50 for $1,500–$5,000, etc.), which are not present in the given docume",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The filing fee for small claims court varies depending on the county.",
+            "verdict": "yes",
+            "reason": "The context mentions different counties (e.g., Tuolumne and Ventura) but does not explicitly state the same filing fee for initiating a case, implying variation by jurisdiction."
+          },
+          {
+            "statement": "In Ventura County, California, the filing fee for motions to vacate a judgment is $20.00.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the filing fee for motions to vacate a judgment in Ventura County is $20.00."
+          },
+          {
+            "statement": "In Ventura County, California, the filing fee for appeals is $75.00.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the filing fee for appeals in Ventura County is $75.00."
+          },
+          {
+            "statement": "The specific filing fee for initiating a small claims court case is not explicitly stated in the retrieved evidence.",
+            "verdict": "yes",
+            "reason": "The context for Tuolumne County mentions a filing fee must be paid but does not specify the amount, and Ventura County's FAQs reference a 'fee structure' without listing the exact amount for initiating a case."
+          },
+          {
+            "statement": "Individuals should consult the court's fee schedule in their jurisdiction for accurate information on filing fees.",
+            "verdict": "yes",
+            "reason": "The context for Tuolumne County explicitly directs users to 'access the fee schedule' and Ventura County's FAQs mention a 'fee structure,' both implying that local schedules are necessary for precise information."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the key aspects of mediation in small claims court, including its voluntary nature, timing (before/after filing), the mediator's role, confidentiality, and benefits like preserving relationships. It aligns with the documents, which emphasize mediation as a free, confidential process facilitated by trained mediators. However, the assistant's response omits specific ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Mediation in small claims court is a voluntary process where a neutral mediator helps parties resolve disputes without going to trial.",
+            "verdict": "yes",
+            "reason": "The context states that mediation is a 'confidential, voluntary process' with a 'neutral person' facilitating resolution, which aligns with the statement."
+          },
+          {
+            "statement": "It can occur before or after filing a case, and if an agreement is reached, it can be entered into the court record without a hearing.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions mediation can occur before or after filing, and agreements can be entered into the court record without appearing in court, matching the statement."
+          },
+          {
+            "statement": "The mediator facilitates communication, explores settlement options, and does not impose a decision.",
+            "verdict": "yes",
+            "reason": "The context clarifies the mediator's role as a 'neutral intermediary' who facilitates discussion and explores options without imposing a settlement, directly supporting the statement."
+          },
+          {
+            "statement": "Mediation is confidential and free.",
+            "verdict": "yes",
+            "reason": "The context confirms mediation is 'confidential' and 'free' at the court, with VCDS mediations having nominal costs (which may be waived), aligning with the statement."
+          },
+          {
+            "statement": "It can help preserve relationships.",
+            "verdict": "yes",
+            "reason": "The context highlights mediation's utility in preserving relationships (e.g., family, neighbors, business partners), directly supporting the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, as it correctly states that interpreters are provided free of charge, the need to notify the court in advance, and references the specific form (INT-300) used in some jurisdictions. It also directs users to check their court’s website for procedures, aligning with the document’s emphasis on court-specific processes. The answer is appropriate, di",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "To request an interpreter in small claims court, you must notify the court in advance.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that litigants must notify the court in advance if they require an interpreter, with a direct link to the Interpreter Information page."
+          },
+          {
+            "statement": "This can typically be done by visiting your court's Language Access page or using a specific form, such as the Request for Interpreter (Civil) (form INT-300).",
+            "verdict": "yes",
+            "reason": "The context provides instructions to use the court's Language Access page and references specific forms (e.g., VN250 and INT-300) for requesting interpreters, depending on the court."
+          },
+          {
+            "statement": "The exact procedure may vary by court, so it is recommended to check your court's website for detailed instructions.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that procedures vary by court (e.g., Ventura vs. Sacramento) and explicitly advises checking the court's website for requirements."
+          },
+          {
+            "statement": "Court interpreters are provided free of charge and are qualified to assist during court proceedings.",
+            "verdict": "yes",
+            "reason": "The context confirms that interpreters are provided free of charge and specifies that they are qualified court-certified/registered interpreters for court proceedings."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies key venues for filing a claim when the parties reside in different counties, such as the defendant's residence or the business location. It also mentions the relevance of the contract's signing location for corporations, which aligns with the documents. However, it omits critical details from the reference answer and documents, such as venues based on wh",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "When the defendant and plaintiff reside in different counties, the lawsuit should be filed in the defendant's county or the business's location.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the right judicial district may be where the defendant lives or where the business involved is located."
+          },
+          {
+            "statement": "This principle is referred to as venue.",
+            "verdict": "yes",
+            "reason": "The context directly mentions 'This rule is called venue' in the Tulare County section."
+          },
+          {
+            "statement": "For corporate defendants, the contract's signing location may also be a relevant venue.",
+            "verdict": "yes",
+            "reason": "The context specifies that for corporate defendants, the venue may include where the contract was signed."
+          },
+          {
+            "statement": "Adherence to service of process procedures is essential to ensure proper notification of the defendant.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that service must be done according to the rules to avoid dismissal or delays, highlighting the importance of proper procedures."
+          },
+          {
+            "statement": "Failure to follow these procedures could result in case delays or dismissal.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that improper service may lead to case dismissal or delays."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.5, answerability=PARTIAL -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the user's question about whether a 17-year-old can be the defendant in a small claims court case. It accurately states that minors can be defendants in such cases, as supported by the document's mention of small claims court handling disputes involving parties of any age (e.g., \"defendant\" can be a minor). The assistant also appropriately notes jurisdict",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "PARTIAL",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "A 17-year-old can be the defendant in a claim, as they are considered a minor and can be involved in legal proceedings.",
+            "verdict": "yes",
+            "reason": "The context states that minors under 18 can be involved in legal proceedings (e.g., juvenile courts handle cases involving minors). For small claims, minors can be parties if a guardian ad litem is appointed, as mentioned in the Tulare County Small Claims section."
+          },
+          {
+            "statement": "However, in some cases, such as those involving juvenile courts, the court may handle matters differently, especially if the case involves delinquency or dependency.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that juvenile courts handle delinquency and dependency cases for minors, which are distinct from small claims. This aligns with the statement about jurisdictional differences."
+          },
+          {
+            "statement": "For small claims court, the defendant can be a minor, but the rules may vary depending on the jurisdiction and the nature of the claim.",
+            "verdict": "yes",
+            "reason": "The context notes that minors can be parties in small claims if a guardian is appointed (Tulare County) and that jurisdictions like Tuolumne County have specific limits. This supports the idea of jurisdictional variation."
+          },
+          {
+            "statement": "It is advisable to consult the specific court's rules or seek legal advice for precise details.",
+            "verdict": "yes",
+            "reason": "The context repeatedly directs users to consult guides (e.g., 'Read the Guide to Juvenile Justice court process') and emphasizes jurisdiction-specific rules, aligning with the recommendation to seek precise information."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 49882,
+    "completion_tokens": 28441,
+    "total_tokens": 78323,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 33,
+    "reasoning_tokens": 28096,
+    "reasoning_budget_verified_calls": 33
+  },
+  "elapsed_seconds": 1250.698
+}

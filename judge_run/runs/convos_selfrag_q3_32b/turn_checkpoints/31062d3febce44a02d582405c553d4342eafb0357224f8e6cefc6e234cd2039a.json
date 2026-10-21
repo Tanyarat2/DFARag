@@ -1,0 +1,512 @@
+{
+  "version": 1,
+  "fingerprint": "31062d3febce44a02d582405c553d4342eafb0357224f8e6cefc6e234cd2039a",
+  "id": "9c52934a9aea1c3647d4b558d8afdf1c",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.683 (threshold 0.80). RB_llm justification: The assistant's answer introduces the concept of a \"legitimate business purpose\" and the distinction between public and private companies, which are not explicitly mentioned in the reference answer. While these points are relevant and drawn from the document, they shift the focus from the reference's emphasis on the *manner* of the request (professionalism, vagueness) to the *context* of the reque",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6829268292682926,
+        "conditioned_score": 0.6829268292682926,
+        "statements": [
+          {
+            "statement": "As an employee, it is inappropriate to request to see your young/startup company's financial statements if the request is made without a legitimate business purpose.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that such a request is inappropriate; it emphasizes the importance of having a legitimate business purpose but does not label the absence of one as inappropriate."
+          },
+          {
+            "statement": "Legitimate business purposes for requesting financial statements include transparency, accountability, or decision-making.",
+            "verdict": "yes",
+            "reason": "The context highlights the value of financial statements for informed decision-making and understanding a company's health, implying that these are legitimate purposes."
+          },
+          {
+            "statement": "If the company is not publicly traded, financial statements may not be readily available.",
+            "verdict": "yes",
+            "reason": "The context notes that non-public companies may require accessing exchange websites or the company directly, suggesting availability is not guaranteed without direct access."
+          },
+          {
+            "statement": "Requesting financial statements from a non-publicly traded company could be seen as an overreach.",
+            "verdict": "no",
+            "reason": "The context does not mention that such requests are considered overreach; it focuses on the need to check employer policies and the availability of statements through company channels."
+          },
+          {
+            "statement": "Employees should check with their employer about their policies on financial transparency.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises employees to consult their employer's expense policies, directly supporting this statement."
+          },
+          {
+            "statement": "Any request for financial statements should align with company guidelines and ethical standards.",
+            "verdict": "yes",
+            "reason": "The context emphasizes ethical considerations and adherence to company policies when handling expenses and financial information, supporting this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer addresses the main risks of working at a startup, such as business failure, equity loss, job insecurity, long hours, and market challenges. It aligns with the reference answer and captures key points from the documents, including the possibility of shares becoming worthless, layoffs during growth, and the trade-off of risk for innovation. However, it omits specific details f",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Working at a startup involves several risks, including the potential for the company to fail, leading to the loss of equity or job security.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that startups carry the risk of failure, which could render shares worthless and result in job insecurity."
+          },
+          {
+            "statement": "There is also the risk of long working hours with uncertain rewards, and the possibility of being laid off as the company grows or faces financial difficulties.",
+            "verdict": "yes",
+            "reason": "The context mentions working long weeks without overtime pay and being laid off as the company scales, highlighting these risks."
+          },
+          {
+            "statement": "Startups may misjudge their market, face higher expenses, or encounter competition, all of which can impact their success.",
+            "verdict": "yes",
+            "reason": "The context lists market misjudgment, unexpected expenses, and competition as common risks that can lead to startup failure."
+          },
+          {
+            "statement": "While there is no guarantee of financial gain, the risk is often seen as a trade-off for the opportunity to innovate and take on significant responsibility.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that startups offer creativity, responsibility, and the potential to 'change the world,' framing the risks as a trade-off for these opportunities."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document, as it incorporates key points such as using weekends to develop the business, maintaining a job for income, creating a realistic business plan, conducting research, focusing on services, managing inventory, working long hours, and seeking resources like talent and VCs. These align directly with the document's advice. However, the assistan",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Use your weekends to develop your business plans.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that using weekends to develop the business at first is a good idea."
+          },
+          {
+            "statement": "Avoid quitting your job immediately to maintain a steady income.",
+            "verdict": "yes",
+            "reason": "The context advises not to quit your job as it provides revenue to build the business."
+          },
+          {
+            "statement": "Create a sound business plan that is realistic and not overly ambitious.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of a sound business plan that is neither too ambitious nor too realistic."
+          },
+          {
+            "statement": "Conduct thorough research to validate your ideas.",
+            "verdict": "yes",
+            "reason": "The context recommends doing a ton of research to validate ideas before proceeding."
+          },
+          {
+            "statement": "Talk to people in the industry for insights and feedback.",
+            "verdict": "yes",
+            "reason": "The context suggests talking to anyone in the business for insights and feedback."
+          },
+          {
+            "statement": "Consider hiring a consultant to review and refine your business plan.",
+            "verdict": "yes",
+            "reason": "The context mentions hiring someone to consult on the business plan to ensure feasibility."
+          },
+          {
+            "statement": "Focus on selling services rather than just merchandise.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises selling services instead of just merchandise."
+          },
+          {
+            "statement": "Identify a niche in your market to target effectively.",
+            "verdict": "yes",
+            "reason": "The context states the importance of knowing the market and developing a niche."
+          },
+          {
+            "statement": "Keep your inventory minimal to reduce costs and risks.",
+            "verdict": "yes",
+            "reason": "The context recommends holding as little inventory as feasibly possible."
+          },
+          {
+            "statement": "Understand the differences between marketing, advertising, and sales strategies.",
+            "verdict": "yes",
+            "reason": "The context emphasizes understanding the differences between marketing, advertising, and sales."
+          },
+          {
+            "statement": "Be prepared to work long hours to build and sustain your startup.",
+            "verdict": "yes",
+            "reason": "The context mentions expecting to work 60+ hours a week for the first 2-3 years."
+          },
+          {
+            "statement": "Stay focused on your goals despite challenges and setbacks.",
+            "verdict": "yes",
+            "reason": "The context advises setting and meeting both company and personal goals to avoid misery."
+          },
+          {
+            "statement": "Consider entering an established market with a unique feature or price advantage to stand out.",
+            "verdict": "yes",
+            "reason": "The context suggests finding an established market and differentiating via price or unique features."
+          },
+          {
+            "statement": "Seek resources like talent and software to help build your business efficiently.",
+            "verdict": "yes",
+            "reason": "The context highlights the need for resources such as talent and software to compete effectively."
+          },
+          {
+            "statement": "Be open to accepting investment from venture capitalists if it supports your business growth.",
+            "verdict": "yes",
+            "reason": "The context acknowledges that VCs owning part of the business is acceptable for insurance against failure."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the documents and previous conversation, as it accurately highlights the high-risk nature of investing in startups, the need for accreditation, and the potential for high returns. It also addresses the user's implied concern about the effort required to start a business by suggesting investment as an alternative, which aligns with the conversation flow",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Investing in existing startups carries significant risks, including high financial risk with potentially low returns, lack of security for investors, and the possibility of failure.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that startups are high risk with almost no assets or security for investors, and the possibility of failure is a key point discussed."
+          },
+          {
+            "statement": "Unlike investing in established companies, startups often have no proven track record, and their success is uncertain.",
+            "verdict": "yes",
+            "reason": "The context contrasts startups with established companies in hard assets, noting that startups are founded with unproven ideas and lack a proven track record."
+          },
+          {
+            "statement": "Investing in startups typically requires meeting certain criteria, such as being an accredited investor, and involves a high level of commitment and involvement.",
+            "verdict": "yes",
+            "reason": "The context states that in the US, investors must be accredited, and angel investors often become involved in day-to-day operations, indicating both criteria and commitment."
+          },
+          {
+            "statement": "While there is potential for substantial returns if the startup succeeds, the risks are considerable.",
+            "verdict": "yes",
+            "reason": "The context highlights the high-risk nature of startups and the potential for significant returns if they succeed, as illustrated by examples like Peter Thiel's investment in Facebook."
+          },
+          {
+            "statement": "It is important to carefully evaluate the risks and consider whether investing in existing startups aligns with your financial goals and risk tolerance.",
+            "verdict": "yes",
+            "reason": "The context advises weighing guaranteed returns (e.g., paying off debt) against the risks of startup investments, emphasizing the need to evaluate financial goals and risk tolerance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.462 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the user's question, which is framed within the context of investing in **startups** (as seen in the previous conversation). The assistant shifts the focus to **general investment advice** (e.g., index funds, dollar-cost averaging, savings accounts), which does not address the user's implied question about **small investments in startups**. The reference a",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.46153846153846145,
+        "conditioned_score": 0.46153846153846145,
+        "statements": [
+          {
+            "statement": "It is okay to invest a little amount.",
+            "verdict": "yes",
+            "reason": "The context recommends investing small amounts in low-cost index funds, indicating it is acceptable."
+          },
+          {
+            "statement": "Small sums invested regularly over the long-term can be beneficial.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that small sums invested regularly over the long-term can be beneficial."
+          },
+          {
+            "statement": "Investing in low-cost index funds is especially beneficial for small sums.",
+            "verdict": "yes",
+            "reason": "The context emphasizes low-cost index funds as the best option for small investments due to their accessibility and long-term benefits."
+          },
+          {
+            "statement": "Low-cost index funds mirror the performance of the stock market.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that index funds mirror the performance of the stock market as a whole."
+          },
+          {
+            "statement": "Low-cost index funds are generally considered a safe and effective way to invest with small amounts.",
+            "verdict": "yes",
+            "reason": "The context repeatedly recommends low-cost index funds as a safe and effective method for small investments."
+          },
+          {
+            "statement": "It is important to consider risks and ensure investments align with financial goals and risk tolerance.",
+            "verdict": "yes",
+            "reason": "The context advises against high-risk investments for inexperienced individuals and emphasizes aligning investments with goals and risk tolerance."
+          },
+          {
+            "statement": "Dollar-cost averaging can be a safer approach for those concerned about short-term market fluctuations.",
+            "verdict": "yes",
+            "reason": "The context discusses dollar-cost averaging as a method to mitigate short-term market risks, even if it results in slightly lower gains."
+          },
+          {
+            "statement": "Keeping money in a savings account or certificate of deposit (CD) can be a safer approach for those concerned about short-term market fluctuations.",
+            "verdict": "yes",
+            "reason": "The context suggests using savings accounts or CDs for small amounts or short-term goals to avoid market risks."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.286, IDK=0.0, answerability=PARTIAL -> conditioned score 0.421 (threshold 0.80). RB_llm justification: The assistant's answer is generally faithful to the document's themes of job stability and long-term career development, though it doesn't explicitly reference specific examples like job tenure or economic challenges in the document. It appropriately addresses the user's question by comparing FAANG pros (stability, salary, growth) and cons (high expectations, long hours) while emphasizing alignmen",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.2857142857142857,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.42105263157894735,
+        "conditioned_score": 0.42105263157894735,
+        "statements": [
+          {
+            "statement": "The decision to work for a FAANG company depends on your personal goals, values, and career aspirations.",
+            "verdict": "no",
+            "reason": "The context does not mention FAANG companies or their specific attributes, so this statement is not supported."
+          },
+          {
+            "statement": "FAANG companies often offer stability, competitive salaries, and opportunities for growth.",
+            "verdict": "no",
+            "reason": "The context does not discuss FAANG companies or their specific benefits, making this statement unsupported."
+          },
+          {
+            "statement": "These benefits can be beneficial for career development.",
+            "verdict": "no",
+            "reason": "The context does not reference FAANG-specific benefits, so this statement is not supported."
+          },
+          {
+            "statement": "However, FAANG companies may also come with high expectations, long hours, and less flexibility compared to startups.",
+            "verdict": "no",
+            "reason": "The context does not compare FAANG companies to startups or discuss their work culture, making this statement unsupported."
+          },
+          {
+            "statement": "Ultimately, the 'better' choice depends on what you prioritize.",
+            "verdict": "yes",
+            "reason": "The context emphasizes personal priorities (e.g., staying in a job for a year unless miserable) and aligns with this general conclusion."
+          },
+          {
+            "statement": "Prioritizing factors such as job security, work-life balance, or innovation and growth potential will influence the decision.",
+            "verdict": "no",
+            "reason": "The context mentions job security (e.g., avoiding being seen as 'shaky') but does not address work-life balance or innovation, making this statement partially unsupported."
+          },
+          {
+            "statement": "Consider what aligns more with your long-term goals.",
+            "verdict": "yes",
+            "reason": "The context advises staying in a job to learn and network for long-term career development, supporting this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=1.0, answerability=UNANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly acknowledges that the provided documents do not contain specific information about which FAANG company pays the most. It accurately reflects the content of the documents, which discuss general salary trends and labor issues but do not compare FAANG salaries directly. The answer is faithful to the documents, as it does not fabricate or infer data. It is also appropr",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The retrieved evidence does not provide specific information about which FAANG company pays the most.",
+            "verdict": "yes",
+            "reason": "The context mentions Amazon's pay practices and general labor issues but does not compare FAANG companies (Facebook, Apple, Amazon, Netflix, Google) directly or provide specific data on their relative pay scales."
+          },
+          {
+            "statement": "The provided passages discuss salary trends, wage comparisons, and general labor issues but do not directly address the pay differences among FAANG companies.",
+            "verdict": "yes",
+            "reason": "The context includes discussions about regional salary variations, Amazon's pay relative to Walmart, and labor rights, but no explicit analysis or comparison of pay among FAANG companies."
+          },
+          {
+            "statement": "Therefore, I do not have specific information to answer this question.",
+            "verdict": "yes",
+            "reason": "The absence of direct comparisons or specific data on FAANG company pay in the context supports the conclusion that there is insufficient information to determine which FAANG company pays the most."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.462 (threshold 0.80). RB_llm justification: The assistant's answer fails to address the user's implied question about compensation at Goldman Sachs and other finance companies, which is the core focus of the reference answer. While the assistant provides context on the financial services sector and mentions unique reporting practices of Goldman Sachs, it omits any discussion of salary levels (e.g., \"6 figure starting salaries\" or \"400k or m",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.46153846153846145,
+        "conditioned_score": 0.46153846153846145,
+        "statements": [
+          {
+            "statement": "Goldman Sachs and other finance companies are part of the financial services sector, which facilitates access to capital.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that financial services companies like Goldman Sachs 'provide or facilitate access to capital' and lists them as part of the financial services sector."
+          },
+          {
+            "statement": "They interact with corporate finance to fund business activities and manage financial operations.",
+            "verdict": "yes",
+            "reason": "The context clarifies that corporate finance interacts with financial services to access capital for business activities, directly supporting this statement."
+          },
+          {
+            "statement": "However, some evidence suggests that certain large financial institutions, like Goldman Sachs, may have unique reporting practices, such as keeping two sets of books, which could affect transparency.",
+            "verdict": "yes",
+            "reason": "The context mentions that publicly-traded companies deemed integral to U.S. national security 'can legally be excused from reporting their true financial condition' and 'allowed to keep two sets of books,' which aligns with this claim."
+          },
+          {
+            "statement": "This raises questions about their financial integrity.",
+            "verdict": "yes",
+            "reason": "The context's reference to potential dual financial reporting practices (e.g., 'two sets of books') implies concerns about transparency and financial integrity, supporting this inference."
+          },
+          {
+            "statement": "While these companies are significant players in the market, their operations and financial disclosures differ from typical businesses.",
+            "verdict": "yes",
+            "reason": "The context highlights structural pressures (e.g., passive investing, regulation) and unique practices (e.g., dual reporting) that distinguish these firms from typical businesses, supporting this statement."
+          },
+          {
+            "statement": "If you're considering working or investing in such firms, it's important to understand these nuances.",
+            "verdict": "yes",
+            "reason": "The context provides detailed information about the structural pressures, regulatory environment, and unique practices of these firms, making this advice contextually supported."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.545 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful to the documents but introduces claims not directly supported by the provided evidence. The documents mention that base salaries at tech companies (e.g., Microsoft) are comparable to FAANG companies, with cost of living adjustments, and that executive compensation in tech often includes significant non-salary components (bonuses, stock options). However",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5454545454545454,
+        "conditioned_score": 0.5454545454545454,
+        "statements": [
+          {
+            "statement": "The compensation at Goldman Sachs is generally higher than that at most tech companies, particularly for senior roles.",
+            "verdict": "no",
+            "reason": "The context does not mention Goldman Sachs or provide any direct comparison between its compensation and that of tech companies."
+          },
+          {
+            "statement": "However, the comparison can vary depending on the specific role, location, and company size.",
+            "verdict": "yes",
+            "reason": "The context discusses variations in compensation based on location (e.g., Seattle vs. Silicon Valley) and mentions that total compensation (including bonuses and benefits) can affect comparisons."
+          },
+          {
+            "statement": "Tech companies often offer competitive salaries, but they may also provide additional benefits such as stock options, bonuses, and flexible work arrangements.",
+            "verdict": "yes",
+            "reason": "The context highlights competitive salaries, profit-sharing, and flexible work arrangements at a tech company, though it explicitly states there are no secret stock options. However, the statement uses 'may also provide,' which aligns with the context's mention of bonuses and flexible work."
+          },
+          {
+            "statement": "Goldman Sachs, on the other hand, typically offers higher base salaries and significant bonuses, especially for senior positions.",
+            "verdict": "no",
+            "reason": "The context does not mention Goldman Sachs or its compensation structure, making this statement unsupported."
+          },
+          {
+            "statement": "The exact compensation can depend on the individual's role and performance.",
+            "verdict": "yes",
+            "reason": "The context implies that compensation varies (e.g., CEO vs. lowest-paid worker, base salary vs. bonuses) and mentions performance-related aspects like profit-sharing and incentives."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 30454,
+    "completion_tokens": 25927,
+    "total_tokens": 56381,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 37,
+    "reasoning_tokens": 25096,
+    "reasoning_budget_verified_calls": 37
+  },
+  "elapsed_seconds": 1004.334
+}

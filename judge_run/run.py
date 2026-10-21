@@ -2,7 +2,7 @@
 """One-folder entry point for the mtRAG answer-quality judge.
 
 All active judging code and prompts are in judge_run. Run artifacts are kept
-under judge_run/runs/<name>; conversation.json remains the read-only source.
+under judge_run/runs/<name>; exports in conversation/ remain read-only sources.
 """
 
 from __future__ import annotations
@@ -18,11 +18,11 @@ import sys
 from typing import List, Optional
 
 from prepare_input import prepare_records, write_input
-from judge_paper import split_turns
+from judge_mtrag import split_turns
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
-STAGES = ("judge", "prepare", "preview", "mtrag", "annotate", "serve")
+STAGES = ("judge", "prepare", "preview", "mtrag")
 QWEN3 = "qwen/qwen3-32b"
 
 
@@ -96,7 +96,7 @@ def archive_run(folder: pathlib.Path) -> None:
     print("Previous run saved: %s" % backup, flush=True)
 
 
-def run_paper(stage: str, input_path: pathlib.Path, output_path: pathlib.Path,
+def run_mtrag(input_path: pathlib.Path, output_path: pathlib.Path,
               idk_max_tokens: Optional[int] = None, no_max_tokens: bool = False,
               max_tokens: Optional[int] = None,
               reasoning_max_tokens: Optional[int] = None,
@@ -105,7 +105,7 @@ def run_paper(stage: str, input_path: pathlib.Path, output_path: pathlib.Path,
     validate_contexts(records)
     try:
         subprocess.run(
-            [sys.executable, str(HERE / "judge_paper.py"),
+            [sys.executable, str(HERE / "judge_mtrag.py"),
              "--input", str(input_path), "--output", str(output_path), "--mode", "mtrag",
              *(["--idk-max-tokens", str(idk_max_tokens)] if idk_max_tokens is not None else []),
              *(["--no-max-tokens"] if no_max_tokens else []),
@@ -116,7 +116,7 @@ def run_paper(stage: str, input_path: pathlib.Path, output_path: pathlib.Path,
             check=True,
         )
     except subprocess.CalledProcessError as exc:
-        # The paper judge already printed the failed record and its cause.
+        # The mtRAG judge already printed the failed record and its cause.
         raise SystemExit(exc.returncode) from None
 
 
@@ -216,26 +216,19 @@ def main(argv: Optional[List[str]] = None, runs_dir: Optional[pathlib.Path] = No
             archive_run(run_dir)
         run_dir.mkdir(parents=True, exist_ok=False)
         write_input(records, run_dir)
-        run_paper("mtrag", input_path, run_dir / "out.mtrag.json", args.idk_max_tokens,
+        run_mtrag(input_path, run_dir / "out.mtrag.json", args.idk_max_tokens,
                   args.no_max_tokens, args.max_tokens, args.reasoning_max_tokens,
                   ["--base-url", base_url, "--model", model, "--api-key-env", key_env])
         return
 
     if args.stage == "prepare":
         require_new(run_dir)
-        command = [sys.executable, str(HERE / "prepare_input.py"),
-                   "--src", str(resolve_source(args.src) if args.src else ROOT / "conversation.json"),
-                   "--out", str(run_dir)]
-        if args.reference is not None:
-            command += ["--reference", str(args.reference)]
-        if args.limit is not None:
-            command += ["--limit", str(args.limit)]
-        subprocess.run(command, check=True)
-        return
-
-    if args.stage == "serve":
-        subprocess.run([sys.executable, str(HERE / "annotation_server.py"),
-                        "--runs-dir", str(run_dir.parent)], check=True)
+        try:
+            records = prepare_records(resolve_source(args.src) if args.src else ROOT / "conversation.json",
+                                      args.reference, args.limit)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            raise SystemExit("Preparation failed: %s" % exc) from None
+        write_input(records, run_dir)
         return
 
     require_file(input_path, "Run: python run.py prepare --name %s --limit 3" % args.name)
@@ -246,7 +239,7 @@ def main(argv: Optional[List[str]] = None, runs_dir: Optional[pathlib.Path] = No
         model = os.environ.get("JUDGE_MODEL")
         if not model:
             raise SystemExit("Set JUDGE_MODEL before preview so it matches the judge run.")
-        command = [sys.executable, str(HERE / "judge_paper.py"),
+        command = [sys.executable, str(HERE / "judge_mtrag.py"),
                    "--input", str(input_path), "--dry-run", "--mode", "mtrag", "--model", model]
         result = subprocess.run(command, capture_output=True)
         if result.returncode:
@@ -256,15 +249,9 @@ def main(argv: Optional[List[str]] = None, runs_dir: Optional[pathlib.Path] = No
         print("Preview saved: %s (no API call)" % output_path)
         return
 
-    if args.stage == "annotate":
-        require_new(run_dir / "annotate.html")
-        subprocess.run([sys.executable, str(HERE / "make_annotation.py"),
-                        "--work-dir", str(run_dir)], check=True)
-        return
-
     output_path = run_dir / "out.mtrag.json"
     require_new(output_path)
-    run_paper(args.stage, input_path, output_path, args.idk_max_tokens, args.no_max_tokens,
+    run_mtrag(input_path, output_path, args.idk_max_tokens, args.no_max_tokens,
               args.max_tokens, args.reasoning_max_tokens)
 
 

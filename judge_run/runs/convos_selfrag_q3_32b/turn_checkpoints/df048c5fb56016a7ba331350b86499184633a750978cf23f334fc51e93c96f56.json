@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "fingerprint": "df048c5fb56016a7ba331350b86499184633a750978cf23f334fc51e93c96f56",
+  "id": "fd99b316e5e64f19ff938598aea9b285",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and accurately captures the key elements of the MLS All-Star Game format, selection process, and tie resolution. It correctly explains the evolution from the East-West format to the current international club vs. MLS All-Stars setup, the role of fan voting, manager selections, and commissioner decisions, and the use of a penalty shootout i",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game is an annual event where selected players from Major League Soccer (MLS) compete against an international club or team.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the MLS All-Star Game is an annual event featuring select players from the league against an international club."
+          },
+          {
+            "statement": "Initially, the MLS All-Star Game followed a traditional East-West conference format, but it evolved into a format where an invited European club faces an MLS All-Star team.",
+            "verdict": "yes",
+            "reason": "The context confirms the initial East-West format and the evolution to inviting international clubs, though it specifies 'abroad' rather than 'European' in the initial evolution. However, later context notes that since 2005, most opponents are from Europe."
+          },
+          {
+            "statement": "Players for the MLS All-Star Game are chosen through a combination of fan voting, manager selections, and commissioner decisions.",
+            "verdict": "yes",
+            "reason": "The context states that players are selected via fan voting, manager selections, and commissioner decisions, as exemplified in the 2014 case."
+          },
+          {
+            "statement": "In the MLS All-Star Game, a tie is resolved through a penalty shootout instead of extra time.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that ties go directly to a penalty shootout without extra time."
+          },
+          {
+            "statement": "The MLS All-Star Game typically occurs mid-season and serves as a friendly match.",
+            "verdict": "yes",
+            "reason": "The context notes the game is held at the season's midpoint and is considered a pre-season friendly from the European perspective."
+          },
+          {
+            "statement": "The MLS All-Star Game often features teams from Europe, particularly the Premier League.",
+            "verdict": "yes",
+            "reason": "The context states that since 2005, most opponents are from Europe, with a majority from England's Premier League."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.500, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.643 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the user's question by stating that the MLS All-Star Game is referred to by the same name outside the USA, as no alternative name is provided in the documents. The reference answer, while informative about the terminology of the sport (\"soccer\" vs. \"football\"), does not address the specific question about the event's name. The assistant's response is fait",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6428571428571428,
+        "conditioned_score": 0.6428571428571428,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game is called the \"MLS All-Star Game\" outside of the USA.",
+            "verdict": "no",
+            "reason": "The context does not mention any alternative name for the game outside the USA, and the name 'MLS All-Star Game' is consistently used throughout the text."
+          },
+          {
+            "statement": "There is no specific alternative name mentioned in the retrieved evidence for the game outside the United States.",
+            "verdict": "yes",
+            "reason": "The context provides no indication of an alternative name for the game in other regions, confirming the absence of such a name in the provided information."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.333, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.486 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that the MLS All-Star Game is composed of male players only, as the provided documents do not mention women's participation in the event. This aligns with the faithfulness criterion, as the response is grounded in the absence of evidence for women's inclusion in the MLS All-Star Game. The answer is also appropriate, directly addressing the user's question wi",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.3333333333333333,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.4864864864864865,
+        "conditioned_score": 0.4864864864864865,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game is currently composed of male players only.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state the gender of the players in the MLS All-Star Game, but it refers to 'players from the league' without specifying gender. However, the surrounding context about Women's association football suggests a separate discussion, implying the MLS All-Star Game is for men. The absence of explicit mention of women's inclusion supports the statement but does not confirm it definitively."
+          },
+          {
+            "statement": "The evidence does not mention the inclusion of women in the game.",
+            "verdict": "yes",
+            "reason": "The context for the MLS All-Star Game does not reference women or their participation in the game. The Women's association football section discusses broader issues but does not link women to the MLS All-Star Game. Therefore, the evidence does not mention women's inclusion."
+          },
+          {
+            "statement": "Based on the available information, women cannot play in the MLS All-Star Game.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that women are excluded from the MLS All-Star Game. While the game is part of Major League Soccer (a men's league), the available information does not directly confirm this exclusion. The statement makes an assumption not explicitly supported by the provided text."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the provided documents do not contain information about the popularity of the MLS All-Star Game relative to other events. This is faithful to the given evidence, as the documents focus solely on the structure, history, and participants of the MLS All-Star Game without mentioning viewership, attendance comparisons, or popularity metrics. The assistan",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The provided evidence does not include specific information about the popularity of the MLS All-Star Game compared to other events.",
+            "verdict": "yes",
+            "reason": "The context provides attendance figures and game details but does not compare the MLS All-Star Game's popularity to other events."
+          },
+          {
+            "statement": "I do not have specific information to determine which is the most popular.",
+            "verdict": "yes",
+            "reason": "The context lacks comparative data on popularity relative to other events, making it impossible to determine the most popular event."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the origin of the MLS All-Star Game as the United States, citing its establishment by Major League Soccer (MLS) and the first game in 1996 at Giants Stadium. This aligns with the documents, which explicitly state the game's U.S.-based origins and historical details. The reference answer, however, discusses the broader origins of modern football in Wester",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game originates from the United States, as it is an annual soccer game held by Major League Soccer (MLS), which is based in the U.S.",
+            "verdict": "yes",
+            "reason": "The context states that the Major League Soccer All-Star Game is an annual game held by MLS, which is based in the U.S."
+          },
+          {
+            "statement": "The first game was played at Giants Stadium in the summer of 1996.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the first all-star game was played at Giants Stadium in the summer of 1996."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.818 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the user's question by clarifying that American football evolved from association football (soccer) and rugby, as stated in the document. It explicitly distinguishes the MLS All-Star Game as a separate soccer event unrelated to American football's origins, which is a critical point the reference answer omits. The assistant's response is faithful to the do",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8181818181818181,
+        "conditioned_score": 0.8181818181818181,
+        "statements": [
+          {
+            "statement": "American football evolved from association football (soccer) and rugby football.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that American football evolved from both association football (soccer) and rugby football."
+          },
+          {
+            "statement": "The question specifically asks if American football is derived from the MLS All-Star Game.",
+            "verdict": "no",
+            "reason": "The context does not mention the MLS All-Star Game or any modern soccer events in the evolution of American football."
+          },
+          {
+            "statement": "The MLS All-Star Game is a separate event in soccer, not related to American football.",
+            "verdict": "yes",
+            "reason": "The context does not link the MLS All-Star Game to American football's origins, and it is a modern soccer event unrelated to the historical development of American football."
+          },
+          {
+            "statement": "There is no evidence to support that American football is derived from the MLS All-Star Game.",
+            "verdict": "yes",
+            "reason": "The context provides no information connecting the MLS All-Star Game to the origins of American football."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.766 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents, as it correctly identifies the United States as the most popular region for American football and notes the use of terms like \"gridiron\" in other English-speaking countries. It also accurately contrasts American football's popularity with that of association football (soccer) globally, as stated in the documents. The assistant does not inclu",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7659574468085106,
+        "conditioned_score": 0.7659574468085106,
+        "statements": [
+          {
+            "statement": "American football is most popular in the United States, where it is the most widely followed sport.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that American football is the most popular sport in the United States, with high school and college football having millions of participants, the NFL having the highest average attendance, and the Super Bowl being one of the most-watched broadcasts in U.S. history. Harris Poll data also confirms football's dominance over other sports."
+          },
+          {
+            "statement": "American football is also popular in other English-speaking countries such as the United Kingdom, Ireland, New Zealand, and Australia, where it is referred to as 'gridiron' or 'American football'.",
+            "verdict": "no",
+            "reason": "The context mentions that the terms 'gridiron' or 'American football' are used in English-speaking countries (including the listed ones) where other football codes are popular. However, it does not explicitly state that American football is 'popular' in these countries, only that the terminology is used to distinguish it from other forms of football."
+          },
+          {
+            "statement": "Globally, association football (soccer) is the most popular sport.",
+            "verdict": "yes",
+            "reason": "The context directly states that association football is played by over 250 million players across 200+ nations and has the highest television audience globally, making it the most popular sport worldwide. This aligns with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.414 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the document or the user's question. The user asked whether the **MLS All-Star Game** (a soccer/association football event) is similar to rugby. However, the assistant conflates the MLS All-Star Game with **American football**, which is a distinct sport. The document and reference answer focus on the historical and gameplay similarities between **American ",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.4137931034482758,
+        "conditioned_score": 0.4137931034482758,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game is similar to rugby in some aspects.",
+            "verdict": "no",
+            "reason": "The context does not mention the MLS All-Star Game or its relation to rugby."
+          },
+          {
+            "statement": "Both sports involve two teams competing for control of a ball.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that both American football and rugby football involve two teams vying for control of a ball."
+          },
+          {
+            "statement": "Scoring methods like touchdowns or tries are used in both sports.",
+            "verdict": "yes",
+            "reason": "The context mentions that scoring touchdowns/tries takes precedence over goal-kicking in both sports."
+          },
+          {
+            "statement": "They differ in rules and gameplay.",
+            "verdict": "yes",
+            "reason": "The context highlights differences in positions, passing rules, and gameplay mechanics between the sports."
+          },
+          {
+            "statement": "American football allows backward passes, while rugby league prohibits forward passes.",
+            "verdict": "yes",
+            "reason": "The context states that American football allows backward passes and rugby league prohibits forward passes."
+          },
+          {
+            "statement": "While there are similarities, the MLS All-Star Game and rugby are not identical.",
+            "verdict": "no",
+            "reason": "The context does not mention the MLS All-Star Game or its relation to rugby."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the MLS All-Star Game involves two teams: the MLS All-Stars and an international club. This aligns with the documents, which describe the game as a matchup between the MLS All-Star team and an invited international club. The assistant also notes that the exact number of teams is not explicitly stated in the documents but logically infers the two-tea",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game features a team composed of selected players from Major League Soccer (MLS) and an international club.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the MLS All-Star Game is an annual game featuring 'select players from the league against an international club.'"
+          },
+          {
+            "statement": "The exact number of teams is not explicitly stated in the retrieved evidence, but it is mentioned that the game involves an MLS All-Star team and an international club, suggesting a format with two teams.",
+            "verdict": "yes",
+            "reason": "The context describes the game as a match between the MLS All-Stars and an international club, which implies two teams. While the table lists multiple international clubs, each game is between two teams (MLS All-Stars vs. one club)."
+          },
+          {
+            "statement": "Therefore, the MLS All-Star Game typically involves two teams.",
+            "verdict": "yes",
+            "reason": "The context consistently describes the game as a match between the MLS All-Stars and a single international club, confirming a two-team format."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 22711,
+    "completion_tokens": 16873,
+    "total_tokens": 39584,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 15054,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 475.88
+}

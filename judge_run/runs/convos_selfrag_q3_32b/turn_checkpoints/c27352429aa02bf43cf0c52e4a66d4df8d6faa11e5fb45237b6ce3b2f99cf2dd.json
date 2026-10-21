@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "fingerprint": "c27352429aa02bf43cf0c52e4a66d4df8d6faa11e5fb45237b6ce3b2f99cf2dd",
+  "id": "04f83f1199c7ce4d7bef50be70f2db73",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.683 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and the reference answer, as it correctly identifies the positive impact of physical activity on children's academic performance through improved mood, sleep, cognitive function, and stress reduction. It also references the CDC's emphasis on safe spaces for activity, which aligns with the document. However, the assistant omits specific cog",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6829268292682926,
+        "conditioned_score": 0.6829268292682926,
+        "statements": [
+          {
+            "statement": "Yes, being active can affect how kids do in school.",
+            "verdict": "yes",
+            "reason": "The context states that physical activity can lead to better grades for children."
+          },
+          {
+            "statement": "Physical activity helps improve children's mood, sleep, and overall well-being.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions better mood, better sleep, and better grades as outcomes of physical activity for children."
+          },
+          {
+            "statement": "Improved mood, sleep, and well-being can lead to better academic performance.",
+            "verdict": "yes",
+            "reason": "The context links these factors to better grades for children."
+          },
+          {
+            "statement": "Physical activity enhances cognitive function and concentration.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention cognitive function or concentration."
+          },
+          {
+            "statement": "Enhanced cognitive function and concentration contribute to better grades.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention cognitive function or concentration as factors in academic performance."
+          },
+          {
+            "statement": "Being active can reduce stress and anxiety.",
+            "verdict": "yes",
+            "reason": "The context states that physical activity can help manage stress and anxiety."
+          },
+          {
+            "statement": "Reduced stress and anxiety create a more positive learning environment.",
+            "verdict": "no",
+            "reason": "The context does not explicitly link reduced stress and anxiety to a positive learning environment."
+          },
+          {
+            "statement": "The CDC highlights that access to safe places for physical activity is important for overall health.",
+            "verdict": "yes",
+            "reason": "The context states that safe places to walk are important community design elements for health."
+          },
+          {
+            "statement": "Access to safe places for physical activity can indirectly support academic success.",
+            "verdict": "yes",
+            "reason": "The context connects access to safe spaces for physical activity to improved health and, by extension, better grades for children."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the documents and the previous conversation, as it correctly identifies that physical activity can improve attention span through factors like better sleep, mood, and cognitive function, which are supported by the provided materials. However, it explicitly notes that the retrieved evidence does not directly address the relationship between physical acti",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Physical activity can improve a child's attention span by promoting better sleep, mood, and overall cognitive function.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that physical activity helps children with better sleep, mood, and grades, which are linked to cognitive function and attention span."
+          },
+          {
+            "statement": "Evidence suggests that being active helps children feel more alert and focused, which can positively impact their academic performance.",
+            "verdict": "yes",
+            "reason": "The context mentions that physical activity improves children's alertness, focus, and academic performance (e.g., better grades)."
+          },
+          {
+            "statement": "The retrieved evidence does not directly address the relationship between physical activity and attention span in detail.",
+            "verdict": "yes",
+            "reason": "The context discusses general benefits like sleep, mood, and grades but does not explicitly mention attention span or provide detailed evidence on this specific relationship."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly states the recommended 60 minutes of physical activity per day for children, aligning with the CDC's \"Move Your Way\" guidance explicitly mentioned in the document. It specifies \"moderate to vigorous-intensity activity,\" which adds nuance not present in the reference answer but is consistent with the guidelines. The assistant also lists examples of activities (e.g.,",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "Children should engage in at least 60 minutes of moderate to vigorous-intensity physical activity daily.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that children need 60 minutes of physical activity daily, as highlighted in the 'Get your kids moving' section."
+          },
+          {
+            "statement": "Regular physical activity in children improves their health, sleep quality, mood, and academic performance.",
+            "verdict": "yes",
+            "reason": "The context mentions physical activity improves sleep, mood, and grades, aligning with the statement's claims."
+          },
+          {
+            "statement": "Physical activities for children can include walking, running, dancing, or participating in sports.",
+            "verdict": "yes",
+            "reason": "The context lists 'Walk. Run. Dance. Play.' as examples and references sports in fact sheets, supporting these activities."
+          },
+          {
+            "statement": "Physical activity is crucial for children's overall well-being, and incorporating a variety of fun and interactive exercises helps meet the recommended guidelines.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of physical activity and suggests using interactive tools and fun activities to meet guidelines."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.714, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.707 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document, which emphasizes community-level strategies for promoting physical activity (e.g., safe spaces, Complete Streets policies, and access to parks). It also addresses healthy eating by mentioning balanced diets and limiting high-sugar drinks, aligning with the document’s dietary guidance. However, the assistant omits the specific 60-minute da",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.7142857142857143,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7070707070707072,
+        "conditioned_score": 0.7070707070707072,
+        "statements": [
+          {
+            "statement": "Focus on promoting physical activity and healthy eating habits to avoid child obesity.",
+            "verdict": "no",
+            "reason": "The context discusses physical activity and community design but does not explicitly mention child obesity or healthy eating as a combined focus."
+          },
+          {
+            "statement": "Design communities with safe spaces for walking and biking.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of safe places to walk and bike, such as parks, trails, and dedicated bike lanes."
+          },
+          {
+            "statement": "Implement policies like Complete Streets and Safe Routes.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists Complete Streets, Safe Routes, and Vision Zero policies as examples of actions to take."
+          },
+          {
+            "statement": "Encourage access to parks and trails.",
+            "verdict": "yes",
+            "reason": "The context highlights the importance of parks, trails, and greenways as everyday destinations for physical activity."
+          },
+          {
+            "statement": "Ensure children consume a balanced diet with whole grains, lean proteins, and low-fat dairy.",
+            "verdict": "no",
+            "reason": "The 'Shop Smart | MyPlate' section provides dietary guidance, but the main context focuses on physical activity through community design, not diet."
+          },
+          {
+            "statement": "Limit high-sugar drinks for children.",
+            "verdict": "yes",
+            "reason": "The 'Shop Smart | MyPlate' section advises drinking water instead of high-sugar drinks, directly supporting this statement."
+          },
+          {
+            "statement": "Involve families and schools in efforts to support long-term healthy behaviors.",
+            "verdict": "yes",
+            "reason": "The context mentions collaboration with schools (e.g., Safe Routes to School) and cross-sectoral coalitions, including families and schools."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, as it incorporates key strategies like Complete Streets, Safe Routes to School, and community-designed safe spaces, which are emphasized in the CDC materials. It appropriately addresses the question by focusing on environmental and policy-level safety measures, aligning with the reference answer's emphasis on safe places for activity. The answer",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Ensure access to safe spaces like parks, trails, and sidewalks to keep children safe during physical activity.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that access to safe places like parks, trails, and sidewalks is crucial for physical activity and mentions the importance of safe spaces for all ages, including children."
+          },
+          {
+            "statement": "Implement policies such as Complete Streets and Safe Routes to School to create activity-friendly routes.",
+            "verdict": "yes",
+            "reason": "The context lists Complete Streets, Safe Routes, and Safe Routes to School as specific policies to create activity-friendly routes, aligning directly with the statement."
+          },
+          {
+            "statement": "Encourage community involvement in designing safe environments and promote inclusive demonstration projects.",
+            "verdict": "yes",
+            "reason": "The context emphasizes community involvement through walk/move audits with diverse stakeholders and inclusive demonstration projects aimed at permanent infrastructure changes, supporting the statement."
+          },
+          {
+            "statement": "Follow guidelines to protect against risks, such as those related to health and safety during outdoor activities.",
+            "verdict": "yes",
+            "reason": "The context mentions following CDC guidelines for health and safety during outdoor activities (e.g., pandemic-related precautions) and emphasizes designing safe environments (e.g., sidewalks, traffic calming) to mitigate risks."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the question by referencing the \"Vamos a Nadar\" program and the inclusion of swimming in the document's water safety and activity sections. However, the document does not explicitly state that swimming is a *popular* activity for children, only that it is promoted through specific programs and safety initiatives. The assistant correctly notes the absence of direct ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Swimming is a popular activity for children, supported by programs like 'Vamos a Nadar' that focus on water safety and swimming lessons for kids.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the 'Vamos a Nadar' program, which provides swimming lessons and water safety training for children, and highlights its reach to over 2,000 young people in Sonoma County since 2004."
+          },
+          {
+            "statement": "The text highlights the importance of physical activity for children, with swimming being a viable option.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the benefits of physical activity for children and specifically mentions swimming as an activity (e.g., 'Spring Lake Water Park' and 'Vamos a Nadar' program), indicating it is a viable option."
+          },
+          {
+            "statement": "The evidence does not explicitly state that swimming is the most popular activity among children, so this claim cannot be definitively supported.",
+            "verdict": "yes",
+            "reason": "The context does not compare swimming to other activities or label it as the 'most popular,' only mentioning it as one of several physical activities (e.g., biking, hiking). The claim about 'most popular' is not substantiated."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 36375,
+    "completion_tokens": 12599,
+    "total_tokens": 48974,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 24,
+    "reasoning_tokens": 11825,
+    "reasoning_budget_verified_calls": 24
+  },
+  "elapsed_seconds": 437.556
+}

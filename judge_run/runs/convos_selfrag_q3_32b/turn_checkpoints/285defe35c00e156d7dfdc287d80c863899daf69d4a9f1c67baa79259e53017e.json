@@ -1,0 +1,487 @@
+{
+  "version": 1,
+  "fingerprint": "285defe35c00e156d7dfdc287d80c863899daf69d4a9f1c67baa79259e53017e",
+  "id": "dd82f0f978316e73618cf0addd369cd8",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document, accurately describing the format evolution, selection process, and tie resolution. It correctly notes the shift from East-West conferences to international club matchups and the role of fan voting, manager, and commissioner in selecting players. However, it omits specific details from the document, such as the 8-4 record, the 2005 format ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "The MLS All-Star Game is an annual event where selected players from Major League Soccer (MLS) compete against an international club or team.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the MLS All-Star Game is an annual event featuring select players from the league against an international club."
+          },
+          {
+            "statement": "Initially, the MLS All-Star Game followed a traditional East-West conference format, but it evolved into a format where an invited European club faces an MLS All-Star team.",
+            "verdict": "yes",
+            "reason": "The context confirms the initial East-West format and the evolution to inviting an international club. While the statement specifies 'European club,' the context later notes that since 2005, most opponents have been from Europe, particularly the Premier League, supporting the general trend."
+          },
+          {
+            "statement": "Players for the MLS All-Star Game are chosen through a combination of fan voting, manager selections, and commissioner decisions.",
+            "verdict": "yes",
+            "reason": "The context states that players are selected via fan voting, manager selections, and commissioner decisions, as exemplified in the 2014 case."
+          },
+          {
+            "statement": "In the MLS All-Star Game, a tie is resolved through a penalty shootout instead of extra time.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that ties are resolved via a penalty shootout without a 30-minute extra time period."
+          },
+          {
+            "statement": "The MLS All-Star Game typically occurs mid-season and serves as a friendly match.",
+            "verdict": "yes",
+            "reason": "The context notes the game is held at the season's midpoint and is considered a pre-season friendly from the European teams' perspective."
+          },
+          {
+            "statement": "The MLS All-Star Game often features teams from Europe, particularly the Premier League.",
+            "verdict": "yes",
+            "reason": "The context states that since 2005, most opponents have been from Europe, with a majority from England's Premier League, supporting the 'often' and 'particularly' claims."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.333 (threshold 0.80). RB_llm justification: The assistant's answer is incorrect and contradicts the reference answer. The reference answer states the first MLS All-Star Game was in 1996, while the assistant claims it started in 2006. The document provided does not include the 1996 event, but the reference answer is authoritative. The assistant's answer is **not faithful** to the correct historical data, **inappropriate** for the question (a",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.3333333333333333,
+        "conditioned_score": 0.3333333333333333,
+        "statements": [
+          {
+            "statement": "The MSL All-Star game started in 2006.",
+            "verdict": "yes",
+            "reason": "The context mentions the 2006 MLS All-Star Game as the earliest listed event, implying it was the first in the provided data. However, historically, the first MLS All-Star Game was in 1996. Since the context only includes 2006 and later, the statement is supported by the given information."
+          },
+          {
+            "statement": "The first MSL All-Star game was held on August 5, 2006, at Toyota Park in Bridgeview, Illinois.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the 2006 MLS All-Star Game occurred on August 5, 2006, at Toyota Park in Bridgeview, Illinois, with details about the match and attendance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that European teams have participated in the MSL All-Star Games, aligning with the documents. It accurately notes that since 2005, the majority of opponents have been from Europe, primarily the Premier League, and provides the example of Manchester United in 2010. This is faithful to the documents, which list multiple European teams (e.g., Everton, Tottenh",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Teams from Europe have played in the MSL All-Star Games.",
+            "verdict": "yes",
+            "reason": "The context states that all games since 2005 have been against European teams, primarily from England's Premier League."
+          },
+          {
+            "statement": "Since 2005, the majority of opponents in the MSL All-Star Games have been from Europe.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that all games since 2005 have been against European teams, with the majority from England's Premier League."
+          },
+          {
+            "statement": "The majority of European opponents in the MSL All-Star Games have primarily come from England's Premier League.",
+            "verdict": "yes",
+            "reason": "The context specifies that the majority of European teams in the All-Star Games are from England's Premier League."
+          },
+          {
+            "statement": "The 2010 MLS All-Star Game featured Manchester United, a European team, as an example of European participation.",
+            "verdict": "yes",
+            "reason": "The 2010 game's opponent is listed as Manchester United, a European (English) team, in the context."
+          },
+          {
+            "statement": "European teams have participated in the MSL All-Star Games.",
+            "verdict": "yes",
+            "reason": "The context confirms European teams have been opponents since 2005, including examples like Manchester United."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the provided document, as it correctly names players (Cristiano Ronaldo, Zinedine Zidane, Pelé, and Diego Maradona) and avoids introducing information not present in the document. However, it omits specific details from the document, such as Zidane's recognition as \"UEFA Best European Player of the Past 50 Years\" or Pelé's \"Football Player of the Century\" ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Cristiano Ronaldo is widely regarded as one of the best players to ever play the game.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Ronaldo is 'widely regarded as one of the best players to ever play the game.'"
+          },
+          {
+            "statement": "Zinedine Zidane has been praised by many as one of the greatest players in history.",
+            "verdict": "yes",
+            "reason": "The context includes multiple quotes from players and coaches (e.g., Zlatan Ibrahimović, David Beckham, Franz Beckenbauer) describing Zidane as one of the greatest or the greatest player in history."
+          },
+          {
+            "statement": "Pelé and Diego Maradona are often mentioned as among the best.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Ronaldo wanting to 'carve his name in history alongside Pelé and Diego Maradona' and notes Pelé being named the 'Football Player of the Century' in the Ballon d'Or context."
+          },
+          {
+            "statement": "The specific list of the 'best' can vary based on personal opinion and criteria.",
+            "verdict": "yes",
+            "reason": "While the context does not explicitly state this, it implicitly supports it by showing differing opinions (e.g., some praise Zidane, others Pelé/Maradona) and the subjective nature of historical rankings (e.g., Ballon d'Or votes)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the question by listing key skills (passing, tackling, etc.), mentions understanding rules, and emphasizes work ethic and progression from amateur to professional. It aligns with the document's content on skills, rules, and career paths. However, it omits physical attributes like height and muscular build mentioned in the reference answer and documents, which are c",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A good soccer player typically possesses passing skills.",
+            "verdict": "yes",
+            "reason": "The context states that passing is a common skill in all codes of football."
+          },
+          {
+            "statement": "A good soccer player typically possesses tackling skills.",
+            "verdict": "yes",
+            "reason": "The context mentions tackling as a common skill in all codes of football."
+          },
+          {
+            "statement": "A good soccer player typically possesses evasion of tackles skills.",
+            "verdict": "yes",
+            "reason": "The context lists evasion of tackles as a common skill in all codes of football."
+          },
+          {
+            "statement": "A good soccer player typically possesses catching skills.",
+            "verdict": "yes",
+            "reason": "The context states that catching is a common skill in all codes of football."
+          },
+          {
+            "statement": "A good soccer player typically possesses kicking skills.",
+            "verdict": "yes",
+            "reason": "The context mentions kicking as a common skill in all codes of football."
+          },
+          {
+            "statement": "A good soccer player must understand the rules of the game.",
+            "verdict": "yes",
+            "reason": "The context discusses rules such as offside positioning, implying knowledge of game rules is necessary."
+          },
+          {
+            "statement": "A good soccer player must understand offside positioning.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that rules restrict players' offside movement."
+          },
+          {
+            "statement": "A good soccer player must understand scoring techniques.",
+            "verdict": "yes",
+            "reason": "The context describes scoring a goal as putting the ball under or over the crossbar, implying knowledge of scoring techniques."
+          },
+          {
+            "statement": "Dedication is crucial for a good soccer player.",
+            "verdict": "yes",
+            "reason": "Cristiano Ronaldo is noted for his dedication to improvement and training."
+          },
+          {
+            "statement": "Work ethic is crucial for a good soccer player.",
+            "verdict": "yes",
+            "reason": "Cristiano Ronaldo is acclaimed for his work ethic and training dedication."
+          },
+          {
+            "statement": "A desire to improve is crucial for a good soccer player.",
+            "verdict": "yes",
+            "reason": "Cristiano Ronaldo's drive to improve and succeed is highlighted in the context."
+          },
+          {
+            "statement": "Players often start as amateurs.",
+            "verdict": "yes",
+            "reason": "The context states that footballers generally begin as amateurs."
+          },
+          {
+            "statement": "Players progress through youth teams.",
+            "verdict": "yes",
+            "reason": "The context mentions that players start at youth teams and advance based on skill."
+          },
+          {
+            "statement": "Players may become professionals through talent and hard work.",
+            "verdict": "yes",
+            "reason": "The context explains that scouts offer contracts based on skill and talent, and some advance to professionalism."
+          },
+          {
+            "statement": "Cristiano Ronaldo and Eden Hazard are celebrated for their exceptional skills, creativity, and consistency.",
+            "verdict": "yes",
+            "reason": "Both players are described as having exceptional skills, creativity, and consistency in the context."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it correctly cites the 2006 World Cup viewership statistics (26.29 billion cumulative and 715.1 million for the final) and highlights soccer's global player base (250 million in 200+ nations). It also accurately notes the FIFA World Cup as the most-watched sporting event. The mention of the UEFA Champions League's viewership (360 million for t",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Soccer is still considered one of the most watched sports globally.",
+            "verdict": "yes",
+            "reason": "The context states that association football has the highest television audience in sport, making it the most popular globally."
+          },
+          {
+            "statement": "Soccer has the highest television audience in sport.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that association football has the highest television audience in sport."
+          },
+          {
+            "statement": "Association football is played by over 250 million players in more than 200 nations.",
+            "verdict": "yes",
+            "reason": "The context directly states this fact about association football."
+          },
+          {
+            "statement": "The FIFA World Cup is the most widely viewed and followed sporting event.",
+            "verdict": "yes",
+            "reason": "The context confirms the FIFA World Cup is the most prestigious and widely viewed sporting event, exceeding the Olympic Games."
+          },
+          {
+            "statement": "The 2006 FIFA World Cup had an estimated 26.29 billion cumulative viewers.",
+            "verdict": "yes",
+            "reason": "The context provides the exact cumulative viewership figure for the 2006 World Cup as 26.29 billion."
+          },
+          {
+            "statement": "Other sports, such as the UEFA Champions League final, have drawn massive audiences.",
+            "verdict": "yes",
+            "reason": "The context notes the UEFA Champions League final has been the most-watched annual sporting event, with 360 million viewers for the 2013 final."
+          },
+          {
+            "statement": "Soccer remains the most popular and widely watched sport worldwide.",
+            "verdict": "yes",
+            "reason": "The context states association football is the most popular and has the highest television audience globally."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents and previous conversation, accurately stating that American football is the most popular sport in the U.S. (citing the NFL and Super Bowl) and that soccer is more globally popular. It aligns with the document's data on NFL attendance and soccer's global reach (250 million players). However, it omits specific international examples (e.g., Mexi",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "American football is the most popular sport in the United States.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that American football is the most popular sport in the United States."
+          },
+          {
+            "statement": "The National Football League (NFL) is the most prominent league in American football.",
+            "verdict": "yes",
+            "reason": "The context highlights the NFL as the most popular American football league and its global attendance and revenue dominance."
+          },
+          {
+            "statement": "The NFL has the highest average attendance of any professional sports league globally.",
+            "verdict": "yes",
+            "reason": "The context confirms the NFL has the highest average attendance of any professional sports league in the world."
+          },
+          {
+            "statement": "The Super Bowl is one of the most-watched sporting events worldwide.",
+            "verdict": "yes",
+            "reason": "The context states the Super Bowl ranks among the most-watched club sporting events globally."
+          },
+          {
+            "statement": "Soccer (association football) is the most popular sport globally.",
+            "verdict": "yes",
+            "reason": "The context explicitly states association football is the most popular sport globally due to its player base and television audience."
+          },
+          {
+            "statement": "Soccer has over 250 million players and the highest television audience in the world.",
+            "verdict": "yes",
+            "reason": "The context directly supports this with specific numbers and claims about soccer's global reach."
+          },
+          {
+            "statement": "American football is popular in the United States, but soccer is more widely followed worldwide.",
+            "verdict": "yes",
+            "reason": "The context contrasts American football's U.S. dominance with soccer's global popularity, explicitly stating soccer is the most popular sport worldwide."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly identifies the NBA as the most significant professional basketball league and highlights the popularity of basketball in the Southern United States, both of which are supported by the document. The assistant does not introduce any information conflicting with the provided text. However, it omits some details from the document,",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Basketball is considered a very popular sport in America.",
+            "verdict": "yes",
+            "reason": "The context states that basketball is one of the three leading professional team sports in the U.S. and college basketball attracts large audiences."
+          },
+          {
+            "statement": "Basketball is one of the world's most popular and widely viewed sports.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions this as a fact."
+          },
+          {
+            "statement": "The National Basketball Association (NBA) is the most significant professional basketball league globally.",
+            "verdict": "yes",
+            "reason": "The context highlights the NBA's global significance in terms of popularity, salaries, talent, and competition."
+          },
+          {
+            "statement": "Basketball is highly popular in the Southern United States.",
+            "verdict": "yes",
+            "reason": "The context specifies that basketball is very popular in the Southern U.S., particularly in states like North Carolina and Kentucky."
+          },
+          {
+            "statement": "The Southern United States has many historically prominent college basketball programs and NBA teams.",
+            "verdict": "yes",
+            "reason": "The context lists several NBA teams in the South and mentions historically prominent college programs in the region."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.667, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, as it correctly notes that the provided information does not address the user's sons' experiences or detailed ice hockey content. However, the assistant missed an opportunity to reference the document's mention of Atlanta's ice hockey franchises (e.g., Atlanta Flames, Thrashers) to acknowledge the user's interest in ice hockey. This omission red",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.6666666666666666,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5714285714285714,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The user's latest question is about their personal interest in ice hockey, given their sons' involvement in high school and college club hockey.",
+            "verdict": "no",
+            "reason": "The context does not mention the user's personal interest or their sons' involvement in ice hockey."
+          },
+          {
+            "statement": "However, the retrieved evidence does not provide any specific information related to ice hockey or the user's sons' experiences.",
+            "verdict": "yes",
+            "reason": "The context provides general information about Atlanta's professional ice hockey franchises but does not mention the user's sons or their specific experiences."
+          },
+          {
+            "statement": "Therefore, I do not have specific information to address this question.",
+            "verdict": "yes",
+            "reason": "The context lacks specific details about the user's personal interest or their sons' involvement in ice hockey."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 27036,
+    "completion_tokens": 31622,
+    "total_tokens": 58658,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 37,
+    "reasoning_tokens": 30911,
+    "reasoning_budget_verified_calls": 37
+  },
+  "elapsed_seconds": 879.567
+}

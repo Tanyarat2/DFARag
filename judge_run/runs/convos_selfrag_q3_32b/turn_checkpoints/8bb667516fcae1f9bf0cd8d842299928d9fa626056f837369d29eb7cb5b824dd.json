@@ -1,0 +1,387 @@
+{
+  "version": 1,
+  "fingerprint": "8bb667516fcae1f9bf0cd8d842299928d9fa626056f837369d29eb7cb5b824dd",
+  "id": "33431330abb38298cc79b96b2f4fde2a",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it correctly attributes the origin of the term \"Byzantine\" to the city of Byzantium (Constantinople) and accurately cites Hieronymus Wolf's 1557 work as the first recorded use of the term. It also aligns with the document's emphasis on the cultural and religious distinctions (Greek language, Orthodox Christianity) that differentiated the Easte",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The Eastern Roman Empire was called the Byzantine Empire because its capital, Constantinople, was originally named Byzantium.",
+            "verdict": "yes",
+            "reason": "The context states that the term 'Byzantine Empire' comes from the city's name before it became Constantinople, which was Byzantium."
+          },
+          {
+            "statement": "The term 'Byzantine' was first used in 1557 by the German historian Hieronymus Wolf in his work *Corpus Historiæ Byzantinæ*.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the first use of the term 'Byzantine' was in 1557 by Hieronymus Wolf."
+          },
+          {
+            "statement": "The term became popularized in the 17th and 18th centuries, particularly among French authors.",
+            "verdict": "yes",
+            "reason": "The context notes that the term was popularized in the 17th century with works like the Byzantine du Louvre and Du Cange's Historia Byzantina, and among French authors like Montesquieu in the 18th century."
+          },
+          {
+            "statement": "The name reflects the city's ancient name and the distinct cultural and political identity of the Eastern Roman Empire, which became increasingly associated with Greek culture and Orthodox Christianity, differentiating it from the Latin-speaking Western Roman Empire.",
+            "verdict": "yes",
+            "reason": "The context explains that the empire was centered on Constantinople (Byzantium), oriented towards Greek culture, and Orthodox Christianity, distinguishing it from the Latin West."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the Eastern Orthodox Church as the dominant religious institution in the Byzantine Empire and acknowledges the presence of other Christian sects, pagans, and Jewish communities. It aligns with the documents by noting the lack of uniformity in religious adherence and the Orthodox Church's central role in cultural and religious life. However, the answer om",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The Eastern Roman Empire, also known as the Byzantine Empire, was predominantly Christian, with the Eastern Orthodox Church being the dominant religious institution.",
+            "verdict": "yes",
+            "reason": "The context states that the Eastern Orthodox Church was the state church and that by the late stages of the Empire, Eastern Orthodoxy represented most Christians. While other Christian sects and non-Christian communities existed, the Orthodox Church was the dominant institution."
+          },
+          {
+            "statement": "However, it was not uniformly Orthodox, as there were various Christian sects and even pagan and Jewish communities present.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the presence of heretical Christian groups (e.g., Nestorianism, Arianism), pagans until the 6th century, Jews, and other non-Orthodox Christian doctrines, indicating a lack of uniformity in religious practice."
+          },
+          {
+            "statement": "The Eastern Orthodox Church played a central role in the empire's religious and cultural life, and its influence extended throughout the regions under Byzantine control.",
+            "verdict": "yes",
+            "reason": "The context highlights the Church's historical and cultural prominence in Eastern Europe, the Caucasus, and the Near East, as well as the establishment of autocephalous churches in regions like Russia and Greece, underscoring its central role and widespread influence."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.720 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents by including both Diocletian's Tetrarchy (3rd century) and Constantine I's reforms (4th century), which are explicitly mentioned in the provided texts. The reference answer focuses solely on Constantine, but the documents also reference Diocletian's reorganization as part of the broader historical context leading to the Byzantine Empire. The assi",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.72,
+        "conditioned_score": 0.72,
+        "statements": [
+          {
+            "statement": "The Eastern Roman Empire was reorganized during the reign of Diocletian in the 3rd century.",
+            "verdict": "no",
+            "reason": "The context mentions Diocletian's reorganization in the 3rd century, but it refers to the entire Roman Empire, not specifically the Eastern Roman Empire as a distinct entity at that time."
+          },
+          {
+            "statement": "Diocletian divided the empire into four regions ruled by separate emperors, known as the Tetrarchy.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Diocletian divided the empire into four regions under the Tetrarchy system."
+          },
+          {
+            "statement": "The reorganization under Diocletian aimed to improve administrative efficiency and military defense.",
+            "verdict": "no",
+            "reason": "The context mentions increased military emphasis but does not explicitly state that administrative efficiency was a goal of Diocletian's reorganization."
+          },
+          {
+            "statement": "Constantine I reorganized the empire again in the 4th century.",
+            "verdict": "yes",
+            "reason": "The context states that Constantine I reorganized the empire during his reign (324–337), which falls in the 4th century."
+          },
+          {
+            "statement": "Constantine I established Constantinople as the new capital and further restructured the empire's governance.",
+            "verdict": "yes",
+            "reason": "The context directly states that Constantine I made Constantinople the new capital and reorganized the empire."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the Ottoman conquest of Constantinople in 1453 as the immediate cause of the Byzantine Empire's fall and notes the Fourth Crusade (1204) as a significant contributing factor. These points are supported by the documents, which describe the 1204 sack of Constantinople and the 1453 siege. However, the assistant's response is narrower in scope compared to th",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The Byzantine Empire fell primarily due to the Ottoman conquest of Constantinople in 1453.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Fall of Constantinople to the Ottomans in 1453 ended the Byzantine Empire, despite prior territorial losses."
+          },
+          {
+            "statement": "The capture of Constantinople by Sultan Mehmed II's forces after a two-month siege marked the end of the empire.",
+            "verdict": "yes",
+            "reason": "The context describes the 1453 siege and fall of Constantinople as the event that finally ended the Byzantine Empire."
+          },
+          {
+            "statement": "The fall of Constantinople led to the dissolution of the Byzantine Empire as its remaining territories were gradually annexed by the Ottomans.",
+            "verdict": "yes",
+            "reason": "The context notes that the empire's remaining territories were progressively annexed by the Ottomans over the 15th century, culminating in the 1453 fall."
+          },
+          {
+            "statement": "The empire faced significant challenges over the centuries, including the Fourth Crusade in 1204, which divided its territories and weakened its political and military strength.",
+            "verdict": "yes",
+            "reason": "The context states that the Fourth Crusade delivered a mortal blow, sacking Constantinople and dividing its territories into competing realms, weakening the empire."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.333, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.486 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the founding of the Byzantine Empire as occurring in 395 AD, when the Roman Empire was divided into Western and Eastern halves. This aligns with the documents, which state that the Eastern Roman Empire (Byzantine Empire) emerged after the division under Theodosius I. The assistant's response is **faithful** to the documents, as it reflects the key histor",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.3333333333333333,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.4864864864864865,
+        "conditioned_score": 0.4864864864864865,
+        "statements": [
+          {
+            "statement": "The Eastern Roman Empire was founded in 395 AD.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state the founding date of the Eastern Roman Empire as 395 AD. It only mentions the division of the Roman Empire and the fall of the Western Empire in 476 AD, but does not specify 395 AD as the year of division or founding."
+          },
+          {
+            "statement": "The Eastern Roman Empire is also known as the Byzantine Empire.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Byzantine Empire is also referred to as the Eastern Roman Empire, confirming the equivalence of the two terms."
+          },
+          {
+            "statement": "The Roman Empire was divided into the Western and Eastern Roman Empires in 395 AD.",
+            "verdict": "no",
+            "reason": "The context describes the division of the Roman Empire but does not mention the year 395 AD. While historical knowledge may associate 395 AD with the division, the provided text does not specify this date."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, as it correctly identifies Byzantine control over parts of Southern Italy (Calabria, Bari, Otranto) and notes the Norman conquests as a key factor in diminishing Byzantine influence. It avoids the off-topic content in the reference answer (e.g., Roman Republic, Holy Roman Empire) and stays focused on the Byzantine Empire's territorial presence i",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "The Byzantine Empire's territory in the region now known as Italy included parts of Southern Italy, such as Calabria.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that by 1025, the Byzantine Empire stretched to Calabria in Southern Italy during Basil II's reign."
+          },
+          {
+            "statement": "The Byzantine Empire's territory in the region now known as Italy extended to areas like Bari and Otranto.",
+            "verdict": "yes",
+            "reason": "The context notes that Bari was a Byzantine stronghold in Apulia until it fell to the Normans in 1071, and Otranto was captured by Robert Guiscard in 1068, confirming their prior Byzantine control."
+          },
+          {
+            "statement": "The Byzantine Empire did not encompass the entire modern country of Italy.",
+            "verdict": "yes",
+            "reason": "The context highlights Byzantine control over parts of Southern Italy (e.g., Calabria, Bari) but does not indicate control over the entire modern Italian peninsula, implying territorial limitations."
+          },
+          {
+            "statement": "The Byzantine Empire's influence in Italy diminished over time, particularly with the Norman conquests in the 11th century.",
+            "verdict": "yes",
+            "reason": "The context details the Normans' gradual conquest of Byzantine territories in Southern Italy (e.g., Reggio, Otranto, Bari) during the 11th century, leading to a loss of Byzantine influence."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=0.750, IDK=0.5, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is incorrect and not faithful to the document. The document clearly states that the Eastern Roman Empire (Byzantine Empire) continued until 1453, with the last emperor being Constantine XI Palaiologos, who died during the fall of Constantinople. The assistant incorrectly identifies Theodosius I (who died in 395) as the last emperor of the Eastern Roman Empire, which is factu",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 0.75,
+        "idk": 0.5,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.31578947368421056,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The last Emperor of the Eastern Roman Empire was Theodosius I.",
+            "verdict": "no",
+            "reason": "The context states that Theodosius I was the last Emperor to rule the whole Empire, but the Eastern Roman Empire continued until 1453 with other emperors like Zeno. Theodosius I was not the last of the Eastern Empire."
+          },
+          {
+            "statement": "Theodosius I ruled over the whole Empire until his death in 395.",
+            "verdict": "yes",
+            "reason": "The context confirms that Theodosius became sole emperor in 394 and died in 395, indicating he ruled the entire Empire until his death."
+          },
+          {
+            "statement": "After Theodosius I's death, the Empire was divided between his two sons, Arcadius and Honorius.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that after Theodosius's death in 395, the Empire was split between his sons Arcadius (East) and Honorius (West)."
+          },
+          {
+            "statement": "The division of the Empire marked the beginning of the Eastern and Western Roman Empires.",
+            "verdict": "yes",
+            "reason": "The context describes the division after Theodosius I as the start of the Eastern and Western Roman Empires, with distinct rulers and capitals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the Byzantine Empire became Catholic in 380 under Emperor Theodosius I, aligning with the reference answer and the documents. The documents explicitly state that Theodosius I decreed Catholicism as the state religion in 380, replacing Arianism. The assistant's response is faithful to this information, as it does not introduce conflicting or unsuppor",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The Eastern Roman Empire, also known as the Byzantine Empire, became Catholic in 380 when Emperor Theodosius I declared Catholicism the state religion of the Roman Empire.",
+            "verdict": "yes",
+            "reason": "The context states that in 380, under Emperor Theodosius I, Catholicism became the state religion of the Roman Empire, which included the Eastern Roman Empire (Byzantine Empire)."
+          },
+          {
+            "statement": "This marked the official adoption of Catholicism as the dominant form of Christianity within the empire.",
+            "verdict": "yes",
+            "reason": "The context confirms that in 380, mainstream Christianity (Catholicism) was declared the official religion of the Roman Empire, displacing Arianism and establishing Catholicism as dominant."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.720 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the user's question about the Byzantine Empire's role in the region of Israel. It clarifies that the Byzantine Empire did not \"conquer Israel\" in the traditional sense but notes that the region was under Roman control (63 BCE–634 CE) and that the Byzantines reconquered parts of it in 628 CE after the Persian conquest. This aligns with the documents, which",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.72,
+        "conditioned_score": 0.72,
+        "statements": [
+          {
+            "statement": "The Byzantine Empire did not conquer Israel in the sense of establishing direct control over the region.",
+            "verdict": "no",
+            "reason": "The context states that the Byzantine Empire reconquered the region in 628 CE after the Persian conquest, indicating direct control at that time."
+          },
+          {
+            "statement": "The Byzantine Empire exerted influence over parts of the area, particularly during the Byzantine period.",
+            "verdict": "yes",
+            "reason": "The context mentions Byzantine rule in the region, including events like the Samaritan revolts and Christian influence under Byzantine administration."
+          },
+          {
+            "statement": "The region was under Roman control from 63 BCE until the Arab conquest in 634–641 CE.",
+            "verdict": "yes",
+            "reason": "The context confirms Roman (and later Byzantine) control from 63 BCE until the Arab conquest in 634–641 CE."
+          },
+          {
+            "statement": "The Byzantine Empire reconquered parts of the region in 628 CE after the Persian conquest.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Byzantine Empire reconquered the country in 628 CE following the Persian conquest in 614 CE."
+          },
+          {
+            "statement": "The Byzantine Empire did not conquer Israel in the traditional sense but had significant historical influence over the area.",
+            "verdict": "no",
+            "reason": "The context shows the Byzantine Empire did exert direct control (e.g., reconquering in 628 CE), contradicting the first part of the statement, though the influence part is accurate."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 29071,
+    "completion_tokens": 20046,
+    "total_tokens": 49117,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 17243,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 667.951
+}

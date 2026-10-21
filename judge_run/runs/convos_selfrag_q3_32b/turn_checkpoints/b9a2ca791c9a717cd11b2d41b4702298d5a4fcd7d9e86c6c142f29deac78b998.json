@@ -1,0 +1,500 @@
+{
+  "version": 1,
+  "fingerprint": "b9a2ca791c9a717cd11b2d41b4702298d5a4fcd7d9e86c6c142f29deac78b998",
+  "id": "f0d2873b877409f61da7dbdddd22d279",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.400, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.509 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that the user can visit the law library for legal research and highlights key resources like court documents, statutes, and case law. It also advises reviewing legal authorities and consulting professionals, which aligns with the document's emphasis on preparation for oral arguments. However, the assistant omits specific details from the reference answer, ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.4,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.509090909090909,
+        "conditioned_score": 0.509090909090909,
+        "statements": [
+          {
+            "statement": "You can visit the law library to conduct legal research for your oral argument.",
+            "verdict": "no",
+            "reason": "The context does not mention law libraries or visiting them for legal research."
+          },
+          {
+            "statement": "The law library provides access to legal resources such as court documents, statutes, and case law.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that law libraries provide these resources."
+          },
+          {
+            "statement": "These resources are essential for preparing for an oral argument.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of reviewing legal authorities, briefs, and the record on appeal for preparation."
+          },
+          {
+            "statement": "Reviewing relevant legal authorities and briefs is advisable to ensure you are well-prepared.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises reviewing the record, briefs, and legal authorities to prepare for oral argument."
+          },
+          {
+            "statement": "If further assistance is needed, you may consult a legal professional or librarian at the law library.",
+            "verdict": "no",
+            "reason": "The context does not mention consulting a librarian or legal professional at a law library for assistance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it accurately reflects the steps outlined in the California Courts guide for hiring a lawyer. It includes verifying credentials via the State Bar, using referral services, interviewing lawyers, and understanding agreements—all directly supported by the document. The assistant also avoids introducing information not present in the source ma",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Determine if you need a lawyer.",
+            "verdict": "yes",
+            "reason": "The context discusses when to hire a lawyer, implying the need to assess this."
+          },
+          {
+            "statement": "Hire a lawyer if your case is complex.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'You have a complicated case...'"
+          },
+          {
+            "statement": "Hire a lawyer if the other side has a lawyer.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'The other side has a lawyer.'"
+          },
+          {
+            "statement": "Hire a lawyer if you want legal advice.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'You want legal advice.'"
+          },
+          {
+            "statement": "Find a lawyer using lawyer referral services.",
+            "verdict": "yes",
+            "reason": "The context mentions using lawyer referral services as a method to find a lawyer."
+          },
+          {
+            "statement": "Find a lawyer by contacting your county bar association.",
+            "verdict": "yes",
+            "reason": "The context explicitly states contacting the county bar association for referrals."
+          },
+          {
+            "statement": "Find a lawyer by searching online for State Bar-certified lawyers.",
+            "verdict": "yes",
+            "reason": "The context mentions using the State Bar’s Attorney Search to verify lawyers."
+          },
+          {
+            "statement": "Verify the lawyer's credentials by checking their background.",
+            "verdict": "yes",
+            "reason": "The context instructs to check the lawyer's background and discipline record."
+          },
+          {
+            "statement": "Verify the lawyer's credentials by checking their discipline record through the State Bar’s Attorney Search.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions using the State Bar’s Attorney Search for disciplinary history."
+          },
+          {
+            "statement": "Interview the lawyer about their experience.",
+            "verdict": "yes",
+            "reason": "The context lists questions to ask about the lawyer's experience during interviews."
+          },
+          {
+            "statement": "Interview the lawyer about their fees.",
+            "verdict": "yes",
+            "reason": "The context emphasizes discussing fees and billing during interviews."
+          },
+          {
+            "statement": "Interview the lawyer about how they will handle your case.",
+            "verdict": "yes",
+            "reason": "The context includes questions about case steps and outcomes during interviews."
+          },
+          {
+            "statement": "Understand the agreement by comprehending the fee structure.",
+            "verdict": "yes",
+            "reason": "The context discusses understanding fees and billing in writing."
+          },
+          {
+            "statement": "Understand the agreement by comprehending the scope of work.",
+            "verdict": "yes",
+            "reason": "The context emphasizes knowing what the lawyer will do for you."
+          },
+          {
+            "statement": "Understand the agreement by comprehending any potential costs.",
+            "verdict": "yes",
+            "reason": "The context details costs like filing fees and expert fees."
+          },
+          {
+            "statement": "Sign the agreement only if you are comfortable with the terms.",
+            "verdict": "yes",
+            "reason": "The context advises not to sign if uncomfortable with terms."
+          },
+          {
+            "statement": "Work with the lawyer by communicating regularly.",
+            "verdict": "yes",
+            "reason": "The context mentions keeping the lawyer updated and asking for updates."
+          },
+          {
+            "statement": "Work with the lawyer by providing all relevant information.",
+            "verdict": "yes",
+            "reason": "The context instructs to provide all case-related information and documents."
+          },
+          {
+            "statement": "Handle problems by discussing them with the lawyer first.",
+            "verdict": "yes",
+            "reason": "The context states to first talk to the lawyer about concerns."
+          },
+          {
+            "statement": "Handle problems by contacting the State Bar for assistance if issues arise.",
+            "verdict": "yes",
+            "reason": "The context mentions contacting the State Bar for problems with lawyers."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses procedural aspects of lodging an appeal (e.g., time limits, filing requirements, and restrictions on new evidence) but omits the core substantive grounds for an appeal, which are the legal errors in the trial court and their impact on the judgment. The reference answer explicitly explains that appellate courts review whether a legal mistake occurred and whether it ",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The grounds for lodging an appeal include a contested final judgment or order.",
+            "verdict": "yes",
+            "reason": "The context states that a party may appeal an 'unfavorable judgment and certain orders' and defines an appeal as a review of the trial court's decision."
+          },
+          {
+            "statement": "An appeal must be filed within specific time limits.",
+            "verdict": "yes",
+            "reason": "The context provides explicit time limits for appeals (e.g., 30 days for infractions/misdemeanors, 60 days for felonies) and emphasizes the need to act promptly."
+          },
+          {
+            "statement": "In California, a notice of appeal must be filed within 30 days for infraction or misdemeanor cases.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that for infractions and misdemeanors, the notice of appeal must be filed within 30 days."
+          },
+          {
+            "statement": "In California, a notice of appeal must be filed within 60 days for felony cases.",
+            "verdict": "yes",
+            "reason": "The context states that for felony cases, the notice of appeal must be filed within 60 days."
+          },
+          {
+            "statement": "An appeal is not a retrial and does not allow the introduction of new evidence.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that an appeal is not a new trial and that new evidence cannot be introduced."
+          },
+          {
+            "statement": "The appellant must follow procedural rules such as filing the notice of appeal and required documents with the appropriate court clerk.",
+            "verdict": "yes",
+            "reason": "The context specifies that notices of appeal and related documents must be filed with the Appeals Clerk in specific locations (e.g., Ventura Courthouse) and references procedural rules."
+          },
+          {
+            "statement": "Detailed procedures for appeals can be found in the California Rules of Court and relevant judicial council forms.",
+            "verdict": "yes",
+            "reason": "The context repeatedly directs readers to the California Rules of Court and Judicial Council forms (e.g., CR-131-INFO, CR-141-INFO) for detailed procedures."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.333 (threshold 0.80). RB_llm justification: The assistant's answer is not aligned with the context of the user's question or the previous conversation. The user's query about \"who is responsible for covering my expenses?\" arises in the context of legal proceedings, as evidenced by the prior discussion on appeals, hiring a lawyer, and legal research. The reference answer correctly addresses legal expenses in the context of an appeal, explain",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.3333333333333333,
+        "conditioned_score": 0.3333333333333333,
+        "statements": [
+          {
+            "statement": "The responsibility for covering your expenses depends on your specific context, such as being a patient, beneficiary, or provider.",
+            "verdict": "yes",
+            "reason": "The context discusses different scenarios (Medi-Cal, managed care, PPOs) and roles (patient, provider, beneficiary), indicating that coverage responsibility varies based on these factors."
+          },
+          {
+            "statement": "In Medi-Cal, the federal share of cost is typically 50% for most services, with the state covering the nonfederal share.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the federal share is 50% for most services, with the state (General Fund) covering the nonfederal share."
+          },
+          {
+            "statement": "For certain services like family planning, the federal share of cost in Medi-Cal can be higher than 50%.",
+            "verdict": "yes",
+            "reason": "The context mentions that family planning services have a 90% federal share, which is higher than 50%."
+          },
+          {
+            "statement": "If you are a patient, your expenses may be covered by insurance, Medi-Cal, or other public benefits depending on your situation.",
+            "verdict": "yes",
+            "reason": "The context includes information about Medi-Cal, managed care, and PPOs, which are relevant to patient coverage scenarios."
+          },
+          {
+            "statement": "If you are a provider, your payments may be covered by state or federal funds depending on the service provided.",
+            "verdict": "yes",
+            "reason": "The context explains that Medi-Cal uses federal and state funds for base and supplemental payments, with examples like Proposition 56 and quality assurance fees."
+          },
+          {
+            "statement": "Without additional context, it is difficult to determine who is responsible for covering your expenses.",
+            "verdict": "yes",
+            "reason": "The context provides various scenarios (e.g., Medi-Cal, PPOs, managed care) but does not universally assert that context is always required. However, the first statement implies that responsibility depends on context, which aligns with this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer provides a general overview of child support procedures, including filing a Request for Order, calculating support based on income and time with children, and enforcement options. While this information is accurate and relevant to the question, it omits key procedural details present in the document and reference answer. Specifically, the assistant does not mention the avail",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The procedures for a child support case typically involve determining the amount of support based on factors like each parent's income, time spent with the children, and other relevant considerations.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that courts use the California guideline, which considers income, tax filing, time with children, and other factors."
+          },
+          {
+            "statement": "If an agreement cannot be reached, a court order may be necessary.",
+            "verdict": "yes",
+            "reason": "The context mentions that if parents cannot agree, they can ask the court for a child support order."
+          },
+          {
+            "statement": "To initiate a child support case, you can file a Request for Order, which may include asking for child support, modifying an existing order, or stopping an order after the child has emancipated.",
+            "verdict": "yes",
+            "reason": "The context explains that a Request for Order can be filed to request child support, modify an order, or terminate it after emancipation."
+          },
+          {
+            "statement": "The court may also require an Income and Expense Declaration to assess the financial responsibilities of both parents.",
+            "verdict": "yes",
+            "reason": "The context references the Income and Expense Declaration Workshop and the requirement to file such declarations in specific cases."
+          },
+          {
+            "statement": "If the Department of Child Support Services (DCSS) is involved, they will be served by the court.",
+            "verdict": "yes",
+            "reason": "The context states that if DCSS is a party, the court will serve them with copies of documents."
+          },
+          {
+            "statement": "Enforcement options are available if the other parent fails to pay.",
+            "verdict": "yes",
+            "reason": "The context outlines enforcement options, including DCSS assistance, hiring an attorney, and other legal measures."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.400, IDK=0.0, answerability=PARTIAL -> conditioned score 0.400 (threshold 0.80). RB_llm justification: The assistant's answer claims that a jail sentence can be given for a child support conviction, citing potential criminal charges (misdemeanor or felony) for willful non-payment. However, the provided documents do not mention child support convictions or their criminalization. Instead, the documents focus on general criminal court procedures, types of offenses, and penalties for crimes like theft ",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.4,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.4,
+        "conditioned_score": 0.4,
+        "statements": [
+          {
+            "statement": "Yes, a jail sentence can be given for a child support conviction.",
+            "verdict": "no",
+            "reason": "The context does not mention child support or its classification as a criminal offense."
+          },
+          {
+            "statement": "In California, child support cases are typically civil matters, not criminal.",
+            "verdict": "no",
+            "reason": "The context does not address child support cases or their classification."
+          },
+          {
+            "statement": "If a person willfully fails to pay child support and this is considered a criminal offense, it may be classified as a misdemeanor or felony, depending on the circumstances.",
+            "verdict": "no",
+            "reason": "The context does not discuss child support or its potential criminal classification."
+          },
+          {
+            "statement": "Misdemeanors can result in up to one year in county jail, while felonies can lead to longer prison sentences.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that misdemeanors carry a maximum of one year in county jail, while felonies involve more severe penalties."
+          },
+          {
+            "statement": "The specific charges and potential penalties would depend on the court's determination and the severity of the case.",
+            "verdict": "yes",
+            "reason": "The context discusses how criminal cases are handled, including the role of the court in determining outcomes and penalties based on circumstances."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.500, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.583 (threshold 0.80). RB_llm justification: The assistant's answer addresses the main enforcement options for child support, including contacting local police, the district attorney for abduction, filing contempt, and seeking help from DCSS. It aligns with the document's guidance on these points and builds on the user's prior focus on child support procedures. However, it omits the **Federal Parent Locator Service (FPLS)** mentioned in the ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5833333333333333,
+        "conditioned_score": 0.5833333333333333,
+        "statements": [
+          {
+            "statement": "To obtain enforcement support for a child support case, you have several options.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that if the other parent fails to pay court-ordered child support, you have several options, including proceeding on your own, hiring an attorney, or engaging DCSS."
+          },
+          {
+            "statement": "First, you can contact the local police department and provide them with a copy of the current child support order to request enforcement.",
+            "verdict": "no",
+            "reason": "The context mentions contacting the police for custody orders, not child support enforcement. The child support enforcement section does not reference police involvement."
+          },
+          {
+            "statement": "Second, you can reach out to the district attorney in your county, especially if you suspect child abduction, and request assistance from the child abduction unit.",
+            "verdict": "no",
+            "reason": "The context links the district attorney to child abduction in custody cases, not child support enforcement. The child support enforcement section does not mention the DA."
+          },
+          {
+            "statement": "Third, you may file a contempt of court if the parent is intentionally violating the order, which could result in serious consequences, including jail time.",
+            "verdict": "no",
+            "reason": "The context describes contempt of court for custody violations, not child support enforcement. The child support enforcement section does not mention contempt."
+          },
+          {
+            "statement": "Lastly, you can seek help from the Department of Child Support Services (DCSS) to assist with enforcement.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that DCSS is available to assist with enforcing child support orders."
+          },
+          {
+            "statement": "It is advisable to consult with a lawyer for guidance through these processes.",
+            "verdict": "yes",
+            "reason": "The context advises consulting a lawyer for both custody and child support enforcement processes."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it accurately reflects the role of the Family Law Facilitator in Tuolumne County, including their services (e.g., form assistance, support calculations, and procedural guidance) and limitations (e.g., no legal advice or court representation). However, it omits key information from the reference answer and the document, such as **temporary ",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Spousal support in California can be obtained or modified through the Family Law Facilitator.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the Facilitator helps with obtaining or changing spousal support orders."
+          },
+          {
+            "statement": "The Family Law Facilitator provides assistance with forms, information, and procedures.",
+            "verdict": "yes",
+            "reason": "The context mentions the Facilitator provides forms, samples, and procedural information for family law cases."
+          },
+          {
+            "statement": "The facilitator can help calculate support amounts based on statutory guidelines.",
+            "verdict": "yes",
+            "reason": "The context specifies the Facilitator assists with calculating child and spousal support using statutory guidelines."
+          },
+          {
+            "statement": "The facilitator can guide you through the process of setting hearings or enforcing support orders.",
+            "verdict": "yes",
+            "reason": "The context lists setting hearings on arrears and enforcing support orders as services provided by the Facilitator."
+          },
+          {
+            "statement": "The Family Law Facilitator cannot provide legal advice or represent you in court.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the Facilitator cannot give legal advice or represent parties in court."
+          },
+          {
+            "statement": "For detailed procedures, contact the Superior Court of California, County of Tuolumne, at 209-533-6565.",
+            "verdict": "yes",
+            "reason": "The context provides 209-533-6565 as the Facilitator's contact number for appointments and assistance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 32768,
+    "max_requested_reasoning_tokens": 16384,
+    "prompt_tokens": 64725,
+    "completion_tokens": 32193,
+    "total_tokens": 96918,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 37,
+    "reasoning_tokens": 26404,
+    "reasoning_budget_verified_calls": 37
+  },
+  "elapsed_seconds": 1192.412
+}

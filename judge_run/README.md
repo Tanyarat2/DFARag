@@ -1,12 +1,61 @@
-# mtRAG judging in one folder
+# mtRAG judging
 
-Run commands from `judge_run`. This folder judges each turn with the project's
-mtRAG-style judge and lets a person review/annotate the result. Existing run JSON
-files are retained; the live server reads the current `out.mtrag.json` without
-modifying prior results. This step selects failed RAG cases for later attribution;
-it does not assign one of the six failure causes.
+Run commands from `judge_run`. This folder prepares inputs, judges turns with
+the project's mtRAG-style judge, and recovers incomplete runs. Run data stays in
+`judge_run/runs/`. Human review tools live separately in
+[annotate_server](../annotate_server/README.md). Judging selects failed RAG cases
+for later attribution; it does not assign one of the six failure causes.
 
-## Commands (PowerShell)
+## Start a new judge run
+
+Use Python 3 with the standard library. Commands in this guide run from
+`judge_run/`; from the repository root, prefix scripts with `judge_run/`.
+Set `OPENROUTER_API_KEY` in the terminal that starts a paid judge run. Human review,
+input preparation, previews, and the offline tests make no judge API calls.
+
+In Bash, validate a new run before starting it:
+
+```bash
+python3 -B run.py judge --src conversation_vector --name vector_new --dry-run
+python3 -B run.py judge --src conversation_vector --name vector_new
+```
+
+Choose a new name for each experiment. Existing inputs and results remain under
+`runs/`. The current complete-run names are `convos_vector_q3_32b`,
+`convos_selfrag_q3_32b`, and `convos_raptor_q3_32b`; the similarly named
+`conversation_vector_*` folders contain earlier pilot runs.
+
+The supplied Vector and SelfRAG export files are byte-identical and both identify
+the backend as `selfrag`. Retain both original files, and verify provenance before
+treating them as separate RAG conditions.
+
+### Imported HippoRAG2 run
+
+`conversation/conversation_hipporag.json` combines the Cloud, FiQA, and Govt
+exports: **81 conversations / 618 turns**. There is no ClapNQ output. Original
+files, hashes, Git revision and the repeatable conversion command are documented
+in [conversation/README.md](../conversation/README.md). All turns have been
+validated against the existing gold references and prepared under
+`runs/convos_hipporag_q3_32b/input.json`.
+
+Start the existing resumable judge queue for HippoRAG only, from the repository root:
+
+```bash
+python3 -B judge_run/queue_remaining_judges.py --complete-all --rags hipporag
+```
+
+It uses `qwen/qwen3-32b`, threshold 0.8, per-turn checkpoints and the same adaptive
+4096/8192 baseline budgets as the other completed runs (retry ceiling 32768).
+If `OPENROUTER_API_KEY` is unset, enter it at the masked terminal prompt. Never
+paste the key into chat or source files. The launcher detaches and logs to
+`judge_run/runs/remaining_judges.log`. Rerun the same command to recover incomplete
+work. Existing Vector, SelfRAG and RAPTOR results are not rejudged. Without `--rags`,
+`--complete-all` keeps its original three-backend behavior.
+
+The prepared input alone does not mean judging has run. After full verification,
+the queue publishes `runs/convos_hipporag_q3_32b/out.mtrag.json` for annotation.
+
+### PowerShell
 
 Judge an entire file from `conversation/` with one command (from `judge_run`):
 
@@ -54,9 +103,9 @@ python run.py preview --name conversation_new
 ```
 
 `prepare --src conversation_vector` reads `../conversation/conversation_vector.json`
-and writes `runs/conversation_new/input.json`. The older `prepare` command without
-`--src` still defaults to `../conversation.json`. The preparer preserves selected
-passages, reference answers, answerability and recorded history. `preview`
+and writes `runs/conversation_new/input.json`. Always supply `--src`: the legacy
+default `../conversation.json` is not included in this checkout. The preparer
+preserves selected passages, reference answers, answerability and recorded history. `preview`
 writes `preview.json` without any paid API call.
 
 Set the approved model and API key environment variables in the same session,
@@ -68,7 +117,6 @@ $env:JUDGE_BASE_URL = "https://openrouter.ai/api/v1"
 $env:JUDGE_MODEL = "qwen/qwen3-30b-a3b"
 $env:JUDGE_API_KEY_ENV = "OPENROUTER_API_KEY"
 python run.py mtrag --name conversation_new
-python run.py serve
 ```
 
 If a thinking model stops the short IDK call at `finish_reason=length`, the
@@ -82,8 +130,9 @@ python -B run.py mtrag --name conversation_vector_qwen35b --idk-max-tokens 4096
 The default is 512. Failed IDK requests retry with twice the previous budget,
 so 4096 can request up to 16384 on the third attempt and use more credits.
 This option is recorded in `out.mtrag.json` and cannot be mixed with a
-different IDK budget when resuming completed records. A failed record has no
-saved turn-level checkpoint, so rerunning it repeats its earlier API calls.
+different IDK budget when resuming completed records. Without
+`judge_mtrag.py --turn-checkpoints`, rerunning a failed record repeats its earlier
+API calls. The completion queue below enables turn checkpoints automatically.
 
 For a run that leaves the completion limit to the provider/model, use:
 
@@ -118,123 +167,74 @@ completion limit. Both budgets are recorded in the result, and runs with
 different budgets cannot be merged by `--resume-from`. Use a new run name;
 do not overwrite the previous unbounded result.
 
-Open `http://127.0.0.1:8765/run/conversation_new`. The live page regenerates
-from the latest JSON when refreshed. Alternatively,
-`python run.py annotate --name conversation_new` writes a static
-`runs/conversation_new/annotate.html` once and refuses to overwrite one that
-already exists. Export human annotations with the page's JSON or CSV button.
-After changing `make_annotation.py` or `annotation_template.html`, restart `python run.py serve` so the live
-server imports the new UI code; a previously generated static HTML file does
-not update on refresh.
+### Recover missing conversations and complete all three RAGs
 
-### Annotation workspace
+For an existing Qwen3-32B run, start the completion queue in another Bash
+terminal on Linux. The queue uses Linux process identities and POSIX terminal/lock
+APIs. To continue after all previous judge processes have exited:
 
-The review queue groups turns under their conversation ID. Green turns have an
-mtRAG conditioned score **>= 0.8**; red turns have a score **< 0.8**. Exactly 0.8
-passes, and turns without a valid score stay neutral. The displayed label follows
-this cutoff even when an older saved label used a different threshold. The result
-files are not rewritten. Incorrect turns show the score/conditioning reason,
-saved judge explanation, and any unsupported claims. **Judge guideline** and
-**Failure guideline** at the top left open the scoring rules and failure evidence
-requirements. Judge assessments remain visible.
-
-Select **PS**, **KH**, or **WN** in the annotator dropdown. Everyone sees the same
-conversations and can review the same turn independently. Switching profiles
-keeps the selected turn and restores that person's labels, notes, gold review,
-citations, and progress. The annotation bar stays on the right on desktop and
-stacks below the comparison on narrow displays.
-
-The live server autosaves changed turns into separate files:
-
-```text
-runs/<name>/annotations/PS.json
-runs/<name>/annotations/KH.json
-runs/<name>/annotations/WN.json
+```bash
+python3 -B queue_remaining_judges.py --complete-all
 ```
 
-Changes merge by turn within the selected profile; they do not replace another
-annotator's file or alter judge outputs. Browser backups use distinct
-`annot:<run>:PS`, `annot:<run>:KH`, and `annot:<run>:WN` keys. Offline changes remain
-pending and retry when the profile is reopened or another edit is made. The save
-status in the right bar identifies the annotator and whether the work reached the
-server. Static HTML saves only in that browser; JSON exports remain a portable
-backup. Earlier shared browser annotations are retained at their original key;
-**Copy earlier labels to PS/KH/WN** explicitly copies them into the chosen profile
-without overwriting its existing work.
+Supply each active vector process ID with `--wait-pid` so recovery
+waits until the current process has finished writing its output:
 
-The comparison shows three evidence columns together: **RAG answer + selected
-context**, **gold answer + gold documents**, and **corpus evidence**. Each column
-scrolls independently. On a narrow display, scroll the comparison horizontally.
-Conversation history and detailed mtRAG checks have separate views. Passage search
-highlights literal matches; it does not predict relevance.
-
-Corpus evidence is loaded automatically from RAG conversation exports in
-`conversation/*.json`, separated by each export's conversation `domain` and the
-run's recorded collection/dataset. The archive retains document IDs, titles,
-source filenames, a recorded task ID, and file hashes. Exact ID/text duplicates
-are merged; different text under the same ID is retained. These are **recorded
-passage snapshots, not a complete original corpus or retrieval candidate pool**.
-Archive absence cannot establish knowledge-boundary or retrieval failure.
-Question-word suggestions and corpus search are text-match navigation aids.
-
-**Load corpus file** can temporarily use a local JSON array, a JSON object with a
-`documents` array, or JSONL in the current collection. Each document needs a
-`text`, `contents`, or `content` string; `document_id`/`id`/`_id` and `title` are
-optional. Check the original corpus version yourself. Loaded files stay in memory
-until reload; citations retain their source and document locator in exports.
-
-Choose **Correct** or **Incorrect** in the annotation panel. For an incorrect
-answer, click one or more failure-cause checkbox cards. Each card includes a short
-description; the selected count and **Clear choices** make the set easy to review.
-Selected causes have expandable evidence guides, with links to relevant panels
-and missing original traces. These guides
-do not automatically assign a failure. Original corpus scope, indexed chunks,
-and retrieval candidates are not provided by the current annotation data, so use
-**Insufficient evidence** when those traces are needed to establish the cause.
-**Outside taxonomy** and **Insufficient evidence** are alternative outcomes: choosing
-one replaces the cause selections, and choosing a cause replaces the alternative.
-Marking the answer Correct records Not a failure and clears the failure causes.
-
-All chosen values are stored in the canonical `failure_types` array. Earlier
-`failure_type` strings load as one-item lists. JSON includes the complete array;
-CSV stores it as a JSON-encoded cell. The legacy `failure_type` field contains a
-value only when exactly one choice is selected; it stays empty for multiple
-choices. No primary cause is inferred from selection order. Autosave, offline
-backup, annotator switching, and imports preserve the complete selection.
-
-The separate **Gold answer check** records whether the reference is supported,
-questionable, or appears incorrect, with an explanation in `gold_notes`. This
-assessment (`gold_assessment`) does not change the RAG-answer label, saved gold,
-or judge scores. Both fields round-trip through JSON and CSV exports/imports.
-
-Select an exact quote in an answer or passage and click **Cite selection** or
-**Cite passage / selection** to attach it. Without a selection, the complete text
-is attached. Citations retain their source, passage locator, and quote in the new
-`evidence` export field (a JSON array; JSON-encoded in CSV). Existing annotation
-fields and historical score bands are preserved. Export filenames include the
-annotator, such as `annotations_<run>_PS.json`. Older JSON exports can still be
-imported: records tagged PS/KH/WN go to their own profiles, and records without an
-annotator go to the selected profile. Unmatched turns or unknown annotator names
-are skipped and reported. Matching imports replace that profile's annotation for
-the imported turn.
-
-**Reviewed** means a correctness decision plus one or more compatible failure causes (or an alternative outcome) for
-incorrect answers. Older labels without a cause remain labelled and can be found
-with **Unreviewed only**. Evidence citations and explanatory notes are optional.
-Use **Next unreviewed** to continue. Export JSON to retain a portable backup.
-
-For descriptive three-band agreement with older three-level human exports, run:
-
-```powershell
-python calibrate.py --work-dir runs/conversation_new --labels annotations_conversation_new.json
+```bash
+python3 -B queue_remaining_judges.py --complete-all --wait-pid 12345
 ```
 
-`calibrate.py` compares historical human `human_score_band` values with the
-judge's RB_llm band. The current annotation page asks for a binary
-`human_label` (`correct` or `incorrect`), so new exports do not supply the
-three-level human ratings needed by `calibrate.py`. It does not change the
-binary failure gate or estimate the accuracy of the later Xie-vs-Proposed
-failure attribution.
+Replace `12345` with the active vector process ID. Stop an older waiting queue
+before replacing it; the queue lock rejects duplicate launchers. If
+`OPENROUTER_API_KEY` is unset, a masked prompt displays one `*` per character.
+The queue detaches from the terminal and logs to `runs/remaining_judges.log`.
+An existing foreground vector job still requires its original terminal to stay
+connected until it finishes.
+
+Follow the latest log (from `judge_run/`):
+
+```bash
+tail -n 100 -f runs/remaining_judges.log
+```
+
+Press Ctrl+C to stop following the log; the detached queue keeps running.
+
+This mode completes `convos_vector_q3_32b`, then `convos_selfrag_q3_32b`, then
+`convos_raptor_q3_32b`. Each request starts with the existing 4096 reasoning / 8192
+completion budgets. On retries, the budgets can increase to 8192/16384 and
+16384/32768. Larger retries can cost more. Configure the total completion ceiling
+with `--adaptive-max-tokens` (default 32768).
+
+Only missing conversations are judged. Original fixed-budget results with the
+same inputs and baseline settings may be reused when adaptive mode is explicitly
+selected. They retain their original per-record provenance. New records store
+`judge.adaptive_max_tokens` and the highest requested budgets in usage metadata;
+adaptive results cannot be resumed as fixed-budget results or under a different
+adaptive ceiling. All other input and scoring-setting checks remain strict.
+
+The judge prints turn progress and saves completed conversations immediately.
+This queue also enables `--turn-checkpoints`: after every completed turn, it
+atomically saves a checkpoint under the run's `turn_checkpoints/` directory.
+Recovery preserves those judgments and calls the judge only for remaining turns.
+Checkpoints require an exact match of the full conversation, selected evidence,
+history, scoring settings, model, prompt version, API URL and token-budget policy.
+Reported usage from failed attempts is retained as well. The original running
+process cannot retroactively produce checkpoints for turns it already discarded.
+Recovery files use `out.mtrag.recovery_*.json`; any prior
+canonical output is backed up before a fully verified result replaces it.
+The queue requires every conversation and turn before advancing to the next
+RAG. After `--recovery-passes` passes (default 3), persistent failures stop the
+queue with saved partial progress. Rerun the same completion queue to continue;
+do not use `--fresh` to repair missing conversations.
+
+To review saved results, follow the [annotation server instructions](../annotate_server/README.md).
+Use <http://127.0.0.1:8765/> for live review. The server and static generator read
+the canonical `out.mtrag.json`, not individual recovery files.
+The question and RAG answer appear above the evidence columns. The review UI can
+search the [official IBM passage corpora](../corpora/README.md) and highlight
+matching text. Selected chunks retain recorded order; corpus search retains BM25
+order without answer-based reranking. These display aids do not change
+judge scores, original context order, or saved human labels.
 
 ## Per-turn score and provenance
 
@@ -271,56 +271,59 @@ omits RB_alg, and uses a shortened IDK few-shot prompt. Report this as an
 
 ## Files and output
 
-The annotation page shows selected RAG context and original reference-task
-passages in side-by-side evidence columns. Document IDs and dataset relevance
-labels are included. This display uses `judge_run/gold_support.json`, a separate
-evidence index; it does not modify judge inputs, saved scores or human annotations.
-Reference evidence is attached only when the task ID, question (ignoring outer
-whitespace) and gold answer match. Missing or mismatched evidence is shown explicitly.
+- `run.py`: judging entry point with `judge`, `prepare`, `preview`, and `mtrag` stages.
+- `prepare_input.py`: shared preparation functions used by both `run.py judge` and `run.py prepare`, plus a standalone CLI.
+- `judge_mtrag.py`: mtRAG scoring, API transport, checkpoints, and configuration-checked resume.
+- `queue_remaining_judges.py`: recovers missing records and completes Vector, SelfRAG, and RAPTOR.
+- `relabel_mtrag.py`: updates screening labels from saved scores, retaining a backup.
+- `import_gold_support.py`: imports the shared reference index from an original MTRAG JSONL file.
+- `gold_support.json`: shared gold answers and reference passages for preparation and annotation.
+- `runs/<name>/input.json`: prepared judge input.
+- `runs/<name>/out.mtrag.json`: per-turn scores, labels, reasoning, and provenance.
+- `runs/<name>/turn_checkpoints/`: saved progress for runs with turn checkpoints enabled.
+- `runs/<name>/annotations/`: independent PS, KH, and WN human annotations; written by the review server.
+- `runs/remaining_judges.log`: queue progress; follows new runs as the log grows.
 
-To build the index from an original MTRAG reference JSONL file, run from `judge_run`:
+The scoring module and every launcher/import use `judge_mtrag.py`. For the direct
+CLI, run `python3 -B judge_mtrag.py --help`. When no `--output` is supplied, it
+writes `<input-stem>.mtrag-judged.json` (or `.jsonl`); `run.py` and the queue still
+write the canonical `out.mtrag.json`.
 
-```powershell
-python -B import_gold_support.py --reference path\to\reference.jsonl
+The judge supports only mtRAG. The former constant-returning mode dispatcher and
+its unused arguments are removed; `--mode mtrag` remains accepted for existing
+commands. Prompt-version strings, result schemas, scoring settings, and checkpoint
+fingerprints remain unchanged so completed results can still be resumed.
+
+The remaining tools have distinct jobs: keep preparation separate from paid API
+execution, recovery separate from new experiments, and relabelling/reference import
+as explicit operations. `run.py prepare` calls the shared preparer directly instead
+of starting a second Python process.
+
+Keep original inputs, canonical outputs, recovery/threshold backups, checkpoints,
+and human annotations. They retain provenance and completed paid work. Generated
+`annotate*.html` pages can be recreated with the annotation generator, but keep any
+snapshot already distributed to reviewers. Python caches are disposable. Git ignores
+caches, generated review pages, queue logs, and the queue lock; it includes the
+recovery launcher and recovery tests.
+
+To build the shared reference index from an original MTRAG reference file:
+
+```bash
+python3 -B import_gold_support.py --reference /path/to/reference.jsonl
 ```
 
-The importer refuses to overwrite an existing index. Restart the annotation server
-after changing the UI code, then refresh the browser.
+The importer refuses to overwrite an existing index. Annotation tools, their HTML
+UI, storage, and tests live in `../annotate_server/`. Existing human annotations
+remain under each run's `annotations/` directory.
 
-- `run.py`: mtRAG-only entry point.
-- `prepare_input.py`: copies conversation, gold answers and selected
-  context into a new run's `input.json`; no RAG regeneration.
-- `judge_paper.py`: mtRAG score, including its required RAGAS faithfulness
-  component, API transport and exact-configuration resume.
-- `make_annotation.py`: HTML view of mtRAG and binary human annotation.
-- `annotation_template.html`: self-contained review UI embedded by the generator.
-- `annotation_server.py`: local live run picker and annotation page.
-- `annotation_store.py`: validated, atomic per-annotator saves under each run.
-- `calibrate.py`: descriptive three-level human/model agreement.
-- `runs/<name>/out.mtrag.json`: per-turn scores, binary screening labels,
-  reasoning and provenance. Other historical `out.*.json` files remain
-  in `runs/` for audit; they are not read by the current UI.
+## Offline checks
 
-The human export stores the current binary choice in `human_label`. It retains
-`human_score_band` only for historical three-level annotations. Failure causes are
-selected separately from the locked six-category taxonomy. Do not equate
-a quality band with a failure cause.
+From the repository root:
 
-## UI checks
-
-From the repository root, run:
-
-```powershell
-python -m unittest discover -s judge_run -p 'test_annotation*.py' -v
+```bash
+python3 -B -m unittest discover -s judge_run -p 'test_*.py' -v
 ```
 
-The checks cover safe data embedding, missing evidence, and preservation of judge
-statement reasons. When Chrome or Edge is installed, an isolated headless browser
-also checks desktop and mobile annotation workflows, legacy imports, citations,
-exports, filters, top-left guidelines, and the right annotation bar. No judge API calls are made.
-The checks also verify the exact 0.8 boundary, unchanged saved outputs, grouped
-conversation IDs, corpus isolation/deduplication, and independent gold review.
-Persistence checks use temporary run folders to verify separate PS/KH/WN files,
-HTTP validation, server reload, offline-draft recovery, and profile-aware imports.
-They also cover multiple failure selections, deselection, alternative outcomes,
-legacy single-cause migration, and complete array round-trips through autosave and exports.
+Runner and recovery tests use temporary files and synthetic model responses;
+no judge API calls are made. If local HTTP checks are intercepted by a proxy, set
+`NO_PROXY=127.0.0.1,localhost` and `no_proxy=127.0.0.1,localhost`.

@@ -1,4 +1,4 @@
-"""Import original MTRAG reference evidence for annotation, without altering runs."""
+"""Import original MTRAG reference evidence for judging and annotation, without altering runs."""
 
 import argparse
 import hashlib

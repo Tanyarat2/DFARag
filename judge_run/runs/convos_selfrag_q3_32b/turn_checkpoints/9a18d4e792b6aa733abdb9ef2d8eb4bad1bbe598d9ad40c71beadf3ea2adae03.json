@@ -1,0 +1,336 @@
+{
+  "version": 1,
+  "fingerprint": "9a18d4e792b6aa733abdb9ef2d8eb4bad1bbe598d9ad40c71beadf3ea2adae03",
+  "id": "8a19ee37ca7d97eaddbe2e19ca600556",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.720 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the general composting guidelines in the document, as it aligns with the recommended 3x3x3 feet size for small-scale home composting. While the document does not explicitly mention the 3x3x3 feet dimension, it emphasizes the importance of pile size for aeration, moisture retention, and microbial activity—key points the assistant incorporates. The reference",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.72,
+        "conditioned_score": 0.72,
+        "statements": [
+          {
+            "statement": "The size of the compost bin depends on the volume of organic materials you plan to compost.",
+            "verdict": "yes",
+            "reason": "The context discusses different composting methods and bin systems (e.g., three-bin systems, static piles, windrows) that adapt to varying scales and volumes, implying that bin size should align with the volume of materials."
+          },
+          {
+            "statement": "For small-scale home use, a bin that is at least 3 feet wide, 3 feet long, and 3 feet high is generally recommended.",
+            "verdict": "no",
+            "reason": "The context does not specify a 3x3x3 foot size for home compost bins. While it mentions bins for small-scale use, no exact dimensions are provided."
+          },
+          {
+            "statement": "This size allows for adequate aeration, moisture retention, and microbial activity.",
+            "verdict": "no",
+            "reason": "The context explains that proper aeration, moisture, and microbial activity depend on pile structure and materials (e.g., bulking agents, particle size), but it does not link these factors to the specific 3x3x3 foot size mentioned in the statement."
+          },
+          {
+            "statement": "Larger bins or multiple bins can be used for higher volumes.",
+            "verdict": "yes",
+            "reason": "The context describes methods like windrows and in-vessel systems for large volumes and mentions three-bin systems for different stages, supporting the use of larger or multiple bins for higher volumes."
+          },
+          {
+            "statement": "The bin should also allow for proper airflow and drainage to support the composting process.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of aeration (e.g., bulking agents, passive/active aeration) and drainage (e.g., covered piles, drainage in vermicomposting systems) for successful composting."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is generally faithful to the document and previous conversation, as it correctly outlines the core steps of composting (materials, methods, pile preparation, maintenance, and harvesting) and aligns with the document's emphasis on carbon-to-nitrogen ratios, aeration, moisture, and temperature. However, it omits specific details from the reference answer and document, such as ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "To compost at home, follow these steps.",
+            "verdict": "yes",
+            "reason": "The context discusses home composting methods and steps, such as using bins, static piles, and tumblers, which align with the general instruction to follow steps for home composting."
+          },
+          {
+            "statement": "Collect organic materials by gathering 'browns' (carbon-rich materials like dry leaves, wood chips) and 'greens' (nitrogen-rich materials like food scraps).",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 'browns' (carbon-rich materials) and 'greens' (nitrogen-rich materials) as feedstocks for composting, including examples like dry leaves, wood chips, and food scraps."
+          },
+          {
+            "statement": "Maintain a 30:1 carbon-to-nitrogen ratio when collecting organic materials.",
+            "verdict": "yes",
+            "reason": "The context states the ideal carbon-to-nitrogen ratio is roughly 30:1 in terms of elemental C:N, which is directly supported by the statement."
+          },
+          {
+            "statement": "Choose a composting method such as a static pile, bin, or tumbler.",
+            "verdict": "yes",
+            "reason": "The context describes static piles, bins, and tumblers as common methods for home composting, including three-bin systems and tumblers for small volumes."
+          },
+          {
+            "statement": "Bins are ideal for home composting, and three-bin systems allow for staged composting.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions three-bin systems for home composting, with each bin containing compost at a different stage of the process."
+          },
+          {
+            "statement": "Prepare the compost pile by shredding materials to increase surface area.",
+            "verdict": "yes",
+            "reason": "The context states that shredding materials increases surface area for microorganisms to feed, which is directly supported by the statement."
+          },
+          {
+            "statement": "Mix the shredded materials and ensure proper aeration in the compost pile.",
+            "verdict": "yes",
+            "reason": "The context emphasizes mixing materials and ensuring aeration (e.g., through free air space and bulking agents) to support microbial activity."
+          },
+          {
+            "statement": "Add bulking agents like wood chips to the compost pile to maintain airflow.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions adding bulking agents like wood chips to create less dense piles and improve airflow, which is directly supported by the statement."
+          },
+          {
+            "statement": "Maintain the compost pile by keeping it moist but not waterlogged.",
+            "verdict": "yes",
+            "reason": "The context discusses the importance of moisture for microbial activity and warns against excessive water causing anaerobic conditions, aligning with the statement."
+          },
+          {
+            "statement": "Turn the compost pile occasionally to promote decomposition.",
+            "verdict": "yes",
+            "reason": "The context recommends turning the pile occasionally to encourage even decomposition, particularly for static pile methods."
+          },
+          {
+            "statement": "Monitor the temperature of the compost pile, aiming for 131–160°F for optimal microbial activity.",
+            "verdict": "yes",
+            "reason": "The context specifies that beneficial microorganisms require a temperature range of 131–160°F for optimal activity, which is directly supported by the statement."
+          },
+          {
+            "statement": "Harvest compost when the pile darkens and crumbles, indicating it is ready.",
+            "verdict": "yes",
+            "reason": "The context describes finished compost as dark, crumbly, and earthy-smelling, which aligns with the criteria for harvesting mentioned in the statement."
+          },
+          {
+            "statement": "Screen the compost to remove undecomposed materials during harvesting.",
+            "verdict": "yes",
+            "reason": "The context mentions that finished compost is often screened to remove large particles or undecomposed materials for reuse in the next composting round, which is directly supported by the statement."
+          },
+          {
+            "statement": "This process ensures effective home composting.",
+            "verdict": "yes",
+            "reason": "The context provides a comprehensive guide to home composting methods, steps, and best practices, which collectively support the conclusion that following these steps ensures effective home composting."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the optimal temperature range (131–160°F) for composting and explains the consequences of temperatures outside this range. However, it omits critical details from the reference answer and documents, such as the role of this temperature range in destroying pathogens and weed seeds, the requirement for sustained temperatures above 131°F for several days, a",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The temperature requirement for composting is between 131 to 160 degrees Fahrenheit.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that beneficial microorganisms require a temperature range of 131 to 160 degrees Fahrenheit for optimal activity."
+          },
+          {
+            "statement": "This temperature range promotes rapid decomposition and destroys pathogens and weed seeds.",
+            "verdict": "yes",
+            "reason": "The context confirms that temperatures within this range promote rapid decomposition and destroy pathogens and weed seeds."
+          },
+          {
+            "statement": "Above 160 degrees Fahrenheit, beneficial microorganisms cannot survive.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that beneficial microorganisms cannot survive above 160 degrees Fahrenheit."
+          },
+          {
+            "statement": "Below 131 degrees Fahrenheit, decomposition occurs more slowly.",
+            "verdict": "yes",
+            "reason": "The context confirms that decomposition occurs more slowly below 131 degrees Fahrenheit."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it correctly states that recyclables should not be bagged and provides the stacking method to protect them from rain. The reference answer includes the additional note that it's acceptable for recyclables to get wet, which the assistant's answer omits. However, the assistant's response directly addresses the user's concern about rain by offeri",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "You should not bag your recyclables.",
+            "verdict": "yes",
+            "reason": "The Madison County, NY FAQs explicitly state 'No, recyclables should be kept loose in curbside bins and at the transfer station containers.'"
+          },
+          {
+            "statement": "Recyclables should be kept loose in curbside bins.",
+            "verdict": "yes",
+            "reason": "The Madison County, NY FAQs explicitly state 'Recyclables should be kept loose in curbside bins and at the transfer station containers.'"
+          },
+          {
+            "statement": "If it rains, place heavier plastic/metal/glass recycling on top of paper/cardboard recycling.",
+            "verdict": "yes",
+            "reason": "The Madison County, NY FAQs recommend placing heavier items on top to 'keep recyclables dry and to keep recyclables from blowing out of the container.'"
+          },
+          {
+            "statement": "Placing heavier items on top keeps everything dry and prevents items from blowing out.",
+            "verdict": "yes",
+            "reason": "The Madison County, NY FAQs explicitly state this as the purpose of placing heavier items on top."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the primary differences between paper and container recycling bins, such as the types of materials each accepts (e.g., paper products vs. plastics, glass, and metal) and general exclusions (e.g., foil/metal in paper bins, plastic bags in container bins). It also accurately notes the universal requirement for recyclables to be empty, clean, and dry. Howev",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Paper bins accept items like newspaper, magazines, cardboard, and paper products.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists newspaper, magazines, cardboard, and other paper products as accepted in the paper bin."
+          },
+          {
+            "statement": "Container bins are for plastics, glass, and metal.",
+            "verdict": "yes",
+            "reason": "The context states that the containers bin includes plastic bottles, glass bottles/jars, aluminum cans, and metal containers."
+          },
+          {
+            "statement": "Paper bins do not accept items with foil, metal, or plastic.",
+            "verdict": "yes",
+            "reason": "The context specifies that the paper bin excludes items containing foil, metal, or plastic."
+          },
+          {
+            "statement": "Container bins exclude plastic bags, partially filled containers, and certain plastics.",
+            "verdict": "yes",
+            "reason": "The context lists plastic bags, partially full containers, and specific plastics (e.g., clamshell containers) as not accepted in the containers bin."
+          },
+          {
+            "statement": "Both bins require recyclables to be empty, clean, and dry.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that all recyclables must be empty, clean, and dry for both bins."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.800, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.686 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the green container as the designated receptacle for residential yard waste and mentions the 300-pound weight limit, both of which are supported by the document. However, it omits critical details about the **specific accepted materials** (e.g., grass clippings, leaves, branches with size restrictions) and their specifications (e.g., branches up to 6 inc",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.8,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6857142857142856,
+        "conditioned_score": 0.6857142857142856,
+        "statements": [
+          {
+            "statement": "Residential yard waste is collected in a designated green container.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that yard waste shall be placed in the green container(s)."
+          },
+          {
+            "statement": "The guidelines specify the collection method for residential yard waste.",
+            "verdict": "yes",
+            "reason": "The context outlines the method for yard waste collection, including placement in green containers."
+          },
+          {
+            "statement": "Yard waste must be placed in the green container(s) provided by the servicer.",
+            "verdict": "yes",
+            "reason": "The context explicitly requires yard waste to be placed in the green container(s) provided by the servicer."
+          },
+          {
+            "statement": "Containers exceeding three hundred pounds in weight cannot be placed for pickup.",
+            "verdict": "yes",
+            "reason": "The context prohibits containers with contents exceeding three hundred pounds from being placed for pickup."
+          },
+          {
+            "statement": "Proper separation and collection of yard waste ensure recycling or composting purposes.",
+            "verdict": "no",
+            "reason": "The context does not mention recycling or composting as the purpose of proper separation and collection."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 35512,
+    "completion_tokens": 13315,
+    "total_tokens": 48827,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 24,
+    "reasoning_tokens": 11247,
+    "reasoning_budget_verified_calls": 24
+  },
+  "elapsed_seconds": 650.673
+}

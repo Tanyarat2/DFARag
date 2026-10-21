@@ -1,0 +1,430 @@
+{
+  "version": 1,
+  "fingerprint": "a51db2369420edeb1d1e14851bd1e2741f5f7c8b487b4937337f48b2e7b2b639",
+  "id": "717ca9138f07b4621887812f47499d74",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document, accurately reporting the per-episode payments for seasons 1, 3–10. However, it omits the second season's salary range ($20,000–$40,000) and the residuals ($20 million annually from syndication), both of which are explicitly mentioned in the document and reference answer. The answer is appropriate in addressing the core question about per-e",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "In their original contracts for the first season, cast members were paid $22,500 per episode.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that cast members were paid $22,500 per episode in their original contracts for the first season."
+          },
+          {
+            "statement": "In season three, the actors were paid $75,000 per episode.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that the stars were paid $75,000 per episode in season three."
+          },
+          {
+            "statement": "In season four, the actors were paid $85,000 per episode.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the stars were paid $85,000 per episode in season four."
+          },
+          {
+            "statement": "In season five, the actors were paid $100,000 per episode.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that the stars were paid $100,000 per episode in season five."
+          },
+          {
+            "statement": "In season six, the actors were paid $125,000 per episode.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the stars were paid $125,000 per episode in season six."
+          },
+          {
+            "statement": "In seasons seven and eight, the actors were paid $750,000 per episode.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that the stars were paid $750,000 per episode in seasons seven and eight."
+          },
+          {
+            "statement": "In seasons nine and ten, the actors were paid $1 million per episode.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the stars were paid $1 million per episode in seasons nine and ten."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and captures the key points of how Jennifer Aniston was introduced in *Friends*. It correctly identifies Rachel Green as a \"naive runaway bride\" reuniting with Monica and highlights her character's evolution from a \"daddy's girl\" to a successful businesswoman. The addition of the creators (David Crane and Marta Kauffman) and the fact that ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Jennifer Aniston was introduced in *Friends* as Rachel Green, a naive runaway bride who reunites with her childhood best friend Monica and relocates to New York City.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Rachel was introduced in the pilot as a naive runaway bride who reunites with Monica and relocates to NYC, and Jennifer Aniston portrays her."
+          },
+          {
+            "statement": "The character was created by show creators David Crane and Marta Kauffman and appeared in all 236 episodes of the series.",
+            "verdict": "yes",
+            "reason": "The context confirms that Rachel was created by Crane and Kauffman and that she appeared in all 236 episodes of Friends."
+          },
+          {
+            "statement": "Rachel gradually evolved from a spoiled, inexperienced 'daddy's girl' into a successful businesswoman.",
+            "verdict": "yes",
+            "reason": "The context directly states that Rachel evolves from a spoiled, inexperienced 'daddy's girl' into a successful businesswoman."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that *Friends* has 10 seasons, with a start date of September 22, 1994, and an end date of May 6, 2004. This aligns with the information in the document and the reference answer. The assistant omitted the total number of episodes (236) mentioned in the reference answer, but the user’s question did not explicitly ask for this detail, so its absence does not d",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "Friends has ten seasons.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the show lasted ten seasons."
+          },
+          {
+            "statement": "Friends started on September 22, 1994.",
+            "verdict": "yes",
+            "reason": "The context mentions the show premiered on September 22, 1994."
+          },
+          {
+            "statement": "Friends ended on May 6, 2004.",
+            "verdict": "yes",
+            "reason": "The context specifies the series finale aired on May 6, 2004."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful and appropriate but lacks completeness compared to the reference answer and document. It correctly addresses the international airings in the UK, Ireland, and India, which are mentioned in the document, and accurately summarizes the Emmy nominations and awards. However, it omits several key countries (e.g., Australia, Canada, Greece) and specific awards",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Friends aired in different countries.",
+            "verdict": "yes",
+            "reason": "The context mentions Friends airing in the UK, Republic of Ireland, and India."
+          },
+          {
+            "statement": "It was broadcast on various channels in the UK, such as Channel 4, Sky1, E4, and Comedy Central UK, in its original, unedited international versions.",
+            "verdict": "yes",
+            "reason": "The context explicitly states these UK channels aired the original, unedited international versions."
+          },
+          {
+            "statement": "The show aired in the Republic of Ireland on RTÉ2.",
+            "verdict": "yes",
+            "reason": "The context confirms each season debuted on RTÉ2 in the Republic of Ireland."
+          },
+          {
+            "statement": "It later aired in the Republic of Ireland on TV3 and its digital channel 3e.",
+            "verdict": "yes",
+            "reason": "The context states RTÉ2 moved to TV3 and 3e in 2010."
+          },
+          {
+            "statement": "In India, the show is broadcast by Comedy Central.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Comedy Central in India."
+          },
+          {
+            "statement": "Friends was nominated for 62 Primetime Emmy Awards.",
+            "verdict": "yes",
+            "reason": "The context directly states this nomination count."
+          },
+          {
+            "statement": "The show won six Primetime Emmy Awards, including the Primetime Emmy Award for Outstanding Comedy Series in 2002.",
+            "verdict": "yes",
+            "reason": "The context confirms six wins, including the 2002 Outstanding Comedy Series award."
+          },
+          {
+            "statement": "Friends received the American Comedy Award.",
+            "verdict": "yes",
+            "reason": "The context lists the American Comedy Award among its wins."
+          },
+          {
+            "statement": "The show won the GLAAD Media Award.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the GLAAD Media Award."
+          },
+          {
+            "statement": "Friends received the Golden Globe Award.",
+            "verdict": "yes",
+            "reason": "The context lists the Golden Globe Award as one of its awards."
+          },
+          {
+            "statement": "The show won the People's Choice Awards.",
+            "verdict": "yes",
+            "reason": "The context states it won six People's Choice Awards."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses both parts of the user's question but has notable gaps compared to the reference answer and document. **Faithfulness**: The assistant correctly states the final episode's title, air date, viewership, and the cast's continued friendship, including Jennifer Aniston's role as godmother. However, it omits key plot details from the document (e.g., the characters leaving",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The final episode of *Friends* was titled 'The Last One' and aired on May 6, 2004.",
+            "verdict": "yes",
+            "reason": "The context states that the series finale, titled 'The Last One', aired on May 6, 2004."
+          },
+          {
+            "statement": "The final episode was watched by approximately 52.5 million American viewers.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the finale was watched by around 52.5 million American viewers."
+          },
+          {
+            "statement": "The episode became the fifth most-watched series finale in television history.",
+            "verdict": "yes",
+            "reason": "The context confirms the finale was the fifth most-watched in television history."
+          },
+          {
+            "statement": "The *Friends* actors remained good friends after the series, with many considering the cast as family.",
+            "verdict": "yes",
+            "reason": "The context notes the cast remained good friends and were considered family in the commemorative book."
+          },
+          {
+            "statement": "Jennifer Aniston served as the godmother to Courteney Cox and David Arquette's daughter, Coco.",
+            "verdict": "yes",
+            "reason": "The context states Aniston was the godmother to Cox and David Arquette's daughter, Coco."
+          },
+          {
+            "statement": "The final episode effectively wrapped up the story while reminding viewers of the show's appeal.",
+            "verdict": "yes",
+            "reason": "The context mentions the finale wrapped up the story and reminded viewers why they liked the show."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.333 (threshold 0.80). RB_llm justification: The assistant's answer fails to address the user's question effectively. The user asked why the *Friends* cast members received equal pay, a topic directly addressed in the reference answer. However, the assistant's response incorrectly claims that the provided documents discuss \"executive compensation in general\" and concludes it lacks specific information about *Friends*. This is misleading beca",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.3333333333333333,
+        "conditioned_score": 0.3333333333333333,
+        "statements": [
+          {
+            "statement": "The retrieved evidence discusses executive compensation in general.",
+            "verdict": "yes",
+            "reason": "The context provides an overview of executive compensation, including its components, trends, and related studies, which supports the general discussion."
+          },
+          {
+            "statement": "Executive compensation typically varies based on factors like performance, role, and company policies.",
+            "verdict": "yes",
+            "reason": "The context mentions that executive pay is influenced by performance, organizational goals, tax laws, and other factors, aligning with the statement."
+          },
+          {
+            "statement": "The retrieved evidence does not specifically address why actors in *Friends* received the same pay.",
+            "verdict": "yes",
+            "reason": "The context focuses on corporate executives and does not mention actors, television shows, or their pay structures."
+          },
+          {
+            "statement": "I do not have specific information about the pay structure of the *Friends* cast.",
+            "verdict": "yes",
+            "reason": "The context does not provide any information about the *Friends* cast's pay, and the statement reflects this absence of data."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document, correctly identifying Warner Bros. Studios in Burbank, California, as the primary filming location and specifying the stages used (Stage 5 and Stage 24). It also accurately notes the fourth-season finale was shot in London and the fifth-season finale in Las Vegas (though the document clarifies the latter was filmed at Warner Bros. Studios",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Friends was primarily filmed at Warner Bros. Studios in Burbank, California.",
+            "verdict": "yes",
+            "reason": "The context states that filming took place at Warner Bros. Studios in Burbank, California, and that the show was never shot in New York. All seasons were filmed there except for specific location-based episodes."
+          },
+          {
+            "statement": "The first season was shot on Stage 5.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the first season was shot on Stage 5 at Warner Bros. Studios in Burbank, California."
+          },
+          {
+            "statement": "Production later moved to the larger Stage 24.",
+            "verdict": "yes",
+            "reason": "The context states that at the beginning of the second season, production moved to the larger Stage 24."
+          },
+          {
+            "statement": "Stage 24 was renamed \"The Friends Stage\" after the series finale.",
+            "verdict": "yes",
+            "reason": "The context confirms that Stage 24 was renamed \"The Friends Stage\" after the series finale."
+          },
+          {
+            "statement": "Most episodes were filmed on studio sets.",
+            "verdict": "yes",
+            "reason": "The context clarifies that Friends was never shot in New York and that even location-based episodes (e.g., London, Las Vegas) were filmed in studios. The show relied on studio sets for most filming."
+          },
+          {
+            "statement": "The fourth-season finale was shot on location in London.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the fourth-season finale was shot on location in London."
+          },
+          {
+            "statement": "The fifth-season finale was filmed at Warner Bros. Studios.",
+            "verdict": "yes",
+            "reason": "The context confirms that the fifth-season finale, set in Las Vegas, was filmed at Warner Bros. Studios."
+          },
+          {
+            "statement": "Some believed the fifth-season finale was shot on location.",
+            "verdict": "yes",
+            "reason": "The context mentions that people thought the Las Vegas-set fifth-season finale was filmed on location, even though it was actually shot at Warner Bros. Studios."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the documents and previous conversation, as it correctly mentions the show's creators, time frame, cultural impact, and streaming availability. However, it omits key thematic elements from the documents, such as the \"alternative family lifestyle\" concept and the show's portrayal of unconventional domestic lives, which are central to the reference answer",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "To introduce Friends to your family and friends, you can highlight its unique blend of humor, relatable characters, and heartwarming stories about friendship and life in New York City.",
+            "verdict": "yes",
+            "reason": "The context mentions the show's focus on friendship, Manhattan setting, and audience identification with the characters' troubles, supporting the heartwarming stories and New York City elements."
+          },
+          {
+            "statement": "The show, created by David Crane and Marta Kauffman, aired from 1994 to 2004 and became a cultural phenomenon.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the creators, air dates, and notes its cultural impact as a show that marked a change in American culture."
+          },
+          {
+            "statement": "It follows six friends navigating life's challenges while maintaining their strong bond.",
+            "verdict": "yes",
+            "reason": "The context describes the show as revolving around six friends in Manhattan who seek help from each other, indicating a strong bond and shared life challenges."
+          },
+          {
+            "statement": "You might mention its impact on pop culture and its influence on other sitcoms.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Friends influenced other 'hangout sitcoms' like How I Met Your Mother and The Big Bang Theory, confirming its pop culture impact."
+          },
+          {
+            "statement": "Additionally, it's available on streaming platforms like Netflix, making it easy for everyone to watch.",
+            "verdict": "yes",
+            "reason": "The context details that Netflix licensed all seasons of Friends in 2014, making it available on the platform."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 26000,
+    "completion_tokens": 16825,
+    "total_tokens": 42825,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 32,
+    "reasoning_tokens": 14232,
+    "reasoning_budget_verified_calls": 32
+  },
+  "elapsed_seconds": 342.303
+}

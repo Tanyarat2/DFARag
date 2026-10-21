@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "fingerprint": "9f34fb11187c52d73d84f902ce4d60db31f1ebedc9aa0be4a0dedfb9b4dad5d8",
+  "id": "5e79e465134d923edf68580733a81c68",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.500, IDK=0.0, answerability=PARTIAL -> conditioned score 0.444 (threshold 0.80). RB_llm justification: The assistant's answer is partially correct but contains a critical inaccuracy regarding the minimum age for a learner's permit in California. The document explicitly states that a provisional instruction permit (learner's permit) requires being at least **15 ½ years old**, not 16 as the assistant claimed. Additionally, the assistant omitted key details about provisional licensing for drivers unde",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.4444444444444444,
+        "conditioned_score": 0.4444444444444444,
+        "statements": [
+          {
+            "statement": "To drive in California, you must be at least 16 years old to obtain a learner's permit.",
+            "verdict": "no",
+            "reason": "The context states that the minimum age for an instruction permit is 15 ½, not 16."
+          },
+          {
+            "statement": "You can get a full driver's license at 18 years old in California.",
+            "verdict": "yes",
+            "reason": "The context indicates that individuals over 17 ½ can obtain an instruction permit but must wait until 18 to take the driving test and qualify for a full license."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.766 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly identifies the minimum age for an instruction permit as 15 ½, aligning with the California DMV's requirements. It acknowledges the user's partial correctness (15 years old) while clarifying the precise age (15 ½). The answer is **appropriate** because it directly addresses the user's question about the permit age without intro",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7659574468085106,
+        "conditioned_score": 0.7659574468085106,
+        "statements": [
+          {
+            "statement": "The minimum age to obtain a driver's permit in California is 15 years old.",
+            "verdict": "no",
+            "reason": "The context specifies the minimum age is 15 ½, not 15."
+          },
+          {
+            "statement": "Individuals who are at least 15 ½ but under 18 can apply for an instruction permit in California.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this age requirement for instruction permits under 18."
+          },
+          {
+            "statement": "The user's statement that one can get a permit as soon as they are 15 years old is partially correct, as the minimum age is 15 ½.",
+            "verdict": "yes",
+            "reason": "The context clarifies the minimum age is 15 ½, making the user's claim incorrect, but the third statement correctly identifies the actual requirement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer provides a general overview of the application process for a driver's permit in California, including steps like visiting the DMV, bringing identification, paying fees, passing exams, and parental consent for minors. However, it fails to address the critical distinction between **instruction permits for regular drivers** and **motorcycle instruction permits**, which is expli",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "To apply for a driver's permit in California, you must visit a DMV office and schedule an appointment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that applicants must visit a DMV office and schedule an appointment for all permit types."
+          },
+          {
+            "statement": "You must bring your California Identification Card or proof of identity and residency.",
+            "verdict": "yes",
+            "reason": "The context repeatedly mentions bringing a California Identification Card or proof of identity and residency as a required step."
+          },
+          {
+            "statement": "You must pay the application fee.",
+            "verdict": "yes",
+            "reason": "The context lists paying the application fee as a mandatory requirement for all permit applications."
+          },
+          {
+            "statement": "You must pass a vision exam.",
+            "verdict": "yes",
+            "reason": "The context specifies that passing a vision exam is a required step for all permit applicants."
+          },
+          {
+            "statement": "You must take a photo.",
+            "verdict": "yes",
+            "reason": "The context states that taking a photo is part of the DMV office visit process for all permit types."
+          },
+          {
+            "statement": "You must take the knowledge test(s).",
+            "verdict": "yes",
+            "reason": "The context explicitly requires taking the knowledge test(s) for all permit applications."
+          },
+          {
+            "statement": "The test is based on the California Driver’s Handbook.",
+            "verdict": "yes",
+            "reason": "The context confirms that the knowledge test is based on the California Driver’s Handbook for standard permits (not motorcycle-specific)."
+          },
+          {
+            "statement": "A passing score for the test is 80%.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a passing score of 80% is required for all knowledge tests."
+          },
+          {
+            "statement": "If you are under 18, your parent or guardian must sign the application.",
+            "verdict": "yes",
+            "reason": "The context specifies that applicants under 18 must have a parent or guardian sign the application."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is partially correct but misses critical details from the documents and reference answer. It correctly outlines the general steps (DMV visit, ID, fees, vision exam, photo, knowledge test) and notes age variations, but omits key requirements for under-18 applicants: the Certificate of Completion/Enrollment of Driver Education, parent/guardian signature, and specific age thres",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "To apply for a regular driver's permit in California, you must visit a DMV office (schedule an appointment).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that visiting a DMV office (with an appointment) is required for all permit applications, including instruction permits and motorcycle permits."
+          },
+          {
+            "statement": "You must bring your California Identification Card or proof of identity and residency.",
+            "verdict": "yes",
+            "reason": "The context repeatedly mentions bringing a California Identification Card or proof of identity and residency for all permit types."
+          },
+          {
+            "statement": "You must pay the application fee.",
+            "verdict": "yes",
+            "reason": "The context lists paying the application fee as a required step for all permit applications."
+          },
+          {
+            "statement": "You must pass a vision exam.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that passing a vision exam is required for all permit applications."
+          },
+          {
+            "statement": "You must take a photo.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that taking a photo is required during the DMV visit for all permit applications."
+          },
+          {
+            "statement": "You must take the knowledge test(s) based on the California Driver’s Handbook with a passing score of 80%.",
+            "verdict": "yes",
+            "reason": "The context specifies that the knowledge test is based on the California Driver’s Handbook (or Motorcycle Handbook for motorcycle permits) and requires a passing score of 80%."
+          },
+          {
+            "statement": "The specific requirements may vary depending on your age and whether you are applying for a motorcycle permit.",
+            "verdict": "yes",
+            "reason": "The context outlines age-specific requirements (e.g., 15½ for motorcycle permits, 18 for regular permits) and additional requirements for motorcycle permits (e.g., CMSP training course)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 32768,
+    "max_requested_reasoning_tokens": 16384,
+    "prompt_tokens": 28978,
+    "completion_tokens": 10660,
+    "total_tokens": 39638,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 18,
+    "reasoning_tokens": 9071,
+    "reasoning_budget_verified_calls": 18
+  },
+  "elapsed_seconds": 461.089
+}

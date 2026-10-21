@@ -1,0 +1,996 @@
+[
+  {
+    "id": "1065ea5ad1ae2b90e6fce67d851a7a66",
+    "input": {
+      "conversation": [
+        {
+          "role": "user",
+          "content": "Should we switch to a different method for installing the mobile SDK, considering the current approach's limitations?"
+        },
+        {
+          "role": "assistant",
+          "content": "The current method for installing the mobile SDK allows for installation via CocoaPods, Carthage, or from source code. While CocoaPods is the recommended method, there are limitations such as potential issues with Swift version configuration. Switching to Carthage or source code installation could provide more control and avoid some of these issues. However, the decision should consider the team's familiarity with these methods and the specific project requirements. The current approach is functional but may have limitations that could be addressed by switching methods."
+        },
+        {
+          "role": "user",
+          "content": "carthage?"
+        },
+        {
+          "role": "assistant",
+          "content": "The retrieved evidence mentions installing the mobile SDK with Carthage by creating a `Cartfile` and running `carthage update --platform ios`. It also outlines steps to add the `OpenWhisk.framework` to the embedded frameworks in your Xcode project. However, it does not explicitly discuss the limitations of the current method for installing the mobile SDK. Therefore, I do not have specific information on the limitations of the current method."
+        },
+        {
+          "role": "user",
+          "content": "any example of code for cart ahh sauce rather?"
+        },
+        {
+          "role": "assistant",
+          "content": "To install the mobile SDK with Carthage, add the following line to your Cartfile:\n\n```\ngithub \"openwhisk/openwhisk-client-swift.git\" > 0.3.0 Or latest version\n```\n\nThen, run the command `carthage update --platform ios` to download and build the SDK. After the build is complete, add the `OpenWhisk.framework` file to the embedded frameworks in your Xcode project."
+        },
+        {
+          "role": "user",
+          "content": "Excuse me, I meant source code example, rather."
+        },
+        {
+          "role": "assistant",
+          "content": "The user is asking for a source code example. The retrieved evidence indicates that the SDK should include working examples for each service, which should be clear and concise. Additionally, there are references to code examples in the IBM Cloud Code Engine documentation and GitHub repository. However, no specific source code example is provided in the retrieved evidence. Therefore, I do not have specific information to provide a source code example."
+        },
+        {
+          "role": "user",
+          "content": "ok, you don't get it. this a part of clpud service? any additional charge?"
+        },
+        {
+          "role": "assistant",
+          "content": "The retrieved evidence indicates that the service in question is part of IBM Cloud, as it is related to domain registration and service endpoints. Regarding additional charges, the evidence mentions that fees are required for domain name registration and that service fees may apply for administrative tasks. However, there is no specific mention of additional charges for the service in question. Therefore, it is unclear if there are additional charges beyond what is mentioned."
+        },
+        {
+          "role": "user",
+          "content": "Oops, no return result..."
+        },
+        {
+          "role": "assistant",
+          "content": "The phrase \"Oops, no return result...\" suggests that the system did not find a matching response or result for the input. This could happen if the input does not align with the expected phrases or if the grammar requires a complete and specific response. Additionally, it might indicate that no relevant information was found in the knowledge base to address the query. If this is the case, the system may return an empty result or a message indicating no results were found."
+        },
+        {
+          "role": "user",
+          "content": "May I configure to work with different installations of Cloud Functions?"
+        },
+        {
+          "role": "assistant",
+          "content": "Yes, you can configure the service to work with different installations of Cloud Functions. The Cloud Functions CLI plug-in allows you to manage multiple namespaces and resource groups, enabling you to work with different installations. You can target specific resource groups using the `ibmcloud target -g <resource_group>` command, and manage your Cloud Functions entities accordingly. For more details, refer to the [Cloud Functions CLI reference](https://cloud.ibm.com/docs/openwhisk?topic=cloud-functions-cli-plugin-functions-cli)."
+        }
+      ],
+      "ground_truth_answers": [
+        "There are two methods for installing the IBM Cloud Functions SDK for mobile: using CocoaPods and building from the source code. However, I'm not aware of any limitations of the CocoaPods method that would require switching to a different method.",
+        "Yes, you can also use Carthage as an alternative to CocoaPods for installing the IBM Cloud Functions SDK for mobile.  Note that this method requires manual addition of the framework to the Xcode project, unlike CocoaPods which automatically generates a workspace file for you to open the project in Xcode.",
+        "I'm sorry, but I don't understand what you mean.",
+        "I apologize for the misunderstanding. Here's an example of how to install the IBM Cloud Functions SDK for mobile using Carthage from the source code:\n1. Clone the IBM Cloud Functions SDK for mobile repository from GitHub: `git clone https://github.com/openwhisk/openwhisk-client-swift.git`\n2. Navigate to the cloned repository: `cd openwhisk-client-swift`\n3. Install Carthage: `brew install carthage`\n4. Run `carthage bootstrap` to build the framework.\n5. Add the `OpenWhisk.framework` file to the embedded frameworks in your Xcode project.",
+        "The IBM Cloud Functions SDK for mobile is available for public distribution and is free to use as part of the IBM Cloud Functions service.  However, please note that standard data usage charges for your mobile device may apply depending on your mobile carrier plan. In the Pricing Sheet page, type the monthly usage of the runtime and services of your app to find charges.  SDK for Node.js™ charges for runtime by GB-hours $0.07 USD/GB-hour.",
+        "If the action returns a result, set hasResult to true in the invokeAction call. The result of the action is returned in the reply dictionary.",
+        "Yes, you can configure the SDK to work with different installations of Cloud Functions by using the baseURL parameter."
+      ],
+      "contexts": [
+        [
+          "Mobile SDK \n\nIBM Cloud® Functions provides a mobile SDK for iOS and watchOS devices that enables mobile apps to fire remote triggers and invoke remote actions. A version for Android is not available, so Android developers can use the OpenWhisk REST API directly. The mobile SDK is written in Swift 4 and supports iOS 11 and later releases. You can build the mobile SDK by using Xcode 9.\n\nThe mobile SDK is not supported for IAM-based namespaces. Use a Cloud Foundry-based namespace instead.\n\n\n\n Add the SDK to your app \n\nYou can install the mobile SDK by using CocoaPods, Carthage, or from the source directory.\n\n\n\n Install mobile SDK with CocoaPods \n\nThe IBM Cloud® Functions SDK for mobile is available for public distribution through CocoaPods. Assuming CocoaPods is installed, put the following lines into a file called Podfile inside the starter app project directory.\n\ninstall! 'cocoapods', :deterministic_uuids => false\nuse_frameworks!\n\ntarget 'MyApp' do\npod 'OpenWhisk', :git => 'https://github.com/apache/incubator-openwhisk-client-swift.git', :tag => '0.3.0'\nend\n\ntarget 'MyApp WatchKit Extension' do\npod 'OpenWhisk', :git => 'https://github.com/apache/incubator-openwhisk-client-swift.git', :tag => '0.3.0'\nend\n\nFrom the command line, type pod install. This command installs the SDK for an iOS app with a watchOS extension. Use the workspace file CocoaPods creates for your app to open the project in Xcode.\n\nAfter installation, open your project workspace. You might get the following warning when building: Use Legacy Swift Language Version” (SWIFT_VERSION) is required to be configured correctly for targets which use Swift. Use the [Edit > Convert > To Current Swift Syntax…] menu to choose a Swift version or use the Build Settings editor to configure the build setting directly.",
+          "Use the workspace file CocoaPods creates for your app to open the project in Xcode.\n\nAfter installation, open your project workspace. You might get the following warning when building: Use Legacy Swift Language Version” (SWIFT_VERSION) is required to be configured correctly for targets which use Swift. Use the [Edit > Convert > To Current Swift Syntax…] menu to choose a Swift version or use the Build Settings editor to configure the build setting directly. This is caused if CocoaPods does not update the Swift version in the Pods project. To fix, select the Pods project and the IBM Cloud® Functions target. Go to Build Settings and change the setting Use Legacy Swift Language Version to no. Alternatively, you can add the following post installation instructions at the end of you Podfile:\n\npost_install do installer\ninstaller.pods_project.targets.each do target\ntarget.build_configurations.each do config\nconfig.build_settings['SWIFT_VERSION'] = '4.0'\nend\nend\nend\n\n\n\n\n\n Install mobile SDK with Carthage \n\nCreate a file in the project directory for your app and name it Cartfile. Put the following line in the file:\n\ngithub \"openwhisk/openwhisk-client-swift.git\" > 0.3.0 Or latest version\n\nFrom the command line, type carthage update --platform ios. Carthage downloads and builds the SDK, creates a directory that is called Carthage in the project directory for your app, and puts an OpenWhisk.framework file inside Carthage/build/iOS.\n\nYou must then add OpenWhisk.framework file to the embedded frameworks in your Xcode project\n\n\n\n\n\n Install mobile SDK from source code \n\n\n\n1. Download the [source code](https://github.com/apache/openwhisk-client-swift).\n2. Open the project by using the OpenWhisk.xcodeproj with Xcode. The project contains two schemes: \"OpenWhisk\" (targeted for iOS) and \"OpenWhiskWatch\" (targeted for watchOS 2).\n3.",
+          "* [Install mobile SDK with Carthage](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-carthage)\n* [Install mobile SDK from source code](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-source-code)\n\n\n\n* [Install the starter app example for mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-starter-app)\n* [Getting started with mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkget-started-mobile-sdk)\n* [Invoke a mobile SDK action](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinvoke-mobile-sdk-action)\n* [Fire a mobile SDK trigger](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkfire-mobile-sdk-trigger)\n* [Use mobile SDK actions that return a result](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkmobile-sdk-actions-results)\n* [Configuring the mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkconfigure-mobile-sdk)\n\n\n\n* [Support for qualified names with mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkqualified-names-mobile-sdk)",
+          "Given that the overwhelming majority of SDK adopters will be using Xcode as their development environment, you will want to include your .xcodeproj directory for contributors to easily get started.\n\nYou should use the standard [development tools](https://cloud.ibm.com/docs/sdk-handbook?topic=sdk-handbook-developer-tools) for Swift to check style and code coverage.\n\n\n\n\n\n Standard features \n\n\n\n Authentication \n\nYou are not required to use a particular library to provide the authentication for your service.\n\nYour SDK must support all of the authentication methods supported by your service.\n\n\n\n\n\n Configuration \n\nYour SDK should allow various SDK configuration properties (e.g. service URL, authentication credentials) to be supplied through an external configuration mechanism (e.g. properties file or environment variables) in addition to a programmatic path. This will relieve SDK users from focusing on configuration-related functionality and will allow applications using your SDK to be flexible and avoid 'hard-coding' configuration information inside the application code.\n\nIf you build this capability into your SDK, you must document this mechanism clearly with examples.\n\n\n\n\n\n Requests \n\nMost networking operations in your Swift SDK should be asynchronous. DispatchGroups and other semaphores can be used for synchronous operations.\n\n\n\n\n\n Using swift-sdk-core \n\n[IBM swift-sdk-core](https://github.com/IBM/swift-sdk-core), formerly watson-developer-cloud/RestKit provides configuration and authentication support. You can use the existing functionality provided by this dependency in your SDK to leverage key capabilities in similar manners across the IBM Cloud.\n\n\n\n\n\n\n\n Documentation \n\nYour SDK is not useful if your audience cannot understand how to consume it in order to do the basic operations for your service. Your SDK needs to contain the following resources to help your users:\n\n\n\n* README.md\n* [Contributor Guidelines](https://cloud.ibm.com/docs/sdk-handbook?topic=sdk-handbook-documentationsdk-contributor-docs)\n* Code Samples\n* [Service documentation](https://cloud.ibm.com/docs/sdk-handbook?topic=sdk-handbook-documentation)",
+          "In the defaultConfig section, configure the redirect scheme.\n\ndefaultConfig {\n...\nmanifestPlaceholders = ['appIdRedirectScheme': android.defaultConfig.applicationId]\n}\n\n\n\n4. Synchronize your project with Gradle. Click Tools > Android > Sync Project with Gradle Files.\n\n\n\n\n\n\n\n Initializing the SDK \n\n\n\n1. Pass the context, tenant ID, and region parameters to the initialize method to configure the SDK.\n\nA common, though not mandatory, place to put the initialization code is in the onCreate method of the main activity in your Android application.\n\nAppID.getInstance().initialize(getApplicationContext(), <tenantID>, <region>);\n\n\n\n\n\n\n\n\n\n Authenticating with the iOS Swift SDK \n\nProtect your mobile applications by using the App ID client SDK.\n\n\n\n Before you begin \n\nYou must have the following prerequisites before you get started:\n\n\n\n* Xcode 9.0 or higher\n* CocoaPods 1.1.0 or higher\n* iOS 10.0 or higher\n\n\n\n\n\n\n\n Installing the SDK \n\nThe App ID client SDK is distributed with CocoaPods, a dependency manager for Swift and Objective-C Cocoa projects. CocoaPods downloads artifacts, and makes them available to your project.\n\n\n\n1. Create an Xcode project or open an existing one.\n2. Create a new or open your existing Podfile in the project's directory.\n3. Add the IBMCloudAppID pod and use_frameworks! command to your target's dependencies\n\ntarget '<yourTarget>' do\nuse_frameworks!\npod 'IBMCloudAppID'\nend\n4. Install your dependencies from the command line within your project directory.\n\npod install --repo-update\n5. After installation, open the {your app}.xcworkspace file that contains your Xcode project and your linked dependencies\n6. Enable keychain sharing in your Xcode project."
+        ],
+        [
+          "Use the workspace file CocoaPods creates for your app to open the project in Xcode.\n\nAfter installation, open your project workspace. You might get the following warning when building: Use Legacy Swift Language Version” (SWIFT_VERSION) is required to be configured correctly for targets which use Swift. Use the [Edit > Convert > To Current Swift Syntax…] menu to choose a Swift version or use the Build Settings editor to configure the build setting directly. This is caused if CocoaPods does not update the Swift version in the Pods project. To fix, select the Pods project and the IBM Cloud® Functions target. Go to Build Settings and change the setting Use Legacy Swift Language Version to no. Alternatively, you can add the following post installation instructions at the end of you Podfile:\n\npost_install do installer\ninstaller.pods_project.targets.each do target\ntarget.build_configurations.each do config\nconfig.build_settings['SWIFT_VERSION'] = '4.0'\nend\nend\nend\n\n\n\n\n\n Install mobile SDK with Carthage \n\nCreate a file in the project directory for your app and name it Cartfile. Put the following line in the file:\n\ngithub \"openwhisk/openwhisk-client-swift.git\" > 0.3.0 Or latest version\n\nFrom the command line, type carthage update --platform ios. Carthage downloads and builds the SDK, creates a directory that is called Carthage in the project directory for your app, and puts an OpenWhisk.framework file inside Carthage/build/iOS.\n\nYou must then add OpenWhisk.framework file to the embedded frameworks in your Xcode project\n\n\n\n\n\n Install mobile SDK from source code \n\n\n\n1. Download the [source code](https://github.com/apache/openwhisk-client-swift).\n2. Open the project by using the OpenWhisk.xcodeproj with Xcode. The project contains two schemes: \"OpenWhisk\" (targeted for iOS) and \"OpenWhiskWatch\" (targeted for watchOS 2).\n3.",
+          "* [Install mobile SDK with Carthage](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-carthage)\n* [Install mobile SDK from source code](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-source-code)\n\n\n\n* [Install the starter app example for mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-starter-app)\n* [Getting started with mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkget-started-mobile-sdk)\n* [Invoke a mobile SDK action](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinvoke-mobile-sdk-action)\n* [Fire a mobile SDK trigger](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkfire-mobile-sdk-trigger)\n* [Use mobile SDK actions that return a result](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkmobile-sdk-actions-results)\n* [Configuring the mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkconfigure-mobile-sdk)\n\n\n\n* [Support for qualified names with mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkqualified-names-mobile-sdk)",
+          "Mobile SDK \n\nIBM Cloud® Functions provides a mobile SDK for iOS and watchOS devices that enables mobile apps to fire remote triggers and invoke remote actions. A version for Android is not available, so Android developers can use the OpenWhisk REST API directly. The mobile SDK is written in Swift 4 and supports iOS 11 and later releases. You can build the mobile SDK by using Xcode 9.\n\nThe mobile SDK is not supported for IAM-based namespaces. Use a Cloud Foundry-based namespace instead.\n\n\n\n Add the SDK to your app \n\nYou can install the mobile SDK by using CocoaPods, Carthage, or from the source directory.\n\n\n\n Install mobile SDK with CocoaPods \n\nThe IBM Cloud® Functions SDK for mobile is available for public distribution through CocoaPods. Assuming CocoaPods is installed, put the following lines into a file called Podfile inside the starter app project directory.\n\ninstall! 'cocoapods', :deterministic_uuids => false\nuse_frameworks!\n\ntarget 'MyApp' do\npod 'OpenWhisk', :git => 'https://github.com/apache/incubator-openwhisk-client-swift.git', :tag => '0.3.0'\nend\n\ntarget 'MyApp WatchKit Extension' do\npod 'OpenWhisk', :git => 'https://github.com/apache/incubator-openwhisk-client-swift.git', :tag => '0.3.0'\nend\n\nFrom the command line, type pod install. This command installs the SDK for an iOS app with a watchOS extension. Use the workspace file CocoaPods creates for your app to open the project in Xcode.\n\nAfter installation, open your project workspace. You might get the following warning when building: Use Legacy Swift Language Version” (SWIFT_VERSION) is required to be configured correctly for targets which use Swift. Use the [Edit > Convert > To Current Swift Syntax…] menu to choose a Swift version or use the Build Settings editor to configure the build setting directly.",
+          "use_frameworks!\n\ntarget 'MyApp' do\npod 'BMSCore'\nend\n\nThen run the pod install command, and open the generated .xcworkspace file. To update to a newer release of BMSCore, use pod update BMSCore.\n\nFor more information about using CocoaPods, see the [CocoaPods Guides](https://guides.cocoapods.org/using/index.html).\n2. To install BMSCore by using Carthage, follow these [instructions](https://github.com/Carthage/Carthagegetting-started).\n\n\n\n1. Add the following line to your Cartfile:\n\ngithub \"ibm-bluemix-mobile-services/bms-clientsdk-swift-core\"\n2. Run the carthage update command.\n3. After the build is finished, add BMSCore.framework to your project by following [Step 3](https://github.com/Carthage/Carthagegetting-started) in the Carthage instructions.\n\nFor apps that are built with Swift 2.3, use the carthage update --toolchain com.apple.dt.toolchain.Swift_2_3 command. Otherwise, use the carthage update command.\n\n\n\n3. Import the BMSCore module.\n\nimport BMSCore\n4. Initialize the BMSClient class by using the following code.\n\nPlace the initialization code in the application(_:didFinishLaunchingWithOptions:) method of your app delegate, or in a location that works best for your project.\n\nBMSClient.sharedInstance.initialize(bluemixRegion: BMSClient.Region.usSouth) // Make sure that you point to your region\n\nYou must initialize the BMSClient with the bluemixRegion parameter. In the initializer, the bluemixRegion value specifies which IBM Cloud deployment you're using, for example, BMSClient.Region.usSouth, BMSClient.Region.unitedKingdom, or BMSClient.Region.sydney.\n\n\n\n\n\n\n\n Initializing your Cordova app \n\n\n\n1.",
+          "Install mobile SDK from source code \n\n\n\n1. Download the [source code](https://github.com/apache/openwhisk-client-swift).\n2. Open the project by using the OpenWhisk.xcodeproj with Xcode. The project contains two schemes: \"OpenWhisk\" (targeted for iOS) and \"OpenWhiskWatch\" (targeted for watchOS 2).\n3. Build the project for the targets that you need and add the resulting frameworks to your app (usually in /Library/Developer/Xcode/DerivedData/your-app-name).\n\n\n\n\n\n\n\n\n\n Install the starter app example for mobile SDK \n\nYou can use the Cloud Functions CLI to download example code that embeds the Cloud Functions SDK framework.\n\nTo install the starter app example, enter the following command:\n\nibmcloud fn sdk install iOS\n\nThis command downloads a compressed file that contains the starter app. The project directory contains a Podfile.\n\nTo install the SDK, enter the following command:\n\npod install\n\n\n\n\n\n Getting started with mobile SDK \n\nTo get up and running quickly, create a WhiskCredentials object with your Cloud Functions API credentials and create a Cloud Functions instance from the object.\n\nFor example, use the following example code to create a credentials object:\n\nlet credentialsConfiguration = WhiskCredentials(accessKey: \"myKey\", accessToken: \"myToken\")\nlet whisk = Whisk(credentials: credentialsConfiguration!)\n\nIn previous example, you pass in the myKey and myToken that you get from Cloud Functions. You can retrieve the key and token with the following CLI command:\n\nibmcloud fn property get --auth\n\nExample output\n\nwhisk auth kkkkkkkk-kkkk-kkkk-kkkk-kkkkkkkkkkkk:tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt\n\nThe string before the colon is your key, and the string after the colon is your token."
+        ],
+        [
+          "Use the workspace file CocoaPods creates for your app to open the project in Xcode.\n\nAfter installation, open your project workspace. You might get the following warning when building: Use Legacy Swift Language Version” (SWIFT_VERSION) is required to be configured correctly for targets which use Swift. Use the [Edit > Convert > To Current Swift Syntax…] menu to choose a Swift version or use the Build Settings editor to configure the build setting directly. This is caused if CocoaPods does not update the Swift version in the Pods project. To fix, select the Pods project and the IBM Cloud® Functions target. Go to Build Settings and change the setting Use Legacy Swift Language Version to no. Alternatively, you can add the following post installation instructions at the end of you Podfile:\n\npost_install do installer\ninstaller.pods_project.targets.each do target\ntarget.build_configurations.each do config\nconfig.build_settings['SWIFT_VERSION'] = '4.0'\nend\nend\nend\n\n\n\n\n\n Install mobile SDK with Carthage \n\nCreate a file in the project directory for your app and name it Cartfile. Put the following line in the file:\n\ngithub \"openwhisk/openwhisk-client-swift.git\" > 0.3.0 Or latest version\n\nFrom the command line, type carthage update --platform ios. Carthage downloads and builds the SDK, creates a directory that is called Carthage in the project directory for your app, and puts an OpenWhisk.framework file inside Carthage/build/iOS.\n\nYou must then add OpenWhisk.framework file to the embedded frameworks in your Xcode project\n\n\n\n\n\n Install mobile SDK from source code \n\n\n\n1. Download the [source code](https://github.com/apache/openwhisk-client-swift).\n2. Open the project by using the OpenWhisk.xcodeproj with Xcode. The project contains two schemes: \"OpenWhisk\" (targeted for iOS) and \"OpenWhiskWatch\" (targeted for watchOS 2).\n3.",
+          "use_frameworks!\n\ntarget 'MyApp' do\npod 'BMSCore'\nend\n\nThen run the pod install command, and open the generated .xcworkspace file. To update to a newer release of BMSCore, use pod update BMSCore.\n\nFor more information about using CocoaPods, see the [CocoaPods Guides](https://guides.cocoapods.org/using/index.html).\n2. To install BMSCore by using Carthage, follow these [instructions](https://github.com/Carthage/Carthagegetting-started).\n\n\n\n1. Add the following line to your Cartfile:\n\ngithub \"ibm-bluemix-mobile-services/bms-clientsdk-swift-core\"\n2. Run the carthage update command.\n3. After the build is finished, add BMSCore.framework to your project by following [Step 3](https://github.com/Carthage/Carthagegetting-started) in the Carthage instructions.\n\nFor apps that are built with Swift 2.3, use the carthage update --toolchain com.apple.dt.toolchain.Swift_2_3 command. Otherwise, use the carthage update command.\n\n\n\n3. Import the BMSCore module.\n\nimport BMSCore\n4. Initialize the BMSClient class by using the following code.\n\nPlace the initialization code in the application(_:didFinishLaunchingWithOptions:) method of your app delegate, or in a location that works best for your project.\n\nBMSClient.sharedInstance.initialize(bluemixRegion: BMSClient.Region.usSouth) // Make sure that you point to your region\n\nYou must initialize the BMSClient with the bluemixRegion parameter. In the initializer, the bluemixRegion value specifies which IBM Cloud deployment you're using, for example, BMSClient.Region.usSouth, BMSClient.Region.unitedKingdom, or BMSClient.Region.sydney.\n\n\n\n\n\n\n\n Initializing your Cordova app \n\n\n\n1.",
+          "pod 'ENPushDestination', '> 0.0.1'\nend\n\n\n\n\n\n Carthage \n\nTo install ENPushDestination using Carthage, add the following to your Cartfile.\n\ngithub \"IBM/event-notifications-destination-ios-sdk\" > 0.0.1\n\nThen, run the following command to build the dependencies and frameworks:\n\ncarthage update --platform iOS\n\n\n\n\n\n Swift Package Manager \n\nAdd the following to your Package.swift file to identify ENPushDestination as a dependency. The package manager clones ENPushDestination when you build your project with swift build.\n\ndependencies: [\n.package(url: \"https://github.com/IBM/event-notifications-destination-ios-sdk\", from: \"0.0.1\")\n]\n\n\n\n\n\n\n\n Installation - Initialize SDK \n\nComplete the following steps to enable iOS applications to receive notifications.\n\n\n\n1. Add the import statements in your .swift file.\n\nimport ENPushDestination\n2. Initialize the ENPushDestination SDK\n\nlet instanceGUID = \"<instance_guid>>\";\nlet destinationID = \"<instance_destination_id>\";\nlet apiKey = \"<instance_apikey>\";\n\nlet enPush = ENPush.sharedInstance\nenPush.setCloudRegion(region: .usSouth)\nenPush.initialize(instanceGUID, destinationID, apiKey)\n\n\n\n* region: Region of the Event Notifications instance. For example, Region.usSouth.\n\n\n\n\n\n\n\n\n\n Register for notifications \n\nUse the ENPush.registerDevice() API to register the device with iOS destination in Event Notifications service.\n\nThe following options are supported:\n\n\n\n* Register without userId:\n\n/Register iOS devices/\nenPush.registerWithDeviceToken(deviceToken: \"<apns-device-token>\") { response, statusCode, error in\nprint(response?.id ?? \"\")\n}\n* Register with UserId.",
+          "* [Install mobile SDK with Carthage](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-carthage)\n* [Install mobile SDK from source code](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-source-code)\n\n\n\n* [Install the starter app example for mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinstall-mobile-sdk-starter-app)\n* [Getting started with mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkget-started-mobile-sdk)\n* [Invoke a mobile SDK action](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkinvoke-mobile-sdk-action)\n* [Fire a mobile SDK trigger](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkfire-mobile-sdk-trigger)\n* [Use mobile SDK actions that return a result](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkmobile-sdk-actions-results)\n* [Configuring the mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkconfigure-mobile-sdk)\n\n\n\n* [Support for qualified names with mobile SDK](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_mobile_sdkqualified-names-mobile-sdk)",
+          "baseimage-auth-email text The email credential for the base image of the application Dockerfile, required by the Code Risk Analyzer scan. Optional \n baseimage-auth-host text The host credential for the base image of the application Dockerfile, required by the Code Risk Analyzer scan. Optional \n baseimage-auth-password SECRET The password credential for the base image of the application Dockerfile, required by the Code Risk Analyzer scan. Optional \n baseimage-auth-user text The user credential for the base image of the application Dockerfile, required by the Code Risk Analyzer scan. Optional \n cocoa-config-retry-status-code text The response status code for an API call that needs to be retried in the cocoa CLI. For example: 500,404. Default value: 500 Optional \n cocoa-config-max-retry-attempts text The number of times that the cocoa CLI can retry the API call before giving up. For example: 5. Default value: 3 Optional \n cocoa-config-git-default-branch (supported in Q4, 2022) text The default native Git branch for the cocoa CLI. For example: main. Default value: master Optional \n cra-custom-script-path text Path to a custom script to be run before CRA scanning. This script is sourced to provide the option to set ENV variables in the context of the CRA BOM tool. Optional \n cra-cveignore-path text File path to the cveignore, relative to the application repository root. Default file path is .cra/.cveignore if value is not provided. Optional \n cra-docker-build-context text If this flag is specified, Code Risk Analyzer uses the directory in the path parameter as the Docker build context. The default value is false. Optional \n cra-docker-buildflags text Customize docker build command for build stage scanning. The parameter is empty by default. Optional"
+        ],
+        [
+          "Examples \n\n\n\n  SDK working examples \n\nThe SDK SHOULD contain a set of working examples for each service contained in the SDK. These working examples SHOULD provide a clear, concise example of how to use each operation within the service.\n\nThese examples SHOULD be relatively easy for users to execute, similar to test cases contained in the SDK.\n\n\n\n  Guidelines for examples \n\nThe SDK examples for a service SHOULD:\n\n\n\n*  Include a clear, concise example of how to invoke each operation\n*  Use realistic values for operation parameters and model properties which enhance the user's understanding of the operation\n*  Use consistent parameter/property values across the various SDK languages (Go, Java, Node.js, and Python) as well as Curl; ideally, the parameter/property values used in the examples code are defined within \"example\" fields in the service's API definition\n\n\n\nThe examples can be used to provide the example code fragments displayed in the service's API Reference docs.",
+          "For more information about the code that is used for this example, see [helloworld](https://github.com/IBM/CodeEngine/tree/main/helloworld).\n7. Select Source code.\n8. Click Specify build details.\n9. Accept the default for each page, clicking Next and then Done.\n10. Click Create.\n\n\n\nAfter your build run is submitted, the built container image is sent to Container Registry and then your application pulls the image and deploys for you. After the application status changes to Ready, you can try it out. Click Test application and then click Send request in the Test application pane. To open the application in a web page, click Application URL.\n\nExample output\n\nHello World from:\n___ __ ____ ____\n/ __)/ ( ( __)\n( (__( O )) D ( ) _)\n___)__/(____/(____)\n____ __ _ ___ __ __ _ ____\n( __)( ( / __)( )( ( ( __)\n) _) / /( (_ )( / / ) _)\n(____)_)__) ___/(__)_)__)(____)\nSome Env Vars:\n--------------\nCE_APP=myapp\nCE_DOMAIN=us-south.codeengine.appdomain.cloud\nCE_SUBDOMAIN=abcdabcdab\nHOME=/root\nHOSTNAME=myapp-00001-deployment-6db6d89dc7-k6qc7\nK_REVISION=myapp-00001\nPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\nPORT=8080\nPWD=/\nSHLVL=1",
+          "* If you are starting with source code that resides on a local workstation, you can choose to let Code Engine take care of building the image from your source and creating the job with a single CLI command. In this scenario, Code Engine uploads your image to IBM Cloud® Container Registry. To learn more, see [Creating your job from local source code with the CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-job-local-source-code). If you want more control over the build of your image, then you can choose to [build the image](https://cloud.ibm.com/docs/codeengine?topic=codeengine-build-image) with Code Engine before you create (or update) your job and run the job.\n\n\n\nFor example, you might choose to let Code Engine handle the build of your local source while you evolve the development of your source for the job. Then, after the image is matured, you can update the job to reference the specific image that you want. You can repeat this process as needed.\n\nWhen you run your updated job, the latest version of your referenced container image is used for the job run, unless a tag is specified for the image. If a tag is specified for the image, then the tagged image is used for the job run.\n\n\n\nLooking for more code examples? Check out the [Samples for IBM Cloud Code Engine GitHub repo](https://github.com/IBM/CodeEngine).",
+          "* If you are starting with source code that resides in a Git repository, you can choose to let Code Engine take care of building the image from your source and creating (or updating) the job with a single operation. In this scenario, Code Engine uploads your image to IBM Cloud® Container Registry. To learn more, see [Creating a job from repository source code](https://cloud.ibm.com/docs/codeengine?topic=codeengine-run-job-source-code). If you want more control over the build of your image, then you can choose to [build the image](https://cloud.ibm.com/docs/codeengine?topic=codeengine-build-image) with Code Engine before you create (or update) your job and run the job.\n* If you are starting with source code that resides on a local workstation, you can choose to let Code Engine take care of building the image from your source and creating the job with a single CLI command. In this scenario, Code Engine uploads your image to IBM Cloud® Container Registry. To learn more, see [Creating your job from local source code with the CLI](https://cloud.ibm.com/docs/codeengine?topic=codeengine-job-local-source-code). If you want more control over the build of your image, then you can choose to [build the image](https://cloud.ibm.com/docs/codeengine?topic=codeengine-build-image) with Code Engine before you create (or update) your job and run the job.\n\n\n\nFor example, you might choose to let Code Engine handle the build of your local source while you evolve the development of your source for the job. Then, after the image is matured, you can update the job to reference the specific image that you want. You can repeat this process as needed.\n\nWhen you run your updated job, the latest version of your referenced container image is used for the job run, unless a tag is specified for the image. If a tag is specified for the image, then the tagged image is used for the job run.\n\n\n\nLooking for more code examples?",
+          "ID: abcdefgh-abcd-abcd-abcd-1a2b3c4d5e6f\nProject Name: myproject\nProject ID: 01234567-abcd-abcd-abcd-abcdabcd1111\nAge: 59s\nCreated: 2021-03-01T20:08:36-06:00\n\nDestination Type: job\nDestination: myjob\nBucket: mybucket\nEvent Type: all\nReady: true\n\nConditions:\nType OK Age Reason\nCosConfigured true 55s\nReady true 55s\nReadyForEvents true 55s\nSinkProvided true 55s\n\nEvents:\nType Reason Age Source Messages\nNormal FinalizerUpdate 61s cossource-controller Updated \"mycosevent\" finalizers\n\n\n\nNow every time that you change your bucket, your job receives notification.\n\nJob runs that are created by subscriptions are deleted after 10 minutes.\n\nWant to try a tutorial? See [Subscribing to Object Storage events](https://cloud.ibm.com/docs/codeengine?topic=codeengine-subscribe-cos-tutorial). Looking for more code examples? Check out the [Samples for IBM Cloud Code Engine GitHub repo](https://github.com/IBM/CodeEngine).\n\n\n\n\n\n Viewing event information for a job from the console \n\nTo view information about your event subscriptions,\n\n\n\n1. From the [Code Engine Projects page](https://cloud.ibm.com/codeengine/projects), go to your project.\n2. From the Overview page, click Event subscriptions to view a listing of defined subscriptions.\n\n\n\nIf your job prints information to log files, as the sample codeengine job does, then view the log files for your event consumer application. See [Viewing job logs from the console](https://cloud.ibm.com/docs/codeengine?topic=codeengine-view-logsview-joblog-cli).\n\n\n\n\n\n Viewing event information for a job with the CLI"
+        ],
+        [
+          "Domain Registration Agreement \n\nThis Domain Registration Agreement (\"Agreement\") is between SoftLayer Technologies, Inc. (\"SoftLayer\", an IBM Company) and You and is effective on the date You accept it electronically. This Agreement represents the entire agreement between You and IBM Cloud regarding Your use of IBM Cloud’s Domain Name Registration Services (the “Services”). You acknowledge that You have read, understand and agree to be bound by Agreement, along with any new, different or additional terms, conditions or policies which IBM Cloud may establish from time to time. Your use – or continued use – of the Services after being provided notice of this Agreement constitutes acceptance of the Agreement. You agree to be bound by this Agreement for transactions entered into by You or anyone acting as Your Agent, and by anyone who uses the account You have established with IBM Cloud. You acknowledge that IBM Cloud is a registrar bound by an agreement with the Internet Corporation for Assigned Names and Numbers (\"ICANN\"). You agree that IBM Cloud may modify this Agreement in order to comply with applicable law and the terms and conditions set forth by ICANN from time to time.\n\n\n\n Fees \n\nYou agree to pay IBM Cloud for the Services You purchase at the time they are provided. You understand that ICANN requires IBM Cloud to collect a small registration fee when You register a domain name, and You agree to pay such fees. Payments are non-refundable. If for any reason IBM Cloud is unable to charge Your payment method for the full amount owed, or if IBM Cloud is charged a penalty for any fee it previously charged to Your payment method, You agree that IBM Cloud may pursue all available remedies in order to obtain payment, including immediate cancellation, without notice, of any domain names registered or renewed by You or on Your behalf. IBM Cloud reserves the right to charge a reasonable service fee for administrative tasks outside the scope of its regular Services, including customer service issues that cannot be handled over email but require personal service, and disputes that require legal services. These charges will be billed to the payment method on file for You.\n\n\n\n\n\n Domain Name Renewals",
+          "* You can optionally secure access to your private cloud service endpoint by creating a subnet allowlist. Only authorized requests to your cluster master that originate from subnets in the allowlist are permitted through the cluster's private cloud service endpoint. For more information, see [Creating an allowlist for the private cloud service endpoint](https://cloud.ibm.com/docs/containers?topic=containers-access_clusterprivate-se-allowlist).\n\n\n\n\n\n\n\n Private service endpoint only \n\nTo make your master only privately accessible, you can enable the private cloud service endpoint. VRF is required in your IBM Cloud account, and you must enable your account to use service endpoints. To enable VRF and service endpoints, run ibmcloud account update --service-endpoint-enable true. Note that using private cloud service endpoint only incurs no billed or metered bandwidth charges.\n\n\n\n* Communication between worker nodes and master is established over the private network through the private cloud service endpoint.\n* The master is privately accessible if authorized cluster users are in your IBM Cloud private network or are connected to the private network through a VPN connection or DirectLink. Note that you must [expose the master endpoint through a private load balancer](https://cloud.ibm.com/docs/containers?topic=containers-access_clusteraccess_private_se) so that users can access the master through a VPN or DirectLink connection.\n* You can optionally secure access to your private cloud service endpoint by creating a subnet allowlist. Only authorized requests to your cluster master that originate from subnets in the allowlist are permitted through the cluster's private cloud service endpoint. For more information, see [Creating an allowlist for the private cloud service endpoint](https://cloud.ibm.com/docs/containers?topic=containers-access_clusterprivate-se-allowlist).\n\n\n\n\n\n\n\n\n\n Worker communication to other IBM Cloud services or on-premises networks \n\nAllow your worker nodes to securely communicate with other IBM Cloud services and to an on-premises network.\n\n\n\n Communication with other IBM Cloud services over the private or public network",
+          "Using service endpoints with Code Engine \n\nAll IBM Cloud® Code Engine projects offer integration with IBM Cloud® service endpoints. This support gives you the ability to connect from your classic infrastructure to Code Engine applications and stay within the IBM Cloud network.\n\nYou can control the visibility of Code Engine applications and specify whether to expose the application to public or private endpoints. An application that is configured for visibility = private, is accessed through service endpoints. Applications that are accessed through a service endpoint do not leave the IBM network and stay within the IBM Cloud network.\n\n\n\n Public endpoints \n\nPublic endpoints provide a connection to your deployment on the public network. At provision time, a public endpoint is the default option for all deployments. Your environment needs to have internet access to connect to a deployment.\n\n\n\n\n\n Private endpoints \n\nA deployment with a service endpoint on the private network gets an endpoint that is not accessible from the public internet. All traffic is routed to hardware dedicated to Code Engine deployments and remains on the IBM Cloud private network. All traffic to and from this endpoint is free and does not incur charges on the condition that the traffic remains in IBM Cloud. After your environment has access to the IBM Cloud private network, an internet connection is not required to connect to your deployment.\n\nCode Engine application deployments with private endpoints are reachable from any account within the private network and access to each instance requires authentication. To restrict this access to specific IP addresses, or ranges of IP addresses, configure [allowlists](https://cloud.ibm.com/docs/cloud-databases?topic=cloud-databases-allowlisting).\n\n\n\n\n\n Enabling service endpoints \n\nIf you want to use connections over the public internet, you do not have to enable service endpoints on your IBM Cloud account. If you want to enable private networking on your deployments, you need to follow the instructions in the Service Endpoint documentation under [Enabling VRF and service endpoints](https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint).\n\nCurrently, enabling service endpoints on your account is a manual step that is handled by support ticket.",
+          "Services for VMware as a Service \n\nThe Veeam® Backup and Replication service is preinstalled and included by default for your instance order. You can remove the service from your instance order. Service charges are incurred only if you choose to include the service in your order.\n\n\n\n\n\n Related links \n\n\n\n* [FAQ](https://cloud.ibm.com/docs/vmware-service?topic=vmware-service-faq-general)\n* [Managing Veeam for VMware as a Service](https://cloud.ibm.com/docs/vmware-service?topic=vmware-service-tenant-veeam)",
+          "(https://cloud.ibm.com/docs/schematics?topic=schematics-blueprints-faqfaqs-bp-tf-version)\n* [Is it possible to specify the CLI parameters as a file?](https://cloud.ibm.com/docs/schematics?topic=schematics-blueprints-faqfaqs-bp-cli-file)\n* [When you create a blueprint config in the us-south target region, why is the blueprint job ID indicating us-east?](https://cloud.ibm.com/docs/schematics?topic=schematics-blueprints-faqfaqs-bp-target-region)\n* [Is it possible to delete the Schematics service instance by using the Resource Controller API or CLI?](https://cloud.ibm.com/docs/schematics?topic=schematics-blueprints-faqfaqs-bp-schematics-instance)\n\n\n\n[General](https://cloud.ibm.com/docs/schematics?topic=schematics-general-faqgeneral-faq)\n\n\n\n* [What is IBM Cloud Schematics and how does it work?](https://cloud.ibm.com/docs/schematics?topic=schematics-general-faqwhat-is-schematics)\n* [What is Infrastructure as Code?](https://cloud.ibm.com/docs/schematics?topic=schematics-general-faqwhat-is-iac)\n* [What am I charged for when I use Schematics?](https://cloud.ibm.com/docs/schematics?topic=schematics-general-faqcharges)\n* [Does IBM Cloud Schematics support multiple Terraform provider versions?](https://cloud.ibm.com/docs/schematics?topic=schematics-general-faqprovider-versions)"
+        ],
+        [
+          "It can also return no result if the input clearly does not match one of the two phrases.\n\nFor instance, if the user replies yes, the service likely returns a response that is very much like the following result. The score in the confidence field indicates a perfectly reliable match.\n\n{\n\"result_index\": 0,\n\"results\": [\n{\n\"alternatives\":\n{\n\"confidence\": 1.0,\n\"transcript\": \"yes\"\n}\n],\n\"final\": true\n}\n]\n}\n\nBut suppose, for example, the user replies nope. The service can return either a result with a very low confidence score or no result at all. An empty result is the clearest indication that the response does not match the grammar. An empty response is more likely to occur with complex grammars, where a valid response must match a specific multi-phrase sequence.\n\n\n\n\n\n Multi-phrase matches: The names grammar \n\nWith a multi-phrase grammar, the user's response must be complete to be recognized. The user cannot omit a word or stop in the middle of the response. The absence of even a single word can cause the service to return an empty result.\n\nMoreover, the service can return multiple transcripts if the user speaks phrases that are separated by sufficient silence to indicate that they are independent utterances. For example, consider the simple names grammar, which can match one of three multi-word names.\n\nABNF 1.0 ISO-8859-1;\nlanguage en-US;\nmode voice;\nroot $names;\n\n$names = Yi Wen Tan | Yon See | Youngjoon Lee ;\n\nSuppose the user speaks one of the names from the grammar's rules, Yon See. The service returns a response that indicates a very high level of confidence in the match.\n\n{\n\"result_index\": 0,\n\"results\": [\n{\n\"alternatives\":\n{\n\"confidence\": 0.92,\n\"transcript\": \"Yon See\"\n}\n],\n\"final\": true\n}\n]\n}",
+          "Search result messages\n\n Tab Scenario Example message \n\n Message Search results are returned I found this information that might be helpful: \n No results found No search results are found I searched my knowledge base for information that might address your query, but did not find anything useful to share. \n Connectivity issue I was unable to complete the search for some reason I might have information that could help address your query, but am unable to search my knowledge base at the moment. \n\n\n\n4. Choose whether to enable Emphasize the answer.\n\nThis option is available only if your Discovery instance uses the v2 Discovery API.\n\nWhen you enable this feature, the sentence that is determined by Discovery to be the exact answer to the customer's question is highlighted in the block of text that is displayed to the customer as the search result.\n5. In the Adjust result quantity section, specify the number of results to return.\n\nThe top three results are returned automatically. You can choose to show fewer or more (up to 10) results in the response.\n\nBy default, customers can choose to see more results. If you don't want to give customers this choice, clear the Include link for customers to view up to 10 results checkbox.\n6. In the Set result selectivity section, decide whether to be more selective with the answers that are returned. By increasing result selectivity, Search returns fewer but more accurate results. In most cases, Search is accurate enough that the default setting (off) is sufficient.\n7. Click Preview. Enter a test message to see the results that are returned when your configuration choices are applied to the search. Make adjustments as necessary.\n8. Click Create.\n\n\n\n\n\n\n\n Edit the search integration configuration \n\nIf you want to change the configuration of the search result card later, open the search integration again, and make edits. You do not need to save changes as you make them; they are automatically applied. When you are happy with the search results, click Save to finish configuring the search integration.\n\nIf you decide you want to connect to a different Discovery service instance or project, open the search integration and click *Edit Discovery Settings. You can choose either a new project from the same instance, or a new instance and project.\n\n\n\n\n\n Troubleshooting",
+          "As you add field mappings, a preview of the search result is displayed with information from the corresponding fields of your data collection. This preview shows you what gets included in the search result response that is returned to users.\n\nTo get help with configuring the search, see [Troubleshooting](https://cloud.ibm.com/docs/services/assistant?topic=assistant-skill-search-addskill-search-add-troubleshoot).\n3. Use the Message, No results found and Connectivity issue tabs to customize different messages to share with users based on the successfulness of the search.\n\n\n\nSearch result messages\n\n Tab Scenario Example message \n\n Message Search results are returned I found this information that might be helpful: \n No results found No search results are found I searched my knowledge base for information that might address your query, but did not find anything useful to share. \n Connectivity issue I was unable to complete the search for some reason I might have information that could help address your query, but am unable to search my knowledge base at the moment. \n\n\n\n4. Choose whether to enable Emphasize the answer.\n\nThis option is available only if your Discovery instance uses the v2 Discovery API.\n\nWhen you enable this feature, the sentence that is determined by Discovery to be the exact answer to the customer's question is highlighted in the block of text that is displayed to the customer as the search result.\n5. In the Adjust result quantity section, specify the number of results to return.\n\nThe top three results are returned automatically. You can choose to show fewer or more (up to 10) results in the response.\n\nBy default, customers can choose to see more results. If you don't want to give customers this choice, clear the Include link for customers to view up to 10 results checkbox.\n6. In the Set result selectivity section, decide whether to be more selective with the answers that are returned. By increasing result selectivity, Search returns fewer but more accurate results. In most cases, Search is accurate enough that the default setting (off) is sufficient.\n7. Click Preview to open the Preview pane for testing. Enter a test message to see the results that are returned when your configuration choices are applied to the search.",
+          "As you add field mappings, a preview of the search result is displayed with information from the corresponding fields of your data collection. This preview shows you what gets included in the search result response that is returned to users.\n\nTo get help with configuring the search, see [Troubleshooting](https://cloud.ibm.com/docs/assistant?topic=assistant-skill-search-addskill-search-add-troubleshoot).\n3. Use the Message, No results found and Connectivity issue tabs to customize different messages to share with users based on the successfulness of the search.\n\n\n\nSearch result messages\n\n Tab Scenario Example message \n\n Message Search results are returned I found this information that might be helpful: \n No results found No search results are found I searched my knowledge base for information that might address your query, but did not find anything useful to share. \n Connectivity issue I was unable to complete the search for some reason I might have information that could help address your query, but am unable to search my knowledge base at the moment. \n\n\n\n4. Choose whether to enable Emphasize the answer.\n\nThis option is available only if your Discovery instance uses the v2 Discovery API.\n\nWhen you enable this feature, the sentence that is determined by Discovery to be the exact answer to the customer's question is highlighted in the block of text that is displayed to the customer as the search result.\n5. In the Adjust result quantity section, specify the number of results to return.\n\nThe top three results are returned automatically. You can choose to show fewer or more (up to 10) results in the response.\n\nBy default, customers can choose to see more results. If you don't want to give customers this choice, clear the Include link for customers to view up to 10 results checkbox.\n6. In the Set result selectivity section, decide whether to be more selective with the answers that are returned. By increasing result selectivity, Search returns fewer but more accurate results. In most cases, Search is accurate enough that the default setting (off) is sufficient.\n7. Click Preview to open the Preview pane for testing. Enter a test message to see the results that are returned when your configuration choices are applied to the search.",
+          "Most online data sources provide self-referencing public URLs for objects in the store to support direct access. If you add a URL, it must be valid and reachable. If it is not, the Slack integration doesn't include the URL in its response and the Facebook integration doesn't return any response.\n\nThe Facebook and Slack integrations can successfully display the search result response when the URL field is empty.\n\n\n\nYou must use a field for at least one of the search results.\n\nIf no options are available from the drop-down fields, give Discovery more time to finish creating the collection. If the collection is not created, then your collection might not contain any documents or might have ingestion errors that you need to address first.\n\n![Shows that the Title, Shortdesc, and url fields are selected and the preview search card is populated with information from those fields](https://cloud.ibm.com/docs-content/v1/content/ca9232b3702768f24bb897f48f10778fcda28718/watson-assistant/images/search-configure-fields.png)\n\nAs you add field mappings, a preview of the search result is displayed with information from the corresponding fields of your data collection. This preview shows you what gets included in the search result response that is returned to users.\n\nTo get help with configuring the search, see [Troubleshooting](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-addsearch-add-troubleshoot).\n3. Use the Message, No results found and Connectivity issue tabs to customize different messages to share with users based on the successfulness of the search.\n\n\n\nSearch result messages\n\n Tab Scenario Example message \n\n Message Search results are returned I found this information that might be helpful: \n No results found No search results are found I searched my knowledge base for information that might address your query, but did not find anything useful to share. \n Connectivity issue I was unable to complete the search for some reason I might have information that could help address your query, but am unable to search my knowledge base at the moment. \n\n\n\n4."
+        ],
+        [
+          "* [Installing from the Cloud Functions CLI](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_translatorlanguagetranslator_cli)\n* [Installing from the Cloud Functions console](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_translatorlanguagetranslator_ui)\n\n\n\n* [Using the Language Translator package](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_translatorusage_translator)\n\n\n\n[Speech to Text](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_speech_to_textpkg_speech_to_text)\n\n\n\n* [Creating a Speech to Text service instance](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_speech_to_textservice_instance_speechtotext)\n* [Installing the Speech to Text package](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_speech_to_textinstall_speechtotext)\n* [Installing from the Cloud Functions CLI](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_speech_to_textspeechtotext_cli)\n* [Installing from the Cloud Functions console](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_speech_to_textspeechtotext_ui)\n* [Using the Speech to Text package](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_speech_to_textusage_speechtotext)",
+          "Configuring the Cloud Functions CLI to use an HTTPS proxy \n\nThe Cloud Functions CLI can be set up to use an HTTPS proxy. To set up an HTTPS proxy, an environment variable that is called HTTPS_PROXY must be created. The variable must be set to the address of the HTTPS proxy, and its port by using the following format: {PROXY IP}:{PROXY PORT}.\n\nChanging the name of the org or space creates a new namespace based on the changed name. The entities in the old namespace are not visible in the new namespace and might be deleted.\n\n\n\n\n\n Migrating from OpenWhisk CLI to Cloud Functions CLI plug-in \n\nYou can now use the Cloud Functions CLI plug-in to interact with Cloud Functions entities. Although you can continue to use the stand-alone OpenWhisk CLI, it does not have the latest features that are supported by Cloud Functions, such as IAM-based namespaces and service bind.\n\n\n\n Command syntax \n\nAll the command options and arguments for commands in the Cloud Functions CLI plug-in are the same as the options for the [OpenWhisk stand-alone CLI](https://github.com/apache/openwhisk-cli) with the following differences.\n\n\n\n* The IBM Cloud® Functions plug-in automatically utilizes your current login and target information.\n* wsk commands are now run as ibmcloud fn.\n* The wsk ibmcloud login command is no longer needed. You can sign in by using ibmcloud login command.\n* You can manage your APIs by using the ibmcloud fn api commands.\n\n\n\nFor more information, see the [Cloud Functions CLI reference](https://cloud.ibm.com/docs/openwhisk?topic=cloud-functions-cli-plugin-functions-cli).\n\n\n\n\n\n API Authentication and Host \n\nWith the Cloud Functions CLI plug-in, you don't need to explicitly configure the API key and API host. Instead, you can log in with the ibmcloud login command.",
+          "Installing the CLI and plug-in \n\nIBM Cloud® Functions offers a powerful plug-in for the IBM Cloud CLI that allows complete management of the Cloud Functions system. You can use the Cloud Functions CLI plug-in to manage your code snippets in actions, create triggers and rules to enable your actions to respond to events, and bundle actions into packages.\n\n\n\n Setting up the IBM Cloud CLI \n\nInstall the latest version of the IBM Cloud CLI.\n\nBefore you begin\n\nYou must create an [IBM Cloud account](https://cloud.ibm.com/).\n\n\n\n1. Download and install the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli).\n2. Log in to the IBM Cloud CLI.\n\nibmcloud login\n3. If you have more than one account, you are prompted to select which account to use. Follow the prompts or use the target command to select your IBM Cloud account.\n\nibmcloud target -c <account_id>\n4. You must also specify a region. You can use the target command to target or change regions.\n\nibmcloud target -r <region>\n5. You must specify a resource group. To get a list of your resource groups, run the following command.\n\nibmcloud resource groups\n\nExample output\n\nRetrieving all resource groups under account <account_name> as email@ibm.com...\nOK\nName ID Default Group State\ndefault a8a12accd63b437bbd6d58fb8b462ca7 true ACTIVE\ntest a8a12abbbd63b437cca6d58fb8b462ca7 false ACTIVE\n6. Target a resource group by running the following command.\n\nibmcloud target -g <resource_group>\n\nExample output\n\nTargeted resource group default\n\n\n\n\n\n\n\n Setting up the Cloud Functions CLI plug-in \n\nTo work with Cloud Functions, download and install the CLI plug-in.",
+          "default a8a12accd63b437bbd6d58fb8b462ca7 true ACTIVE\ntest a8a12abbbd63b437cca6d58fb8b462ca7 false ACTIVE\n6. Target a resource group by running the following command.\n\nibmcloud target -g <resource_group>\n\nExample output\n\nTargeted resource group default\n\n\n\n\n\n\n\n Setting up the Cloud Functions CLI plug-in \n\nTo work with Cloud Functions, download and install the CLI plug-in.\n\nYou can use the Cloud Functions CLI plug-in to perform the following tasks.\n\n\n\n* Run your code snippets, or actions, on Cloud Functions. See [Creating and invoking actions](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-actions).\n* Create triggers and rules to enable your actions to respond to events. See [Creating triggers and rules](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-triggers).\n* Bundle actions and configure external events sources. See [Create and use packages](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-pkg_ov).\n* Explore the catalog of packages and enhance your applications with external services. See [Adding IBM Cloud](https://cloud.ibm.com/docs/openwhisk?topic=openwhisk-services).\n\n\n\nComplete the following steps to install the Cloud Functions CLI plug-in\n\n\n\n1. Install the Cloud Functions plug-in.\n\nibmcloud plugin install cloud-functions\n2. Verify that the plug-in is installed.\n\nibmcloud plugin list\n\nExample Output\n\nPlugin Name Version\ncloud-functions/wsk/functions/fn 1.0.32\n3. All Cloud Functions commands begin with ibmcloud fn. To see everything that you can do with the Cloud Functions plug-in, run ibmcloud fn with no arguments.\n\nibmcloud fn",
+          "You can set an access policy for a service ID by using the IAM console.\n\n\n\n1. Open the [IAM Service ID page](https://cloud.ibm.com/iam/serviceids).\n2. In the Service IDs list, select your Cloud Functions namespace.\n3. On the Manage page, click Access policies, then click Assign access.\n4. Next, select an Access Type. You can choose from the following options.\n\n\n\n* Assign access within a resource group: Use this option to grant your Cloud Functions service ID access to a resource group.\n* Assign access to resources: Use this option to grant your Cloud Functions service ID access to a specific resource, like an instance of IBM Cloud Object Storage.\n* Assign access to account management services: Use this option to grant your Cloud Functions service ID access to account management services such as billing, user management, and more.\n\n\n\n\n\n\n\n\n\n Setting an access policy for your Cloud Functions service ID through the CLI \n\nSet an access policy for a service ID by using the CLI.\n\nCopy the following command. Replace <namespace_service_ID> with the name of your Cloud Functions namespace. Replace <IAM_role1,IAM_role2> with the IAM roles you want to assign to your namespace. Replace <other_service_name> with the name of the IBM service you want Cloud Functions to work with. Replace <other_service_GUID> with the GUID of the IBM service instance.\n\nibmcloud iam service-policy-create <namespace_service_ID> --roles <IAM_role1,IAM_role2> --service-name <other_service_name> --service-instance <other_service_GUID>\n\n\n\nTable 1. Understanding the command components\n\n Option Description \n\n <namespace_service_ID> The service ID for the namespace. To see all service IDs, run ibmcloud iam service-ids. \n <IAM_role> The type of IAM service access role that the action must have to use the target service. To see the supported roles for the other service, run ibmcloud iam roles --service SERVICE_NAME."
+        ]
+      ],
+      "answerability": [
+        "PARTIAL",
+        "ANSWERABLE",
+        "UNANSWERABLE",
+        "ANSWERABLE",
+        "ANSWERABLE",
+        "ANSWERABLE",
+        "ANSWERABLE"
+      ],
+      "metadata": {
+        "dataset": "cloud",
+        "rag": "hipporag2",
+        "turn_ids": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ]
+      }
+    },
+    "evaluation": {
+      "turn_evaluations": [
+        {
+          "turn": 1,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.667, IDK=0.0, answerability=PARTIAL -> conditioned score 0.766 (threshold 0.80). RB_llm justification: The assistant's answer is more accurate and comprehensive compared to the reference answer. It correctly identifies three installation methods (CocoaPods, Carthage, and source code) and highlights a specific limitation of CocoaPods related to Swift version configuration, which is explicitly mentioned in the document. The reference answer incorrectly states there are only two methods and claims no ",
+          "scores": {
+            "RB_llm": 9.0,
+            "RB_llm_norm": 0.9,
+            "RL_F": 0.6666666666666666,
+            "idk": 0.0,
+            "answerability": "PARTIAL",
+            "phi": 0.7659574468085106,
+            "conditioned_score": 0.7659574468085106,
+            "statements": [
+              {
+                "statement": "The current method for installing the mobile SDK allows for installation via CocoaPods, Carthage, or from source code.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that the SDK can be installed via CocoaPods, Carthage, or from source code."
+              },
+              {
+                "statement": "CocoaPods is the recommended method for installing the mobile SDK.",
+                "verdict": "no",
+                "reason": "The context does not explicitly state that CocoaPods is the recommended method; it only lists it as one of the available options."
+              },
+              {
+                "statement": "The current method has limitations, including potential issues with Swift version configuration.",
+                "verdict": "yes",
+                "reason": "The context describes a warning about Swift version configuration when using CocoaPods, indicating a limitation."
+              },
+              {
+                "statement": "Switching to Carthage or source code installation could offer more control and mitigate some of the current method's issues.",
+                "verdict": "yes",
+                "reason": "The context implies that Carthage and source code installation might avoid the Swift version configuration issues described for CocoaPods."
+              },
+              {
+                "statement": "The decision to switch methods should take into account the team's familiarity with Carthage or source code installation and the project's specific requirements.",
+                "verdict": "no",
+                "reason": "The context does not address team familiarity or project-specific requirements when choosing an installation method."
+              },
+              {
+                "statement": "The current approach is functional, but its limitations could be addressed by switching to a different installation method.",
+                "verdict": "yes",
+                "reason": "The context acknowledges limitations in the CocoaPods method and describes alternative installation methods (Carthage, source code) that could mitigate these issues."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "incorrect",
+              "IDK": "correct",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 2,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about using Carthage for SDK installation by referencing the document's steps (e.g., creating a `Cartfile`, running `carthage update`, and adding the framework to Xcode). However, it introduces an unnecessary and misleading statement about the document not discussing the \"limitations of the current method,\" which contradicts the document's expli",
+          "scores": {
+            "RB_llm": 6.0,
+            "RB_llm_norm": 0.6,
+            "RL_F": 1.0,
+            "idk": 0.5,
+            "answerability": "ANSWERABLE",
+            "phi": 0.7499999999999999,
+            "conditioned_score": 0.7499999999999999,
+            "statements": [
+              {
+                "statement": "The retrieved evidence mentions installing the mobile SDK with Carthage by creating a `Cartfile` and running `carthage update --platform ios`.",
+                "verdict": "yes",
+                "reason": "The context explicitly describes creating a Cartfile and using the `carthage update --platform ios` command for Carthage installation."
+              },
+              {
+                "statement": "It also outlines steps to add the `OpenWhisk.framework` to the embedded frameworks in your Xcode project.",
+                "verdict": "yes",
+                "reason": "The context states that after Carthage builds the SDK, the `OpenWhisk.framework` must be added to the Xcode project's embedded frameworks."
+              },
+              {
+                "statement": "However, it does not explicitly discuss the limitations of the current method for installing the mobile SDK.",
+                "verdict": "yes",
+                "reason": "The context provides installation instructions but does not mention any limitations or drawbacks of the Carthage method."
+              },
+              {
+                "statement": "Therefore, I do not have specific information on the limitations of the current method.",
+                "verdict": "yes",
+                "reason": "Since the context does not address limitations, there is no information to support or refute claims about them."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "correct",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 3,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it accurately reflects the Carthage installation steps for the mobile SDK, including the Cartfile entry, `carthage update` command, and framework integration. It aligns with the previous conversation's focus on Carthage and addresses the user's likely intent (correcting \"cart ahh sauce\" to \"Carthage\"). The answer is appropriate, directly respo",
+          "scores": {
+            "RB_llm": 9.0,
+            "RB_llm_norm": 0.9,
+            "RL_F": 1.0,
+            "idk": 0.0,
+            "answerability": "UNANSWERABLE",
+            "phi": 0.9473684210526315,
+            "conditioned_score": 0.0,
+            "statements": [
+              {
+                "statement": "Add the line 'github \"openwhisk/openwhisk-client-swift.git\" > 0.3.0 Or latest version' to your Cartfile to specify the OpenWhisk SDK repository and version.",
+                "verdict": "yes",
+                "reason": "The context explicitly states to add this line to the Cartfile for Carthage installation."
+              },
+              {
+                "statement": "Run the command 'carthage update --platform ios' to download and build the SDK using Carthage.",
+                "verdict": "yes",
+                "reason": "The context directly instructs to run this command after creating the Cartfile."
+              },
+              {
+                "statement": "After the build completes, add the 'OpenWhisk.framework' file to the embedded frameworks section of your Xcode project.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that this step is required after Carthage builds the SDK."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "incorrect",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 4,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.800, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the document's content, as it fails to extract the specific source code installation steps outlined in the reference answer. While the document mentions general guidelines for SDK examples and references the IBM Cloud Code Engine GitHub repository, the assistant incorrectly claims there is \"no specific source code example\" provided. The reference answer co",
+          "scores": {
+            "RB_llm": 3.0,
+            "RB_llm_norm": 0.3,
+            "RL_F": 0.8,
+            "idk": 1.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.4363636363636363,
+            "conditioned_score": 0.0,
+            "statements": [
+              {
+                "statement": "The user is asking for a source code example.",
+                "verdict": "no",
+                "reason": "The context does not explicitly state that the user is asking for a source code example."
+              },
+              {
+                "statement": "The retrieved evidence indicates that the SDK should include working examples for each service, which should be clear and concise.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that the SDK should contain clear, concise working examples for each service."
+              },
+              {
+                "statement": "There are references to code examples in the IBM Cloud Code Engine documentation and GitHub repository.",
+                "verdict": "yes",
+                "reason": "The context includes links to the IBM Cloud Code Engine documentation and the CodeEngine GitHub repository for code examples."
+              },
+              {
+                "statement": "No specific source code example is provided in the retrieved evidence.",
+                "verdict": "yes",
+                "reason": "The context references external resources for code examples but does not include a specific source code example within the provided text."
+              },
+              {
+                "statement": "I do not have specific information to provide a source code example.",
+                "verdict": "yes",
+                "reason": "The context does not include a specific source code example but directs users to external repositories and documentation."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "incorrect",
+              "RL_F": "incorrect",
+              "IDK": "incorrect",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 5,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.500, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.375 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the documents provided, as it incorrectly references domain registration fees and service endpoints, which are unrelated to the mobile SDK discussed in the user's question. The reference answer correctly identifies the SDK as part of IBM Cloud and mentions associated charges (e.g., data usage, runtime costs), but these details are not present in the provid",
+          "scores": {
+            "RB_llm": 3.0,
+            "RB_llm_norm": 0.3,
+            "RL_F": 0.5,
+            "idk": 0.5,
+            "answerability": "ANSWERABLE",
+            "phi": 0.37499999999999994,
+            "conditioned_score": 0.37499999999999994,
+            "statements": [
+              {
+                "statement": "The service in question is part of IBM Cloud, as it is related to domain registration and service endpoints.",
+                "verdict": "yes",
+                "reason": "The context explicitly mentions IBM Cloud's Domain Name Registration Services and discusses service endpoints within IBM Cloud's infrastructure, indicating the service is part of IBM Cloud."
+              },
+              {
+                "statement": "Fees are required for domain name registration, and service fees may apply for administrative tasks.",
+                "verdict": "yes",
+                "reason": "The Fees section states that ICANN requires a registration fee and that IBM Cloud may charge service fees for administrative tasks outside regular services."
+              },
+              {
+                "statement": "There is no specific mention of additional charges for the service in question.",
+                "verdict": "no",
+                "reason": "The context does mention potential service fees for administrative tasks, indicating there are additional charges beyond the base fees."
+              },
+              {
+                "statement": "It is unclear if there are additional charges beyond what is mentioned.",
+                "verdict": "no",
+                "reason": "The context explicitly states that IBM Cloud may charge service fees for administrative tasks, making it clear that additional charges are possible."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "incorrect",
+              "RL_F": "incorrect",
+              "IDK": "correct",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 6,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer addresses the general scenario where a system might return no result, citing possible reasons like input mismatch or grammar issues. It aligns with the document's explanation of empty results when input doesn't match expected phrases or multi-phrase grammars. However, the reference answer provides a specific technical solution (setting `hasResult` to true in `invokeAction` a",
+          "scores": {
+            "RB_llm": 5.0,
+            "RB_llm_norm": 0.5,
+            "RL_F": 1.0,
+            "idk": 1.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.6666666666666666,
+            "conditioned_score": 0.0,
+            "statements": [
+              {
+                "statement": "The phrase \"Oops, no return result...\" suggests that the system did not find a matching response or result for the input.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that the system returns no result if the input does not match expected phrases or grammars, and an empty result indicates no match."
+              },
+              {
+                "statement": "This could happen if the input does not align with the expected phrases.",
+                "verdict": "yes",
+                "reason": "The context provides examples where inputs like 'nope' (not matching expected phrases like 'yes') result in low confidence or no result."
+              },
+              {
+                "statement": "This could also happen if the grammar requires a complete and specific response.",
+                "verdict": "yes",
+                "reason": "The context explains that multi-phrase grammars require complete responses, and missing even a single word leads to an empty result."
+              },
+              {
+                "statement": "It might indicate that no relevant information was found in the knowledge base to address the query.",
+                "verdict": "yes",
+                "reason": "The context describes 'No results found' messages when the system cannot find useful information in the knowledge base."
+              },
+              {
+                "statement": "If this is the case, the system may return an empty result or a message indicating no results were found.",
+                "verdict": "yes",
+                "reason": "The context states that an empty result is the clearest indication of no match, and 'No results found' messages are explicitly described."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "incorrect",
+              "RL_F": "correct",
+              "IDK": "incorrect",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 7,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.774 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly references the Cloud Functions CLI's ability to manage multiple resource groups and namespaces via commands like `ibmcloud target -g <resource_group>`. The document explicitly supports this approach, including details about CLI setup and resource group targeting. However, the reference answer mentions the `baseURL` parameter, ",
+          "scores": {
+            "RB_llm": 8.0,
+            "RB_llm_norm": 0.8,
+            "RL_F": 0.75,
+            "idk": 0.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.7741935483870969,
+            "conditioned_score": 0.7741935483870969,
+            "statements": [
+              {
+                "statement": "You can configure the service to work with different installations of Cloud Functions.",
+                "verdict": "no",
+                "reason": "The context does not explicitly mention configuring the service to work with different installations. It discusses managing multiple namespaces and resource groups via the CLI, but not the service itself being configured for different installations."
+              },
+              {
+                "statement": "The Cloud Functions CLI plug-in allows managing multiple namespaces and resource groups to work with different installations.",
+                "verdict": "yes",
+                "reason": "This is directly stated in the context: 'The Cloud Functions CLI plug-in allows managing multiple namespaces and resource groups to work with different installations.'"
+              },
+              {
+                "statement": "Use the `ibmcloud target -g <resource_group>` command to target specific resource groups.",
+                "verdict": "yes",
+                "reason": "The context explicitly provides this command for targeting resource groups: 'ibmcloud target -g <resource_group>'."
+              },
+              {
+                "statement": "Manage your Cloud Functions entities accordingly after targeting the resource group.",
+                "verdict": "yes",
+                "reason": "The context explains that after targeting a resource group, you can use the Cloud Functions CLI plug-in to manage entities like actions, triggers, and packages."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "incorrect",
+              "IDK": "correct",
+              "conditioned": "incorrect"
+            }
+          }
+        }
+      ],
+      "conversation_label": "incorrect",
+      "method": "mtrag",
+      "first_failed_turn": 1
+    },
+    "judge": {
+      "model": "qwen/qwen3-32b",
+      "prompt_version": "paper-ragas-mtrag-v1",
+      "thresholds": {
+        "f": 1.0,
+        "mtrag": 0.8,
+        "vrag_accept_min": 4,
+        "rb_llm_min_rating": 6.0,
+        "ar": null
+      },
+      "elapsed_seconds": 659.614,
+      "usage": {
+        "max_requested_completion_tokens": 8192,
+        "max_requested_reasoning_tokens": 4096,
+        "prompt_tokens": 36581,
+        "completion_tokens": 16065,
+        "total_tokens": 52646,
+        "is_byok": 0,
+        "completion_budget_verified_calls": 28,
+        "reasoning_tokens": 15437,
+        "reasoning_budget_verified_calls": 28
+      },
+      "completion_max_tokens": 8192,
+      "reasoning_max_tokens": 4096,
+      "adaptive_max_tokens": 32768
+    }
+  },
+  {
+    "id": "1be66272113492407e814eaf21a761d4",
+    "input": {
+      "conversation": [
+        {
+          "role": "user",
+          "content": "How can I compare the metrics for different periods?"
+        },
+        {
+          "role": "assistant",
+          "content": "To compare metrics for different periods, you can use the time period control available in the metrics interface. This allows you to select specific time frames such as a day, week, month, or quarter, and the data points on the graphs adjust accordingly. You can also create custom time periods. Additionally, metrics can be viewed for predefined periods like 7, 15, 30, 60, or 90 days. The graphs and aggregate values can be adjusted to reflect the selected time period, enabling you to compare metrics across different time frames effectively."
+        },
+        {
+          "role": "user",
+          "content": "some example of alerts"
+        },
+        {
+          "role": "assistant",
+          "content": "Examples of alerts include app-level alerts, worker node alerts, zone alerts, cluster alerts, account alerts, and block storage for VPC alerts. Additionally, presence alerts notify when the number of events or logs exceeds expectations, while absence alerts trigger when the number of events or logs falls below expectations. Alerts can be configured with specific conditions, notification channels, and severity levels to monitor infrastructure, applications, and IBM Cloud services."
+        },
+        {
+          "role": "user",
+          "content": "weak understanding metrics"
+        },
+        {
+          "role": "assistant",
+          "content": "Weak understanding metrics refer to the number of individual messages that the assistant did not fully comprehend. To improve weak understanding, analyze the Analytics tab to identify areas for improvement. Use metrics to find patterns or common issues in user interactions. Test alternative approaches by creating different versions of the assistant and compare their performance. Refine the assistant's dialog skill based on the insights gained from the logs and metrics. Regularly monitor and update the assistant to enhance its understanding and effectiveness."
+        },
+        {
+          "role": "user",
+          "content": "those conversations are monitored?"
+        },
+        {
+          "role": "assistant",
+          "content": "The previous conversations are monitored to improve how the assistant understands and responds to user requests. The Conversations page provides a history of interactions, allowing you to analyze user inputs, actions, and topics. You can filter and explore specific conversations to identify areas for improvement. This monitoring is part of the process to refine the assistant's performance and training data."
+        },
+        {
+          "role": "user",
+          "content": "are they billed by the number of turns or per conversation?"
+        },
+        {
+          "role": "assistant",
+          "content": "The billing is managed per monthly active user per service instance. If a single user interacts with assistants hosted by different service instances that belong to the same plan, each interaction is treated as a separate use. You are billed for the user's interaction with each service instance separately. Therefore, you are billed based on the number of interactions (or monthly active users) rather than the number of turns or per conversation."
+        },
+        {
+          "role": "user",
+          "content": "filtering msg"
+        },
+        {
+          "role": "assistant",
+          "content": "You can filter messages by using the \"Search user statements,\" \"Intents,\" \"Entities,\" and \"Last n days\" options. To filter by \"Search user statements,\" type a word in the search bar, which searches the users' inputs but not your assistant's replies. For \"Intents,\" select from the drop-down menu and choose an intent or multiple intents, including \"Irrelevant.\" For \"Entities,\" select from the drop-down menu and choose an entity or multiple entities, which filters the results by any of the selected entities. Additionally, you can filter by the \"Last n days\" to view messages within a specific time frame. Messages might take up to 30 minutes to update after a user's interaction."
+        }
+      ],
+      "ground_truth_answers": [
+        "To compare the metrics for different periods, you can use the Time period control to select the desired time frames. You can choose from predefined periods such as a single day, a week, a month, or a quarter, or create custom time periods. The data points on the graph will adjust to an appropriate measurement period for the selected time frame. For example, when viewing a graph for a day, the data is presented in hourly values, but when viewing a graph for a week, the data is shown by day. Additionally, you can use the Refresh data option to ensure the data is up-to-date.",
+        "Sure, here's an example of detail alerts: - Name: Enter a name for the alert (e.g., 'High CPU Usage'). - Description: Add a description for more context (optional). - Group: Specify the alert group (or use the default group). - Severity: Set the level of criticality (e.g., 'High', 'Medium', 'Low', or 'Info'). - Metric: Configure the metric you want to monitor (e.g., 'CPU usage'). - Scope: Configure the scope (e.g., specific resources, resource groups, or cloud accounts). - Trigger: Define the condition and threshold value that must be evaluated. For instance, you can set an alert to trigger when CPU usage exceeds 80% for at least 5 minutes. - Notification Channel: Enable 1 or more notification channels to receive alert notifications. Remember to save your alert settings after configuring them. For more information, refer to the document on configuring alerts: [Configuring an alert](https://cloud.ibm.com/docs/monitoring?topic=monitoring-alert-config).",
+        "A metric is a measure of something that can be quantified and tracked over time. In the context of cloud monitoring, metrics are data points that provide insights into the performance, availability, and usage of resources in your cloud environment.  In scorecards, a weak understanding is measured by counting the number of individual messages that are not classified by an intent and do not contain any known entities. Reviewing these unrecognized messages can help identify potential dialog problems and improve the system's understanding of user inputs.\n\n",
+        "I don't know if conversations in Watson Assistant are monitored. However, there is a feature called \"web chat\" to detect specific types of outage errors.",
+        "Watson Assistant does not bill based on the number of turns or conversations. Instead, it charges based on the number of time series hours collected during a billing cycle. Time series are a unique combination of a metric name and label key-value pairs, and a data-point is the value generated for a time-series at a given point in time.  To monitor how the IBM Cloud Monitoring service is used and the costs associated to its usage, see Viewing your usage.",
+        "You can filter messages by Search user statements, Intents, Entities, and Last n days.   Select the drop-down menu and type an intent in the input field, or choose from the populated list. You can select more than one intent, which filters the results using any of the selected intents, including Irrelevant.   Additionally, it is recommended to wait at least 30 minutes after a user's interaction with your assistant before attempting to filter for that content."
+      ],
+      "contexts": [
+        [
+          "Metrics with graphical views \n\nMetrics for an individual CDN are provided on the Overview tab of the customer portal for that CDN mapping. Two types of metrics are calculated from the CDN's usage: those that show the metrics over a time period as a graph, and those that are shown as aggregate values.\n\nFor metrics that display the change over a period of time as a graph, you can see three line graphs and a pie chart. The three line graphs are: Bandwidth, Hits by Mapping, and Hits by Type. They display the activity daily over the course of your specified timeframe. The graphs for Bandwidth and Hits by Mapping are single-line graphs, whereas the breakdown of Hits by Type shows a line for each of the hit types provided. The pie chart displays a regional breakdown of the bandwidth for a CDN mapping on a percentage basis.\n\nMetrics that are shown for aggregate values include Bandwidth Usage in GB, Total Hits to the CDN Edge server, and the Hit Ratio. Hit Ratio indicates that the percentage of times content is delivered by the Edge server, not through its origin. Hit ratio currently is shown as a function of all your CDN mappings, not just the one being viewed.\n\nBy default, both the aggregate numbers and the graphs default to show metrics for the last 30 days, but you can change this through the [IBM Cloud console](https://cloud.ibm.com/). Both categories can display metrics for 7-, 15-, 30-, 60-, or 90-day periods.\n\n\n\n\n\n Object storage origin support \n\nIBM Cloud CDN can be configured to serve content from an object storage endpoint by providing the endpoint, the bucket name, protocol, and port. Optionally, you can specify a list of file extensions to allow caching for files only with those extensions. All objects in the bucket must be set with anonymous read or public read access.\n\nFor more information, see [Accelerate delivery of static files using a CDN](https://cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-static-files-cdn).\n\n\n\n\n\n Path-based CDN mappings",
+          "Metrics overview \n\nThe Overview page provides a summary of the interactions between users and your assistant. You can view the amount of traffic for a given time period, as well as the intents and entities that were recognized most often in user conversations.\n\nThe Analytics page was introduced with version 1.5.0. The Analytics feature is supported only on clusters that are installed on Red Hat OpenShift 4.5 or later.\n\nUse the metrics to answer questions like:\n\n\n\n* What was the average number of conversations per week during the last month?\n* How often did customers need to go elsewhwere for support?\n* Which intents appeared most often last week?\n* Which entity values were recognized the most times during February?\n* Which days had the largest or smallest numbers of conversations in the last month?\n\n\n\nTo see metrics information, select Overview in the navigation bar.\n\n\n\n Controls \n\nYou can use the following controls to filter the information:\n\n\n\n* Time period control - Use this control to choose the period for which data is displayed. This control affects all data shown on the page: not just the number of conversations displayed in the graph, but also the statistics displayed along with the graph, and the lists of top intents and entities.\n\nThe statistics can cover a longer time period than the period for which logs of conversations are retained.\n\n![Time period control](https://cloud.ibm.com/docs-content/v1/content/a2b18c153837bce00a5b4de496e4b4ca64bbf56e/assistant-data/images/oview-time.png)\n\nYou can choose whether to view data for a single day, a week, a month, or a quarter. In each case, the data points on the graph adjust to an appropriate measurement period. For example, when viewing a graph for a day, the data is presented in hourly values, but when viewing a graph for a week, the data is shown by day. A week always runs from Sunday through Saturday.\n\nYou can create custom time periods also, such as a week that runs from Thursday to the following Wednesday, or a month that begins on any date other than the first.",
+          "In each case, the data points on the graph adjust to an appropriate measurement period. For example, when viewing a graph for a day, the data is presented in hourly values, but when viewing a graph for a week, the data is shown by day. A week always runs from Sunday through Saturday.\n\nYou can create custom time periods also, such as a week that runs from Thursday to the following Wednesday, or a month that begins on any date other than the first.\n\nThe time shown for each conversation is localized to reflect the time zone of your browser. However, API log calls are always shown in UTC time. As a result, if you choose a single day view, for example, the time shown in the visualization might differ from the timestamp specified in the log for the same conversation.\n\n![Time period control](https://cloud.ibm.com/docs-content/v1/content/a2b18c153837bce00a5b4de496e4b4ca64bbf56e/assistant-data/images/oview-time2.png)\n* Intents and Entities filters - Use either of these drop-down filters to show data for a specific intent or entity in your skill.\n\nThe intent and entities filters are populated by the intents and entities in the skill, and not what is in the data source. If you have [selected a data source](https://cloud.ibm.com/docs/assistant-data?topic=assistant-data-logslogs-deploy-id) other than the skill, you might not see an intent or entity from your data source logs as an option in the filters, unless those intents and entities are also in the skill.\n* Refresh data: Select Refresh data to refresh the data that is used in the page metrics.\n\nThe statistics show traffic from customers who interact with your assistant; they do not include interactions from the Try it out pane.\n\n\n\n\n\n\n\n Scorecards \n\nThe scorecards give you a quick view of your metrics. Scroll to see full interactive graphs later in the page.\n\n!",
+          "* Classic metrics have been replaced with context-explicit metrics. See [Mapping Classic Metrics with Context-Specific PromQL Metrics](https://docs.sysdig.com/en/docs/sysdig-monitor/metrics-dictionary/metrics-and-label-mapping/mapping-classic-metrics-with-context-specific-promql-metrics/mapping-classic-metrics-with-context-specific-promql-metrics).\n* Troubleshooting metrics are collected at 10s intervals and stored for 4 days for program metrics, connection-level network metrics, and Kubernetes troubleshooting metrics. See [Troubleshooting Metrics](https://docs.sysdig.com/en/docs/sysdig-monitor/metrics/troubleshooting-metrics/troubleshooting-metrics).\n* You can use PromQL to query the metrics in the time series database.\n\n\n\n* You can run queries that handle larger volumes of data and perform faster.\n* You can reference the scope of a dashboard in PromQL queries by using $__scope. See [Scope Variable in PromQL Dashboard](https://docs.sysdig.com/en/docs/release-notes/enhanced-metric-store/scope-variable-in-promql-dashboard).\n\n\n\n* You can view the latest value of an entity in number panels, tables, histograms, and toplist panels. See [Single Stat Panels Displays Latest Value](https://docs.sysdig.com/en/docs/release-notes/enhanced-metric-store/single-stat-panels-displays-latest-value)\n* In the Overview section, you can view the latest data as opposed to an aggregated value for widgets over the time window that is selected.\n* You can display metrics that are scraped at different intervals on the same graph.",
+          "Other items, such as Last 90/7/1 days and Custom timeframe are available in the Time frame list.\n\nZoom\n\n![Custom time overview](https://cloud.ibm.com/docs-content/v1/content/006fd22ab2811b7d19804c763a00568b3da4c03a/CDN/images/metrics-custom-time-overview.png)\n\nFigure 3: Custom time overview\n\nOn the Overview page, you can find a graphical representation of the Total Bandwidth, Bandwidth per Region, Total Hits, and Hits By Type metrics.\n\nZoom\n\n![Metrics graphs](https://cloud.ibm.com/docs-content/v1/content/006fd22ab2811b7d19804c763a00568b3da4c03a/CDN/images/metrics-custom-time-graphs.png)\n\nFigure 4: Custom time graphs\n\nThe maximum number of days that you can view metrics reports is 90 days. Start and end time for the historical time range is fixed.\n\n\n\n\n\n Most recent metrics report \n\nSelect Most recent from the Time frame list on the Overview page. Here you can see the Total Bandwidth, Total Hits for the selected time period Most recent.\n\nZoom\n\n![Most recent overview](https://cloud.ibm.com/docs-content/v1/content/006fd22ab2811b7d19804c763a00568b3da4c03a/CDN/images/metrics-most-recent-overview.png)\n\nFigure 5: Most recent overview\n\nYou can also find a graphical representation of Total Bandwidth, Total Hits, and Hits By Type.\n\nZoom\n\n![Most reent graphs](https://cloud.ibm.com/docs-content/v1/content/006fd22ab2811b7d19804c763a00568b3da4c03a/CDN/images/metrics-most-recent-graphs.png)"
+        ],
+        [
+          "* [App alerts](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorapp-level-alerts)\n* [Worker node alerts](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorworker-node-level-alerts)\n* [Zone alerts](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorzone-level-alerts)\n* [Cluster alerts](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorcluster-level-alerts)\n* [Account alerts](https://cloud.ibm.com/docs/containers?topic=containers-health-monitoraccount-level-alerts)\n* [Block Storage for VPC alerts](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorvpc-block-storage-alerts)\n\n\n\n* [Monitoring worker node health in with Autorecovery](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorautorecovery)\n\n\n\n* [Understanding the configmap components](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorconfigmap-components)\n* [Understanding the individual components of health checks](https://cloud.ibm.com/docs/containers?topic=containers-health-monitorhealth-check-components)\n\n\n\n\n\n[Reviewing service, API server, and worker node logs](https://cloud.ibm.com/docs/containers?topic=containers-health-audithealth-audit)\n\n\n\n* [Kubernetes API server audit logs](https://cloud.ibm.com/docs/containers?topic=containers-health-auditaudit-api-server)\n\n\n\n* [Considerations and prerequisites](https://cloud.ibm.com/docs/containers?topic=containers-health-auditprereqs-apiserver-logs)",
+          "SI-4 (5) - System-generated Alerts \n\n\n\n  Control requirements \n\nSI-4 (5) - 0\n:   The information system alerts [Assignment: organization-defined personnel or roles] when the following indications of compromise or potential compromise occur: [Assignment: organization-defined compromise indicators].\n\n\n\n\n\n  NIST supplemental guidance \n\nAlerts may be generated from a variety of sources, including, for example, audit records or inputs from malicious code protection mechanisms, intrusion detection or prevention mechanisms, or boundary protection devices such as firewalls, gateways, and routers. Alerts can be transmitted, for example, telephonically, by electronic mail messages, or by text messaging. Organizational personnel on the notification list can include, for example, system administrators, mission/business owners, system owners, or information system security officers.",
+          "Working with alerts \n\nYou can configure alerts to notify about the activity in your IBM Cloud account and changes in configuration in the account.\n\nA rule specifies the scope of the data that you want to monitor and be notified if certain conditions occur. Per alert rule, consider the following information:\n\n\n\n* You can define 1 or more notification channels.\n* You can configure different alert types for each notification channel that you configure for an alert.\n* You can configure different triggering conditions for each notification channel that you configure for an alert.\n\n\n\nA rule is also the basis of a view. You can see the data that is included by any rule by using it as a view. The two are interchangeable.\n\n\n\n Types of alerts \n\nYou can configure any of the following types of alerts for each notification channel that you configure for an alert:\n\n\n\n Presence alert \n\nYou can configure a presence alert to notify when the number of events that show in a view is more than what you expect.\n\nFor example, you might have a view that shows events that report payments that are rejected by your service. You can configure a presence alert that triggers an alert when 1 or more events show in the view.\n\n\n\n\n\n Absence alert \n\nConfigure an absence alert to notify when the number of events that show in a view is less than what you expect, or none.\n\nAn absence alert is triggered when the view that has an absence alert attached to it is active. A view is active when the view receives events within the last 24 hours.\n\nFor example, you might have a view that does not get any events for 2 days. Therefore, this view is not active. You have an absence alert attached to this view that is configured to send a notification after 30 minutes. Because the view is not active, the absence alert is muted and you do not get notifications. To make the view active and get notifications for the absence condition, events need to start flowing into the view.\n\n\n\n\n\n\n\n Alert conditions \n\nYou can configure any of the following triggering conditions for each notification channel that you configure for an alert:",
+          "Working with alerts and events \n\nIn the IBM Cloud Monitoring service, you can configure single alerts and multi-condition alerts to notify about problems that may require attention. When an alert is triggered, you can be notified through 1 or more notification channels. An alert definition can generate multi-channel notifications.\n\nAn alert is a notification event that you can use to warn about situations that require attention. Each alert has a severity status. This status informs you about the criticality of the information it reports on.\n\nWhen you define an alert, you must define the condition that triggers the notification, and one or more notification channels through which you want to be notified. You must also define the severity of the alert, and the type of alert. For more information about how to configure an alert, see [Configuring an alert](https://cloud.ibm.com/docs/monitoring?topic=monitoring-alert-config).\n\nBy default, severity is set to warning. You can set the severity of an alert to any of the following values: emergency, alert, critical, error, warning, notice, informational, debug*\n\nYou can define an alert on a single metric or a set of metrics to notify of events or issues that you want to monitor.\n\n\n\n* You can define a single condition alert.\n* You can define a multi-condition alert. The alert threshold is configured by using complex conditions.\n* You can define how the data is aggregated.\n* You can use boolean logic to define alerts that report on multiple metrics.\n* You get a notification when the alert condition is met.\n* You can configure multiple notification channels per alert.\n* Alerts are executed in 1 minute or less from receipt, with the option to configure the trigger wait time by hour or day.\n* For PromQL alerts only, you can optionally configure a 0 minute wait time.\n\n\n\nYou can enable predefined alerts, modify alerts, and create custom alerts in the web UI and by using the IBM Cloud Monitoring API.\n\nYou manage alerts in the Alerts view of the web UI.",
+          "Working with alerts \n\nYou can configure alerts to notify about the state of your infrastructure, applications, and IBM Cloud services.\n\nA rule specifies the scope of the data that you want to monitor and be notified if certain conditions occur. Per alert rule, consider the following information:\n\n\n\n* You can define 1 or more notification channels.\n* You can configure different alert types for each notification channel that you configure for an alert.\n* You can configure different triggering conditions for each notification channel that you configure for an alert.\n\n\n\nA rule is also the basis of a view. You can see the data that is included by any rule by using it as a view. The two are interchangeable.\n\n\n\n Types of alerts \n\nYou can configure any of the following types of alerts for each notification channel that you configure for an alert:\n\n\n\n Presence alert \n\nYou can configure a presence alert to notify when the number of logs that show in a view is more than what you expect.\n\nFor example, you might have a view that shows logs that report payments that are rejected by your service. You can configure a presence alert that triggers an alert when 1 or more logs show in the view.\n\n\n\n\n\n Absence alert \n\nConfigure an absence alert to notify when the number of logs that show in a view is less than what you expect, or none.\n\nAn absence alert is triggered when the view that has an absence alert attached to it is active. A view is active when the view receives logs within the last 24 hours.\n\nFor example, you might have a view that does not get any logs for 2 days. Therefore, this view is not active. You have an absence alert attached to this view that is configured to send a notification after 30 minutes. Because the view is not active, the absence alert is muted and you do not get notifications. To make the view active and get notifications for the absence condition, logs need to start flowing into the view.\n\n\n\n\n\n\n\n Alert conditions \n\nYou can configure any of the following triggering conditions for each notification channel that you configure for an alert:"
+        ],
+        [
+          "For dictionary-based entities, you can use synonym recommendations to expand your entity definitions.\n5. Test each function that you add to the assistant in the \"Try it\" pane, incrementally, as you go.\n6. When you have a working assistant that can successfully handle key tasks, add an integration that deploys the assistant to a development environment. Test the deployed assistant and make refinements.\n7. After you build an effective assistant, take a snapshot of the dialog skill and save it as a version.\n\nSaving a version when you reach a development milestone gives you something you can go back to if subsequent changes you make to the skill decrease its effectiveness. See [Creating skill versions](https://cloud.ibm.com/docs/assistant?topic=assistant-versions).\n8. Deploy the version of the assistant into a test environment, and test it.\n\nIf you use the preview, you can share the URL with others to get their help with testing.\n9. Use metrics from the Analytics tab to find areas for improvement, and make adjustments.\n\nIf you need to test alternative approaches to addressing an issue, create a version for each solution, so you can deploy and test each one independently, and compare the results.\n10. When you are happy with the performance of your assistant, deploy the best version of the assistant into a production environment.\n11. Monitor the logs from conversations that users have with the deployed assistant.\n\nYou can view the logs for a version of a skill that is running in production from the Analytics tab of a development version of the skill. As you find misclassifications or other issues, you can correct them in the development version of the skill, and then deploy the improved version to production after testing. See [Improving across assistants](https://cloud.ibm.com/docs/assistant?topic=assistant-logslogs-deploy-id) for more details.\n\n\n\nThe process of analyzing the logs and improving the dialog skill is ongoing. Over time, you might want to expand the tasks that the assistant can handle for you. Customer needs also change.",
+          "This documentation is for the classic Watson Assistant experience. To see the documentation for the new Watson Assistant, please go [here](https://cloud.ibm.com/docs/watson-assistant).\n\n\n\n Metrics overview \n\nThe overview page provides a summary of the interactions between users and your assistant.\n\nAnalytics help you to understand the following things:\n\n\n\n* What do customers want help with today?\n* Is your assistant understanding and addressing customer needs?\n* How can you make your assistant better?\n\n\n\nTo see metrics information, select Overview in the navigation bar. The information in Analytics is not immediately updated after a user interacts with your assistant. Watson Assistant prepares the data for Analytics in the background.\n\nAfter the numbers in metrics hit the 3,000 and above range, the totals are approximated to prevent performance lags in the page.\n\n\n\n Scorecards \n\nThe scorecards give you a quick view of your metrics. Scroll to see full interactive graphs later in the page.\n\n![Shows the scorecards that are displayed at the start of the Analytics page](https://cloud.ibm.com/docs-content/v1/content/417db917d18067d9dcc4cf2612564a9a87c3ddc8/assistant/images/scorecard.png)\n\n\n\n* Total conversations: The total number of conversations between active users and your assistant that occur during the selected time period. The total conversations metric and the User conversations page only include conversations in which both the assistant and customer participate. Conversations that only have welcome messages from the assistant, or that only have user messages of zero length, are not included. This metric is not used for billing purposes. An exchange with a user is not considered a billable conversation until the customer submits a message.\n* Avg. msg. per conversation: The total messages received during the selected time period divided by the total conversations during the selected time period, as shown in the corresponding graph.\n* Max. conversations: The maximum number of conversations for a single data point within the selected time period.\n* Weak understanding: The number of individual messages with weak understanding.",
+          "Debugging the metrics-server \n\nVirtual Private Cloud\n\nClassic infrastructure\n\n What’s happening \n\nThe following symptoms might indicate a need to adjust the metrics-server resources:\n\n\n\n* The metrics-server is restarting frequently.\n* Deleting a namespace results in the namespace being stuck in a Terminating state and kubectl describe namespace includes a condition reporting a metrics API discovery error.\n* kubectl top pods, kubectl top nodes, other kubectl commands, or applications that use the Kubernetes API to log Kubernetes errors such as:\n\nThe server is currently unable to handle the request (get pods.metrics.k8s.io)\n\nDiscovery failed for some groups, 1 failing: unable to retrieve the complete list of server APIs: metrics.k8s.io/v1beta1: the server is currently unable to handle the request\n* HorizontalPodAutoscalers (HPAs) do not scale deployments.\n* Running kubectl get apiservices v1beta1.metrics.k8s.io results in a status such as:\n\nNAME SERVICE AVAILABLE AGE\nv1beta1.metrics.k8s.io kube-system/metrics-server False (FailedDiscoveryCheck) 139d\n\n\n\n Why it’s happening \n\nYour cluster has a metrics service provided by the metrics-server deployment in the kube-system namespace. The metrics-server resource requests and limits are based on the number of nodes in the cluster and are optimized for clusters with 30 or less pods per worker node. If the memory requests are too low, it can fail with out-of-memory errors and can respond very slowly. If the CPU requests are too low, it can possibly fail liveness and readiness probes due to CPU throttling.\n\nProblems with the metrics-server can also be cause problems in other areas. The metrics APIs is not available if the control plane is not able to communicate with the metrics-server by using Konnectivity. Admission control webhooks can prevent the control plane from creating pods, including the metrics-server pod.\n\n How to fix it",
+          "10. Click Versions. On the Versions page, you can take a snapshot of the model and the resources that were used to create it (except for dictionaries and annotation tasks). For example, you might want to take a snapshot before you retrain the model. If the statistics are poorer the next time you train it, you can promote the older version and delete the version that returned poorer results.\n\n\n\n\n\n\n\n Results \n\nYou created a machine learning model, trained it, and evaluated how well it performed when annotating test data and blind data. By exploring the performance metrics, you can identify ways to improve the accuracy of the machine learning model.\n\n\n\n\n\n\n\n Tutorial summary \n\nYou created a machine learning model.\n\n\n\n Lessons learned \n\nBy completing this tutorial, you learned about the following concepts:\n\n\n\n* Document sets\n* Machine learning models\n* Human annotation tasks\n* Inter-annotator agreement and adjudication",
+          "--------------------\n\n\n\n Collecting metrics \n\nYou can collect metrics from a number of platforms, orchestrators, and a wide range of applications such as Prometheus, JMX, StatsD, Kubernetes, and other application stacks, that are available in the IBM Cloud®, outside the IBM Cloud, or on-prem. You can also add more metrics by creating custom metrics and adding integrations.\n\n\n\n Metrics and labels \n\nA metric is a quantitative measure that has one or more labels to define its characteristics.\n\nUse metrics to analyze statistically data that has numerical values.\n\nA metric is represented by time series. A time-series is a unique combination of a metric name and label key-value pairs. For example: website_failedRequest |region='Asia', customer_ID='abc'. A data-point is the value generated for a time-series at a given point in time.\n\nLabels are classified as infrastructure labels and metric descriptor labels. Each metric has a set of pre-defined labels. For custom metrics, you can configure more labels.\n\nYou can use labels to identify and differentiate characteristics of a metric, for example,\n\n\n\n* You can group infrastructure objects into logical hierarchies.\n* You can filter out data.\n* You can split aggregated data into segments.\n\n\n\n\n\n\n\n Collecting default metrics by using the Monitoring agent \n\nWhen you configure a Monitoring agent, data for default metrics is automatically collected. These metrics include metadata that you can use to label, segment, and display metrics when you monitor them. You do not need additional instrumentation or configuration in your hosts to obtain metrics that are collected automatically by the agent to gain insight into what is happening in them.\n\nTo monitor your infrastructure, network, and applications with the IBM Cloud® Monitoring service, you can deploy Monitoring agents on supported hosts. The host determines the agent type that you can deploy. The agent type determines the metrics that are collected automatically for that host.\n\nTo start collecting default metrics, you must configure a Monitoring agent per environment that you want to monitor."
+        ],
+        [
+          "Review customer conversations \n\nThe Conversations page of Watson Assistant provides a history of conversations between users and a deployed assistant. You can use this history to improve how your assistants understand and respond to user requests.\n\nEach timestamp represents a single conversation. The Actions column shows you how many actions, search queries, or unrecognized requests are included in that conversation. The Requests column includes the questions or requests the user entered that initiated an action, started a search query, or weren't recognized.\n\nIf you have activated dialog in your assistant, the Actions column is replaced by a Topics column.\n\n![Conversations page](https://cloud.ibm.com/docs-content/v1/content/ca9232b3702768f24bb897f48f10778fcda28718/watson-assistant/images/analytics-conversations.png)\n\n\n\n Choosing the environment and time period \n\nTo get started, choose the [environment](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overviewenvironments) and date range you want to analyze. All conversations reflect data based on the environment and the date range you select. When you change the environnment or the date range, the conversations on the page update to reflect the new date range. You can also use Refresh ensure the latest data is shown.\n\n![Time period](https://cloud.ibm.com/docs-content/v1/content/ca9232b3702768f24bb897f48f10778fcda28718/watson-assistant/images/analytics-conversations-time-period.png)\n\n\n\n\n\n Filtering conversations \n\nYou can locate specific conversations by filtering the list of conversations. This lets you explore specific areas where your assistant might need improvement or updates to properly handle what your customers are asking about.\n\nYou can filter by:\n\n\n\n* Actions: Select specific actions. You can choose one or more actions to review.\n* Keyword: Search by session ID or for specific key terms, phrases, or words in the conversations.",
+          "This documentation is for the classic Watson Assistant experience. To see the documentation for the new Watson Assistant, please go [here](https://cloud.ibm.com/docs/watson-assistant).\n\n\n\n Improve your skill \n\nThe Analytics page of Watson Assistant provides a history of conversations between users and a deployed assistant. You can use this history to improve how your assistants understand and respond to user requests.\n\nTo open a list of individual messages between customers and the assistant that uses this dialog skill, select User conversations in the navigation bar.\n\nWhen you open the User conversations page, the default view lists inputs that were submitted to the assistant for the last day, with the newest results first. The top intent (#intent) and any recognized entity (@entity) values used in a message, and the message text are available. For intents that are not recognized, the value shown is Irrelevant. If an entity is not recognized, or has not been provided, the value shown is No entities found.\n\n![Logs default page](https://cloud.ibm.com/docs-content/v1/content/417db917d18067d9dcc4cf2612564a9a87c3ddc8/assistant/images/logs_page1.png)\n\nThe User conversations page displays the total number of messages between customers and your assistant. A message is a single utterance that a user sends to the assistant. A conversation typically consists of multiple messages. Therefore, the number of results on the User conversations page is different from the number of conversations that are shown on the Overview page.\n\n\n\n Log limits \n\nThe length of time for which messages are retained depends on your Watson Assistant service plan:\n\nService plan | Chat message retention\n------------------------------------ | ------------------------------------\nEnterprise with Data Isolation | Last 90 days\nEnterprise | Last 30 days\nPremium (legacy) | Last 90 days\nPlus | Last 30 days",
+          "Test the deployed assistant and make refinements.\n7. After you build an effective assistant, take a snapshot of the dialog skill and save it as a version.\n\nSaving a version when you reach a development milestone gives you something you can go back to if subsequent changes you make to the skill decrease its effectiveness. See [Creating skill versions](https://cloud.ibm.com/docs/assistant-data?topic=assistant-data-versions).\n8. Deploy the version of the assistant into a test environment, and test it.\n9. Monitor the chat transcript logs for your test assistant to determine if you need to make improvements to your training data or dialog.\n10. When you are happy with the performance of your assistant, deploy the best version of the assistant into a production environment.\n11. Monitor the logs from conversations that users have with the deployed assistant.\n\n\n\nThe process of monitoring the conversations that your assistant has with your customers is your responsibility. Devise ways to analyze these chat transcripts so you can find out where the assistant is misunderstanding users or where its training data needs to be improved. For example, you might need to augment the training data if many customers ask for help with something that your assistant does not know anything about, or you might have two intents that are not distinct enough from one another if your assistant regularly picks the wrong dialog branches for certain topics.",
+          "[Time period](https://cloud.ibm.com/docs-content/v1/content/ca9232b3702768f24bb897f48f10778fcda28718/watson-assistant/images/analytics-conversations-time-period.png)\n\n\n\n\n\n Filtering conversations \n\nYou can locate specific conversations by filtering the list of conversations. This lets you explore specific areas where your assistant might need improvement or updates to properly handle what your customers are asking about.\n\nYou can filter by:\n\n\n\n* Actions: Select specific actions. You can choose one or more actions to review.\n* Keyword: Search by session ID or for specific key terms, phrases, or words in the conversations. For more information about session IDs, see [session_id](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-managing-planadmin-managing-plan-no-userid).\n* Recognition: Choose between recognized or unrecognized user questions or requests.\n* Search: Choose between requests that initiated a search or requests that produced no search results.\n\n\n\nThe Actions and Keyword filters always appear at the top of the page. To show the Recognition and Search filters, click the Additional filters icon.\n\nIf you have activated dialog in your assistant, the Actions filter is replaced by a Topics filter.\n\n![Conversation filters](https://cloud.ibm.com/docs-content/v1/content/ca9232b3702768f24bb897f48f10778fcda28718/watson-assistant/images/analytics-conversations-filters.png)\n\nIf you search for a specific session ID, enclose your search in quotation marks to ensure you receive an exact match on the full ID with its numbers and hyphen characters, for example: \"9015ab9a-2e13-4627-ae33-4179b1125cb5\".\n\n\n\n\n\n Exploring conversations in detail \n\nTo explore individual conversations in detail, you can click on any of the utterances or conversation time stamps.",
+          "For more information, see [Ending the conversation gracefully](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-startdialog-start-anything-else).\n\nThe containment and coverage metrics are available to Plus or Enterprise plan users.\n* Total conversations: The total number of conversations between active users and your assistant during the selected time period. This number counts exchanges in which the welcome message is displayed to a user, even if the user doesn't respond.\n* Average messages per conversation - The total messages received during the selected time period divided by the total conversations during the selected time period.\n* Total messages - The total number of messages received from active users over the selected time period.\n* Active users - The number of unique users who have engaged with your assistant within the selected time period.\n* Average conversations per user - The total conversations divided by the total number of unique users during the selected time period.\n\nStatistics for Active users and Average conversations per user require a unique user_id parameter to be specified with the messages. This value is typically specified by all integrations because it is used for billing purposes. For more information, see [User-based plans explained](https://cloud.ibm.com/docs/assistant?topic=assistant-admin-managing-planadmin-managing-plan-user-based).\n\n\n\n\n\n\n\n Controls \n\nYou can use the following controls to filter the information:\n\n\n\n* Time period control - Use this control to choose the period for which data is displayed. This control affects all data shown on the page: not just the number of conversations displayed in the graph, but also the statistics displayed along with the graph, and the lists of top intents and entities.\n\nThe statistics can cover a longer time period than the period for which logs of conversations are retained.\n\n![Time period control](https://cloud.ibm.com/docs-content/v1/content/417db917d18067d9dcc4cf2612564a9a87c3ddc8/assistant/images/oview-time.png)\n\nYou can choose whether to view data for a single day, a week, a month, or a quarter."
+        ],
+        [
+          "You are billed based on the current volume size at the metering time. The following table shows an example of how you are billed based on your volume creation:\n\n\n\nTable 7. Calculation of data volume\n\n Volume size you create You are billed \n\n 10 GB 10 GB \n 10+5 GB 15 GB \n\n\n\n* Image backing volumes:These volumes are part of a boot image in your cloud-instance boot image catalog. You are billed based on the total volume size(s) contained in the image.\n\nWhen the image has a single backing volume, you are billed based on the GB size of the single volume. When the image has multiple backing volumes, you are billed based on tallying up the size(s) of all the image backing volumes. The following table shows an example of how you are billed based on your boot volume:\n\n\n\nTable 8. Calculation of image backing volume\n\n Image volume size Single or multiple backing You are billed \n\n 20 GB Single backing volume 20 GB \n volume 1 (20 GB), volume 2 (10 GB) Multiple backing volume 30 GB \n\n\n\n* Deployed VM volumes: These volumes are created when you deploy a VM with an image. The deployed VMs will get a copy of all the volumes in the image. Any additional data volumes attached to the deployed VM are already accounted for under Data Volumes. The following table shows an example of how you are billed based on the VMs that you deploy:\n\n\n\nTable 9. Calculation of deployed VMs volume\n\n Image backing volume You are billed \n\n 20 GB 20 GB \n 20 GB + 30 GB 50 GB \n\n\n\n\n\n\n\n Use case of account billable storage \n\nThe following table shows the use case on how you are billed based on the storage that you use (assuming tier 1):\n\nData volumes of 235 GB\n\nBoot volumes of 200 GB\n\nDeployed VMs of 160 GB\n\n\n\nTable 10. Account billable for storage use case\n\n Name Size State/Description \n\n data-volume-1 20 GB Available \n data-volume-2 25 GB In-use (attached to vm-1) \n data-volume-3 100 GB In-use (attached to vm-1) \n data-volume-4 30 GB Available",
+          "Actual costs can vary by geography. For the most up-to-date prices, see [Code Engine pricing](https://www.ibm.com/cloud/code-engine/pricing).\n\n\n\n Application pricing \n\nWhen you deploy an application, charges apply for HTTP requests and for the CPU and memory resources that are consumed by running instances of the application. Incoming HTTP calls are billed by the number of HTTP calls that are received by your application. For example, if your app serves 100 calls, you are then billed for 100 HTTP calls. Internal HTTP traffic within a project between your workloads is excluded from the billable HTTP call total.\n\nFor example,\n\n\n\n* If you create a Code Engine app with 2 GB (gigabyte) memory and 1 virtual CPU, with a minimum and maximum instance scale of 1, after an hour, you are charged for 1 vCPU hour and 2 GB hours.\n* If you then set your maximum instance scale to 2 and your application receives enough requests to scale up to 2, then you are billed for the (number of instances) x (number of virtual CPUs) = 2 vCPU and 4 GB per hour.\n\n\n\nFor valid CPU and memory combinations, see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).\n\nNote that the time that it takes to pull your image or to build it from source code is included in the billable time.\n\n\n\n\n\n Job pricing \n\nWhen you run a job, charges apply for the CPU and memory resources that are consumed by the job when it runs. You are not charged for your job configuration.\n\nFor example,\n\n\n\n* If you create a job to process information from IBM Cloud Object Storage with one job instance and that runs for an hour and uses 4 GB of memory, you are billed for 1 CPU hour and 4 GB hours.\n* If you scale the same job to 4 instances and then it completes in 15 minutes, you are charged for 4 vCPU and 16 GB for .25 hours.\n\n\n\nFor valid CPU and memory combinations, see [Supported memory and CPU combinations](https://cloud.ibm.com/docs/codeengine?topic=codeengine-mem-cpu-combo).",
+          "The Voice add-on use is charged separately and in addition to your service plan charges.\n\nPlan usage is measured based on the number of monthly active users, where a user is identified by the caller's unique phone number. An MD5 hash is applied to the phone number and the 128-bit hash value is used for billing purposes.\n\nThe number of concurrent calls that your assistant can participate in at one time depends on your plan type.\n\n\n\nPlan details\n\n Plan Concurrent calls \n\n Enterprise 1,000 \n Plus 100 \n Trial 5",
+          "* conversation_id (v1 API only): A property defined in the v1 API that is stored in the context object of a /message API call. This property can be used to identify multiple /message API calls that are associated with a single conversational exchange with one user. However, the same ID is only used if you explicitly retain the ID and pass it back with each request that is made as part of the same conversation. Otherwise, a new ID is generated for each new /message API call.\n\n\n\nFor example, if the same person chats with your assistant on three separate occasions over the same billing period, how you represent that user in the API call impacts how the interactions are billed. If you identify the user interaction with a user_id, it counts as one use. If you identify the user interaction with a session_id, then it counts as three uses (because there is a separate session that is created for each interaction).\n\nDesign any custom applications to capture a unique user_id or session_id and pass the information to Watson Assistant. Choose a non-human-identifiable ID that doesn't change throughout the customer lifecycle. For example, don't use a person's email address as the user ID. In fact, the user_id syntax must meet the requirements for header fields as defined in [RFC 7230](https://tools.ietf.org/html/rfc7230section-3.2).\n\nThe built-in integrations derive the user ID in the following ways:\n\n\n\n* For Facebook integrations, the user_id property is set to the sender ID that Facebook provides in its payload.\n* For Slack integrations, the user_id property is a concatenation of the team ID, such as T09LVDR7Y, and the member ID of the user, such has W4F8K9JNF. For example: T09LVDR7YW4F8K9JNF.\n* For web chat, you can set the value of the user_id property.\n\n\n\nBilling is managed per monthly active user per service instance. If a single user interacts with assistants that are hosted by different service instances that belong to the same plan, each interaction is treated as a separate use.",
+          "* For Slack integrations, the user_id property is a concatenation of the team ID, such as T09LVDR7Y, and the member ID of the user, such has W4F8K9JNF. For example: T09LVDR7YW4F8K9JNF.\n* For web chat, you can set the value of the user_id property.\n\n\n\nBilling is managed per monthly active user per service instance. If a single user interacts with assistants that are hosted by different service instances that belong to the same plan, each interaction is treated as a separate use. You are billed for the user's interaction with each service instance separately.\n\n\n\n\n\n Test activity charges \n\nTest messages that you send from the Preview button are charged. For the preview, a random user_id is generated and stored in a cookie. The multiple interactions that a single tester has with the assistant embedded in the preview are recognized as coming from a single user and are charged accordingly. If you are doing your own test, running a scripted regression test for example, use a single user_id for all of the calls within your regression test. Other uses are flagged as abuse.\n\n\n\n\n\n Handling anonymous users \n\nIf your custom application or assistant interacts with users who are anonymous, you can generate a randomized universally unique ID to represent each anonymous user. For more information about UUIDs, see [RFC 4122](https://tools.ietf.org/html/rfc4122.html).\n\n\n\n* For web chat, if you do not pass an identifier for the user when the session begins, the web chat creates one for you. It creates a first-party cookie with a generated anonymous ID. The cookie remains active for 45 days. If the same user returns to your site later in the month and chats with your assistant again, the web chat integration recognizes the user. And you are charged only once when the same anonymous user interacts with your assistant multiple times in a single month.\n\n\n\nIf an anonymous user logs in and later is identified as being the same person who submitted a request with a known ID, you are charged twice. Each message with a unique user ID is charged as an independent active user."
+        ],
+        [
+          "You can filter messages by Search user statements, Intents, Entities, and Last n days.\n\nSearch user statements - Type a word in the search bar. This searches the users' inputs, but not your assistant's replies.\n\nIntents - Select the drop-down menu and type an intent in the input field, or choose from the populated list. You can select more than one intent, which filters the results using any of the selected intents, including Irrelevant.\n\n![Intents drop-down menu](https://cloud.ibm.com/docs-content/v1/content/a2b18c153837bce00a5b4de496e4b4ca64bbf56e/assistant-data/images/intents_filter.png)\n\nEntities - Select the drop-down menu and type an entity name in the input field, or choose from the populated list. You can select more than one entity, which filters the results by any of the selected entities. If you filter by intent and entity, your results will include the messages that have both values. You can also filter for results with No entities found.\n\n![Entities drop-down menu](https://cloud.ibm.com/docs-content/v1/content/a2b18c153837bce00a5b4de496e4b4ca64bbf56e/assistant-data/images/entities_filter.png)\n\nMessages might take some time to update. Allow at least 30 minutes after a user's interaction with your assistant before attempting to filter for that content.\n\n\n\n\n\n Viewing individual messages \n\nFor any user input entry, click Open conversation to see the user input and the response made to it by the assistant within the context of the full conversation.\n\nThe time that is shown for each conversation is localized to reflect the time zone of your browser. This time might differ from the timestamp shown if you review the same conversation log via an API call; API log calls are always shown in UTC.\n\n!",
+          "Improve your skill \n\nThe Analytics page of Watson Assistant provides a history of conversations between users and a deployed assistant. You can use this history to improve how your assistants understand and respond to user requests.\n\nThe Analytics page was introduced with version 1.5.0.\n\nTo open a list of individual messages between customers and the assistant that uses this dialog skill, select User conversations in the navigation bar.\n\nWhen you open the User conversations page, the default view lists inputs that were submitted to the assistant for the last day, with the newest results first. The top intent (#intent) and any recognized entity (@entity) values used in a message, and the message text are available. For intents that are not recognized, the value shown is Irrelevant. If an entity is not recognized, or has not been provided, the value shown is No entities found.\n\n![Logs default page](https://cloud.ibm.com/docs-content/v1/content/a2b18c153837bce00a5b4de496e4b4ca64bbf56e/assistant-data/images/logs_page1.png)\n\nThe User conversations page displays the total number of messages between customers and your assistant. A message is a single utterance that a user sends to the assistant. A conversation typically consists of multiple messages. Therefore, the number of results on the User conversations page is different from the number of conversations that are shown on the Overview page.\n\n\n\n Log limits \n\nMessage logs are retained for 90 days.\n\n\n\n\n\n Filtering messages \n\nYou can filter messages by Search user statements, Intents, Entities, and Last n days.\n\nSearch user statements - Type a word in the search bar. This searches the users' inputs, but not your assistant's replies.\n\nIntents - Select the drop-down menu and type an intent in the input field, or choose from the populated list. You can select more than one intent, which filters the results using any of the selected intents, including Irrelevant.\n\n!",
+          "Filter out logs that are forwarded by your logging configuration.\n\nibmcloud ks logging filter create --cluster CLUSTER --type LOG_TYPE [--logging-config CONFIG] [--namespace KUBERNETES_NAMESPACE] [--container CONTAINER_NAME] [--level LOGGING_LEVEL] [--message MESSAGE] [--regex-message MESSAGE] [--force-update] [--output json] [-q]\n\nMinimum required permissions\n: Editor platform access role for the cluster in IBM Cloud Kubernetes Service\n\nCommand options:\n\n-c, --cluster CLUSTER\n: Required: The name or ID of the cluster to create a logging filter for.\n\n--type LOG_TYPE\n: The type of logs that you want to apply the filter to. Currently all, container, and host are supported.\n\n-lc, --logging-config CONFIG\n: Optional: The logging configuration ID. If not provided, the filter is applied to all the cluster logging configurations that are passed to the filter. You can view log configurations that match the filter by using the --show-matching-configs option with the command. To specify multiple IDs, use multiple options, such as -lc id1 -lc id2.\n\n-n, --namespace KUBERNETES_NAMESPACE\n: Optional: The Kubernetes namespace from which you want to filter logs.\n\n--container CONTAINER_NAME\n: Optional: The name of the container from which you want to filter out logs. This option applies only when you are using log type container.\n\n--level LOGGING_LEVEL\n: Optional: Filters out logs that are at the specified level and less. Acceptable values in their canonical order are fatal, error, warn/warning, info, debug, and trace. As an example, if you filtered logs at the info level, debug, and trace are also filtered. Note: You can use this option only when log messages are in JSON format and contain a level field. Example output {\"log\": \"hello\", \"level\": \"info\"}\n\n--message MESSAGE",
+          "If not provided, the filter is applied to all the cluster logging configurations that are passed to the filter. You can view log configurations that match the filter by using the --show-matching-configs option. \n <kubernetes_namespace> Optional: The Kubernetes namespace that you want to forward logs from. This option applies only when you are using log type container. \n <container_name> Optional: The name of the container from which you want to filter logs. \n <logging_level> Optional: Filters out logs that are at the specified level and less. Acceptable values in their canonical order are fatal, error, warn/warning, info, debug, and trace. As an example, if you filtered logs at the info level, debug, and trace are also filtered. Note: You can use this option only when log messages are in JSON format and contain a level field. To display your messages in JSON, append the --output json option to the command. \n <message> Optional: Filters out logs that contain a specified message that is written as a regular expression. \n <filter_ID> Optional: The ID of the log filter. \n --show-matching-configs Optional: Show the logging configurations that each filter applies to. \n --all Optional: Delete all your log forwarding filters. \n\n\n\n\n\n1. Create a logging filter.\n\nibmcloud ks logging filter create --cluster <cluster_name_or_ID> --type <log_type> --logging-configs <configs> --namespace <kubernetes_namespace> --container <container_name> --level <logging_level> --regex-message <message>\n2. View the log filter that you created.\n\nibmcloud ks logging filter get --cluster <cluster_name_or_ID> --id <filter_ID> --show-matching-configs\n3. Update the log filter that you created.",
+          "-c, --cluster CLUSTER\n: Required: The name or ID of the cluster that you want to update a logging filter for.\n\n--id FILTER_ID\n: The ID of the log filter to update.\n\n--type LOG_TYPE\n: The type of logs that you want to apply the filter to. Currently all, container, and host are supported.\n\n-lc, --logging-config CONFIG\n: Optional: The logging configuration ID. If not provided, the filter is applied to all the cluster logging configurations that are passed to the filter. You can view log configurations that match the filter by using the --show-matching-configs option with the command. To specify multiple IDs, use multiple options, such as -lc id1 -lc id2.\n\n-n, --namespace KUBERNETES_NAMESPACE\n: Optional: The Kubernetes namespace from which you want to filter logs.\n\n--container CONTAINER_NAME\n: Optional: The name of the container from which you want to filter out logs. This option applies only when you are using log type container.\n\n--level LOGGING_LEVEL\n: Optional: Filters out logs that are at the specified level and less. Acceptable values in their canonical order are fatal, error, warn/warning, info, debug, and trace. As an example, if you filtered logs at the info level, debug, and trace are also filtered. Note: You can use this option only when log messages are in JSON format and contain a level field. Example output {\"log\": \"hello\", \"level\": \"info\"}\n\n--message MESSAGE\n: Optional: Filters out any logs that contain a specified message anywhere in the log. Example: The messages \"Hello\", \"!\", and \"Hello, World!\", would apply to the log \"Hello, World!\".\n\n--regex-message MESSAGE\n: Optional: Filters out any logs that contain a specified message that is written as a regular expression anywhere in the log."
+        ]
+      ],
+      "answerability": [
+        "ANSWERABLE",
+        "ANSWERABLE",
+        "ANSWERABLE",
+        "PARTIAL",
+        "ANSWERABLE",
+        "ANSWERABLE"
+      ],
+      "metadata": {
+        "dataset": "cloud",
+        "rag": "hipporag2",
+        "turn_ids": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ]
+      }
+    },
+    "evaluation": {
+      "turn_evaluations": [
+        {
+          "turn": 1,
+          "label": "correct",
+          "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document, as it correctly identifies the Time period control, the ability to select predefined periods (day, week, month, quarter), and the option to create custom time frames. It also mentions predefined periods like 7, 15, 30, 60, or 90 days, which aligns with the document's description. However, it omits the **Refresh data** option mentioned in t",
+          "scores": {
+            "RB_llm": 8.0,
+            "RB_llm_norm": 0.8,
+            "RL_F": 1.0,
+            "idk": 0.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.8888888888888888,
+            "conditioned_score": 0.8888888888888888,
+            "statements": [
+              {
+                "statement": "To compare metrics for different periods, you can use the time period control available in the metrics interface.",
+                "verdict": "yes",
+                "reason": "The context explicitly mentions the 'Time period control' under the Controls section, which allows users to choose the period for data display."
+              },
+              {
+                "statement": "This allows you to select specific time frames such as a day, week, month, or quarter, and the data points on the graphs adjust accordingly.",
+                "verdict": "yes",
+                "reason": "The context states that the time period control lets users choose a single day, week, month, or quarter, and the graph data points adjust to the selected period."
+              },
+              {
+                "statement": "You can also create custom time periods.",
+                "verdict": "yes",
+                "reason": "The context explicitly mentions the ability to create custom time periods, such as a week starting on Thursday or a month beginning on any date."
+              },
+              {
+                "statement": "Additionally, metrics can be viewed for predefined periods like 7, 15, 30, 60, or 90 days.",
+                "verdict": "yes",
+                "reason": "The context states that both aggregate numbers and graphs default to 30 days but can be adjusted to 7, 15, 30, 60, or 90-day periods."
+              },
+              {
+                "statement": "The graphs and aggregate values can be adjusted to reflect the selected time period, enabling you to compare metrics across different time frames effectively.",
+                "verdict": "yes",
+                "reason": "The context confirms that the time period control affects all data shown, including graphs and statistics, allowing comparisons across time frames."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "correct",
+              "conditioned": "correct"
+            }
+          }
+        },
+        {
+          "turn": 2,
+          "label": "incorrect",
+          "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer provides a list of alert types (e.g., app-level, worker node, zone alerts) and briefly explains presence/absence alerts, which aligns with the document's structure. However, it lacks the detailed configuration steps and concrete examples (e.g., \"High CPU Usage\" with thresholds) present in the reference answer. The reference answer comprehensively covers alert components (nam",
+          "scores": {
+            "RB_llm": 6.0,
+            "RB_llm_norm": 0.6,
+            "RL_F": 1.0,
+            "idk": 0.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.7499999999999999,
+            "conditioned_score": 0.7499999999999999,
+            "statements": [
+              {
+                "statement": "App-level alerts are an example of alerts.",
+                "verdict": "yes",
+                "reason": "The context explicitly lists 'App alerts' as a type of alert."
+              },
+              {
+                "statement": "Worker node alerts are an example of alerts.",
+                "verdict": "yes",
+                "reason": "The context explicitly lists 'Worker node alerts' as a type of alert."
+              },
+              {
+                "statement": "Zone alerts are an example of alerts.",
+                "verdict": "yes",
+                "reason": "The context explicitly lists 'Zone alerts' as a type of alert."
+              },
+              {
+                "statement": "Cluster alerts are an example of alerts.",
+                "verdict": "yes",
+                "reason": "The context explicitly lists 'Cluster alerts' as a type of alert."
+              },
+              {
+                "statement": "Account alerts are an example of alerts.",
+                "verdict": "yes",
+                "reason": "The context explicitly lists 'Account alerts' as a type of alert."
+              },
+              {
+                "statement": "Block storage for VPC alerts are an example of alerts.",
+                "verdict": "yes",
+                "reason": "The context explicitly lists 'Block Storage for VPC alerts' as a type of alert."
+              },
+              {
+                "statement": "Presence alerts notify when the number of events or logs exceeds expectations.",
+                "verdict": "yes",
+                "reason": "The context explains that presence alerts trigger when the number of events or logs exceeds expectations."
+              },
+              {
+                "statement": "Absence alerts trigger when the number of events or logs falls below expectations.",
+                "verdict": "yes",
+                "reason": "The context states that absence alerts trigger when the number of events or logs is less than expected."
+              },
+              {
+                "statement": "Alerts can be configured with specific conditions.",
+                "verdict": "yes",
+                "reason": "The context discusses configuring alerts with conditions like presence/absence and multi-condition alerts."
+              },
+              {
+                "statement": "Alerts can be configured with notification channels.",
+                "verdict": "yes",
+                "reason": "The context mentions defining notification channels for alerts."
+              },
+              {
+                "statement": "Alerts can be configured with severity levels.",
+                "verdict": "yes",
+                "reason": "The context lists severity levels such as emergency, alert, critical, etc."
+              },
+              {
+                "statement": "Alerts monitor infrastructure.",
+                "verdict": "yes",
+                "reason": "The context states that alerts monitor infrastructure, applications, and IBM Cloud services."
+              },
+              {
+                "statement": "Alerts monitor applications.",
+                "verdict": "yes",
+                "reason": "The context states that alerts monitor infrastructure, applications, and IBM Cloud services."
+              },
+              {
+                "statement": "Alerts monitor IBM Cloud services.",
+                "verdict": "yes",
+                "reason": "The context states that alerts monitor infrastructure, applications, and IBM Cloud services."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "correct",
+              "conditioned": "incorrect"
+            }
+          }
+        },
+        {
+          "turn": 3,
+          "label": "correct",
+          "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer accurately defines \"weak understanding metrics\" as the number of messages not fully comprehended by the assistant, aligning with the document's explanation of messages without intent classification or known entities. It also incorporates actionable steps from the document, such as using the Analytics tab for improvement, testing alternative approaches, and refining dialog sk",
+          "scores": {
+            "RB_llm": 9.0,
+            "RB_llm_norm": 0.9,
+            "RL_F": 1.0,
+            "idk": 0.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.9473684210526315,
+            "conditioned_score": 0.9473684210526315,
+            "statements": [
+              {
+                "statement": "Weak understanding metrics refer to the number of individual messages that the assistant did not fully comprehend.",
+                "verdict": "yes",
+                "reason": "The context explicitly defines 'Weak understanding' as the number of individual messages with weak understanding, which aligns with the statement."
+              },
+              {
+                "statement": "To improve weak understanding, analyze the Analytics tab to identify areas for improvement.",
+                "verdict": "yes",
+                "reason": "The context states that metrics from the Analytics tab are used to find areas for improvement and make adjustments, including addressing weak understanding."
+              },
+              {
+                "statement": "Use metrics to find patterns or common issues in user interactions.",
+                "verdict": "yes",
+                "reason": "The context explains that analytics help understand customer needs and identify issues, which involves analyzing metrics for patterns."
+              },
+              {
+                "statement": "Test alternative approaches by creating different versions of the assistant and compare their performance.",
+                "verdict": "yes",
+                "reason": "The context explicitly advises creating versions for each solution to test and compare results when addressing issues."
+              },
+              {
+                "statement": "Refine the assistant's dialog skill based on the insights gained from the logs and metrics.",
+                "verdict": "yes",
+                "reason": "The context emphasizes using logs and metrics to correct issues and refine the assistant, including deploying improved versions after testing."
+              },
+              {
+                "statement": "Regularly monitor and update the assistant to enhance its understanding and effectiveness.",
+                "verdict": "yes",
+                "reason": "The context describes the process as ongoing, with monitoring logs and metrics, and updating the assistant as customer needs evolve."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "correct",
+              "conditioned": "correct"
+            }
+          }
+        },
+        {
+          "turn": 4,
+          "label": "correct",
+          "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=PARTIAL -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, which explicitly states that the Conversations page in Watson Assistant allows users to review and analyze interactions to improve the assistant's performance. The assistant correctly references the Conversations page, filtering capabilities, and the purpose of monitoring (e.g., identifying areas for improvement). It does not mention the \"web cha",
+          "scores": {
+            "RB_llm": 9.0,
+            "RB_llm_norm": 0.9,
+            "RL_F": 1.0,
+            "idk": 0.0,
+            "answerability": "PARTIAL",
+            "phi": 0.9473684210526315,
+            "conditioned_score": 0.9473684210526315,
+            "statements": [
+              {
+                "statement": "The previous conversations are monitored to improve how the assistant understands and responds to user requests.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that the Conversations page provides a history of conversations to improve how assistants understand and respond to user requests."
+              },
+              {
+                "statement": "The Conversations page provides a history of interactions, allowing you to analyze user inputs, actions, and topics.",
+                "verdict": "yes",
+                "reason": "The context describes the Conversations page as showing a history of interactions, including user inputs, actions, and topics (replacing actions with topics if dialog is activated)."
+              },
+              {
+                "statement": "You can filter and explore specific conversations to identify areas for improvement.",
+                "verdict": "yes",
+                "reason": "The context explains that filtering by actions, keywords, recognition, and search helps locate specific conversations to identify areas for improvement."
+              },
+              {
+                "statement": "This monitoring is part of the process to refine the assistant's performance and training data.",
+                "verdict": "yes",
+                "reason": "The context emphasizes that monitoring logs and conversations is part of refining the assistant's performance, training data, and dialog based on user interactions."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "correct",
+              "conditioned": "correct"
+            }
+          }
+        },
+        {
+          "turn": 5,
+          "label": "correct",
+          "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.818 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the user's question by stating that billing is based on \"monthly active users per service instance\" rather than the number of turns or conversations. This aligns with the document's explanation of Watson Assistant billing, which emphasizes monthly active users and service instances. The reference answer, however, incorrectly introduces \"time series hours\"",
+          "scores": {
+            "RB_llm": 9.0,
+            "RB_llm_norm": 0.9,
+            "RL_F": 0.75,
+            "idk": 0.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.8181818181818181,
+            "conditioned_score": 0.8181818181818181,
+            "statements": [
+              {
+                "statement": "The billing is managed per monthly active user per service instance.",
+                "verdict": "yes",
+                "reason": "The context explicitly states 'Billing is managed per monthly active user per service instance.'"
+              },
+              {
+                "statement": "If a single user interacts with assistants hosted by different service instances that belong to the same plan, each interaction is treated as a separate use.",
+                "verdict": "yes",
+                "reason": "The context directly mentions this scenario: 'If a single user interacts with assistants that are hosted by different service instances that belong to the same plan, each interaction is treated as a separate use.'"
+              },
+              {
+                "statement": "You are billed for the user's interaction with each service instance separately.",
+                "verdict": "yes",
+                "reason": "The context explicitly states 'You are billed for the user's interaction with each service instance separately.'"
+              },
+              {
+                "statement": "You are billed based on the number of interactions (or monthly active users) rather than the number of turns or per conversation.",
+                "verdict": "no",
+                "reason": "The context discusses billing based on monthly active users but does not explicitly state that billing is 'rather than the number of turns or per conversation.' The comparison to turns or per conversation is not directly addressed."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "incorrect",
+              "IDK": "correct",
+              "conditioned": "correct"
+            }
+          }
+        },
+        {
+          "turn": 6,
+          "label": "correct",
+          "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer accurately addresses the user's question about filtering messages by outlining the four primary methods: \"Search user statements,\" \"Intents,\" \"Entities,\" and \"Last n days.\" It correctly explains how to use each filter, including selecting multiple intents/entities and the 30-minute delay for updates. The answer aligns with the document's details, such as the search functiona",
+          "scores": {
+            "RB_llm": 8.0,
+            "RB_llm_norm": 0.8,
+            "RL_F": 1.0,
+            "idk": 0.0,
+            "answerability": "ANSWERABLE",
+            "phi": 0.8888888888888888,
+            "conditioned_score": 0.8888888888888888,
+            "statements": [
+              {
+                "statement": "You can filter messages by using the 'Search user statements' option.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that 'Search user statements' is a filtering option."
+              },
+              {
+                "statement": "You can filter messages by using the 'Intents' option.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that 'Intents' is a filtering option."
+              },
+              {
+                "statement": "You can filter messages by using the 'Entities' option.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that 'Entities' is a filtering option."
+              },
+              {
+                "statement": "You can filter messages by using the 'Last n days' option.",
+                "verdict": "yes",
+                "reason": "The context explicitly states that 'Last n days' is a filtering option."
+              },
+              {
+                "statement": "To filter by 'Search user statements,' type a word in the search bar.",
+                "verdict": "yes",
+                "reason": "The context states 'Type a word in the search bar' for the 'Search user statements' option."
+              },
+              {
+                "statement": "The 'Search user statements' option searches the users' inputs but not your assistant's replies.",
+                "verdict": "yes",
+                "reason": "The context explicitly confirms this behavior for 'Search user statements'."
+              },
+              {
+                "statement": "For 'Intents,' select from the drop-down menu and choose an intent or multiple intents, including 'Irrelevant'.",
+                "verdict": "yes",
+                "reason": "The context states you can select from the drop-down and choose multiple intents, including 'Irrelevant'."
+              },
+              {
+                "statement": "For 'Entities,' select from the drop-down menu and choose an entity or multiple entities, which filters the results by any of the selected entities.",
+                "verdict": "yes",
+                "reason": "The context confirms this behavior for 'Entities', including the ability to select multiple entities."
+              },
+              {
+                "statement": "You can filter by the 'Last n days' to view messages within a specific time frame.",
+                "verdict": "yes",
+                "reason": "The context mentions 'Last n days' as a filtering option, though it doesn't explicitly state 'specific time frame' in the text, the implication is clear."
+              },
+              {
+                "statement": "Messages might take up to 30 minutes to update after a user's interaction.",
+                "verdict": "yes",
+                "reason": "The context explicitly states 'Allow at least 30 minutes after a user's interaction... before attempting to filter for that content'."
+              }
+            ],
+            "metric_verdicts": {
+              "RB_llm": "correct",
+              "RL_F": "correct",
+              "IDK": "correct",
+              "conditioned": "correct"
+            }
+          }
+        }
+      ],
+      "conversation_label": "incorrect",
+      "method": "mtrag",
+      "first_failed_turn": 2
+    },
+    "judge": {
+      "model": "qwen/qwen3-32b",
+      "prompt_version": "paper-ragas-mtrag-v1",
+      "thresholds": {
+        "f": 1.0,
+        "mtrag": 0.8,
+        "vrag_accept_min": 4,
+        "rb_llm_min_rating": 6.0,
+        "ar": null
+      },
+      "elapsed_seconds": 1428.96,
+      "usage": {
+        "max_requested_completion_tokens": 16384,
+        "max_requested_reasoning_tokens": 8192,
+        "prompt_tokens": 37394,
+        "completion_tokens": 38548,
+        "total_tokens": 75942,
+        "is_byok": 0,
+        "completion_budget_verified_calls": 28,
+        "reasoning_tokens": 42995,
+        "reasoning_budget_verified_calls": 28
+      },
+      "completion_max_tokens": 8192,
+      "reasoning_max_tokens": 4096,
+      "adaptive_max_tokens": 32768
+    }
+  }
+]

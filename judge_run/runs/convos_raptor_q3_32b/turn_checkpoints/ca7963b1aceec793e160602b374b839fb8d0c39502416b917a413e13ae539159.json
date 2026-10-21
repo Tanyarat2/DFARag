@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "fingerprint": "ca7963b1aceec793e160602b374b839fb8d0c39502416b917a413e13ae539159",
+  "id": "4a8369b7403e54df94d7fa495a4eff27",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer accurately addresses the key aspects of pre-market trading, including the time frame (4:00 AM to 9:30 AM ET on NASDAQ), the restriction to limit orders due to lower liquidity, broker-specific requirements for order execution, and the presence of active buyers and sellers. It aligns with the reference answer and the document, capturing essential points like the limitations on",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Pre-market trading takes place before regular market hours, usually between 4:00 AM and 9:30 AM ET on the NASDAQ.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that pre-market hours are 4:00 AM to 9:30 AM, and the NASDAQ website displays pre-market activity from 4:15 AM to 9:30 AM."
+          },
+          {
+            "statement": "During pre-market trading, there are active buyers and sellers who execute trades through order matching.",
+            "verdict": "yes",
+            "reason": "The context confirms that pre-market and after-market are active markets with actual buyers and sellers getting orders matched."
+          },
+          {
+            "statement": "Not all brokers offer pre-market trading, and only limit orders are allowed because of reduced liquidity.",
+            "verdict": "yes",
+            "reason": "The context states that some brokers restrict trading to regular hours and that limit orders are required during pre-market/post-market due to lower liquidity."
+          },
+          {
+            "statement": "Certain brokers require traders to specify if their orders should be executed during pre-market or standard trading hours.",
+            "verdict": "yes",
+            "reason": "The context provides an example of brokers requiring 'Day' (regular hours) or 'Ext' (pre-market/post-market) specifications for orders."
+          },
+          {
+            "statement": "Although pre-market trading is part of an active market with order matching, it has distinct rules and limitations compared to regular trading hours.",
+            "verdict": "yes",
+            "reason": "The context highlights differences such as restricted order types (only limit orders) and broker-specific execution settings (e.g., 'Ext') during pre-market/post-market."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer accurately distinguishes between limit and market orders, aligning with the reference answer and documents. It correctly explains that limit orders specify a price for execution (with certainty but no guarantee) and market orders prioritize immediate execution (with guarantee but no price certainty). The answer is faithful to the documents, which emphasize these trade-offs a",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "A limit order allows a trader to specify a maximum price they are willing to pay for a security (when buying) or a minimum price they are willing to accept (when selling).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that limit orders define a maximum price for buying and a minimum price for selling."
+          },
+          {
+            "statement": "This provides price certainty but does not guarantee execution if the price does not reach the specified limit.",
+            "verdict": "yes",
+            "reason": "The context confirms that limit orders provide price certainty but may not execute if the price does not meet the specified limit."
+          },
+          {
+            "statement": "In contrast, a market order guarantees execution at the best available current price, ensuring the trade is filled but without price certainty.",
+            "verdict": "yes",
+            "reason": "The context states that market orders guarantee execution at the best available price but lack price certainty."
+          },
+          {
+            "statement": "Market orders may result in paying more or receiving less than expected, especially in volatile markets.",
+            "verdict": "yes",
+            "reason": "The context highlights that market orders can lead to unfavorable prices in volatile markets due to price distortions."
+          },
+          {
+            "statement": "Limit orders are preferred for those prioritizing price control, while market orders are suitable for those seeking immediate execution.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that limit orders prioritize price control and market orders prioritize immediate execution."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about buying/selling on foreign markets from the US by outlining key methods such as using online brokers, local banks, and ETFs. It also mentions tax considerations (W8-BEN form) and the need for account-specific requirements for non-US citizens. However, compared to the reference answer, it lacks specific examples of brokers (e.g., Interactive",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "If you're in the US and want to buy or sell on foreign markets, you can use an online broker that allows trading in foreign securities.",
+            "verdict": "yes",
+            "reason": "The context discusses using brokers in the country of residence for foreign stocks and mentions ADRs and ETFs as alternatives for US investors in foreign markets, implying that online brokers can facilitate such trades."
+          },
+          {
+            "statement": "Some brokers may require you to open an account through the mail if you are a foreign national.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that some brokers allow foreign nationals to open accounts through the mail if not online."
+          },
+          {
+            "statement": "You may need to complete forms like the W8-BEN for tax purposes.",
+            "verdict": "yes",
+            "reason": "The context directly mentions filling out a W8-BEN form as part of the process for foreign nationals."
+          },
+          {
+            "statement": "You can consider using your local bank, as they may provide guidance on trading foreign stocks.",
+            "verdict": "yes",
+            "reason": "The context advises contacting the local bank for guidance on trading foreign stocks, depending on the country of residence."
+          },
+          {
+            "statement": "Investing in exchange-traded funds (ETFs) that track foreign markets can simplify the process.",
+            "verdict": "yes",
+            "reason": "The context suggests ETFs as an alternative for US investors to access foreign markets, simplifying the process compared to direct stock purchases."
+          },
+          {
+            "statement": "Always ensure you understand the tax implications and regulations associated with trading foreign assets.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need to pay taxes on capital gains and references IRS documents, highlighting the importance of understanding tax implications."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.400, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.480 (threshold 0.80). RB_llm justification: The assistant's answer addresses some aspects of the question by highlighting regulatory, political, and economic differences, as well as barriers to entry. However, it omits key points from the reference answer and document, such as the role of local currency in exchanges, the challenges of cross-currency transactions, and the preference for local listings. While the assistant's response is relev",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.4,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.48,
+        "conditioned_score": 0.48,
+        "statements": [
+          {
+            "statement": "Differences in regulations, political interests, and economic structures across regions make a global market unfeasible.",
+            "verdict": "no",
+            "reason": "The context discusses challenges like odd rules and political concerns (e.g., foreign ownership in strategic sectors) but does not explicitly state that these factors make a global market unfeasible. It focuses on specific issues rather than the overall feasibility of a global market."
+          },
+          {
+            "statement": "Markets in Europe have diverse rules, and establishing a single market could face resistance if local rules are not aligned.",
+            "verdict": "no",
+            "reason": "The context mentions that setting up new markets in Europe is easy but does not address resistance due to unaligned local rules. The example of a Belgian distribution system operator relates to political concerns, not market rule alignment."
+          },
+          {
+            "statement": "Political concerns, such as foreign ownership of strategic industries, hinder the creation of a unified global market.",
+            "verdict": "yes",
+            "reason": "The context explicitly references the Belgian example of a distribution system operator nearly being taken over by a Chinese state-owned company, highlighting political concerns about foreign ownership in strategic sectors."
+          },
+          {
+            "statement": "Existing markets often have significant barriers to entry, making it difficult for new players to compete effectively.",
+            "verdict": "yes",
+            "reason": "The context uses the example of starting an airliner manufacturing company, emphasizing barriers like complexity and the dominance of existing players, which directly supports the statement about barriers to entry."
+          },
+          {
+            "statement": "The complexity and diversity of financial markets worldwide are due to these factors.",
+            "verdict": "no",
+            "reason": "The context discusses factors like regulations and economic structures but does not mention financial markets specifically. The examples provided (e.g., apple markets, airliner manufacturing) do not directly address financial markets."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.632 (threshold 0.80). RB_llm justification: The assistant's answer acknowledges the complexity of trading systems and its impact on retail investors, aligning with the reference answer's core point. However, it lacks the detailed explanations of specific challenges (e.g., psychological issues, reliance on unproven strategies, or inability to trade at scale) and the note that improvement is possible over time. The assistant's response is con",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.631578947368421,
+        "conditioned_score": 0.631578947368421,
+        "statements": [
+          {
+            "statement": "The complexity of trading systems, such as pre-market and post-market activities, order types, and regional market differences, poses challenges for retail investors.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions broker restrictions on pre/post-market trading, limitations on order types (only limit orders allowed), and the need for specific order specifications (e.g., 'Day' vs. 'Ext'). These complexities align with the statement's claim about challenges for retail investors."
+          },
+          {
+            "statement": "These factors make it hard to consistently achieve good results, leading to retail investors often underperforming compared to institutional investors.",
+            "verdict": "no",
+            "reason": "The context does not provide evidence or discussion about retail investors underperforming relative to institutional investors. It focuses on operational mechanics (e.g., order types, auction processes) but does not address performance outcomes or comparisons."
+          },
+          {
+            "statement": "Understanding these mechanisms can enhance investment strategies for retail investors.",
+            "verdict": "yes",
+            "reason": "The context explains how pre/post-market trading works, the role of limit orders, and the auction process for opening prices. This information implies that understanding these mechanisms could help retail investors make informed decisions (e.g., using 'Ext' orders, timing trades)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 13725,
+    "completion_tokens": 11034,
+    "total_tokens": 24759,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 20,
+    "reasoning_tokens": 10418,
+    "reasoning_budget_verified_calls": 20
+  },
+  "elapsed_seconds": 344.98
+}

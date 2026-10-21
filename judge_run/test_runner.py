@@ -54,15 +54,15 @@ class RunnerTests(unittest.TestCase):
         (self.old / "annotations" / "PS.json").write_bytes(b"old human annotations")
 
     def test_one_command_prepares_and_uses_previous_qwen3_settings(self):
-        with mock.patch.object(runner, "run_paper") as judge:
+        with mock.patch.object(runner, "run_mtrag") as judge:
             self.invoke("judge", "--src", "sample")
         records = json.loads((self.old / "input.json").read_text(encoding="utf-8"))
         self.assertEqual(records[0]["ground_truth_answers"], ["Gold"])
         self.assertEqual(records[0]["contexts"], [["Selected evidence"]])
         args = judge.call_args.args
-        self.assertEqual(args[0], "mtrag")
-        self.assertEqual(args[5:7], (8192, 4096))
-        self.assertEqual(args[7], ["--base-url", "https://openrouter.ai/api/v1",
+        self.assertEqual(args[:2], (self.old / "input.json", self.old / "out.mtrag.json"))
+        self.assertEqual(args[4:6], (8192, 4096))
+        self.assertEqual(args[6], ["--base-url", "https://openrouter.ai/api/v1",
                                    "--model", "qwen/qwen3-32b", "--api-key-env", "OPENROUTER_API_KEY"])
         self.assertFalse((self.old / "reference.jsonl").exists())
 
@@ -74,20 +74,45 @@ class RunnerTests(unittest.TestCase):
         with mock.patch.object(runner.subprocess, "run") as child:
             self.invoke("judge", "--src", "sample")
         command = child.call_args.args[0]
+        self.assertEqual(pathlib.Path(command[1]).name, "judge_mtrag.py")
         self.assertEqual(command[command.index("--model") + 1], "qwen/qwen3-32b")
         self.assertEqual(command[command.index("--reasoning-max-tokens") + 1], "4096")
         self.assertEqual(command[command.index("--max-tokens") + 1], "8192")
         self.assertEqual(command[command.index("--mode") + 1], "mtrag")
 
     def test_dry_run_never_writes_or_calls_judge(self):
-        with mock.patch.dict("os.environ", {}, clear=True), mock.patch.object(runner, "run_paper") as judge:
+        with mock.patch.dict("os.environ", {}, clear=True), mock.patch.object(runner, "run_mtrag") as judge:
             self.invoke("judge", "--src", "sample", "--dry-run")
         judge.assert_not_called()
         self.assertFalse(self.runs.exists())
 
+    def test_prepare_and_preview_use_shared_input_and_renamed_judge_without_api(self):
+        with mock.patch.object(runner.subprocess, "run") as child:
+            self.invoke("prepare", "--src", "sample", "--name", "prepared")
+        child.assert_not_called()
+        folder = self.runs / "prepared"
+        before = (folder / "input.json").read_bytes()
+        records = json.loads(before)
+        self.assertEqual(records[0]["contexts"], [["Selected evidence"]])
+        self.assertEqual(records[0]["ground_truth_answers"], ["Gold"])
+        with mock.patch.dict("os.environ", {"JUDGE_MODEL": runner.QWEN3}):
+            self.invoke("preview", "--name", "prepared")
+        preview = json.loads((folder / "preview.json").read_text())
+        self.assertEqual(preview["mode"], "mtrag")
+        self.assertEqual(preview["record_id"], "abc")
+        self.assertEqual((folder / "input.json").read_bytes(), before)
+        self.assertFalse((folder / "out.mtrag.json").exists())
+
+    def test_invalid_prepare_does_not_create_partial_run(self):
+        self.export["conversations"][0]["turns"][0]["question"] = "Mismatched question"
+        self.source.write_text(json.dumps(self.export))
+        with self.assertRaisesRegex(SystemExit, "Preparation failed"):
+            self.invoke("prepare", "--src", "sample", "--name", "invalid")
+        self.assertFalse((self.runs / "invalid").exists())
+
     def test_fresh_archives_judge_and_human_annotations(self):
         self.existing_run()
-        with mock.patch.object(runner, "run_paper"):
+        with mock.patch.object(runner, "run_mtrag"):
             self.invoke("judge", "--src", "sample", "--fresh")
         backups = list(self.runs.glob("sample_q3_32b_backup_*"))
         self.assertEqual(len(backups), 1)
@@ -97,7 +122,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_existing_run_requires_explicit_fresh(self):
         self.existing_run()
-        with self.assertRaisesRegex(SystemExit, "--fresh"), mock.patch.object(runner, "run_paper") as judge:
+        with self.assertRaisesRegex(SystemExit, "--fresh"), mock.patch.object(runner, "run_mtrag") as judge:
             self.invoke("judge", "--src", "sample")
         judge.assert_not_called()
         self.assertEqual((self.old / "out.mtrag.json").read_bytes(), b"old judge output")
@@ -149,11 +174,11 @@ class RunnerTests(unittest.TestCase):
     def test_legacy_mtrag_uses_existing_input(self):
         self.old.mkdir(parents=True)
         (self.old / "input.json").write_text("[]", encoding="utf-8")
-        with mock.patch.object(runner, "run_paper") as judge:
+        with mock.patch.object(runner, "run_mtrag") as judge:
             self.invoke("mtrag", "--name", "sample_q3_32b", "--reasoning-max-tokens", "4096",
                         "--max-tokens", "8192")
-        self.assertEqual(judge.call_args.args[5:7], (8192, 4096))
-        self.assertEqual(len(judge.call_args.args), 7)
+        self.assertEqual(judge.call_args.args[4:6], (8192, 4096))
+        self.assertEqual(len(judge.call_args.args), 6)
 
 
 if __name__ == "__main__":

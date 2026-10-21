@@ -1,0 +1,472 @@
+{
+  "version": 1,
+  "fingerprint": "1cca0611bc88f2e95f65accf60777b5ce1fbe6fe0a7fd2c0a347d64e4deef058",
+  "id": "258193fc88e0e73322e288aa03719260",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.833, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.865 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents and reference answer, accurately reflecting that the value of time or services for volunteer work is non-deductible, while actual expenses (e.g., equipment, supplies, wages) may be deductible. It appropriately addresses the user's question by clarifying the distinction between non-deductible time value and deductible costs, aligning with the IRS ",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8653846153846154,
+        "conditioned_score": 0.8653846153846154,
+        "statements": [
+          {
+            "statement": "Capital expenses for volunteer purposes generally cannot be deducted from income.",
+            "verdict": "no",
+            "reason": "The context allows deductions for actual expenses like equipment and supplies, but capital expenses for volunteer work may be deductible if structured properly (e.g., invoicing and donating back). The statement's generalization is not fully supported."
+          },
+          {
+            "statement": "The IRS does not allow deductions for the value of time or services, including volunteer work.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the value of time or services, including volunteer work, cannot be deducted."
+          },
+          {
+            "statement": "Actual expenses incurred in providing volunteer services, such as equipment or supplies, may be deductible.",
+            "verdict": "yes",
+            "reason": "The context mentions that expenses like equipment, supplies, and wages can be deductible if they are actual costs incurred."
+          },
+          {
+            "statement": "It is important to document and ensure that expenses are necessary for the volunteer work.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need for documentation (e.g., receipts) and justifying expenses as necessary for the business or volunteer activity."
+          },
+          {
+            "statement": "Expenses considered as donations may not be deductible.",
+            "verdict": "yes",
+            "reason": "The context indicates that if an expense is classified as a donation (e.g., directly donating work without invoicing), it may not be deductible, while structured donations (invoicing then donating) can be deductible."
+          },
+          {
+            "statement": "Consulting a tax professional is advisable for specific guidance on deductions related to volunteer work.",
+            "verdict": "yes",
+            "reason": "The context explicitly recommends consulting a tax professional for such matters."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.686 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and previous conversation, accurately stating that charitable donations can reduce taxable income, capital expenses are generally not deductible unless under specific criteria, and volunteer time is not deductible but associated costs may be. It aligns with the reference answer's key points, though it omits some nuances like the example of",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6857142857142856,
+        "conditioned_score": 0.6857142857142856,
+        "statements": [
+          {
+            "statement": "Charitable donations can reduce taxable income, thereby lowering taxes.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that charitable donations are tax-deductible, reducing taxable income and taxes, with a specific example of a $100 donation lowering taxes by $28 in the 28% bracket."
+          },
+          {
+            "statement": "Capital expenses are generally not deductible unless they meet specific criteria, such as being business-related or qualifying for certain tax credits.",
+            "verdict": "no",
+            "reason": "The context discusses donating appreciated assets (e.g., stocks) to avoid capital gains tax but does not address capital expenses or their deductibility criteria."
+          },
+          {
+            "statement": "Volunteer time itself is not directly deductible, but the associated costs (e.g., travel) may be if they are necessary for the charitable activity.",
+            "verdict": "no",
+            "reason": "The context does not mention volunteer time or associated costs like travel, so this statement is not supported."
+          },
+          {
+            "statement": "The tax benefits of charitable donations depend on your total deductions and whether itemizing exceeds the standard deduction.",
+            "verdict": "yes",
+            "reason": "The context explains that itemizing deductions (including charitable donations) is only beneficial if they exceed the standard deduction, using examples of married couples in 2011."
+          },
+          {
+            "statement": "For most individuals, the tax impact of charitable donations is minimal unless they have significant deductions.",
+            "verdict": "yes",
+            "reason": "The context states that for many people, charitable donations have minimal tax impact unless they have large deductions (e.g., mortgage interest) to exceed the standard deduction threshold."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies 501(c)(3) organizations as the primary type of entity for tax-deductible donations and explains the dependency on itemizing deductions and exceeding the standard deduction. It aligns with the document's emphasis on the minimal tax impact for most individuals and advises consulting a tax professional. However, it lacks the specific examples of qualifying ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "You can donate to 501(c)(3) organizations, which are tax-exempt under IRS guidelines, to potentially reduce your taxes.",
+            "verdict": "yes",
+            "reason": "The context discusses 501(c)(3) organizations and their tax-exempt status, as well as tax deductions for donations to such entities."
+          },
+          {
+            "statement": "These include charities, religious groups, and nonprofit organizations.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions churches, religious organizations, and nonprofits as examples of 501(c)(3) entities."
+          },
+          {
+            "statement": "Tax deductions for charitable donations depend on whether you itemize deductions and if they exceed your standard deduction.",
+            "verdict": "yes",
+            "reason": "The context provides a detailed explanation of how itemized deductions and standard deductions work, emphasizing that tax benefits only apply if deductions exceed the standard threshold."
+          },
+          {
+            "statement": "For most people, the tax benefit may be minimal unless you have significant deductions.",
+            "verdict": "yes",
+            "reason": "The context argues that for most individuals, the tax impact of charitable donations is minimal unless they have large deductions (e.g., mortgage interest) that exceed the standard deduction."
+          },
+          {
+            "statement": "Consider donating to established organizations like churches or community-based nonprofits, as they often qualify for tax deductions.",
+            "verdict": "yes",
+            "reason": "The context suggests exploring existing community organizations, including churches, as viable 501(c)(3) options for donations."
+          },
+          {
+            "statement": "Always consult a tax professional for personalized advice.",
+            "verdict": "yes",
+            "reason": "The context includes a disclaimer advising readers to let their accountant handle tax-related matters, implying the importance of professional consultation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and previous conversation, accurately explaining the tax benefits of donating appreciated assets, such as avoiding capital gains tax and deducting the current value. It also appropriately addresses the relevance of itemizing deductions versus the standard deduction, a key point from the document. However, the assistant omits specific nuanc",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Donating appreciated assets like stocks or fund shares can help reduce taxes.",
+            "verdict": "yes",
+            "reason": "The context states that donating appreciated assets allows individuals to avoid capital gains tax and deduct the current value, thus reducing taxes."
+          },
+          {
+            "statement": "Donating such assets avoids capital gains tax on their appreciation.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that donating appreciated assets lets individuals 'dodge the capital gains tax on redeeming the shares'."
+          },
+          {
+            "statement": "Donating these assets to a tax-exempt organization also avoids paying the capital gains tax.",
+            "verdict": "yes",
+            "reason": "The context clarifies that if donated to a tax-exempt organization, 'they don't have to pay that tax either', referring to capital gains tax."
+          },
+          {
+            "statement": "The current value of the donated assets can be deducted from taxable income.",
+            "verdict": "yes",
+            "reason": "The context confirms that individuals can 'deduct the current value of the donation, not just the basis value of those shares'."
+          },
+          {
+            "statement": "Tax deductions for charitable donations are only beneficial if they exceed the standard deduction.",
+            "verdict": "yes",
+            "reason": "The context explains that deductions only matter if they exceed the standard deduction, as itemizing is only worthwhile in that case."
+          },
+          {
+            "statement": "This is often the case for larger donations or specific items like mortgage interest.",
+            "verdict": "yes",
+            "reason": "The context states that 'big ticket items' or mortgage interest are typically needed to exceed the standard deduction threshold."
+          },
+          {
+            "statement": "For most individuals, the tax benefits of charitable donations are minimal unless the donations are substantial.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that for most people, tax implications are minimal unless donations are large enough to exceed the standard deduction."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.5, answerability=PARTIAL -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is generally faithful to the document and previous conversation, as it correctly notes that foreign donations may be deductible only if the organization is qualified under local tax laws and highlights the U.S. example of IRS recognition. However, it omits specific details from the document and reference answer, such as the need to declare income in the U.S. (even if a deduc",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "PARTIAL",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "If you make a cash donation to a foreign organization, it may be used as a tax deduction if the organization is qualified as a charitable organization under relevant tax laws.",
+            "verdict": "yes",
+            "reason": "The context discusses U.S. and UK tax rules, emphasizing that deductions depend on the organization being recognized by the relevant tax authority (e.g., IRS in the U.S., HMRC in the UK)."
+          },
+          {
+            "statement": "The eligibility for a tax deduction depends on the specific tax regulations of the country where you reside.",
+            "verdict": "yes",
+            "reason": "The context explicitly contrasts U.S. and UK tax rules, showing that eligibility varies by jurisdiction."
+          },
+          {
+            "statement": "In the U.S., donations to qualified charities are generally deductible, but the organization must be recognized by the IRS.",
+            "verdict": "yes",
+            "reason": "The context references IRS Publication 526 and states that deductions require the organization to be qualified, aligning with this statement."
+          },
+          {
+            "statement": "If the foreign organization is not registered or recognized by the relevant tax authority, the donation may not qualify for a tax deduction.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that recognition by tax authorities (e.g., IRS, HMRC) is necessary for deductions, as seen in U.S. and UK examples."
+          },
+          {
+            "statement": "It is advisable to consult a tax professional or review your country's tax regulations to confirm whether the donation is eligible for a deduction.",
+            "verdict": "yes",
+            "reason": "The context highlights complex, jurisdiction-specific rules (e.g., U.S. vs. UK) and nuances, implying the need for professional guidance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.833, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.698 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the general AGI-based limits (20%-50%) and the 50% upper bound, aligning with the reference and document. However, it omits critical details such as the $25,000 minimum threshold and the carryover provision for unused deductions, which are explicitly mentioned in the reference and document. Additionally, the assistant introduces a $15,000 first-time dono",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6976744186046512,
+        "conditioned_score": 0.6976744186046512,
+        "statements": [
+          {
+            "statement": "The maximum amount you can donate and declare as a charitable contribution depends on your Adjusted Gross Income (AGI) and the type of organization you're donating to.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that limits depend on the organization type and AGI, with specific percentages mentioned."
+          },
+          {
+            "statement": "In most cases, the limit is 20% to 50% of your AGI, with 50% being the upper bound in many circumstances.",
+            "verdict": "yes",
+            "reason": "The context specifies that most donations are limited to 20% of AGI and that 50% is the maximum in almost all cases."
+          },
+          {
+            "statement": "Specific limits may vary based on IRS guidelines and the nature of the donation.",
+            "verdict": "yes",
+            "reason": "The context references IRS publications and notes that limits depend on the type of property and organization, indicating variability."
+          },
+          {
+            "statement": "For precise details, consult the IRS publication or your tax assessment notice.",
+            "verdict": "yes",
+            "reason": "The context explicitly directs readers to the IRS publication and mentions that personal limits are listed on the tax assessment notice."
+          },
+          {
+            "statement": "If you have not made any contributions before, the limit might be around $15,000.",
+            "verdict": "yes",
+            "reason": "The context states that for those who have never contributed, the limit is likely $15,000, citing the program's three-year history as of 2011."
+          },
+          {
+            "statement": "Always verify with the IRS or a tax professional for accurate information.",
+            "verdict": "no",
+            "reason": "While the context advises consulting IRS resources and charities, it does not explicitly mention verifying with a tax professional."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.632 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly emphasizes the importance of consulting legal and tax professionals and mentions the use of non-revokable trusts to avoid tax issues. However, it omits key strategies from the reference answer, such as setting up charitable trusts, annuities, or working with charities to structure the donation. The answer is **appropriate** in",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.631578947368421,
+        "conditioned_score": 0.631578947368421,
+        "statements": [
+          {
+            "statement": "You can include donations to your favorite organization in your will for tax purposes.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention including donations in a will for tax purposes. It discusses trusts and consulting professionals but does not address wills directly."
+          },
+          {
+            "statement": "It is important to consult with a properly licensed trust/estate attorney and a tax adviser (EA/CPA licensed in your State) to ensure compliance with tax laws and avoid potential issues such as gift tax or income tax implications.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises consulting a properly licensed trust/estate attorney and a tax adviser to address potential tax and gift tax issues."
+          },
+          {
+            "statement": "Using a non-revokable trust may help avoid these issues, but it is essential to seek professional guidance to navigate the complexities involved.",
+            "verdict": "yes",
+            "reason": "The context states that a non-revokable trust can avoid certain issues but also notes other complexities (e.g., trust income/undistributed moneys) and advises consulting professionals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document and previous conversation, as it correctly states that a will is not strictly necessary but highly recommended. It accurately reflects the document's emphasis on the consequences of dying intestate (assets distributed by state law) and the importance of legal consultation. However, the assistant omits key elements from the reference answer ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Having a will is not strictly necessary, but it is highly recommended.",
+            "verdict": "yes",
+            "reason": "The context states that while state laws handle intestacy, having a will ensures wishes are followed and avoids complications."
+          },
+          {
+            "statement": "A will allows you to specify how your assets should be distributed after your death, ensuring your wishes are followed.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that a will tells the world where to distribute assets and names guardians for children."
+          },
+          {
+            "statement": "Without a will (dying intestate), your assets are divided according to state laws, which may not align with your intentions.",
+            "verdict": "yes",
+            "reason": "The context explains that intestacy laws divide property based on state rules, which might not reflect the deceased's wishes."
+          },
+          {
+            "statement": "Some states allow holographic wills (handwritten), but they can be challenging to validate.",
+            "verdict": "yes",
+            "reason": "The context discusses holographic wills, noting issues with verification and potential legal challenges."
+          },
+          {
+            "statement": "A properly witnessed will or using a form will ensures validity.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that form wills must be properly witnessed to be valid, otherwise they are invalid."
+          },
+          {
+            "statement": "Having a will helps name guardians for minor children and avoids potential disputes among heirs.",
+            "verdict": "yes",
+            "reason": "The context states that a will is the best place to name guardians and that intestacy can lead to disputes."
+          },
+          {
+            "statement": "It is advisable to consult a lawyer to draft a will that suits your specific needs and circumstances.",
+            "verdict": "yes",
+            "reason": "The context recommends consulting a lawyer for clarity on state laws and for complex situations."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document and previous conversation, as it correctly emphasizes interviewing multiple professionals and mentions the importance of specialization in estate planning. It also references a specific law firm (MJR Solicitors Ltd) and DIY will kits, both of which are present in the document. However, the assistant omits the **specific cost range** ($500–$",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Interview multiple attorneys, accountants, and financial advisors to find someone who understands your needs.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that people should interview two or more professionals to find the right fit."
+          },
+          {
+            "statement": "Seek professionals specializing in estate planning with experience in wills, lasting power of attorney, and related matters.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of estate planning professionals and specifically mentions wills, living wills, and durable power of attorney as key components, aligning with the statement."
+          },
+          {
+            "statement": "Law firms such as MJR Solicitors Ltd provide reliable assistance for estate planning and will services.",
+            "verdict": "yes",
+            "reason": "The context directly references MJR Solicitors Ltd offering will writing and lasting power of attorney services, confirming their role in estate planning."
+          },
+          {
+            "statement": "Consider DIY will kits from Staples or Nolo for a self-guided approach to creating a will.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions DIY will kits from Staples, Nolo, and Quicken as viable options for self-guided will creation."
+          },
+          {
+            "statement": "Ensure that will and estate planning documents comply with local laws.",
+            "verdict": "yes",
+            "reason": "The context highlights the importance of legal validity and compliance with local laws, particularly through the role of lawyers in ensuring documents are correct according to local law and custom."
+          },
+          {
+            "statement": "Consult a lawyer for personalized assistance to ensure legal validity.",
+            "verdict": "yes",
+            "reason": "The context states that lawyers provide personalized help and ensure documents are legally valid, emphasizing their role in avoiding issues with DIY approaches."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 36022,
+    "completion_tokens": 22622,
+    "total_tokens": 58644,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 21227,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 892.803
+}

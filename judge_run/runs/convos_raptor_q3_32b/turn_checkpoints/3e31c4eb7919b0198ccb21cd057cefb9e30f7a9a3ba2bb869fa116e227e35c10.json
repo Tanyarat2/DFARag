@@ -1,0 +1,494 @@
+{
+  "version": 1,
+  "fingerprint": "3e31c4eb7919b0198ccb21cd057cefb9e30f7a9a3ba2bb869fa116e227e35c10",
+  "id": "6af5334fbd010b919d7fa174823abd12",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.800, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents, as it incorporates key points such as the requirement to disclose all debts, the impact of unpaid debts on credit ratings, and the possibility of covering certain debts (e.g., from parents) with lender-specific conditions. While the documents do not explicitly state that a mortgage *can* cover debts, they do discuss how existing debts influe",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.8,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.8470588235294118,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "A mortgage can cover outstanding debts, but this depends on the lender's policies and specific circumstances.",
+            "verdict": "no",
+            "reason": "The context does not mention that a mortgage can cover existing debts; it only discusses the need to disclose them. The statement's first part is not supported."
+          },
+          {
+            "statement": "Mortgages are a type of debt, and lenders typically require applicants to disclose all existing debts.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a mortgage is a type of debt and that lenders require disclosure of all outstanding debts."
+          },
+          {
+            "statement": "Some lenders may allow a mortgage to cover certain debts, such as those from parents, but this often requires additional documentation or legal agreements.",
+            "verdict": "yes",
+            "reason": "The context provides an example where a lender allowed a mortgage to cover a parent's loan with additional documentation and legal agreements."
+          },
+          {
+            "statement": "Unpaid debts, including credit card balances, can negatively affect credit ratings and impact mortgage eligibility.",
+            "verdict": "yes",
+            "reason": "The context explains that unpaid credit card balances are considered debt, affect credit ratings, and can impact mortgage eligibility."
+          },
+          {
+            "statement": "Applicants should be transparent with lenders about outstanding debts to avoid ethical or legal issues.",
+            "verdict": "yes",
+            "reason": "The context warns that omitting debts like a parent's loan is unethical and likely illegal, emphasizing the need for transparency."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly distinguishes between a mortgage and refinancing, accurately stating that a mortgage is the initial loan for purchasing a home, while refinancing involves replacing an existing mortgage with a new one to secure better terms. The response is faithful to the documents and previous conversation, as it does not introduce incorrect information and aligns with the provid",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Refinancing is not the same as getting a mortgage.",
+            "verdict": "yes",
+            "reason": "The context explains that refinancing involves replacing an existing mortgage with a new one, while a mortgage is the initial loan for purchasing a home. These are distinct processes."
+          },
+          {
+            "statement": "A mortgage is an initial loan used to purchase a home.",
+            "verdict": "yes",
+            "reason": "The context implies that a mortgage is the original loan for home purchase, as refinancing replaces it with a new loan."
+          },
+          {
+            "statement": "Refinancing involves replacing an existing mortgage with a new one, often to secure better terms such as a lower interest rate or reduced monthly payments.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that refinancing replaces the existing mortgage with a new loan to achieve better terms like lower interest rates."
+          },
+          {
+            "statement": "Refinancing typically involves taking out a new loan to pay off the old one, and it can be done with a different lender.",
+            "verdict": "yes",
+            "reason": "The context mentions that refinancing often involves a new lender (e.g., attracting business from other banks) and replaces the existing loan."
+          },
+          {
+            "statement": "The key difference is that a mortgage is the original loan, whereas refinancing is a process to modify or replace that loan.",
+            "verdict": "yes",
+            "reason": "The context distinguishes between the original mortgage and refinancing as a process to replace or modify it, including loan modifications."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer accurately reflects the typical down payment information from the documents and reference. It correctly identifies 20% as the standard to avoid PMI and acknowledges lower down payment options (e.g., 3.5%) with PMI, aligning with the documents' examples of $360,000 (20%) and $10,000 (3.5%). The answer is faithful to the documents, as it incorporates key points like PMI implic",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The typical down payment for a mortgage is commonly 20% of the home's purchase price.",
+            "verdict": "yes",
+            "reason": "The context emphasizes 20% as a standard or recommended down payment in multiple scenarios (e.g., $1.8M Super Jumbo Loan, $150K house), implying it is a common benchmark."
+          },
+          {
+            "statement": "A 20% down payment helps avoid private mortgage insurance (PMI).",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'If you are putting down less than 20% expect to need to pay PMI,' directly linking 20% down to avoiding PMI."
+          },
+          {
+            "statement": "A 20% down payment can make the loan more favorable.",
+            "verdict": "yes",
+            "reason": "The context notes that a larger down payment (e.g., 20%) increases the likelihood of a seller accepting an offer and is associated with loan terms requiring 20% (e.g., Super Jumbo Loan), suggesting it is viewed favorably."
+          },
+          {
+            "statement": "Some lenders allow lower down payments, such as 3.5%.",
+            "verdict": "yes",
+            "reason": "The context mentions a 3.5% down payment option for a $150K house and references 'exotic mortgage options' for lower down payments, indicating such options exist."
+          },
+          {
+            "statement": "Lower down payments may require private mortgage insurance (PMI).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that down payments less than 20% require PMI, directly supporting this statement."
+          },
+          {
+            "statement": "The exact down payment amount depends on factors like loan type, credit score, and lender policies.",
+            "verdict": "yes",
+            "reason": "The context discusses loan types (e.g., Super Jumbo Loan requiring 20%), credit scores (e.g., 'strong FICO'), and lender policies (e.g., 'exotic mortgage options'), showing these factors influence down payment requirements."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document and previous conversation, as it correctly identifies the necessity of house insurance for mortgage requirements and highlights standard coverage limitations (e.g., flood, earthquake). It aligns with the document's emphasis on lenders mandating insurance and the importance of additional coverage based on location. The answer is appropriate, direct",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Yes, you generally need to buy house insurance.",
+            "verdict": "yes",
+            "reason": "The context states that even ultra-wealthy individuals typically have insurance due to mortgage requirements and risk management, and highlights the consequences of not having coverage (e.g., the man who lost his house without insurance)."
+          },
+          {
+            "statement": "It is often a requirement for obtaining a mortgage, as lenders want to ensure the property is protected against potential damage.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that mortgage lenders require property insurance, and even the ultra-wealthy must have it to secure a mortgage."
+          },
+          {
+            "statement": "Standard homeowners' insurance typically covers fire and wind damage, but may not cover flood, earthquake, or other specific risks.",
+            "verdict": "yes",
+            "reason": "The context clarifies that most default policies cover fire and wind but not earthquake or flood, and explicitly states uncertainty about hurricane/tornado coverage."
+          },
+          {
+            "statement": "Additional coverage might be necessary depending on your location and circumstances.",
+            "verdict": "yes",
+            "reason": "The context references the Tennessee flood example and advises checking policies to ensure coverage for specific risks (e.g., flood, earthquake), emphasizing location-based needs."
+          },
+          {
+            "statement": "Insurance helps protect your investment and provides financial security in case of unexpected events.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that insurance prevents catastrophic loss of net worth and highlights the financial risks of not having coverage (e.g., the man without insurance who couldn’t rebuild his home)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer provides a balanced comparison between renting and buying, highlighting key factors like flexibility, equity building, and financial commitment. It aligns with the reference answer in emphasizing the trade-offs between short-term flexibility (renting) and long-term benefits (buying). However, it omits specific details from the reference and document, such as tax deductions f",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The convenience of renting versus buying a home depends on individual circumstances.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the decision varies based on personal factors like location, finances, and lifestyle, directly supporting this statement."
+          },
+          {
+            "statement": "Renting offers flexibility, lower transaction costs, and less responsibility for maintenance.",
+            "verdict": "yes",
+            "reason": "The context highlights lower transaction costs for renting, flexibility in moving, and the landlord's responsibility for repairs, aligning with this statement."
+          },
+          {
+            "statement": "Buying provides equity building, customization options, and potential long-term savings.",
+            "verdict": "yes",
+            "reason": "The text mentions equity from mortgage payments, customization freedom, and long-term savings through owning a home, supporting this statement."
+          },
+          {
+            "statement": "Buying requires financial commitment, long-term planning, and handling repairs.",
+            "verdict": "yes",
+            "reason": "The context discusses the financial costs of buying, the need for long-term planning (e.g., 3-5 years), and the responsibility for repairs, confirming this statement."
+          },
+          {
+            "statement": "The choice depends on your financial situation, lifestyle, and how long you plan to stay in the area.",
+            "verdict": "yes",
+            "reason": "The text emphasizes financial factors, lifestyle preferences (e.g., customization vs. flexibility), and the importance of long-term residency, directly supporting this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=0.833, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.441 (threshold 0.80). RB_llm justification: The assistant's answer does not align well with the reference answer or the documents. The reference answer focuses on the home's value as a consumption asset versus an investment, emphasizing that financial gains are uncertain and tied to selling. The assistant's response, however, discusses the mortgage's value in terms of collateral, equity, and loan terms, which is a different topic. It fails ",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.4411764705882353,
+        "conditioned_score": 0.4411764705882353,
+        "statements": [
+          {
+            "statement": "The value of a mortgage is tied to the property it secures.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a mortgage is a loan 'backed by a property' and that the property is used to pay off the mortgage when the house is sold."
+          },
+          {
+            "statement": "A mortgage is a loan where the property serves as collateral.",
+            "verdict": "yes",
+            "reason": "The context directly states that the bank lends money 'with the property as collateral, not as an investor in the house.'"
+          },
+          {
+            "statement": "The value of the property can influence the loan amount and terms.",
+            "verdict": "yes",
+            "reason": "The context discusses equity (e.g., 80% loan-to-value ratio) and provides examples where property value changes (e.g., a house valued at $50K with a $100K mortgage), directly linking property value to loan terms."
+          },
+          {
+            "statement": "If the property's value decreases, it may affect the homeowner's equity and ability to refinance or sell.",
+            "verdict": "yes",
+            "reason": "The context includes a real-world example where a homeowner's property value dropped below the mortgage balance, leaving them 'upside down' and unable to sell without owing the bank the difference."
+          },
+          {
+            "statement": "The mortgage's value is also determined by factors like interest rates, loan terms, and the borrower's financial situation.",
+            "verdict": "yes",
+            "reason": "The context references interest rates (e.g., 'accrued interest'), loan terms (e.g., 30-year mortgages), and financial implications (e.g., prepayment penalties and bankruptcy scenarios)."
+          },
+          {
+            "statement": "The retrieved evidence does not provide specific numerical values for a mortgage.",
+            "verdict": "no",
+            "reason": "The context includes specific numerical examples, such as a $100K mortgage, a $50K property value, and a $250K purchase price, which directly contradict the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the core issue of gifting in the context of a mortgage by emphasizing the need for documentation (e.g., a donor letter) and the lender's requirements. It correctly notes that gifts can be used for down payments or funds but does not mention the **specific gift tax thresholds** (e.g., $14K annual exclusion) or strategies to structure gifts to avoid taxes, which are ",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "A mortgage can include a gift, but it must be properly documented.",
+            "verdict": "yes",
+            "reason": "The context explicitly states lenders require paperwork or a letter confirming the gift, and emphasizes the need for documentation to avoid issues with lenders and the IRS."
+          },
+          {
+            "statement": "Lenders require a letter from the donor confirming the gift and ensuring there is no expectation of repayment.",
+            "verdict": "yes",
+            "reason": "The context provides examples of required documentation, such as a letter stating the gift has no expectation of repayment, and mentions standard forms or handwritten notes to achieve this."
+          },
+          {
+            "statement": "This helps avoid issues with the lender or IRS, especially if the gift exceeds annual limits.",
+            "verdict": "yes",
+            "reason": "The context discusses IRS gift tax exclusions (e.g., $14k) and notes that exceeding these limits may require filing a gift tax return, which documentation helps address. It also highlights lender concerns about repayment expectations."
+          },
+          {
+            "statement": "While a mortgage itself does not cover gifting, it can accommodate a gifted down payment or funds, provided all legal and financial requirements are met.",
+            "verdict": "yes",
+            "reason": "The context explains that lenders accept gifted funds for down payments if properly documented, and references legal requirements (e.g., gift tax returns) and examples like the UK's offset account system."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=3/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.462 (threshold 0.80). RB_llm justification: The assistant's answer fails to address the user's question about the consequences of nonpayment (\"Not payment\") and instead discusses whether a mortgage can cover other debts. The reference answer clearly outlines penalties for nonpayment, such as property loss, credit damage, and legal protections in non-recourse states. The assistant's response does not mention these critical points, nor does i",
+      "scores": {
+        "RB_llm": 3.0,
+        "RB_llm_norm": 0.3,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.46153846153846145,
+        "conditioned_score": 0.46153846153846145,
+        "statements": [
+          {
+            "statement": "A mortgage is a type of debt involving borrowing money to purchase a home with an obligation to repay the loan.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a mortgage is a kind of debt where money is borrowed to buy a house with the obligation to repay."
+          },
+          {
+            "statement": "A mortgage does not cover outstanding debts such as credit card balances or other personal loans.",
+            "verdict": "yes",
+            "reason": "The context contrasts mortgages with unsecured debts like credit cards, emphasizing that mortgages are distinct and do not cover other obligations."
+          },
+          {
+            "statement": "Mortgage debt is distinct from other types of debt and does not automatically include or cover other financial obligations.",
+            "verdict": "yes",
+            "reason": "The context highlights that mortgages are secured by the home and differ from other debts (e.g., auto loans, credit cards) in terms of risk and repayment priorities."
+          },
+          {
+            "statement": "The answer to 'Not payment' is that a mortgage does not cover outstanding debts.",
+            "verdict": "yes",
+            "reason": "The context discusses scenarios where non-payment of a mortgage leads to repossession but does not address other debts, implying mortgages do not cover them."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the minimum age requirement as 18 (age of majority) and aligns with the document's explanation that contracts under 18 are voidable. It also appropriately adds context about the lack of upper age limits, citing examples from the document (e.g., 98-year-olds). This information is relevant and faithful to the document. However, the reference answer explici",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The minimum age requirement for applying for a mortgage is typically 18 years old, as it aligns with the age of majority.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the age of majority (generally 18) is required to take out a loan."
+          },
+          {
+            "statement": "There is no strict upper age limit for mortgage applications, with examples of individuals in their 90s being approved.",
+            "verdict": "yes",
+            "reason": "The context provides an example of a 98-year-old signing a mortgage and mentions that age discrimination is illegal."
+          },
+          {
+            "statement": "Creditworthiness, income, and the ability to repay the loan are the primary factors considered for mortgage approval, rather than age alone.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that approval depends on credit rating, income, and debt-to-income ratio, and explicitly prohibits age-based discrimination."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 10,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the core differences between 15- and 30-year mortgages, highlighting the lower interest rates and higher monthly payments of 15-year loans versus the flexibility and lower payments of 30-year loans. It also notes the importance of financial goals and affordability in the decision. However, compared to the reference answer, the assistant's response is less detailed ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A 15-year mortgage typically has a lower interest rate compared to a 30-year mortgage.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 15-year mortgages typically have lower interest rates due to reduced risk for the lender."
+          },
+          {
+            "statement": "A 15-year mortgage can result in paying less total interest over time.",
+            "verdict": "yes",
+            "reason": "The context explains that lower interest rates on 15-year mortgages and disciplined payments can lead to less total interest paid compared to 30-year mortgages."
+          },
+          {
+            "statement": "A 30-year mortgage offers more flexibility and lower monthly payments.",
+            "verdict": "yes",
+            "reason": "The context highlights the 30-year mortgage's flexibility for financial hardship and its lower monthly payments as advantages."
+          },
+          {
+            "statement": "A 30-year mortgage is more convenient for some borrowers.",
+            "verdict": "yes",
+            "reason": "The context mentions the convenience of a 30-year mortgage for those who may not stick to strict payment plans."
+          },
+          {
+            "statement": "The choice between the two depends on your financial goals.",
+            "verdict": "yes",
+            "reason": "The context discusses how financial goals (e.g., discipline vs. flexibility) influence the decision between mortgage types."
+          },
+          {
+            "statement": "The choice between the two depends on your ability to afford higher payments.",
+            "verdict": "yes",
+            "reason": "The context implies that 15-year mortgages require higher payments, making affordability a key factor."
+          },
+          {
+            "statement": "The choice between the two depends on your long-term plans.",
+            "verdict": "yes",
+            "reason": "The context references long-term plans (e.g., average homeownership duration) as a consideration in mortgage selection."
+          },
+          {
+            "statement": "Both 15-year and 30-year mortgages allow you to pay off the loan early if desired.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 30-year mortgages can be paid off early, and 15-year mortgages inherently allow early payoff."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 35784,
+    "completion_tokens": 23445,
+    "total_tokens": 59229,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 41,
+    "reasoning_tokens": 20813,
+    "reasoning_budget_verified_calls": 41
+  },
+  "elapsed_seconds": 752.294
+}

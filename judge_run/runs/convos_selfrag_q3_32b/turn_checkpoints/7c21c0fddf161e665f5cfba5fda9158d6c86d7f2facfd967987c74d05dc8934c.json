@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "fingerprint": "7c21c0fddf161e665f5cfba5fda9158d6c86d7f2facfd967987c74d05dc8934c",
+  "id": "2f94b6fb4c6f941decd0609eb126610b",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses some aspects of 401k management, such as maximizing employer matches, contributing to IRAs, and using target date funds, but it diverges from the reference answer's focus on **rebalancing investments** and **asset allocation**. The reference emphasizes determining allocation based on risk tolerance, total funds, and periodic rebalancing (e.g., annually or after lif",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "Prioritize maximizing your employer's match for a 401(k) as it is free money.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that maximizing the employer's 401(k) match is advised because it's 'free money'."
+          },
+          {
+            "statement": "Consider contributing to an IRA with low-cost investments after maximizing the employer match.",
+            "verdict": "yes",
+            "reason": "The context recommends contributing to an IRA with low expenses after maximizing the 401(k) match."
+          },
+          {
+            "statement": "Max out your 401(k) for tax advantages if you still have funds left.",
+            "verdict": "yes",
+            "reason": "The context advises maxing out the 401(k) despite high expenses for tax benefits if funds remain after maxing the IRA."
+          },
+          {
+            "statement": "Roll over the 401(k) balance into an IRA for better investment options when leaving the company.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions rolling over the 401(k) balance into an IRA when leaving a company to access lower-cost investments."
+          },
+          {
+            "statement": "Follow the 'pay yourself first' principle by automatically saving a portion of your paycheck.",
+            "verdict": "yes",
+            "reason": "The context emphasizes automating savings deductions from paychecks to prioritize saving, aligning with the 'pay yourself first' principle."
+          },
+          {
+            "statement": "Rebalance investments periodically to maintain diversification and consider target date funds for simplicity.",
+            "verdict": "yes",
+            "reason": "The context discusses rebalancing investments and highlights target date funds as a simplified, automatic rebalancing option."
+          },
+          {
+            "statement": "Always assess your financial goals and adjust accordingly.",
+            "verdict": "yes",
+            "reason": "The context acknowledges that special situations (e.g., buying a home) may require adjusting financial strategies, emphasizing the need to assess goals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document and the reference answer, accurately distinguishing between traditional and Roth 401(k) tax treatments. It correctly explains that traditional contributions are pre-tax and taxed upon withdrawal, while Roth contributions are after-tax with tax-free withdrawals. However, the assistant omits key details from the document, such as the impact o",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A 401(k) account is taxed differently depending on whether it is a traditional or Roth 401(k).",
+            "verdict": "yes",
+            "reason": "The context explicitly contrasts the tax treatment of traditional and Roth 401(k)s, including contributions and withdrawals."
+          },
+          {
+            "statement": "For a traditional 401(k), contributions are made with pre-tax dollars, meaning they reduce your taxable income in the year you earn them.",
+            "verdict": "yes",
+            "reason": "The context states that traditional 401(k) contributions are subtracted from taxable income in the contribution year."
+          },
+          {
+            "statement": "However, when you withdraw the funds in retirement, those withdrawals are taxed as ordinary income.",
+            "verdict": "yes",
+            "reason": "The context clarifies that traditional 401(k) withdrawals are taxed as income in retirement."
+          },
+          {
+            "statement": "In contrast, Roth 401(k) contributions are made with after-tax dollars, so they do not reduce your taxable income in the contribution year.",
+            "verdict": "yes",
+            "reason": "The context explains that Roth contributions are not subtracted from taxable income in the contribution year."
+          },
+          {
+            "statement": "However, qualified withdrawals in retirement are tax-free, including any earnings.",
+            "verdict": "yes",
+            "reason": "The context states that Roth withdrawals (including gains) are not taxed in retirement."
+          },
+          {
+            "statement": "The tax treatment of withdrawals also depends on your income level and tax bracket during retirement.",
+            "verdict": "yes",
+            "reason": "The context notes that withdrawal amounts determine tax brackets in retirement, affecting tax rates."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly defines an IRA as an Individual Retirement Account and explains the tax advantages, distinguishing between traditional and Roth IRAs. It accurately describes the tax treatment of contributions and withdrawals for both types, aligning with the document and reference answer. However, it omits key details from the document, such as the income limits for Roth IRA contr",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "An IRA (Individual Retirement Account) is a type of investment account designed to help individuals save for retirement.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IRA is a tax-deferred account for retirement savings."
+          },
+          {
+            "statement": "It offers tax advantages, such as deferring taxes on contributions and earnings until withdrawal.",
+            "verdict": "yes",
+            "reason": "The context explains that IRA is tax-deferred, with taxes paid upon withdrawal."
+          },
+          {
+            "statement": "There are different types of IRAs, including traditional and Roth IRAs, each with distinct tax treatment.",
+            "verdict": "yes",
+            "reason": "The context discusses traditional and Roth IRAs with differing tax treatments (ordinary rates vs. 0% qualified withdrawals)."
+          },
+          {
+            "statement": "Traditional IRAs allow for tax-deductible contributions.",
+            "verdict": "yes",
+            "reason": "The context mentions that contributions to a traditional IRA can be deducted with limitations."
+          },
+          {
+            "statement": "Roth IRAs require taxes to be paid upfront but offer tax-free withdrawals in retirement.",
+            "verdict": "yes",
+            "reason": "The context states Roth contributions are taxed upfront, and qualified withdrawals are tax-free."
+          },
+          {
+            "statement": "IRAs are distinct from 401(k)s, which are employer-sponsored retirement plans.",
+            "verdict": "yes",
+            "reason": "The context clarifies that 401(k)s are employer-sponsored, while IRAs are individual accounts."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.750, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly references the example of adjusting 401(k) contributions mid-year (e.g., recalculating withholdings for bonuses or salary changes). The document explicitly supports the possibility of mid-year adjustments, and the assistant aligns with this by stating that such changes are typically allowed, though dependent on employer plan r",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.8181818181818181,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Yes, you can typically adjust your 401k contributions mid-year if your financial situation changes.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the author routinely adjusts contributions mid-year based on salary changes and bonuses, confirming mid-year adjustments are possible."
+          },
+          {
+            "statement": "Some individuals adjust their contributions throughout the year, such as recalculating withholdings based on salary changes or bonuses.",
+            "verdict": "yes",
+            "reason": "The author describes recalculating withholdings at the start of the year and re-adjusting after bonuses, directly supporting this statement."
+          },
+          {
+            "statement": "The ability to make such adjustments may depend on your employer's specific plan rules.",
+            "verdict": "yes",
+            "reason": "The context mentions the employer's website forces two separate contributions (regular and catch-up), implying plan rules influence the process, though adjustments are still possible."
+          },
+          {
+            "statement": "It is advisable to review your plan's documentation or consult with your employer's HR department to confirm the flexibility available for mid-year contributions.",
+            "verdict": "no",
+            "reason": "The context does not mention reviewing documentation or consulting HR, nor does it provide advice on verifying plan flexibility through these channels."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 10649,
+    "completion_tokens": 9523,
+    "total_tokens": 20172,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 16,
+    "reasoning_tokens": 8218,
+    "reasoning_budget_verified_calls": 16
+  },
+  "elapsed_seconds": 306.977
+}

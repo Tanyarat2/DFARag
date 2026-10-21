@@ -1,0 +1,239 @@
+{
+  "version": 1,
+  "fingerprint": "b81afa04d1fc6065a71b8309ad1f5cbfef5a24f0e5cedbf8255a6da00cb2d20d",
+  "id": "4a8369b7403e54df94d7fa495a4eff27",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer accurately explains the core aspects of pre-market trading, including the time frame (4:00 AM–9:30 AM ET), the restriction to limit orders due to low liquidity, and the role of brokers in restricting market orders. It also mentions price volatility at market open and the presence of active buyers/sellers. However, it omits two key details from the reference answer and docume",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Pre-market trading occurs outside of regular market hours, typically from 4:00 AM to 9:30 AM ET, and involves a smaller pool of investors.",
+            "verdict": "yes",
+            "reason": "The context specifies pre-market trading hours as 4:00 a.m. to 9:30 a.m. and mentions a smaller pool of investors during these times."
+          },
+          {
+            "statement": "During this time, trades are executed based on limit orders due to lower liquidity, and prices can fluctuate significantly when the market opens.",
+            "verdict": "yes",
+            "reason": "The context explains that limit orders are used during pre-market due to low liquidity and notes price jumps when the market opens."
+          },
+          {
+            "statement": "Brokers may restrict certain order types, like market orders, during pre-market hours to prevent unfavorable executions.",
+            "verdict": "yes",
+            "reason": "The context states brokers disallow market orders during pre-market to avoid poor execution prices."
+          },
+          {
+            "statement": "Pre-market trading is active with actual buyers and sellers, and prices are determined by order matching.",
+            "verdict": "yes",
+            "reason": "The context confirms pre-market is an active market with buyers and sellers, and prices are set through order matching."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer accurately distinguishes between limit and market orders, aligning with the document's core explanations. It correctly highlights the trade-off between price certainty (limit orders) and execution certainty (market orders), as well as their use cases in different market conditions. The answer is faithful to the document, as it avoids introducing contradictory information and",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "A limit order allows you to set a specific price at which you want to buy or sell a security, ensuring you don't pay more (for a buy) or receive less (for a sell) than your specified price.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that limit orders allow setting a specific price and control over execution price."
+          },
+          {
+            "statement": "However, there is no guarantee the order will execute.",
+            "verdict": "yes",
+            "reason": "The context mentions the downside of limit orders is the price may never hit the limit, implying no guarantee of execution."
+          },
+          {
+            "statement": "In contrast, a market order guarantees execution at the current market price, which can vary depending on the security's liquidity and volatility.",
+            "verdict": "yes",
+            "reason": "The context states market orders guarantee execution and notes that realized price depends on liquidity and volatility."
+          },
+          {
+            "statement": "Market orders prioritize speed and certainty of execution, while limit orders prioritize price control.",
+            "verdict": "yes",
+            "reason": "The context describes market orders as prioritizing execution certainty and limit orders as prioritizing price certainty."
+          },
+          {
+            "statement": "The choice between the two depends on your trading strategy and market conditions.",
+            "verdict": "yes",
+            "reason": "The context concludes that the best tool depends on circumstances, including strategy and market conditions."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and previous conversation, as it correctly identifies the two primary methods for US-based investors to trade in foreign markets: using a US broker with international access (e.g., for major exchanges like the Toronto or London Stock Exchanges) and opening a local account in the target country for less popular markets. The document support",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "If you're in the US and want to buy or sell on foreign markets, you can use a US-based broker that offers access to international markets.",
+            "verdict": "yes",
+            "reason": "The context states that some large US brokers have access to foreign exchanges like the Toronto Stock Exchange and London Stock Exchange."
+          },
+          {
+            "statement": "Some brokers provide trading access to foreign exchanges like the Toronto Stock Exchange or London Stock Exchange.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Toronto Stock Exchange and London Stock Exchange as examples of foreign exchanges accessible through some US brokers."
+          },
+          {
+            "statement": "However, for less popular foreign markets, you may need to open an account with a broker in that specific country.",
+            "verdict": "yes",
+            "reason": "The context notes that for less popular foreign markets, brokers typically cannot support trades and you must open an account with a local broker in that country."
+          },
+          {
+            "statement": "Additionally, you may need to consider tax implications, as capital gains from foreign investments are subject to US taxes.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that US tax residents must report capital gains (including foreign investments) on their Schedule D and pay taxes accordingly."
+          },
+          {
+            "statement": "You can also use international wire transfers to facilitate transactions with foreign sellers, but be aware of potential import or tax obligations in your home country.",
+            "verdict": "yes",
+            "reason": "The context describes international wire transfers as a common method for such transactions and mentions import taxes in India as an example of home-country obligations."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies key barriers to a global market, such as regulatory, currency, and structural differences. However, it lacks the specific details from the reference answer (e.g., local currency preferences, cross-currency complexities) and the document (e.g., broker access to foreign markets, examples like Interactive Brokers). While the answer is relevant and addresses",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "A global market is not feasible due to differences in regulations, currencies, political systems, and economic structures across countries.",
+            "verdict": "yes",
+            "reason": "The context implies that a global market is not feasible in the current situation, citing the need for political will and a global market capable of supporting it, which aligns with the mentioned factors."
+          },
+          {
+            "statement": "These factors create barriers to uniformity, making it complex to establish a single unified market.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that in the current situation, a global market is not feasible, suggesting that existing factors (like those mentioned) create barriers to uniformity."
+          },
+          {
+            "statement": "The current financial systems are fragmented, with each country having its own exchanges and rules.",
+            "verdict": "yes",
+            "reason": "The context describes the US market as having one unified market with different exchanges, while foreign markets require separate brokers, indicating fragmentation in global systems."
+          },
+          {
+            "statement": "Some platforms allow US investors to access foreign markets, but this is not a single, unified global market.",
+            "verdict": "yes",
+            "reason": "The context mentions Interactive Brokers offering access to multiple foreign markets but notes that many brokers do not support all foreign exchanges, confirming the lack of a unified market."
+          },
+          {
+            "statement": "The existence of multiple markets is a result of these complexities.",
+            "verdict": "yes",
+            "reason": "The context discusses complexities like differing regulations and the need for local brokers, which directly explain the existence of multiple, fragmented markets."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's concern about the complexity of financial markets leading to poor retail investor performance by highlighting pre-market/after-market trading and order type challenges. It correctly references lower liquidity and the use of limit orders during these periods, which aligns with the document and previous conversation. However, it omits key factors from the ",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Retail investors perceive financial markets as complex because of pre-market and after-market trading, which have lower liquidity and various order types such as limit orders.",
+            "verdict": "yes",
+            "reason": "The context explains that pre-market and after-market trading have lower liquidity and restrict the use of market orders, requiring limit orders instead. This complexity in order types and liquidity conditions supports the statement."
+          },
+          {
+            "statement": "The complexities of financial markets make it challenging for retail investors to execute trades at their desired prices, exacerbating their difficulties.",
+            "verdict": "yes",
+            "reason": "The context highlights that lower liquidity in pre/post-market can lead to trades filling at unfavorable prices if market orders are used. It also notes that market orders now execute against the best available limit orders, which may not align with investors' desired prices, supporting the statement."
+          },
+          {
+            "statement": "Gaining an understanding of these market mechanisms can enhance retail investors' trading strategies.",
+            "verdict": "yes",
+            "reason": "The context provides detailed explanations of pre/post-market mechanics, order types, and broker-specific settings (e.g., 'Day' vs. 'Ext'). Understanding these mechanisms would allow investors to make informed decisions, aligning with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 14721,
+    "completion_tokens": 11289,
+    "total_tokens": 26010,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 20,
+    "reasoning_tokens": 10832,
+    "reasoning_budget_verified_calls": 20
+  },
+  "elapsed_seconds": 415.352
+}

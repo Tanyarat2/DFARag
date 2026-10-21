@@ -1,0 +1,462 @@
+{
+  "version": 1,
+  "fingerprint": "7feed29daa3a077dc5a7dd83caae7df9bf3ddb2ebd783e442a430a80d5333787",
+  "id": "13a398b30067d58d179fa8cbc2592449",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the western mountainous region, particularly Mount Mitchell, as the area with the most snow in North Carolina, aligning with the documents. It mentions the elevation and cold air influence, which are key factors. However, it omits specific examples from the documents, such as the 1993 Storm of the Century (36 inches at Newfound Gap, 4 feet at Mount Mitch",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The western mountainous region of North Carolina, especially around Mount Mitchell, receives the highest snowfall in the state.",
+            "verdict": "yes",
+            "reason": "The context states that the western mountains act as a barrier, and specific examples like the 1993 Storm of the Century show Mount Mitchell receiving over 4 feet of snow, while coastal areas average less than 2 inches."
+          },
+          {
+            "statement": "The significant snowfall in this region is attributed to its high elevation and the impact of northern cold air masses.",
+            "verdict": "yes",
+            "reason": "The context mentions elevation as the primary factor for temperature changes and notes Arctic high pressure systems and polar outbreaks affecting the mountains, supporting the role of elevation and cold air masses."
+          },
+          {
+            "statement": "North Carolina's average annual snowfall is about 5 inches, but mountainous areas can receive significantly more, with some storms depositing over 18 inches in typically warm regions.",
+            "verdict": "yes",
+            "reason": "The context confirms the state average of 5 inches and highlights the 1993 Storm of the Century, where storms deposited 18+ inches in normally warm areas like Newfound Gap."
+          },
+          {
+            "statement": "Mount Mitchell, being the highest point in eastern North America, is renowned for its heavy snowfall, although annual snow amounts can vary.",
+            "verdict": "yes",
+            "reason": "The context identifies Mount Mitchell as the highest point east of the Mississippi and notes its record snowfall during the 1993 storm, with variation implied by the example of extreme snowfall in a specific event."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.686 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the documents and the previous conversation. It accurately reflects the high summer temperatures, the cooler conditions in mountainous areas, and the risks of severe weather including hurricanes and thunderstorms. The mention of recreational activities like golf and outdoor pursuits aligns with the documents' content. However, the assistant's assertion",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6857142857142856,
+        "conditioned_score": 0.6857142857142856,
+        "statements": [
+          {
+            "statement": "North Carolina's summer months are characterized by high temperatures, with some areas experiencing hot and humid conditions.",
+            "verdict": "no",
+            "reason": "The context mentions high summer temperatures and hotter summers in the Piedmont region, but does not explicitly state that conditions are humid."
+          },
+          {
+            "statement": "While the coastal regions have milder summers, the Piedmont and mountainous areas can have cooler temperatures, especially at higher elevations.",
+            "verdict": "no",
+            "reason": "The context states the Piedmont has hotter summers than the coast, contradicting the claim that the Piedmont has cooler temperatures. Mountainous areas are colder at high elevations."
+          },
+          {
+            "statement": "Severe weather, including thunderstorms, hurricanes, and tropical storms, is common during the summer, which can lead to significant economic losses.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions severe thunderstorms, hurricanes, and tropical cyclones causing economic losses in summer."
+          },
+          {
+            "statement": "However, summers also offer recreational opportunities such as golf, swimming, and outdoor activities.",
+            "verdict": "yes",
+            "reason": "The context details golf tournaments, swimming at beaches, and various outdoor activities available in summer."
+          },
+          {
+            "statement": "Overall, the summer months in North Carolina can be enjoyable for those who appreciate warm weather and outdoor pursuits, though they may also bring challenges like severe weather.",
+            "verdict": "yes",
+            "reason": "The context supports both the recreational opportunities and the presence of severe weather in summer."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents and previous conversation, accurately stating that North Carolina experiences significant hurricanes during the summer months, with the Atlantic hurricane season (June 1–November 30) and peak activity from late August to September. It correctly lists notable hurricanes (Fran, Floyd, Hazel) and aligns with the document's mention of their impacts. ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "North Carolina can experience a significant number of hurricanes during the summer months.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that North Carolina experiences hurricanes in the summer and lists specific examples like Hurricane Fran, Floyd, Hazel, and Isabel."
+          },
+          {
+            "statement": "The Atlantic hurricane season runs from June 1 to November 30, with the peak activity occurring from late August through September.",
+            "verdict": "yes",
+            "reason": "The context under 'Atlantic hurricane season' directly states the season dates and peak activity period."
+          },
+          {
+            "statement": "North Carolina is particularly vulnerable to hurricanes during this time, as many hurricanes form in the Atlantic and move up the eastern coast of the United States.",
+            "verdict": "yes",
+            "reason": "The context mentions North Carolina's location along the Atlantic Coast and that hurricanes from the Caribbean move up the eastern U.S. coast, implying vulnerability."
+          },
+          {
+            "statement": "Notable hurricanes that have impacted North Carolina include Hurricane Fran, Hurricane Floyd, and Hurricane Hazel, with the latter being the strongest storm to make landfall in the state.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists these hurricanes and specifies that Hurricane Hazel was the strongest storm to make landfall in North Carolina as a Category 4 in 1954."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents and previous conversation, accurately capturing key points about spring and fall in North Carolina. It correctly notes spring tornado activity (March/April), temperature patterns (Piedmont warm days/cool nights, cooler mountains, warmer coast), low spring humidity, and fall's rapid temperature changes (October/November) and Appalachian fall folia",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Spring in North Carolina is known for tornado activity with major outbreaks occurring in March and April.",
+            "verdict": "yes",
+            "reason": "The context states that tornadoes are most likely in spring and mentions major outbreaks on March 28, 1984, and April 16, 2011."
+          },
+          {
+            "statement": "Spring in North Carolina experiences warm days and cool nights in the Piedmont region.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions warm days and cool nights in the Piedmont during spring."
+          },
+          {
+            "statement": "Spring temperatures in North Carolina are cooler in the mountains and warmer near the coast.",
+            "verdict": "yes",
+            "reason": "The context states that temperatures are cooler in the mountains and warmer, particularly at night, near the coast during spring."
+          },
+          {
+            "statement": "Humidity is lowest during spring in North Carolina.",
+            "verdict": "yes",
+            "reason": "The context directly states that North Carolina's humidity is lowest in spring."
+          },
+          {
+            "statement": "Fall in North Carolina is marked by rapidly changing temperatures in October and November.",
+            "verdict": "yes",
+            "reason": "The context specifies that fall is the most rapidly changing season temperature-wise, especially in October and November."
+          },
+          {
+            "statement": "Fall in North Carolina is a popular time for viewing fall colors in the Appalachian Mountains.",
+            "verdict": "yes",
+            "reason": "The context mentions that the Appalachian Mountains are frequently visited in fall due to leaves changing color."
+          },
+          {
+            "statement": "Tropical cyclones can still pose a threat during fall in North Carolina.",
+            "verdict": "yes",
+            "reason": "The context states that tropical cyclones remain a threat until late in the fall season."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is accurate and relevant to the question about the Appalachian Mountains in North Carolina, but it lacks some key details present in the reference answer and documents. The assistant correctly identifies the subranges (Great Smoky Mountains, Blue Ridge Mountains, Black Mountains), highlights Mount Mitchell as the highest point east of the Mississippi, and mentions tourist at",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The Appalachian Mountains in North Carolina are part of the state's western region.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the western section of the state is part of the Appalachian Mountain range."
+          },
+          {
+            "statement": "The Appalachian Mountains in North Carolina include subranges such as the Great Smoky Mountains, Blue Ridge Mountains, and Black Mountains.",
+            "verdict": "yes",
+            "reason": "The context lists these subranges as part of the Appalachians in North Carolina."
+          },
+          {
+            "statement": "The Black Mountains are the highest in the eastern United States.",
+            "verdict": "yes",
+            "reason": "The context confirms the Black Mountains are the highest in the eastern U.S."
+          },
+          {
+            "statement": "Mount Mitchell at 6,684 feet (2,037 m) is the highest point east of the Mississippi River.",
+            "verdict": "yes",
+            "reason": "The context explicitly states Mount Mitchell is the highest point east of the Mississippi River."
+          },
+          {
+            "statement": "The Appalachian Mountains are known for their scenic beauty.",
+            "verdict": "yes",
+            "reason": "The context references the scenic Blue Ridge Parkway and Great Smoky Mountains National Park as part of the Appalachians."
+          },
+          {
+            "statement": "The Appalachian Mountains attract millions of tourists annually.",
+            "verdict": "yes",
+            "reason": "The context mentions several million tourists are drawn to the western part of the state (Appalachians) each year."
+          },
+          {
+            "statement": "The Appalachian Mountains are home to popular attractions like the Blue Ridge Parkway and Great Smoky Mountains National Park.",
+            "verdict": "yes",
+            "reason": "The context directly names these attractions as part of the Appalachians in North Carolina."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer provides a concise overview of North Carolina's economy, highlighting key sectors like agriculture, manufacturing (tobacco, textiles, furniture), technology (Research Triangle Park), tourism, and service industries. It aligns with the documents and reference answer in mentioning Charlotte as a trade center, STEM growth in Raleigh-Cary, and the importance of hydroelectric pow",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "North Carolina has a diverse economy driven by various sectors such as agriculture, manufacturing, and technology.",
+            "verdict": "yes",
+            "reason": "The context mentions North Carolina's diverse economy with agriculture (beef, dairy, truck farms), manufacturing (textiles, furniture), and technology (Research Triangle Park)."
+          },
+          {
+            "statement": "The state is known for its production of tobacco, textiles, and furniture, with Charlotte serving as a major textile and trade center.",
+            "verdict": "yes",
+            "reason": "The context explicitly states North Carolina leads the nation in tobacco, textiles, and furniture, and Charlotte is a major textile and trade center."
+          },
+          {
+            "statement": "The Research Triangle Park in the Raleigh-Durham area is a significant hub for electronics and medical research.",
+            "verdict": "yes",
+            "reason": "The context describes Research Triangle Park as a major center for electronics and medical research in the Raleigh-Durham area."
+          },
+          {
+            "statement": "Additionally, the state's economy benefits from tourism, particularly in areas like the Outer Banks and the Appalachian Mountains.",
+            "verdict": "yes",
+            "reason": "The context highlights tourism as a boon for North Carolina, specifically mentioning the Outer Banks and Appalachian Mountains."
+          },
+          {
+            "statement": "North Carolina's economy has seen growth in STEM industries, with Raleigh-Cary ranking among the top metro areas for technology.",
+            "verdict": "yes",
+            "reason": "The context states that STEM industries in Raleigh-Cary grew 17.9% since 2001, placing it 5th among metro areas."
+          },
+          {
+            "statement": "The state's economy is also supported by service industries, including education, healthcare, and retail trade.",
+            "verdict": "yes",
+            "reason": "The context lists service industries such as education, healthcare, and retail trade as important to North Carolina's economy."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents, as it correctly references the Halifax Resolves, the numerical contributions to the Continental Army and militia, the regional divide between loyalists and revolutionaries, and the \"Race to the Dan\" campaign. It also aligns with the document's mention of North Carolina's role in the broader context of the Revolutionary War. However, it **mis",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "North Carolina played a role in the American Revolution, with its Provincial Congress issuing the Halifax Resolves in 1776, authorizing delegates to vote for independence.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the North Carolina Provincial Congress issued the Halifax Resolves in April 1776, authorizing delegates to vote for independence."
+          },
+          {
+            "statement": "The state contributed around 7,800 men to the Continental Army and an additional 10,000 to local militia units.",
+            "verdict": "yes",
+            "reason": "The context directly mentions 7,800 men in the Continental Army and 10,000 in local militia units under leaders like Nathanael Greene."
+          },
+          {
+            "statement": "While some Carolinians remained loyal to the British Crown, particularly in the eastern Low Country, many in the western upcountry supported independence.",
+            "verdict": "yes",
+            "reason": "The context explains that eastern North Carolina (Tidewater) had English and Highland Scots who remained loyal to Britain, while western settlers (Scots-Irish, etc.) favored independence."
+          },
+          {
+            "statement": "North Carolina's involvement included military actions, notably during the 'Race to the Dan' campaign in 1781, which contributed to the eventual American victory at Yorktown.",
+            "verdict": "yes",
+            "reason": "The context describes the 'Race to the Dan' campaign as part of the Southern campaign leading to Yorktown, with Nathanael Greene's actions in North Carolina."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the documents and addresses the key points of North Carolina's Civil War involvement. It correctly identifies the state as the last Confederate state to secede (May 20, 1861), highlights the significant troop contribution (125,000 soldiers, with 40,000 deaths, mostly from disease), and mentions key battles like Bentonville and the surrender at Bennett ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "North Carolina played a significant role in the US Civil War.",
+            "verdict": "yes",
+            "reason": "The context highlights North Carolina's large troop contributions, key battles like Bentonville, and participation in major events such as the last Confederate port falling."
+          },
+          {
+            "statement": "North Carolina was the last Confederate state to declare secession from the Union on May 20, 1861.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that North Carolina seceded on May 20, 1861, 13 days after Tennessee, making it the last Confederate state to do so."
+          },
+          {
+            "statement": "North Carolina provided the Confederacy with over 125,000 troops, more than any other state.",
+            "verdict": "yes",
+            "reason": "The context confirms that North Carolina provided at least 125,000 troops to the Confederacy, more than any other state."
+          },
+          {
+            "statement": "Approximately 40,000 North Carolinians died, mostly from disease.",
+            "verdict": "yes",
+            "reason": "The context states that 40,000 of North Carolina's troops died, with more than half from disease."
+          },
+          {
+            "statement": "Confederate troops from North Carolina participated in major battles, including the Battle of Bentonville and the surrender at Bennett Place.",
+            "verdict": "yes",
+            "reason": "The context mentions the Battle of Bentonville as the largest in North Carolina and the surrender at Bennett Place by Confederate General Johnston."
+          },
+          {
+            "statement": "Some North Carolinians supported the Union, with around 2,000 enlisting in the Union Army.",
+            "verdict": "yes",
+            "reason": "The context notes that approximately 2,000 North Carolinians from western NC enlisted in the Union Army."
+          },
+          {
+            "statement": "North Carolina saw the first Confederate soldier killed in the war.",
+            "verdict": "yes",
+            "reason": "The context identifies Private Henry Wyatt from North Carolina as the first Confederate soldier killed at the Battle of Big Bethel."
+          },
+          {
+            "statement": "North Carolina regiments participated in key battles like Gettysburg and Chickamauga.",
+            "verdict": "yes",
+            "reason": "The context specifies the 26th North Carolina Regiment at Gettysburg and the 58th North Carolina Regiment at Chickamauga."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.571 (threshold 0.80). RB_llm justification: The assistant's answer is appropriate in acknowledging the user's emotional reaction to the mention of war but fails to address the specific context of the American Civil War discussed in the previous conversation. It does not incorporate the detailed historical information from the documents, such as the Civil War's death toll, infrastructure destruction, or the Reconstruction Era. The reference ",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5714285714285714,
+        "conditioned_score": 0.5714285714285714,
+        "statements": [
+          {
+            "statement": "The user's statement 'I see. What a terrible war!' reflects a general sentiment about the horrors and devastation of war, particularly referencing the American Civil War, which was one of the deadliest conflicts in American history with significant loss of life and destruction.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the American Civil War was the deadliest in American history with 620,000 to 750,000 deaths and significant destruction, aligning with the sentiment expressed in the user's statement."
+          },
+          {
+            "statement": "The specific reference to 'terrible war' without further context could apply to major wars like World War I or World War II, which also had immense human and societal costs.",
+            "verdict": "yes",
+            "reason": "The context provides detailed information about the catastrophic human and societal costs of World War I and World War II, including massive casualties and global devastation, making the statement valid."
+          },
+          {
+            "statement": "The retrieved evidence highlights the American Civil War's impact, but the user's comment is more of an emotional response rather than a direct question.",
+            "verdict": "yes",
+            "reason": "The user's statement is an exclamation expressing sentiment rather than a direct question, and the context supports the Civil War's devastating impact as described."
+          },
+          {
+            "statement": "The response should acknowledge the sentiment and provide a brief, general reflection on the nature of war.",
+            "verdict": "yes",
+            "reason": "The user's emotional comment necessitates a response that acknowledges the sentiment and offers a general reflection, which is supported by the context's emphasis on the destructive nature of major wars."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 30796,
+    "completion_tokens": 20307,
+    "total_tokens": 51103,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 17518,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 710.483
+}

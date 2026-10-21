@@ -1,0 +1,487 @@
+{
+  "version": 1,
+  "fingerprint": "f7e7764d4e4902e2be60319b282b3a176d5f569620c696d7368cd488109f1c56",
+  "id": "6a738cc02c5aa0b74319acd0e8a809dd",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the documents, as it accurately lists causes of male and female infertility present in the provided text. For male infertility, it correctly includes low semen quality, endocrine issues, drugs, radiation, infection, testicular malformations, hormone imbalance, duct blockage, primary ciliary dyskinesia, and antisperm antibodies. For female infertility, ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Male infertility is often caused by low semen quality.",
+            "verdict": "yes",
+            "reason": "The context states that the main cause of male infertility is low semen quality."
+          },
+          {
+            "statement": "Low semen quality can result from endocrine problems.",
+            "verdict": "yes",
+            "reason": "The context mentions endocrine problems as a cause of low sperm count."
+          },
+          {
+            "statement": "Low semen quality can result from drugs.",
+            "verdict": "yes",
+            "reason": "The context lists drugs as a cause of low sperm count."
+          },
+          {
+            "statement": "Low semen quality can result from radiation.",
+            "verdict": "yes",
+            "reason": "The context explicitly states radiation as a cause of low sperm count."
+          },
+          {
+            "statement": "Low semen quality can result from infection.",
+            "verdict": "yes",
+            "reason": "The context identifies infection as a cause of low sperm count."
+          },
+          {
+            "statement": "Low semen quality can result from testicular malformations.",
+            "verdict": "yes",
+            "reason": "The context mentions testicular malformations as a cause of male infertility."
+          },
+          {
+            "statement": "Low semen quality can result from hormone imbalance.",
+            "verdict": "yes",
+            "reason": "The context states hormone imbalance is a cause of male infertility."
+          },
+          {
+            "statement": "Low semen quality can result from blockage of the duct system.",
+            "verdict": "yes",
+            "reason": "The context specifies blockage of the man's duct system as a cause."
+          },
+          {
+            "statement": "Immotile sperm may be due to primary ciliary dyskinesia.",
+            "verdict": "yes",
+            "reason": "The context directly links immotile sperm to primary ciliary dyskinesia."
+          },
+          {
+            "statement": "Antisperm antibodies can also cause infertility.",
+            "verdict": "yes",
+            "reason": "The context explicitly states antisperm antibodies cause immune infertility."
+          },
+          {
+            "statement": "Female infertility is commonly due to ovulatory problems.",
+            "verdict": "yes",
+            "reason": "The context identifies ovulatory problems as the most common cause of female infertility."
+          },
+          {
+            "statement": "Female infertility is commonly due to tubal blockage.",
+            "verdict": "yes",
+            "reason": "The context lists tubal blockage as a structural cause of female infertility."
+          },
+          {
+            "statement": "Female infertility is commonly due to pelvic inflammatory disease.",
+            "verdict": "yes",
+            "reason": "The context mentions pelvic inflammatory disease as a cause of female infertility."
+          },
+          {
+            "statement": "Female infertility is commonly due to endometriosis.",
+            "verdict": "yes",
+            "reason": "The context states endometriosis can cause female infertility."
+          },
+          {
+            "statement": "Female infertility is commonly due to uterine issues.",
+            "verdict": "yes",
+            "reason": "The context specifies structural problems in the uterus as a cause of female infertility."
+          },
+          {
+            "statement": "Female infertility is commonly due to age-related factors.",
+            "verdict": "yes",
+            "reason": "The context includes age-related factors as a cause of female infertility."
+          },
+          {
+            "statement": "Combined problems in both partners account for a significant portion of infertility cases.",
+            "verdict": "yes",
+            "reason": "The context states 25-40% of cases involve combined problems in both partners."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.667, IDK=0.5, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer acknowledges that the documents do not provide specific information about the duration of the adoption process, which aligns with the reference answer. However, the assistant adds general knowledge (e.g., \"several months to a few years\") not present in the provided documents. This introduces inaccuracies in terms of faithfulness, as the documents focus on legal aspects of st",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.5,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.5714285714285714,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The adoption process typically takes several months to a few years, depending on the circumstances and the specific adoption type.",
+            "verdict": "no",
+            "reason": "The context does not mention the duration of the adoption process."
+          },
+          {
+            "statement": "The retrieved evidence does not provide specific information about the duration of the adoption process.",
+            "verdict": "yes",
+            "reason": "The context does not include any details about the time required for adoption."
+          },
+          {
+            "statement": "Therefore, I do not have specific information to answer how many years the adoption process typically takes.",
+            "verdict": "yes",
+            "reason": "The context lacks information about the duration of the adoption process."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=1.0, answerability=PARTIAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, as they correctly state that there is no information on regional differences in infertility causes or treatment. The reference answer adds a point about the lack of uniformity in infertility definitions, which is not present in the provided documents. Since the assistant cannot infer or add information beyond the documents, their response is acc",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "PARTIAL",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The retrieved evidence does not provide specific information about regional differences in infertility causes.",
+            "verdict": "yes",
+            "reason": "The context discusses general causes of infertility (e.g., Fallopian tube blockage, endometriosis, low sperm count) but does not mention regional variations or differences in causes across geographic areas."
+          },
+          {
+            "statement": "The retrieved evidence does not provide specific information about regional differences in infertility treatment.",
+            "verdict": "yes",
+            "reason": "The context outlines treatment methods (e.g., IVF, hormonal drugs) and mentions ESHRE recommendations, but does not address regional disparities in treatment availability, practices, or outcomes."
+          },
+          {
+            "statement": "Therefore, I do not have specific information to answer the question about regional differences.",
+            "verdict": "yes",
+            "reason": "Since the context provides no data on regional variations in causes or treatments, there is insufficient evidence to address regional differences in infertility."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.636, IDK=1.0, answerability=PARTIAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents and the reference answer. It correctly notes that while chemotherapy can damage germ cells (as mentioned in the \"Cell cycle\" document), the specific impact on pre-pubescent fertility is not well-documented. The assistant also aligns with the reference by acknowledging the general effect of chemotherapy on fertility but clarifies the lack of direc",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6363636363636364,
+        "idk": 1.0,
+        "answerability": "PARTIAL",
+        "phi": 0.7455621301775147,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Chemotherapy can affect fertility.",
+            "verdict": "yes",
+            "reason": "The context states that chemotherapy targets cells undergoing the cell cycle, which includes germ cells involved in fertility."
+          },
+          {
+            "statement": "The impact of chemotherapy on individuals before puberty is less direct.",
+            "verdict": "no",
+            "reason": "The context does not provide information about the impact of chemotherapy on pre-pubescent individuals."
+          },
+          {
+            "statement": "The reproductive systems of both males and females are still developing before puberty.",
+            "verdict": "yes",
+            "reason": "The context indicates that primary sex characteristics in females develop during adolescence, implying ongoing development before puberty. For males, testosterone effects before puberty suggest ongoing development."
+          },
+          {
+            "statement": "Fertility is not yet established in pre-pubescent individuals.",
+            "verdict": "yes",
+            "reason": "The context states that females are not fully fertile until several years after menarche, and males' fertility is tied to testes development during/after puberty, which occurs post-puberty."
+          },
+          {
+            "statement": "In females, fertility typically begins after menarche.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that regular ovulation follows menarche by about two years, indicating fertility begins after menarche."
+          },
+          {
+            "statement": "Menarche occurs several years after puberty.",
+            "verdict": "no",
+            "reason": "The context describes menarche as a late development in adolescence but does not state it occurs after puberty; it is part of puberty."
+          },
+          {
+            "statement": "In males, fertility is closely tied to the development of the testes and the production of sperm.",
+            "verdict": "yes",
+            "reason": "The context under testosterone mentions effects before puberty, but fertility in males is established with testes development and sperm production during/after puberty."
+          },
+          {
+            "statement": "The development of the testes and the production of sperm in males occurs during and after puberty.",
+            "verdict": "yes",
+            "reason": "The context under testosterone notes effects before puberty, but actual sperm production occurs during/after puberty, aligning with testes development."
+          },
+          {
+            "statement": "Chemotherapy targets rapidly dividing cells, which can include germ cells.",
+            "verdict": "yes",
+            "reason": "The context states chemotherapy targets cells in the cell cycle, and germ cells are rapidly dividing, thus potentially affected."
+          },
+          {
+            "statement": "The extent of chemotherapy's impact on pre-pubescent fertility is not well-documented.",
+            "verdict": "no",
+            "reason": "The context does not address the impact of chemotherapy on pre-pubescent fertility."
+          },
+          {
+            "statement": "The effect of chemotherapy on fertility in individuals before puberty remains unclear.",
+            "verdict": "no",
+            "reason": "The context does not provide information on chemotherapy's effects on pre-pubescent fertility."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=1/10, RL_F=1.000, IDK=0.0, answerability=PARTIAL -> conditioned score 0.182 (threshold 0.80). RB_llm justification: The assistant's answer is entirely unrelated to the user's question about fertility preservation in the context of chemotherapy, as discussed in the previous conversation. The response suggests ideas about mind maps, LinkedIn in education, and daycare, which are not relevant to the topic of fertility preservation. The reference answer, in contrast, directly addresses the user's question by discuss",
+      "scores": {
+        "RB_llm": 1.0,
+        "RB_llm_norm": 0.1,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.18181818181818182,
+        "conditioned_score": 0.18181818181818182,
+        "statements": [
+          {
+            "statement": "Using mind maps for note-taking is a good idea.",
+            "verdict": "yes",
+            "reason": "The context states that mind maps are a core practice of accelerated learning techniques and are commonly used by visual learners to visualize information more easily."
+          },
+          {
+            "statement": "Incorporating LinkedIn into classroom activities for resume and interview skills is a good idea.",
+            "verdict": "yes",
+            "reason": "The context highlights that LinkedIn integration helps students network, build resumes, and develop interviewing skills, which are critical for job applications."
+          },
+          {
+            "statement": "Utilizing good daycare for early childhood education is a good idea.",
+            "verdict": "yes",
+            "reason": "The context mentions that good daycare ensures adequate early childhood education for less skilled parents and provides cognitive and language benefits for children."
+          },
+          {
+            "statement": "These methods can enhance learning, networking, and child development.",
+            "verdict": "yes",
+            "reason": "The context collectively supports mind maps for learning, LinkedIn for networking, and good daycare for child development, aligning with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the provided documents, as it correctly notes that there is no direct information linking chemotherapy-induced infertility to hereditary factors. The documents mention genetic causes of infertility (e.g., immunological or genetic factors) and hereditary cancer risks (e.g., BRCA1 mutations), but they do not establish a connection between chemotherapy and heredi",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The relationship between chemotherapy and infertility being hereditary is not directly addressed in the retrieved evidence.",
+            "verdict": "yes",
+            "reason": "The context does not mention chemotherapy in relation to infertility or hereditary factors."
+          },
+          {
+            "statement": "While some causes of infertility can be genetic, the evidence does not specifically link chemotherapy-induced infertility to hereditary factors.",
+            "verdict": "yes",
+            "reason": "The context discusses genetic causes of infertility (e.g., BRCA1 mutations) but does not mention chemotherapy-induced infertility or its hereditary nature."
+          },
+          {
+            "statement": "There is no specific information to confirm or deny if chemotherapy and infertility are hereditary.",
+            "verdict": "yes",
+            "reason": "The context does not provide evidence about chemotherapy's role in infertility or its hereditary aspects."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.500, IDK=0.0, answerability=PARTIAL -> conditioned score 0.643 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the late 1970s as the timeframe for the development of in vitro fertilization (IVF) and specifies the first successful IVF birth in 1978. This aligns with widely accepted historical knowledge, even though the provided documents do not explicitly mention the exact dates. The assistant's response is **faithful** to the general context of IVF as described i",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.6428571428571428,
+        "conditioned_score": 0.6428571428571428,
+        "statements": [
+          {
+            "statement": "In vitro fertilization (IVF) was developed in the late 1970s.",
+            "verdict": "no",
+            "reason": "The context does not mention the specific time period when IVF was developed."
+          },
+          {
+            "statement": "The first successful IVF birth occurred in 1978, marking a significant milestone in reproductive medicine.",
+            "verdict": "no",
+            "reason": "The context does not provide information about the date of the first successful IVF birth."
+          },
+          {
+            "statement": "This breakthrough allowed for the fertilization of an egg outside the body, which is then transferred to the woman's uterus for implantation.",
+            "verdict": "yes",
+            "reason": "The context explicitly describes IVF as involving fertilization outside the body and embryo transfer into the reproductive tract."
+          },
+          {
+            "statement": "The development of IVF has since evolved, with related techniques such as intracytoplasmic sperm injection (ICSI) and egg donation further enhancing its applications.",
+            "verdict": "yes",
+            "reason": "The context mentions ICSI and egg donation as ART techniques that evolved alongside IVF."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the business aspect of egg donation by mentioning economic factors, donor selection criteria, and monetary compensation (up to $4,000). It also touches on altruistic motivations and legal agreements, aligning with the documents' emphasis on donor traits, motivations, and the role of agencies. However, the answer lacks specific regional compensation caps (e.g., EU’s",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Egg donation is considered a business due to the involvement of agencies and the economic mindset required to operate in the industry.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that companies in the egg donation industry operate with an economical mindset and rely on matches between recipients and donors to generate profit."
+          },
+          {
+            "statement": "Donors are often selected based on their fertility, attractiveness, health, and education, making them marketable.",
+            "verdict": "yes",
+            "reason": "The context lists fertility (proven donors), attractiveness, health, and education as the four key criteria for sought-after donors, directly linking these traits to marketability."
+          },
+          {
+            "statement": "Some donors are motivated by monetary compensation, with some earning up to $4,000 per donation.",
+            "verdict": "yes",
+            "reason": "The context cites a survey showing 20% of donors were motivated solely by money and 40% by both altruism and money, with an average payment of $4,000 per donation."
+          },
+          {
+            "statement": "The business aspect of egg donation is not solely profit-driven, as altruistic motivations also play a role.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 30% of donors were motivated by altruism alone and 40% by both altruism and money, confirming non-profit-driven motivations."
+          },
+          {
+            "statement": "The egg donation process involves legal agreements and is part of assisted reproductive technology.",
+            "verdict": "yes",
+            "reason": "The context mentions formal legal documents finalizing egg donation and explicitly states that egg donation is part of assisted reproductive technology (ART)."
+          },
+          {
+            "statement": "While egg donation can be a viable business, it is also a complex and ethical endeavor.",
+            "verdict": "yes",
+            "reason": "The context discusses economic motivations, legal agreements, and ethical implications (e.g., potential future donor-recipient contact via DNA databases), implying complexity and ethical considerations."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.683 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the user's question about whether egg donation is organized rather than individually contracted. It accurately states that legal documents finalize the donation at retrieval and that ongoing contact is optional, aligning with the documents' emphasis on the finality of the process and the role of contracts. The assistant also notes that donors are part of ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6829268292682926,
+        "conditioned_score": 0.6829268292682926,
+        "statements": [
+          {
+            "statement": "Egg donors and recipients usually do not maintain a relationship post-donation.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'in more cases than not, there is no ongoing relationship between the donor and recipient following the cycle.'"
+          },
+          {
+            "statement": "Legal agreements confirm the donation's finality at retrieval, with any further contact being optional and contractually negotiated.",
+            "verdict": "yes",
+            "reason": "The context mentions that legal documents specify the donation is final at retrieval and that continued contact can be negotiated in the contract."
+          },
+          {
+            "statement": "Egg donors typically work through organized systems or agencies rather than direct individual contracts with recipients.",
+            "verdict": "no",
+            "reason": "While the context discusses agencies and their role in recruiting and screening, it does not explicitly state that donors avoid direct contracts with recipients, only that contracts are legally drafted (often by attorneys)."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 23975,
+    "completion_tokens": 32299,
+    "total_tokens": 56274,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 37,
+    "reasoning_tokens": 34002,
+    "reasoning_budget_verified_calls": 37
+  },
+  "elapsed_seconds": 667.873
+}

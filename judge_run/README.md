@@ -25,9 +25,14 @@ Choose a new name for each experiment. Existing inputs and results remain under
 `convos_selfrag_q3_32b`, and `convos_raptor_q3_32b`; the similarly named
 `conversation_vector_*` folders contain earlier pilot runs.
 
-The supplied Vector and SelfRAG export files are byte-identical and both identify
-the backend as `selfrag`. Retain both original files, and verify provenance before
-treating them as separate RAG conditions.
+The corrected Vector source merged from upstream commit `df49376` identifies its
+backend as `vector`. The earlier Vector file was a duplicate SelfRAG export, and
+`runs/convos_vector_q3_32b/input.json` still records that earlier `selfrag` input.
+Its completed judgments and annotations are historical results, not evaluations
+of the corrected Vector answers. Keep them and use a new run name (such as
+`vector_corrected_q3_32b`) for the current Vector source. The recovery queue rejects
+an existing run whose input differs from the current source; do not overwrite its
+input to bypass that check.
 
 ### Imported HippoRAG2 run
 

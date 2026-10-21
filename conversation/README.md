@@ -3,8 +3,11 @@
 `conversation_vector.json`, `conversation_selfrag.json`, `conversation_raptor.json`,
 and `conversation_hipporag.json` use the same `conversations` / `turns` export schema.
 Keep IDs, answers, recorded history, selected passage text and passage order intact.
-Vector and SelfRAG currently contain identical exports labelled `selfrag`; verify
-their actual backend provenance before treating them as independent conditions.
+The corrected Vector export now identifies its backend as `vector`. Before upstream
+commit `df49376`, that filename contained the same `selfrag` export as SelfRAG.
+The existing `convos_vector_q3_32b` judge run retains those earlier inputs and
+results. Use a new run name to judge the corrected Vector export; its answers and
+selected passage lists differ from the earlier source.
 
 HippoRAG2 was imported from [Tanyarat2/DFARag](https://github.com/Tanyarat2/DFARag/tree/df493766e85770cd5ea48e6592e6f69f223f1438/conversation)
 at commit `df493766e85770cd5ea48e6592e6f69f223f1438`.

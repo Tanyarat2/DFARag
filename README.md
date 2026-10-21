@@ -217,12 +217,14 @@ refinement and verification of ambiguous labels are needed before final scoring.
 
 ## Current data and implementation limits
 
-`conversation/conversation_vector.json` and `conversation/conversation_selfrag.json`
-are byte-identical in this checkout. Both record `rag_name` as **`selfrag`** despite
-the Vector filename, and record a Qwen3-8B generator. Keep these original exports
-for provenance, but verify the actual backend and index before treating the runs
-as independent RAG variants or starting live probes. Filenames alone are not backend
-provenance.
+The current `conversation/conversation_vector.json` is the corrected Vector export
+merged from upstream commit `df49376`; it identifies its backend as **`vector`**.
+The earlier export at commit `b0624c8` was identical to SelfRAG and labelled
+**`selfrag`**. The saved `judge_run/runs/convos_vector_q3_32b/input.json` and its
+completed judgments still refer to that earlier export. Preserve this completed
+work and its annotations as historical data; do not treat it as judgments of the
+corrected Vector answers. Judge the corrected export under a new run name.
+Filenames alone are not backend provenance.
 
 Current files provide questions, RAG answers, conversation history, selected context,
 and a reference evidence index. The review UI displays the question and answer above

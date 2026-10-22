@@ -32,6 +32,31 @@ first incorrect turn counts a conversation label and turns its header green.
 The compact sidebar gives conversations readable names from their first questions
 alongside the original IDs. Search by name, conversation number, ID, or question.
 
+### Run on your own Windows computer
+
+Install Python 3.10 or newer and clone this branch in a local PowerShell window:
+
+```powershell
+git clone --branch feat/annotation-guided-review https://github.com/Tanyarat2/DFARag.git
+cd DFARag
+.\START_LOCAL.bat
+```
+
+You can also double-click `START_LOCAL.bat` after opening the local repository
+folder. Keep that window open and visit <http://127.0.0.1:8765/>. Stop any existing
+VS Code forwarding of local port 8765 before starting the local server. This
+launches the annotation server on your computer and does not require SSH or a
+judge API key.
+
+For full IBM corpus search, stop the server and run `INSTALL_CORPUS.bat` once,
+then start the server again. Before installation, corpus evidence uses recorded
+conversation-passage snapshots. Full corpus indexes are downloaded and built
+locally; they are not embedded in the web page or stored in Git.
+
+Local annotations save in `judge_run/runs/<run>/annotations/<annotator>.json`.
+Export JSON for backup. Local edits and judge updates are not synchronized with
+another machine or GitHub automatically.
+
 Watch judge progress from another terminal:
 
 ```bash
@@ -116,7 +141,7 @@ taxonomy, original evidence and human reference labels stay fixed.
 
 Static coverage is an adaptation of [Xie et al.](https://arxiv.org/abs/2410.15531).
 Sequential questioning is inspired by [LLM-as-an-Interviewer](https://arxiv.org/abs/2412.10424).
-Extending these ideas to the project's six RAG failure types is the proposed
+Extending these ideas to the paper's 16 RAG error types is the proposed
 contribution, not an established improvement over B1.
 
 ## B2: sequential diagnostic follow-ups
@@ -125,7 +150,7 @@ contribution, not an established improvement over B1.
    claim, wrong entity, missing essential facet or inappropriate refusal. A low judge
    score alone does not establish a factual error, and not every gold-answer detail
    is mandatory.
-2. Keep competing hypotheses across all six categories. Do not commit to a failure
+2. Keep competing hypotheses across all 16 error types. Do not commit to a failure
    type before probing. Allow the screening decision or reference answer to be wrong.
 3. Generate one focused, non-leading question that distinguishes plausible
    explanations. Do not give the expected answer to the RAG system.
@@ -139,14 +164,25 @@ contribution, not an established improvement over B1.
 A corrected second answer demonstrates recoverability under that probe. It does
 not establish why the original answer failed. Original traces remain necessary.
 
-| Failure type | Evidence needed to support attribution |
-| --- | --- |
-| `knowledge_boundary` | Original corpus/verified conversation scope and evidence that the request was unsupported |
-| `chunking` | Original source evidence and indexed chunks showing loss of a usable evidence unit |
-| `retrieval` | Usable original indexed evidence and the original retrieved candidate pool |
-| `context_selection` | Original candidates compared with context actually supplied to generation |
-| `grounding` | Original answer compared with selected evidence and the established conversational request |
-| `response_coverage` | Essential user-request facets and available evidence omitted by a supported answer |
+The annotation taxonomy follows [Leung et al., *Classifying and Addressing the
+Diversity of Errors in Retrieval-Augmented Generation Systems*, EACL 2026](https://aclanthology.org/2026.eacl-long.147/).
+The shared codes and definitions live in
+[`annotate_server/failure_taxonomy.py`](annotate_server/failure_taxonomy.py).
+
+| Stage | Error types | Evidence needed |
+| --- | --- | --- |
+| Chunking | E1 Overchunking; E2 Underchunking; E3 Context Mismatch | Original source and indexed chunk boundaries |
+| Retrieval | E4 Missed Retrieval; E5 Low Relevance; E6 Semantic Drift | Original index and retrieved candidates |
+| Reranking | E7 Low Recall; E8 Low Precision | Original candidates, reranker output and final selected context |
+| Generation | E9 Abstention Failure; E10 Fabricated Content; E11 Parametric Overreliance; E12 Incomplete Answer; E13 Misinterpretation; E14 Contextual Misalignment; E15 Chronological Inconsistency; E16 Numerical Error | Request, answer, selected evidence and any additional evidence needed for the specific claim |
+
+The paper's human protocol chooses the earliest faulty pipeline stage and then
+one or more types within that stage. This project's conversation annotation UI
+retains selection across stages; this is an adaptation, not a reproduction of the
+paper protocol. For paper-aligned annotation, restrict choices to the earliest
+stage established by the original evidence. Reranker errors require a reranker
+and its original traces. Current conversation exports contain selected passages,
+not the pre-rerank candidate pool.
 
 Use `supported`, `ruled_out` or `unresolved` evidence statuses. A fresh retrieval
 result cannot replace missing original candidate logs. An absent selected passage
@@ -187,7 +223,9 @@ failure causes, both model outputs and evaluation must instead be consistently
 multi-label. Record unresolved evidence and false-positive screening cases explicitly.
 
 The annotation UI supports multiple failure causes per turn in `failure_types`,
-including migration of older single-cause labels. It does not infer a primary
+with stable `E1`–`E16` codes and taxonomy version `ragec-e1-e16-2026`.
+Earlier six-category labels are preserved in `legacy_failure_types`; they are
+not automatically mapped to paper errors and do not count as new-taxonomy labels. It does not infer a primary
 cause. Using these annotations in the planned single-label comparison requires
 an explicit adjudicated primary label; a multi-label evaluation must retain the
 complete selected set for both human and model predictions.
@@ -198,9 +236,9 @@ Do not confuse the **gold answer** (answer correctness), **human gold failure la
 | Metric | What to measure |
 | --- | --- |
 | Failure-type accuracy | Fraction of predictions matching the same human primary label |
-| Macro-F1 | Unweighted F1 across the six fixed failure categories; also report class support |
+| Macro-F1 | Unweighted F1 across the 16 fixed failure categories; also report class support |
 | Per-type precision/recall/F1 and confusion matrix | Which causes improve or remain confused |
-| Stage accuracy | Retrieval-side versus generation-side classification, as a secondary measure |
+| Stage accuracy | Chunking / retrieval / reranking / generation, with an explicit stage-label policy |
 | Paired uncertainty | B2-minus-B1 accuracy/F1 intervals; use conversation-cluster resampling for related turns |
 | Efficiency | Actual probes, total model calls, token use and elapsed time |
 

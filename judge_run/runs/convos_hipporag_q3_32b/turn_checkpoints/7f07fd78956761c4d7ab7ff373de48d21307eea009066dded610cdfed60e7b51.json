@@ -1,0 +1,442 @@
+{
+  "version": 1,
+  "fingerprint": "7f07fd78956761c4d7ab7ff373de48d21307eea009066dded610cdfed60e7b51",
+  "id": "d5b1e735a040853ed361a3dfde1b8ef0",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it correctly identifies IBM Cloudant as IBM's document database and accurately describes its schemaless nature and JSON storage capabilities. The answer is appropriate for the user's question, directly addressing whether IBM offers document databases and providing relevant details about Cloudant's features. It is also complete, covering key as",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "IBM offers document databases through IBM Cloudant, which is a NoSQL database-as-a-service.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IBM Cloudant is a 'document-oriented NoSQL database-as-a-service' on IBM Cloud."
+          },
+          {
+            "statement": "IBM Cloudant is described as a \"schemaless\" database, meaning you don't need to define your schema (field names, types, constraints, and relationships) ahead of time.",
+            "verdict": "yes",
+            "reason": "The context clarifies that IBM Cloudant is referred to as 'schemaless' and explicitly states that schemas do not need to be defined ahead of time."
+          },
+          {
+            "statement": "You can write JSON documents directly to the database, and the schema can evolve over time as needed.",
+            "verdict": "yes",
+            "reason": "The context confirms that JSON documents can be written directly to the database and that the schema can evolve over time without requiring changes to the database."
+          },
+          {
+            "statement": "This flexibility allows developers to design their data in their code, convert it to JSON, and store it in the database.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that developers can design data in their code, convert it to JSON, and write it to the database."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the core of the user's question by confirming that IBM Cloudant does not require predefining fields and allows storing any JSON object. However, it omits two critical caveats from the document: (1) the mandatory `_id` and `_rev` fields, and (2) the restriction on field names starting with an underscore. These omissions reduce the faithfulness and complete",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "IBM Cloudant allows storing any JSON object without predefining fields.",
+            "verdict": "yes",
+            "reason": "The context states that you don't need to define your schema (field names, types, constraints, and relationships) ahead of time and can write a JSON document of your own design."
+          },
+          {
+            "statement": "You can design your data in code, convert it to JSON, and write it directly to the database.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that developers can design their data in their code, turn it into JSON, and write it to the database."
+          },
+          {
+            "statement": "While you don't need to specify fields in advance, considering data structure is important for efficient querying and indexing.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of thinking about the shape of your data for querying and indexing, even though the schema is not predefined."
+          },
+          {
+            "statement": "Documents in IBM Cloudant can evolve over time, and multiple document types can coexist in the same database.",
+            "verdict": "yes",
+            "reason": "The context explains that the database schema can evolve by writing new documents in new formats and that multiple document types can coexist using a 'type' field convention."
+          },
+          {
+            "statement": "You don't need to specify fields in advance, but thoughtful data design is recommended for optimal performance.",
+            "verdict": "yes",
+            "reason": "The context concludes that being schemaless does not absolve you from detailed data design for performance, with specific tips on data design practices."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document and reference answer, accurately stating that IBM Cloudant supports storing images/PDFs as BASE64-encoded attachments in the `_attachments` field. It correctly recommends using external BLOB storage for larger files to avoid performance/cost issues, aligning with the document's guidance. However, the assistant's answer is less detailed than the re",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "IBM Cloudant allows storing images or PDFs as attachments alongside documents.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that attachments can include images and multimedia, and provides an example of a JPEG image stored as an attachment."
+          },
+          {
+            "statement": "To store an image or PDF, you can include it as a BASE64-encoded binary large object (BLOB) in the `_attachments` field of a document.",
+            "verdict": "yes",
+            "reason": "The context explains that inline attachments use BASE64 encoding and specifies the `_attachments` field for storing BLOBs with MIME types."
+          },
+          {
+            "statement": "For larger files or multiple attachments, it is recommended to use a separate BLOB storage solution and store only the metadata (e.g., URLs) in IBM Cloudant.",
+            "verdict": "yes",
+            "reason": "The context advises using an external BLOB storage for large images or videos and retaining only metadata (e.g., URLs) in Cloudant to avoid performance issues."
+          },
+          {
+            "statement": "This approach improves performance and reduces costs.",
+            "verdict": "yes",
+            "reason": "The context states that external BLOB storage reduces database size, cost, and replication complexity, directly linking it to performance and cost benefits."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=PARTIAL -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the 1 MB document size limit and 10 MB attachment size limit for IBM Cloudant, which aligns with the document's \"Request payload\" table. However, it introduces an additional claim about Discovery plan types allowing up to 50 MB for uploaded documents. This information is sourced from the document's \"File size limits\" section under \"Uploaded documents,\" b",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "IBM Cloudant has a maximum file size limit of 1 MB for a single document.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IBM Cloudant has a 1 MB maximum document size limit in the HTTP responses table (413: request entity too large) and under the 'Keep documents small' section."
+          },
+          {
+            "statement": "Attachments in IBM Cloudant have a size limit of 10 MB.",
+            "verdict": "yes",
+            "reason": "The 'Request payload' table in the Limits section confirms that attachments in IBM Cloudant have a 10 MB size limit."
+          },
+          {
+            "statement": "The file size limit for uploaded documents in IBM Discovery depends on the plan type.",
+            "verdict": "yes",
+            "reason": "The 'Maximum document size' table in the context shows varying file size limits for uploaded documents based on the Discovery plan type (e.g., 10 MB for Plus, 50 MB for Cloud Pak for Data and Premium)."
+          },
+          {
+            "statement": "Certain IBM Discovery plans allow a maximum file size of 50 MB for uploaded documents.",
+            "verdict": "yes",
+            "reason": "The 'Maximum document size' table confirms that Cloud Pak for Data and Premium plans allow 50 MB for uploaded documents."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.750, IDK=0.0, answerability=PARTIAL -> conditioned score 0.818 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents and previous conversation, as it correctly explains that attachments are stored as Base64-encoded data and highlights performance considerations for large files. It aligns with the document's emphasis on using external BLOB storage for better performance and cost efficiency. The answer is appropriate because it directly addresses the user's clari",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.8181818181818181,
+        "conditioned_score": 0.8181818181818181,
+        "statements": [
+          {
+            "statement": "You were asking about attachments, not documents.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that the user was asking about attachments instead of documents. It discusses attachments in the context of documents but does not confirm the user's focus."
+          },
+          {
+            "statement": "IBM Cloudant supports storing attachments alongside documents, which can include images, PDFs, and other binary files.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IBM Cloudant supports storing attachments alongside documents and lists examples like images, videos, and static assets."
+          },
+          {
+            "statement": "Attachments are stored as Base64-encoded data within the document, and you can specify the content type (e.g., image/jpeg for JPEG images).",
+            "verdict": "yes",
+            "reason": "The context provides an example of Base64-encoded data in the _attachments field and mentions specifying MIME types like image/jpeg for attachments."
+          },
+          {
+            "statement": "For large files or high-performance needs, it is recommended to use a separate BLOB storage solution and store only the metadata in IBM Cloudant.",
+            "verdict": "yes",
+            "reason": "The context advises using external BLOB storage for large files and retaining only metadata (e.g., URLs) in IBM Cloudant to avoid performance and cost issues."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document and previous conversation, accurately outlining the key steps to create an IBM Cloudant instance via the IBM Cloud Dashboard. It correctly mentions generating service credentials and referencing the \"Getting started tutorial,\" both of which are present in the document. The answer is appropriate for the user's question, addressing the main steps wi",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "To get started with IBM Cloudant, you can use the IBM Cloud Dashboard to create an IBM Cloudant service instance.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Getting started tutorial demonstrates creating a service instance via the IBM Cloud dashboard."
+          },
+          {
+            "statement": "Log in to your IBM Cloud account.",
+            "verdict": "yes",
+            "reason": "The context's Step 1 instructs the user to log in to their IBM Cloud account."
+          },
+          {
+            "statement": "Search for 'Cloudant'.",
+            "verdict": "yes",
+            "reason": "The context mentions typing 'Cloudant' in the search bar during the instance creation process."
+          },
+          {
+            "statement": "Select an offering and environment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states to select an offering and environment during the service instance creation."
+          },
+          {
+            "statement": "Create an instance with a name of your choice.",
+            "verdict": "yes",
+            "reason": "The context provides an example of typing an instance name (e.g., 'Cloudant-o7') during the creation process."
+          },
+          {
+            "statement": "After creating the instance, generate service credentials to connect to it.",
+            "verdict": "yes",
+            "reason": "The context includes objectives and steps for creating service credentials, which are necessary to connect to the instance."
+          },
+          {
+            "statement": "You can refer to the 'Getting started tutorial' for detailed guidance on setting up and using your IBM Cloudant database.",
+            "verdict": "yes",
+            "reason": "The context explicitly references the 'Getting started tutorial' as a resource for creating instances and obtaining credentials."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is partially aligned with the reference and document but lacks critical quantitative details. It correctly identifies the Lite plan as free with fixed throughput/storage and the Standard plan as paid and scalable. However, it omits specific throughput metrics (e.g., 20 reads/sec vs. 100 reads/sec) and storage limits (1 GB vs. 20 GB) from the reference and document, which are",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The Lite plan is free and designed for development and evaluation purposes.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Lite plan is free and designed for development and evaluation purposes."
+          },
+          {
+            "statement": "The Lite plan has a fixed amount of throughput capacity and data storage.",
+            "verdict": "yes",
+            "reason": "The context mentions that the Lite plan includes a fixed amount of throughput capacity and data for development and evaluation purposes."
+          },
+          {
+            "statement": "The Lite plan does not expire but may be deleted after 30 days of no activity.",
+            "verdict": "yes",
+            "reason": "The context states that the Lite plan account never expires, but service instances are deleted after 30 days of no activity."
+          },
+          {
+            "statement": "The Standard plan is paid and offers configurable throughput capacity and data storage pricing.",
+            "verdict": "yes",
+            "reason": "The context describes the Standard plan as a paid option with configurable throughput capacity and data storage pricing."
+          },
+          {
+            "statement": "The Standard plan is suitable for production use.",
+            "verdict": "yes",
+            "reason": "The context indicates that the Standard plan is the most feature-rich offering and suitable for any required load, implying production use."
+          },
+          {
+            "statement": "The Standard plan includes more features and scalability options compared to the Lite plan.",
+            "verdict": "yes",
+            "reason": "The context highlights that the Standard plan offers configurable options and is suitable for any load, suggesting more features and scalability than the Lite plan."
+          },
+          {
+            "statement": "The Lite plan can be upgraded to the Standard plan.",
+            "verdict": "yes",
+            "reason": "The context provides steps for migrating from the Lite plan to the Standard plan, confirming the upgrade possibility."
+          },
+          {
+            "statement": "The Standard plan cannot be upgraded to the Lite plan.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Lite Plan instances can only be upgraded to the Standard plan, implying the reverse is not possible."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the Lite plan as suitable for exploration, aligning with the user's intent. It accurately mentions the 1 GB storage cap and fixed throughput, though it omits the specific throughput numbers (20 reads, 10 writes, 5 queries per second) present in the documents and reference answer. The assistant also notes the upgrade path to the Standard plan, which is cr",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "If you are just exploring things for now, the Lite plan is suitable.",
+            "verdict": "yes",
+            "reason": "The context states the Lite plan is intended for users to try the service before committing, which aligns with exploration."
+          },
+          {
+            "statement": "The Lite plan is intended for users who want to try out the service before committing to a purchase.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions this as the purpose of the Lite plan."
+          },
+          {
+            "statement": "The Lite plan is free and provides basic functionality for development and evaluation purposes.",
+            "verdict": "yes",
+            "reason": "The context confirms the Lite plan is free and designed for development/evaluation."
+          },
+          {
+            "statement": "The Lite plan has limitations, such as a 1 GB storage cap and fixed throughput capacity.",
+            "verdict": "yes",
+            "reason": "The context details these limitations in the Cloudant Lite plan section."
+          },
+          {
+            "statement": "If you need more storage or scalability, you should consider upgrading to the Standard plan.",
+            "verdict": "yes",
+            "reason": "The context advises upgrading to the Standard plan when storage or scalability requirements exceed Lite plan limits."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the IBM Cloudant Python SDK is available on PyPI and mentions the package name pattern (\"ibm-\"), which aligns with the document's guidance. It also references the IBM GitHub organization, which is accurate per the document's \"Publishing\" section. However, the assistant omits the exact URL (https://pypi.org/project/ibmcloudant/) provided in the refer",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The Python SDK for pushing and fetching data can be found on PyPI.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that all Python SDKs should be published on PyPI."
+          },
+          {
+            "statement": "The SDK is released on PyPI with a package name beginning with 'ibm-'.",
+            "verdict": "yes",
+            "reason": "The context specifies that Python SDKs should have a package name beginning with 'ibm-'."
+          },
+          {
+            "statement": "The SDK is publicly available on an IBM GitHub organization.",
+            "verdict": "yes",
+            "reason": "The context requires Python SDKs to be publicly available on an IBM GitHub organization."
+          },
+          {
+            "statement": "Implementation details are provided in the documentation and examples within the SDK repository.",
+            "verdict": "yes",
+            "reason": "The context mandates documentation resources including README.md, code samples, and examples in an /examples directory."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 48891,
+    "completion_tokens": 19206,
+    "total_tokens": 68097,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 17477,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 738.229
+}

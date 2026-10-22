@@ -1,0 +1,448 @@
+{
+  "version": 1,
+  "fingerprint": "5a61d6abd268c1e4c5782b1a23f28f884c6bd5986335f20169120d00de02e1a2",
+  "id": "f1121a39d8a9e36eaef4c2367bd43532",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.625, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.702 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and reference answer, covering key methods like rule of thumb (2x net + FFE), discounted cash flow analysis, EBITDA/SDE multipliers, and ROI-based valuation. It also incorporates additional strategies (cost-plus, competition-based, consumer-based pricing) from the document's external resources, which are valid but not included in the refer",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.625,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7017543859649122,
+        "conditioned_score": 0.7017543859649122,
+        "statements": [
+          {
+            "statement": "There are several approaches for pricing a small business, including rule of thumb methods like 2x net + FFE.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the rule of thumb '2x net + FFE' for small businesses."
+          },
+          {
+            "statement": "Discounted cash flow analysis is one of the approaches for pricing a small business.",
+            "verdict": "yes",
+            "reason": "The context describes discounted cash flow analysis using EBITDA and a growing perpetuity formula."
+          },
+          {
+            "statement": "Using industry multipliers for EBITDA or Seller Discretionary Earnings (SDE) is another method for pricing a small business.",
+            "verdict": "yes",
+            "reason": "The context references EBITDA multipliers (e.g., 13.8 for hospitality) and mentions SDE as an alternative metric."
+          },
+          {
+            "statement": "Valuing a business based on its real estate and projected returns, such as a 20% return on investment, can be used as a pricing approach.",
+            "verdict": "yes",
+            "reason": "The context discusses valuing real estate and business separately, with the business valued based on a 20% ROI (e.g., $50k profit at 20% implies $250k value)."
+          },
+          {
+            "statement": "Cost-plus pricing is a strategy for determining the price of a small business.",
+            "verdict": "no",
+            "reason": "The context cites an article mentioning cost-plus pricing, but this refers to product pricing, not business valuation. The context does not directly support using cost-plus for pricing a business."
+          },
+          {
+            "statement": "Competition-based pricing is a method for pricing a small business.",
+            "verdict": "no",
+            "reason": "The context references an article mentioning competition-based pricing, but this applies to product pricing, not business valuation. The context does not directly support this as a business pricing method."
+          },
+          {
+            "statement": "Consumer-based pricing is another strategy for pricing a small business.",
+            "verdict": "no",
+            "reason": "The context cites an article mentioning consumer-based pricing, but this applies to product pricing, not business valuation. The context does not directly support this as a business pricing method."
+          },
+          {
+            "statement": "These methods help determine a fair value for the business, considering its financials, industry standards, and potential returns.",
+            "verdict": "yes",
+            "reason": "The context discusses methods like DCF, EBITDA multipliers, and real estate valuation, which consider financials, industry standards, and projected returns."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies insufficient cash flow and bank reluctance as primary reasons for small business failure, aligning with the document's emphasis on short-term survival challenges and financial risk. It also addresses the overstatement of failure rates, a key point in the document. However, it omits critical elements from the reference and document, such as the lack of en",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The primary reason most small businesses fail is often due to insufficient cash flow.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that small businesses fail due to not having enough cash flow to survive the short-term, even if long-term prospects are good."
+          },
+          {
+            "statement": "Many businesses struggle to survive in the short term, even if they have promising long-term prospects.",
+            "verdict": "yes",
+            "reason": "The context mentions that small businesses fail because they can't survive the short-term, regardless of long-term potential."
+          },
+          {
+            "statement": "Banks are hesitant to provide loans to small businesses because of their high risk.",
+            "verdict": "yes",
+            "reason": "The context states that banks view small businesses as a huge risk and are unwilling to provide loans for survival."
+          },
+          {
+            "statement": "Entrepreneurs find it difficult to secure the necessary funds to sustain operations due to banks' reluctance to lend to small businesses.",
+            "verdict": "yes",
+            "reason": "The context explains that banks' reluctance to lend creates difficulty in securing funds for operations."
+          },
+          {
+            "statement": "Some businesses may not be structured to handle the financial demands of running a business, leading to financial instability.",
+            "verdict": "yes",
+            "reason": "The context discusses the need for a business model with low start-up and overhead costs, implying poor structure can cause instability."
+          },
+          {
+            "statement": "Poor management contributes to the failure of small businesses.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need for experience and managerial skills, suggesting poor management is a factor."
+          },
+          {
+            "statement": "Lack of experience is a factor in the failure of small businesses.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that experience is needed, and lack of it can lead to failure."
+          },
+          {
+            "statement": "Misallocation of resources is a reason for the failure of small businesses.",
+            "verdict": "yes",
+            "reason": "The context provides examples of misallocated resources (e.g., expensive offices instead of working from home) leading to failure."
+          },
+          {
+            "statement": "The failure rate of small businesses is often overstated.",
+            "verdict": "yes",
+            "reason": "The context argues that the 9/10 failure statistic is misquoted, overstated, and misleading, with many closures being planned exits."
+          },
+          {
+            "statement": "Many closures of small businesses are due to planned exits or strategic decisions rather than complete financial loss.",
+            "verdict": "yes",
+            "reason": "The context explains that many closures are planned exits or strategic moves, not financial failures."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses several key factors for a business to move forward, such as competent management, clear goals, a well-designed business model, and effective marketing. However, it omits critical elements from the reference answer and documents, such as the importance of a customer-centric perspective (\"do unto others as you would have them do unto you\"), proactive marketing and sa",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "Competent upper management contributes to a business's continued growth and success.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that competent upper management is 'contagious' and that successful corporations have people at the top who care about the company's success, directly linking management competence to growth."
+          },
+          {
+            "statement": "A clear understanding of short-term and long-term goals is essential for a business to move forward.",
+            "verdict": "yes",
+            "reason": "The context mentions that skilled workers in competent companies are informed of short-term and long-term goals, implying their importance for progress."
+          },
+          {
+            "statement": "A culture that values input and dissenting opinions supports business growth.",
+            "verdict": "yes",
+            "reason": "The context states that competent management values dissenting opinions over 'yes-man' responses, directly supporting this claim."
+          },
+          {
+            "statement": "A well-designed business model is crucial for a business's success.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need for a 'well-designed and well-operating business' and a viable strategy to take an idea to market, aligning with this statement."
+          },
+          {
+            "statement": "Effective marketing and sales strategies are important for a business to progress.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that marketing, sales, and linking with customers are essential for business success."
+          },
+          {
+            "statement": "Maintaining a depreciation fund for necessary expenses is vital for a business.",
+            "verdict": "yes",
+            "reason": "The context discusses the importance of a depreciation fund to cover expenses like equipment, directly supporting this claim."
+          },
+          {
+            "statement": "Prioritizing the well-being of employees leads to sustainable business growth.",
+            "verdict": "no",
+            "reason": "While the context mentions competent management caring about company success and employee perks, it does not explicitly link prioritizing employee well-being to growth."
+          },
+          {
+            "statement": "Focusing on the quality of offerings contributes to long-term business success.",
+            "verdict": "no",
+            "reason": "The context does not mention the quality of products/services as a factor in business success."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and reference answer, capturing key themes like trust, empathy, leading by example, and fostering a positive work environment. It aligns with the document's emphasis on systems, communication, and staying calm under pressure. However, it omits specific details from the reference and document, such as designing roles around employees' skill",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A good manager fosters trust, empathy, and a positive work environment.",
+            "verdict": "yes",
+            "reason": "The context emphasizes empathy, trust, and creating a positive culture as essential for effective management."
+          },
+          {
+            "statement": "They set up systems to minimize direct oversight.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that good managers create systems to reduce the need for direct intervention."
+          },
+          {
+            "statement": "Employees are allowed to take ownership and improve processes independently.",
+            "verdict": "yes",
+            "reason": "The context encourages involving employees in process improvements and trusting them to implement changes."
+          },
+          {
+            "statement": "Good managers prioritize hiring individuals who align with the company's values.",
+            "verdict": "yes",
+            "reason": "The context advises hiring people who embody the organization's values to set the right tone."
+          },
+          {
+            "statement": "Hired individuals can motivate others.",
+            "verdict": "yes",
+            "reason": "The context highlights hiring people who can motivate and influence the rest of the team positively."
+          },
+          {
+            "statement": "They stay calm under pressure.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions staying calm during crises to maintain efficiency."
+          },
+          {
+            "statement": "They communicate clearly.",
+            "verdict": "yes",
+            "reason": "The context emphasizes explaining decisions and being assertive to ensure clarity."
+          },
+          {
+            "statement": "They explain decisions to ensure understanding and compliance.",
+            "verdict": "yes",
+            "reason": "The context stresses the importance of explaining the 'why' behind decisions to gain compliance."
+          },
+          {
+            "statement": "They lead by example, demonstrating respect and fairness.",
+            "verdict": "yes",
+            "reason": "The context advises stepping in to help and modeling respect to earn trust and authority."
+          },
+          {
+            "statement": "They are willing to step in and assist when needed.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that managers should not be afraid to do the work themselves."
+          },
+          {
+            "statement": "These qualities help create a productive and motivated workforce.",
+            "verdict": "yes",
+            "reason": "The context links these practices to a motivated, efficient, and positive work environment."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the general methods companies use to hire employees, such as job postings, recruitment agencies, networking, and bypassing HR. It aligns with the document's emphasis on networking before formal job postings and the role of headhunters. However, it omits key details from the document, such as the challenges with HR processes (e.g., biases, legal issues, and the inef",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Companies post job openings to hire employees.",
+            "verdict": "yes",
+            "reason": "The context mentions HR listings and examples of companies receiving applicants through formal postings."
+          },
+          {
+            "statement": "Companies use recruitment agencies to hire employees.",
+            "verdict": "yes",
+            "reason": "The context discusses outsourcing recruiting to head hunters and using recruiters to contact candidates."
+          },
+          {
+            "statement": "Companies leverage personal networks to hire employees.",
+            "verdict": "yes",
+            "reason": "The context emphasizes using networks to get resumes to key individuals before formal postings."
+          },
+          {
+            "statement": "Some companies rely on open positions floating in the market.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that companies let open positions float."
+          },
+          {
+            "statement": "Some companies use headhunters to find the right candidates.",
+            "verdict": "yes",
+            "reason": "The context mentions outsourcing to head hunters to find the 'right person'."
+          },
+          {
+            "statement": "Networking allows individuals to get their resumes in front of hiring managers before formal job postings are made.",
+            "verdict": "yes",
+            "reason": "The context states that resumes should be in the hands of key individuals before ads are written."
+          },
+          {
+            "statement": "Some companies bypass HR processes entirely to directly connect with potential hires.",
+            "verdict": "yes",
+            "reason": "The context advocates for an 'end run around' HR to get resumes directly to hiring managers."
+          },
+          {
+            "statement": "Hiring practices may involve biases.",
+            "verdict": "yes",
+            "reason": "The context discusses biases against groups like pregnant women, minorities, and smokers in hiring."
+          },
+          {
+            "statement": "Hiring practices have legal implications.",
+            "verdict": "yes",
+            "reason": "The context mentions avoiding lawsuits by operating in the gray area regarding biases."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies common non-salary benefits like health insurance, commuter aid, and non-cash awards, aligning with the document's discussion of fringe benefits. However, it omits key elements from the reference answer and document, such as retirement plans (e.g., 401k), stock discounts, and personnel training. The document also emphasizes tax implications and examples l",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The basic benefits a company provides to its employees besides salary include fringe benefits such as health insurance, dental and vision coverage, disability and life insurance, commuter aid, parking, public transport, and non-cash awards.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions health insurance, dental/vision coverage, disability/life insurance, commuter aid (public transport/parking), and non-cash awards as examples of fringe benefits provided by companies."
+          },
+          {
+            "statement": "These benefits can be taxable or tax-exempt depending on the type and value.",
+            "verdict": "yes",
+            "reason": "The context explains that fringe benefits are taxable unless excluded by law, with examples like non-cash awards (taxable unless nominal), commuter aid (tax-free up to a limit), and clothing (taxable if street-appropriate)."
+          },
+          {
+            "statement": "Additionally, some companies offer perks like company cars, lunch tickets, and other services that may be tax-free.",
+            "verdict": "yes",
+            "reason": "The context references company cars as a rare perk and lunch tickets as tax-free benefits, along with de minimis perks like holiday gifts or coffee, which are tax-free."
+          },
+          {
+            "statement": "These benefits are often provided to enhance employee satisfaction and retention.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that the purpose of providing these benefits is to enhance satisfaction or retention. It focuses on tax implications, cost structures, and regulatory frameworks rather than the intent behind offering benefits."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses several key non-remuneration expenses, such as health care insurance, fringe benefits (non-cash awards, childcare), and other benefits like sick leave and vacation. It aligns with the document's discussion on taxable fringe benefits and deductible business expenses. However, the assistant omits critical categories from the reference answer and documents: **employer",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "A company may have expenses related to health care insurance premiums for employees, which can include coverage for employees and their families.",
+            "verdict": "yes",
+            "reason": "The context discusses that a Schedule C business can provide medical insurance for employees and their families as an employment benefit, and employer-provided health insurance is a tax-protected expense under section 125."
+          },
+          {
+            "statement": "Fringe benefits such as non-cash awards, clothing, and services like on-site childcare or cafeterias are additional expenses.",
+            "verdict": "yes",
+            "reason": "The context explicitly defines fringe benefits and provides examples like non-cash awards, clothing suitable for street wear, and on-site childcare as business expenses for companies like Google."
+          },
+          {
+            "statement": "These expenses are considered taxable income for employees unless specifically excluded by tax laws.",
+            "verdict": "yes",
+            "reason": "The context states that fringe benefits are taxable income unless excluded by law, with examples like clothing for street wear and de minimis benefits being taxable unless nominal in value or given to charity."
+          },
+          {
+            "statement": "Companies may cover other benefits like sick leave, vacation, holidays, life insurance, disability insurance, and education.",
+            "verdict": "yes",
+            "reason": "The context mentions that self-employed individuals must account for these benefits in their rates and that companies like Google provide services such as on-site childcare, implying coverage of similar benefits."
+          },
+          {
+            "statement": "These costs are typically deductible business expenses for the company.",
+            "verdict": "yes",
+            "reason": "The context clarifies that the company portion of healthcare costs is a deductible business expense and that other expenses, such as running a corporate cafe, are tax-deductible business expenses."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 31383,
+    "completion_tokens": 17307,
+    "total_tokens": 48690,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 28,
+    "reasoning_tokens": 15579,
+    "reasoning_budget_verified_calls": 28
+  },
+  "elapsed_seconds": 567.574
+}

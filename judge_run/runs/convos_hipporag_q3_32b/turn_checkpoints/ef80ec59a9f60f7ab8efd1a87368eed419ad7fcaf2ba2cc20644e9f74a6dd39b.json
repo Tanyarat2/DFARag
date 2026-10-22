@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "fingerprint": "ef80ec59a9f60f7ab8efd1a87368eed419ad7fcaf2ba2cc20644e9f74a6dd39b",
+  "id": "2f94b6fb4c6f941decd0609eb126610b",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the core aspects of balancing a 401k, such as determining asset allocation, rebalancing strategies, and the use of target date funds. It aligns with the reference answer in emphasizing the importance of reviewing investments across accounts and adjusting allocations based on risk tolerance and retirement goals. However, the assistant introduces additional informati",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Assess your overall investment strategy, including your 401(k), IRA, and taxable accounts, and determine your desired asset allocation across large-cap stocks, small-cap stocks, bonds, international, and emerging markets.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that all accounts (401k, IRA, taxable) should be considered as part of a whole investment strategy and emphasizes determining desired asset allocation across specified categories."
+          },
+          {
+            "statement": "Rebalance your 401(k) by selling overperforming sectors and buying underperforming ones to maintain your target percentages.",
+            "verdict": "yes",
+            "reason": "The context directly describes rebalancing by selling overperforming sectors and buying underperforming ones to maintain target percentages."
+          },
+          {
+            "statement": "If your 401(k) offers target date funds, they automatically adjust the diversification as you approach retirement.",
+            "verdict": "yes",
+            "reason": "The context states that target date funds automatically adjust diversification over time, becoming more protective as retirement approaches, and that many 401k plans offer such funds."
+          },
+          {
+            "statement": "You can manually rebalance or choose a target date fund that aligns with your risk tolerance and retirement timeline.",
+            "verdict": "yes",
+            "reason": "The context explains that manual rebalancing is possible and that target date funds can be adjusted by selecting a fund with a target date earlier or later than one's retirement date to align with risk tolerance."
+          },
+          {
+            "statement": "Ensure your contributions are consistent with your investment goals.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises setting 401k deposits to be consistent with investment goals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, accurately explaining the tax treatment of both traditional and Roth 401(k)s, including penalties for early withdrawals and required minimum distributions (RMDs). It correctly distinguishes between pre-tax contributions (traditional) and post-tax contributions (Roth), aligning with the document's details. The reference answer, while accurate,",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "A traditional 401(k) account is taxed when you withdraw funds.",
+            "verdict": "yes",
+            "reason": "The context states that contributions to a Traditional 401(k) are made with pre-tax dollars and taxes are paid upon withdrawal."
+          },
+          {
+            "statement": "Distributions, including earnings, are considered taxable income at the time of withdrawal.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that distributions from a regular 401(k) are includible in taxable income at retirement."
+          },
+          {
+            "statement": "Distributions from a Roth 401(k) are tax-free.",
+            "verdict": "yes",
+            "reason": "The context states that qualified withdrawals from a Roth 401(k) are tax-free, as contributions are made with post-tax dollars."
+          },
+          {
+            "statement": "Withdrawals before age 59 1/2 may incur a 10% penalty.",
+            "verdict": "yes",
+            "reason": "The context specifies a 10% penalty for early withdrawals from a 401(k) before age 59.5."
+          },
+          {
+            "statement": "Required minimum distributions (RMDs) must be taken after age 70 1/2.",
+            "verdict": "yes",
+            "reason": "The context mentions RMDs are required after age 70.5 for traditional retirement accounts."
+          },
+          {
+            "statement": "Roth 401(k) contributions are taxed upfront, but qualified withdrawals are tax-free.",
+            "verdict": "yes",
+            "reason": "The context clarifies that Roth 401(k) contributions are taxed in the year they are made, and qualified withdrawals are tax-free."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer effectively explains what an IRA is, distinguishing between Traditional and Roth IRAs, their tax treatments, and investment options. It aligns with the reference answer by defining IRA as a tax-advantaged retirement account and correctly describing pre-tax and post-tax contributions. The assistant also captures key points from the document, such as tax-deferred growth, withd",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "An IRA (Individual Retirement Account) is a tax-advantaged retirement savings account.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IRAs are tax-deferred accounts with tax benefits, confirming their tax-advantaged nature."
+          },
+          {
+            "statement": "There are two main types: Traditional and Roth.",
+            "verdict": "yes",
+            "reason": "The context directly references both Traditional and Roth IRAs as the primary types, distinguishing their tax treatment."
+          },
+          {
+            "statement": "A Traditional IRA allows you to contribute pre-tax income, which grows tax-deferred, and withdrawals are taxed as income in retirement.",
+            "verdict": "yes",
+            "reason": "The context describes Traditional IRAs as using pre-tax contributions that grow tax-free and are taxed as income upon withdrawal."
+          },
+          {
+            "statement": "A Roth IRA involves post-tax contributions, with tax-free withdrawals in retirement, provided certain conditions are met.",
+            "verdict": "yes",
+            "reason": "The context explains Roth IRAs use post-tax contributions and allow tax-free withdrawals if qualified, aligning with the statement."
+          },
+          {
+            "statement": "IRAs offer tax benefits but come with restrictions on withdrawals before retirement.",
+            "verdict": "yes",
+            "reason": "The context mentions penalties for early withdrawals and restrictions on using funds before retirement, confirming the restrictions."
+          },
+          {
+            "statement": "They can hold various investments like stocks, ETFs, or CDs, depending on your financial goals and risk tolerance.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IRAs can hold CDs, stocks, ETFs, and other securities, matching the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful to the document, as it correctly states that mid-year 401(k) contribution changes are generally not allowed due to regulatory and structural constraints. However, the document also mentions that employers *might* have flexibility to adjust contributions during the year (though not after the year closes), which the assistant omitted. Additionally, the do",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "You generally cannot change your 401(k) contribution mid-year if your financial situation changes.",
+            "verdict": "yes",
+            "reason": "The context implies that contributions are tied to payroll deductions and regulated to prevent abuse, making mid-year changes difficult."
+          },
+          {
+            "statement": "Most 401(k) plans are structured to allow contributions only during specific periods, typically through payroll deductions.",
+            "verdict": "yes",
+            "reason": "The context emphasizes payroll deductions as the primary method for contributions and suggests structured periods due to regulatory constraints."
+          },
+          {
+            "statement": "If you need to adjust your contributions, you may need to consult your employer or plan administrator to see if they offer flexibility.",
+            "verdict": "yes",
+            "reason": "The context mentions that companies may not be able to adjust contributions on a case-by-case basis, implying the need to consult administrators for possible flexibility."
+          },
+          {
+            "statement": "Changing contributions mid-year is not typically allowed due to regulatory constraints and the structured nature of 401(k) plans.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that plans are regulated to prevent abuse and that contributions cannot be tweaked mid-year, aligning with this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 14011,
+    "completion_tokens": 9617,
+    "total_tokens": 23628,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 16,
+    "reasoning_tokens": 8521,
+    "reasoning_budget_verified_calls": 16
+  },
+  "elapsed_seconds": 351.824
+}

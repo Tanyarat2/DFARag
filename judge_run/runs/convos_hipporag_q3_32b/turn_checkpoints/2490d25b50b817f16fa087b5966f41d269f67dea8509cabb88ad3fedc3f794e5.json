@@ -1,0 +1,360 @@
+{
+  "version": 1,
+  "fingerprint": "2490d25b50b817f16fa087b5966f41d269f67dea8509cabb88ad3fedc3f794e5",
+  "id": "2f484ad8f3baf91136f040855892c82e",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer accurately reflects the main goal of the Europa Clipper mission as stated in the documents: determining if there are subsurface locations on Europa that could support life. It correctly lists the three science objectives (ice shell thickness and ocean-surface interactions, composition investigation, and geology characterization) and notes the mission's focus on astrobiologic",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The goal of NASA's Europa Clipper mission is to determine whether there are places below the surface of Jupiter's icy moon, Europa, that could support life.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Europa Clipper's main science goal is to determine whether there are places below Europa's surface that could support life."
+          },
+          {
+            "statement": "The mission's three main science objectives are to determine the thickness of Europa's icy shell and its surface interactions with the ocean below.",
+            "verdict": "yes",
+            "reason": "The context lists this as the first of the three main science objectives of the mission."
+          },
+          {
+            "statement": "The mission's three main science objectives are to investigate its composition.",
+            "verdict": "yes",
+            "reason": "The context lists this as the second of the three main science objectives of the mission."
+          },
+          {
+            "statement": "The mission's three main science objectives are to characterize its geology.",
+            "verdict": "yes",
+            "reason": "The context lists this as the third of the three main science objectives of the mission."
+          },
+          {
+            "statement": "These objectives aim to better understand the astrobiological potential for habitable worlds beyond our planet.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the mission's exploration will help scientists better understand the astrobiological potential for habitable worlds beyond Earth."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents and previous conversation, as it correctly states that the Europa Clipper mission is not designed to assess human habitability but rather to investigate the moon's potential for life-supporting conditions. The documents explicitly confirm this, emphasizing the mission's focus on habitability for life in general, not humans specifically. The a",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The Europa Clipper mission's primary goal is to investigate whether there are places below Europa's icy surface that could support life.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the mission's main science goal is to determine if there are places below Europa's surface that could support life."
+          },
+          {
+            "statement": "The mission is not designed to directly determine if Europa is livable for humans.",
+            "verdict": "yes",
+            "reason": "The context clarifies that Europa Clipper is not a life detection mission and focuses on assessing habitability potential, not human-specific livability."
+          },
+          {
+            "statement": "The mission focuses on understanding the moon's potential for habitability by studying its ice shell, ocean, and geology.",
+            "verdict": "yes",
+            "reason": "The context lists the three main science objectives as determining ice shell thickness, investigating composition, and characterizing geology to assess habitability."
+          },
+          {
+            "statement": "The evidence does not provide specific information about whether Europa is livable for humans.",
+            "verdict": "yes",
+            "reason": "The context does not mention human habitability or factors specific to human survival, focusing instead on general astrobiological potential."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the documents and addresses the key aspects of Europa's surface. It correctly states the ice thickness (15–25 km), mentions geological features like ridges, domes, and chaos terrain, and notes the presence of non-ice materials (reddish in color). The temperature ranges and the global ocean are also accurately included. However, the assistant omits spec",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The surface of Jupiter's Europa is primarily composed of bright water ice, with a thickness of about 15 to 25 kilometers.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Europa's surface is mostly bright water ice and specifies the icy shell thickness as 15-25 km."
+          },
+          {
+            "statement": "It features a diverse landscape, including ridges, bands, domes, and disrupted areas called 'chaos terrain'.",
+            "verdict": "yes",
+            "reason": "The context describes Europa's surface as having ridges, bands, domes, and 'chaos terrain' disrupted areas, as observed by Galileo and reprocessed images."
+          },
+          {
+            "statement": "Reddish non-ice materials are present along cracks and in disrupted regions.",
+            "verdict": "yes",
+            "reason": "The context directly mentions reddish non-ice material along cracks and in disrupted surface areas."
+          },
+          {
+            "statement": "The surface is relatively young, with temperatures ranging from approximately 140 Kelvin (-210°F) at the equator to 50 Kelvin (-370°F) at the poles.",
+            "verdict": "yes",
+            "reason": "The context states Europa's surface is ~65 million years old and provides the temperature range from 140 K to 50 K."
+          },
+          {
+            "statement": "The icy crust covers a vast, global ocean, suggesting potential conditions suitable for life.",
+            "verdict": "yes",
+            "reason": "The context confirms a global ocean beneath the icy crust and explicitly states Europa may have conditions suitable for life."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies NASA as the funding source for the Europa Clipper mission, which aligns with the information in the document and reference answer. The response is concise and directly addresses the user's question without unnecessary elaboration. While the reference answer includes the $178 million launch services contract amount, this detail is not explicitly requested",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "NASA funds the Europa Clipper mission.",
+            "verdict": "yes",
+            "reason": "The context states that NASA's Jet Propulsion Laboratory (JPL) manages the mission for NASA’s Science Mission Directorate, and NASA has selected SpaceX for launch services. These actions imply NASA's financial responsibility for the mission."
+          },
+          {
+            "statement": "The Europa Clipper mission receives funding from NASA.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions NASA's management of the mission through JPL and its Science Mission Directorate, which typically involves funding. Additionally, NASA's role in contracting launch services further supports this."
+          },
+          {
+            "statement": "The funding for the Europa Clipper mission is provided by NASA.",
+            "verdict": "yes",
+            "reason": "The context indicates NASA's oversight and management of the mission, including contracting launch services and managing the project through JPL, which aligns with NASA providing the necessary funding."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it accurately mentions the Pathways program, non-STEM opportunities, and the NASA International Internship (I²), all of which are explicitly detailed in the document. The reference answer highlights business/program management roles, which the assistant's answer does not explicitly name, but the document supports the existence of such oppo",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Yes, NASA has an intern program.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions NASA Internship Programs, including Pathways, Fellowships, and International Internships."
+          },
+          {
+            "statement": "NASA offers several internship opportunities for students, including the Pathways program, which provides paid internships that can lead to full-time employment.",
+            "verdict": "yes",
+            "reason": "The context states that the Pathways program offers paid internships as direct pipelines to full-time employment at NASA."
+          },
+          {
+            "statement": "Additionally, NASA offers internships for non-STEM majors and international students through programs like the NASA International Internship (NASA I²).",
+            "verdict": "yes",
+            "reason": "The context confirms internships for non-STEM majors and details the NASA International Internship (NASA I²) for international students."
+          },
+          {
+            "statement": "These internships provide hands-on experience, mentorship, and career development opportunities.",
+            "verdict": "yes",
+            "reason": "The context highlights training, mentoring, and career development as core components of NASA internships."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it correctly identifies the presence of a high-gain antenna (HGA) and other smaller radio antennas for communication, as well as the VHF and HF radar antennas associated with the REASON instrument. These details are explicitly mentioned in the document, including the deployment of REASON's antennas after launch. The assistant also avoids addin",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The Europa Clipper has antennae.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions multiple antennas, including REASON VHF/HF antennas, High-Gain Antenna (HGA), Medium-Gain Antenna, Low-Gain Antennas, and Fan Beam antennas."
+          },
+          {
+            "statement": "The spacecraft includes a high-gain antenna (HGA) for communication with Earth and scientific investigations.",
+            "verdict": "yes",
+            "reason": "The context states the HGA is used for receiving commands from Earth, sending data back, and for gravity and radio science investigations."
+          },
+          {
+            "statement": "The spacecraft also includes smaller radio antennas for communication with Earth and scientific investigations.",
+            "verdict": "yes",
+            "reason": "The context lists Medium-Gain Antenna, Low-Gain Antennas, and Fan Beam antennas as part of the communications and gravity science components, which are smaller than the HGA."
+          },
+          {
+            "statement": "The REASON instrument on the mission has VHF and HF radar antennas.",
+            "verdict": "yes",
+            "reason": "The context explicitly describes the REASON instrument as having both VHF and HF radar antennas for subsurface sounding and surface analysis."
+          },
+          {
+            "statement": "The VHF and HF radar antennas of the REASON instrument are deployed after launch.",
+            "verdict": "yes",
+            "reason": "The context states that the REASON antennas, like the solar arrays and other components, are stowed for launch and deployed into operational configuration post-launch."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer fails to address the user's question about the speed of the Europa Clipper, despite the document explicitly stating that the propulsion subsystem can change the spacecraft's velocity by 3,600 mph (5,800 km/h). This omission directly contradicts the provided evidence, making the answer **unfaithful** to the document. The assistant incorrectly claims there is \"no specific info",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.3333333333333333,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The retrieved evidence does not provide specific information about the speed at which the Europa Clipper flies.",
+            "verdict": "yes",
+            "reason": "The context discusses the propulsion system's capability to change velocity (3,600 mph) and gravitational flybys for trajectory adjustments, but does not specify the actual speed of the spacecraft during flight or in orbit."
+          },
+          {
+            "statement": "Therefore, I do not have specific information to answer this question.",
+            "verdict": "yes",
+            "reason": "Since the context does not provide the actual speed of Europa Clipper, the conclusion that specific information is lacking is valid."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that the Europa Clipper mission involves repeated flybys of Europa, aligning with the reference answer and the documents. The assistant states the spacecraft will \"soar past Europa dozens of times\" over three years, which is consistent with the document's mention of \"45-plus times\" and the reference's \"approximately 50 close flybys.\" While the assistant us",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Europa Clipper flies by Europa.",
+            "verdict": "yes",
+            "reason": "The context states that after orbiting Jupiter, Europa Clipper will prepare for its first Europa flyby and spend three years conducting dozens of flybys."
+          },
+          {
+            "statement": "The mission is designed to perform repeated flybys of the moon.",
+            "verdict": "yes",
+            "reason": "The context mentions the spacecraft will make nearly 50 flybys of Europa, indicating repeated flybys."
+          },
+          {
+            "statement": "The spacecraft will spend about three years conducting flybys of Europa.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that after trajectory adjustments, the spacecraft will spend about three years flying past Europa."
+          },
+          {
+            "statement": "The spacecraft will perform dozens of flybys of Europa.",
+            "verdict": "yes",
+            "reason": "The context states the spacecraft will perform dozens of flybys and later clarifies it will make nearly 50 flybys."
+          },
+          {
+            "statement": "The mission aims to investigate nearly the entire moon of Europa.",
+            "verdict": "yes",
+            "reason": "The context directly states that over the mission's duration, the spacecraft will investigate nearly the entire moon."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 48742,
+    "completion_tokens": 15079,
+    "total_tokens": 63821,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 32,
+    "reasoning_tokens": 13217,
+    "reasoning_budget_verified_calls": 32
+  },
+  "elapsed_seconds": 452.328
+}

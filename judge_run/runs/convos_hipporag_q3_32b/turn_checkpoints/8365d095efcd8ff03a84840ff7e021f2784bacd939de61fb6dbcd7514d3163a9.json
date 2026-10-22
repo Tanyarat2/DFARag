@@ -1,0 +1,549 @@
+{
+  "version": 1,
+  "fingerprint": "8365d095efcd8ff03a84840ff7e021f2784bacd939de61fb6dbcd7514d3163a9",
+  "id": "2cc753bcef23767c18aedad06c4405c4",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=0.500, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it correctly identifies Republic Services and the toll-free number (800) 320-8077 for missed collection reporting, along with the 12 noon deadline for same-day return trips. The reference answer explicitly mentions the \"City of Piedmont,\" but the assistant's answer is still faithful because the document is sourced from the City of Piedmont, an",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "If your garbage, recycling, or organics collection is missed, contact Republic Services at (800) 320-8077 before 12 noon to schedule a same-day return trip.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Republic Services should be contacted at (800) 320-8077 before 12 noon for a return trip on the same day if collection is missed."
+          },
+          {
+            "statement": "The specific guidance for missed collection days is provided in the retrieved evidence.",
+            "verdict": "no",
+            "reason": "The context provides guidance on holiday collection schedules but not on missed collection days. The specific guidance for missed collection is under 'Additional Service Questions', not 'Collection Day Information'."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document and previous conversation. It correctly states that payment is required for garbage/recycling/organics service, citing the Piedmont Municipal Code (as in the document) and emphasizing the obligation of property owners. It also accurately references cost-saving methods like switching to a smaller garbage cart, curbside service, and the Annual P",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "You need to pay for garbage, recycling, and organics service in Piedmont.",
+            "verdict": "yes",
+            "reason": "The context states that property owners must arrange for proper disposal through subscription or self-hauling, and service rates are based on cart size, indicating payment is required."
+          },
+          {
+            "statement": "Every property owner must ensure arrangements are made to properly dispose of solid waste, recyclable material, and organic waste, either through a subscription for regular collection service or self-hauling with a permit.",
+            "verdict": "yes",
+            "reason": "The context directly quotes Section 9.03.010 of the Piedmont Municipal Code, which mandates this requirement."
+          },
+          {
+            "statement": "If you do not have enough money, you can save costs by recycling more.",
+            "verdict": "yes",
+            "reason": "The context explains that recycling more and generating less garbage allows switching to a smaller garbage cart, reducing costs."
+          },
+          {
+            "statement": "If you do not have enough money, you can save costs by reducing garbage.",
+            "verdict": "yes",
+            "reason": "The context states that generating less garbage enables switching to a smaller cart, which lowers service costs."
+          },
+          {
+            "statement": "If you do not have enough money, you can save costs by switching to a smaller garbage cart.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that service rates are based on garbage cart size, and smaller carts save money."
+          },
+          {
+            "statement": "There is an Annual Pre-Payment Discount available for single-family customers.",
+            "verdict": "yes",
+            "reason": "The context describes the Annual Pre-Payment Discount, offering 12 months of service for the cost of 11."
+          },
+          {
+            "statement": "If you need further assistance, contact Republic Services at (800) 320-8077.",
+            "verdict": "yes",
+            "reason": "The context repeatedly provides Republic Services' contact number for various services, including assistance with carts and overage bags."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer accurately addresses the service rates for garbage collection in Piedmont, aligning with the document's details on curbside and on-premises (backyard) collection fees for different cart sizes. It correctly notes that recycling and organics are unlimited and free, which is a key point from the document. The answer is appropriate for the user's question, focusing on the reques",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "The service rates for garbage collection in the City of Piedmont are based on the size of your garbage cart.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'Service rates are based upon the size of your garbage cart.'"
+          },
+          {
+            "statement": "Curbside collection rates are as follows: 20 Gallon Garbage Cart - $94.76 per month.",
+            "verdict": "yes",
+            "reason": "The context lists '20 Gallon Garbage Cart - $94.76 per month' under Curbside Collection rates."
+          },
+          {
+            "statement": "35 Gallon Garbage Cart - $100.41 per month.",
+            "verdict": "yes",
+            "reason": "The context lists '35 Gallon Garbage Cart - $100.41 per month' under Curbside Collection rates."
+          },
+          {
+            "statement": "65 Gallon Garbage Cart - $138.33 per month.",
+            "verdict": "yes",
+            "reason": "The context lists '65 Gallon Garbage Cart - $138.33 per month' under Curbside Collection rates."
+          },
+          {
+            "statement": "95 Gallon Garbage Cart - $154.91 per month.",
+            "verdict": "yes",
+            "reason": "The context lists '95 Gallon Garbage Cart - $154.91 per month' under Curbside Collection rates."
+          },
+          {
+            "statement": "On-premises (backyard) collection rates are higher, with 20 Gallon and 35 Gallon carts at $145 and $150.65 per month, respectively.",
+            "verdict": "yes",
+            "reason": "The context states that on-premises collection costs more than curbside and lists '20 Gallon Garbage Cart - $145 per month' and '35 Gallon Garbage Cart - $150.65 per month' under On-Premises (Backyard) Collection."
+          },
+          {
+            "statement": "Recycling and organics collection are provided at no additional cost.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'Collection service for recyclables and organics is unlimited in volume and provided at no additional cost.'"
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer accurately addresses the user's question on recycling food scraps by correctly outlining the process of using the green kitchen pail and green Organics cart, as specified in the document. It also includes relevant environmental benefits (e.g., composting reducing greenhouse gases) and a helpful resource link, both of which are present in the document. While the reference ans",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "To recycle food scraps, collect them and food-soiled paper in the green kitchen pail and empty the pail contents into the large green Organics cart for collection.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this in the 'How do I recycle food scraps?' Q&A."
+          },
+          {
+            "statement": "DO NOT place the kitchen pail outside for collection.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this in the 'How do I recycle food scraps?' Q&A."
+          },
+          {
+            "statement": "Food scraps become compost, a valuable resource used by landscapers and farmers, reducing greenhouse gas emissions and promoting a healthier environment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this in the 'Why should I recycle food scraps?' Q&A."
+          },
+          {
+            "statement": "For more information, visit the http://stopfoodwaste.org website.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this in both the 'Why should I recycle food scraps?' and 'How do I recycle food scraps?' Q&As."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's concern about missing garbage collection during holidays by correctly identifying the holidays with no service and the schedule adjustment when holidays fall on weekdays. It also appropriately advises contacting Republic Services for issues. However, it omits key details from the document, such as the specific service hours (7:00 a.m. to 3:00 p.m.) and d",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Garbage collection is not available on New Year's Day, Independence Day, Labor Day, Thanksgiving Day, and Christmas Day.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that there is no garbage, organics, or recycling collection on these holidays."
+          },
+          {
+            "statement": "If a holiday occurs on a weekday, garbage pickup will be delayed by one day for the remainder of the week, including Saturday.",
+            "verdict": "yes",
+            "reason": "The context confirms that pickup is delayed by one day during weeks with these holidays on a weekday, including Saturday."
+          },
+          {
+            "statement": "Properly placing your garbage carts is essential to avoid missing the service.",
+            "verdict": "yes",
+            "reason": "The context provides detailed instructions on cart placement for curbside and on-premises service, emphasizing correct placement to ensure collection."
+          },
+          {
+            "statement": "Contact Republic Services at (800) 320-8077 before 12 noon if you expect any problems with your garbage collection.",
+            "verdict": "yes",
+            "reason": "The context specifies calling Republic Services before 12 noon for missed collection, though it does not explicitly mention 'expecting any problems' beyond missed collection."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies electronic waste (e-waste) as items like TVs, computers, printers, and phones, aligning with the document's list. It also accurately defines hazardous waste as harmful materials (e.g., batteries, syringes, paint) and mentions disposal methods (curbside collection for e-waste, designated hazardous waste sites). However, the assistant omitted specific exam",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Electronic waste (e-waste) includes TVs.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists TVs as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes computers.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists computers as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes keyboards.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists keyboards as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes cables.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists cables as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes printers.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists inkjet printers/scanners/fax machines and laser printers as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes stereos.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists stereos as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes audio/video equipment.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists audio/video equipment as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes laptops.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists laptops as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes phones.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists cellular/cordless phones as e-waste."
+          },
+          {
+            "statement": "Electronic waste (e-waste) includes power supplies.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists power supplies as e-waste."
+          },
+          {
+            "statement": "Hazardous waste refers to batteries that can be harmful to health or the environment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states batteries are hazardous waste and must be disposed of properly."
+          },
+          {
+            "statement": "Hazardous waste refers to syringes that can be harmful to health or the environment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states syringes must be disposed of properly as they cannot be recycled or thrown in the garbage."
+          },
+          {
+            "statement": "Hazardous waste refers to paint that can be harmful to health or the environment.",
+            "verdict": "yes",
+            "reason": "The context explicitly states paint must be taken to a Household Hazardous Waste Facility."
+          },
+          {
+            "statement": "Hazardous waste refers to certain chemicals that can be harmful to health or the environment.",
+            "verdict": "yes",
+            "reason": "The context lists chemicals like ammonia, antifreeze, and bleaches as hazardous waste."
+          },
+          {
+            "statement": "E-waste can be collected curbside for proper disposal.",
+            "verdict": "yes",
+            "reason": "The context states curbside e-waste collection is available via Republic Services."
+          },
+          {
+            "statement": "Hazardous waste should be disposed of at specific hazardous waste sites.",
+            "verdict": "yes",
+            "reason": "The context mentions Alameda County and Sierra County facilities for hazardous waste disposal."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer partially addresses the question but introduces information not strictly aligned with the City of Piedmont's guidelines. The reference answer correctly states that both latex and oil-based paint must be taken to an Alameda County Household Hazardous Waste Facility, as per the City's FAQs. The assistant's answer, however, includes a method for disposing of latex paint by dryi",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Latex paint is not considered hazardous waste.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that latex paint is not considered hazardous waste."
+          },
+          {
+            "statement": "To dispose of latex paint, remove the lid and dry out the leftover paint using an absorbent like kitty litter until it hardens.",
+            "verdict": "yes",
+            "reason": "The context provides instructions to add an absorbent like kitty litter and air dry latex paint until hard."
+          },
+          {
+            "statement": "Once the paint has hardened, the can can be thrown in the garbage.",
+            "verdict": "yes",
+            "reason": "The context confirms that once the paint is dry, the can can be discarded in the garbage."
+          },
+          {
+            "statement": "Oil-based paint must be taken to a PaintCare drop-off site or an Alameda County Household Hazardous Waste Facility.",
+            "verdict": "yes",
+            "reason": "The context mentions PaintCare for oil-based paint in Madison County and Alameda County facilities for Piedmont residents."
+          },
+          {
+            "statement": "For more information, visit the PaintCare website.",
+            "verdict": "yes",
+            "reason": "The context provides a direct link to the PaintCare website for details on accepted items and drop-off locations."
+          },
+          {
+            "statement": "Alternatively, contact the relevant facility directly for details.",
+            "verdict": "yes",
+            "reason": "The context includes contact information for PaintCare and Alameda County facilities for further assistance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly includes key recommendations such as avoiding latex products, consulting a physician, avoiding latex glove powder, wearing a medical ID bracelet, and checking product labels. However, it omits several critical details from the document and reference answer, such as using nonlatex gloves at work, informing employers, carrying a",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Avoid contact with natural rubber latex products if you are allergic to latex.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'Avoid contact with natural rubber latex products.'"
+          },
+          {
+            "statement": "Undergo evaluation by a physician experienced in diagnosing latex allergy.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'Be evaluated by a physician experienced in diagnosing latex allergy.'"
+          },
+          {
+            "statement": "Avoid areas where you might inhale latex glove powder from others.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'Avoid areas where you might inhale the powder from latex gloves worn by other workers.'"
+          },
+          {
+            "statement": "Wear a personal medical emergency ID bracelet.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'Wear a personal medical emergency ID bracelet.'"
+          },
+          {
+            "statement": "Check product labels to identify latex content.",
+            "verdict": "yes",
+            "reason": "The context advises checking labels or contacting manufacturers to identify latex content in products."
+          },
+          {
+            "statement": "Consider using nonlatex alternatives when possible.",
+            "verdict": "yes",
+            "reason": "The context recommends using nonlatex gloves for non-infectious activities and suggests nonlatex alternatives to reduce risk."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.800, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.533 (threshold 0.80). RB_llm justification: The assistant's answer is not faithful to the provided documents for the City of Piedmont, as it incorrectly references Danville, CA's $50,000 valuation threshold for debris diversion requirements, which is not present in the Piedmont-specific documents. The reference answer and documents clearly state that in Piedmont, there are no additional city fees for C&D debris recycling, and only homeowner",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.8,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5333333333333333,
+        "conditioned_score": 0.5333333333333333,
+        "statements": [
+          {
+            "statement": "Debris removal costs during a house remodel depend on the project's valuation and type.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention debris removal costs being tied to project valuation or type, only compliance requirements for diversion rates and exemptions based on project type."
+          },
+          {
+            "statement": "Self-hauling debris is allowed in some cases, but local regulations determine eligibility.",
+            "verdict": "yes",
+            "reason": "The context states that homeowners who self-haul debris without paid services are exempt from the exclusive franchise agreement in Danville, and local regulations (e.g., Danville's ordinance) determine eligibility."
+          },
+          {
+            "statement": "In the City of Piedmont, projects valued at $50,000 or more require diverting at least 65% of debris from landfills.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that projects with a building permit valuation of $50,000 or more in Piedmont must divert 65% of debris from landfills."
+          },
+          {
+            "statement": "Self-hauling debris without paid removal services is permitted, but requires documentation of material diversion.",
+            "verdict": "yes",
+            "reason": "The context specifies that self-hauling by homeowners is allowed in Danville but requires submission of a Salvaged Material Form (SMF) with weight estimates and receipts to document compliance with the 65% diversion goal."
+          },
+          {
+            "statement": "Local municipalities should be consulted for specific debris removal requirements.",
+            "verdict": "yes",
+            "reason": "The context highlights that Danville and Piedmont have distinct ordinances (e.g., valuation thresholds, exemptions, and hauler requirements), emphasizing the need to consult local regulations."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 10,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the document and addresses the user's question about Alameda County's three mandatory recycling ordinances and their penalties. It correctly identifies the **Organics Reduction and Recycling Ordinance** and the **Mandatory Commercial Recycling Law (AB 341)**, both of which are explicitly mentioned in the provided document. The reference answer also incl",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Alameda County has three mandatory recycling ordinances aimed at reducing landfill waste.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Alameda County has three mandatory recycling ordinances designed to reduce landfill waste."
+          },
+          {
+            "statement": "These include the Organics Reduction and Recycling Ordinance, which requires businesses and properties to divert food scraps and other compostable materials from landfills.",
+            "verdict": "yes",
+            "reason": "The context details the Organics Reduction and Recycling Ordinance as part of SB 1383, mandating the diversion of organics from landfills."
+          },
+          {
+            "statement": "Violating these ordinances may result in fines, as non-compliance is considered an infraction.",
+            "verdict": "yes",
+            "reason": "The context states that violations of the City's ordinances (part of Alameda County's framework) are considered infractions with potential fines."
+          },
+          {
+            "statement": "The specific penalties are not detailed in the retrieved evidence, but violations can lead to financial consequences.",
+            "verdict": "yes",
+            "reason": "The context mentions fines without specifying amounts, aligning with the statement about financial consequences without details."
+          },
+          {
+            "statement": "For more details, contact the Alameda County Recycling Hotline at 877-STOPWASTE.",
+            "verdict": "yes",
+            "reason": "The context explicitly provides the Alameda County Recycling Hotline number as 877-STOPWASTE."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 64672,
+    "completion_tokens": 22896,
+    "total_tokens": 87568,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 40,
+    "reasoning_tokens": 19507,
+    "reasoning_budget_verified_calls": 40
+  },
+  "elapsed_seconds": 675.742
+}

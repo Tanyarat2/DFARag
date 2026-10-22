@@ -1,0 +1,274 @@
+{
+  "version": 1,
+  "fingerprint": "789edeca9c0fe3fdb6335464a8734f4ed4ffcbeab108d268a76b575840f44841",
+  "id": "4a8369b7403e54df94d7fa495a4eff27",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, accurately reflecting the pre-market trading hours (4:00 a.m.–9:30 a.m. ET), the restriction to limit orders due to low liquidity, and the requirement for brokers to permit pre-market trading. It also correctly explains the \"Ext\" order specification for extended hours. The answer is appropriate, directly addressing the question without unnecessar",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Pre-market trading occurs outside regular market hours, typically from 4:00 a.m. to 9:30 a.m. ET.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that pre-market trading hours are from 4:00 a.m. to 9:30 a.m. ET, which is outside regular market hours (9:30am - 4pm)."
+          },
+          {
+            "statement": "Pre-market trading allows investors to place limit orders.",
+            "verdict": "yes",
+            "reason": "The context confirms that only limit orders are permitted during pre-market and post-market due to low liquidity."
+          },
+          {
+            "statement": "Not all brokers permit trading during pre-market hours.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that some brokers restrict trading to regular hours and do not allow pre-market trading."
+          },
+          {
+            "statement": "Market orders are generally not allowed during pre-market trading due to lower liquidity.",
+            "verdict": "yes",
+            "reason": "The context explains that brokers disallow market orders during pre/post-market to prevent trades from filling at poor prices due to low liquidity."
+          },
+          {
+            "statement": "Orders placed during pre-market or post-market hours can execute in real-time if specified as 'Ext' (extended hours).",
+            "verdict": "yes",
+            "reason": "The context provides an example where specifying 'Ext' allows orders to execute during pre-market/post-market in real-time."
+          },
+          {
+            "statement": "Liquidity is lower during pre-market and post-market periods.",
+            "verdict": "yes",
+            "reason": "The context directly states that liquidity is much lower during pre-market and post-market hours."
+          },
+          {
+            "statement": "Lower liquidity during pre-market and post-market hours can lead to price fluctuations when the market opens.",
+            "verdict": "yes",
+            "reason": "The context explains that the influx of trades during regular market hours can cause price jumps, implying pre/post-market liquidity gaps contribute to this."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer effectively distinguishes between limit and market orders by highlighting their core characteristics: price certainty for limit orders and timing certainty for market orders. It accurately reflects the trade-off between execution guarantees and price control, aligning with the reference answer. The response is concise and avoids unnecessary complexity, making it appropriate ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "A limit order sets a maximum price for buying or a minimum price for selling.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a limit order is an order to buy at a maximum price or sell at a minimum price."
+          },
+          {
+            "statement": "Limit orders guarantee a specific price but might not be filled if the market price doesn't meet the set limit.",
+            "verdict": "yes",
+            "reason": "The context explains that limit orders are executed at the specified price or better but may not be filled if the market price does not reach the set limit."
+          },
+          {
+            "statement": "Market orders execute instantly at the current best price, ensuring quick execution but without price guarantees.",
+            "verdict": "yes",
+            "reason": "The context clarifies that market orders execute at the next available price (current best price) but do not guarantee the execution price, especially in illiquid markets."
+          },
+          {
+            "statement": "The decision to use a limit or market order depends on the trader's strategy and current market conditions.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that the choice between limit and market orders depends on trading style, market conditions (e.g., liquidity), and specific circumstances."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.714, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.755 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and addresses the user's question about buying/selling in foreign markets from the US. It correctly highlights Interactive Brokers as a key option, mentions currency conversion challenges, fees, and tax considerations. However, it omits the explicit mention of the alternative approach (opening a foreign broker account) included in the refe",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.7142857142857143,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7547169811320755,
+        "conditioned_score": 0.7547169811320755,
+        "statements": [
+          {
+            "statement": "US citizens can use online brokers to directly purchase shares on foreign exchanges.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that some US-based online brokers, like Interactive Brokers, allow US citizens to directly purchase shares on foreign exchanges."
+          },
+          {
+            "statement": "Interactive Brokers is a broker that allows US citizens to buy shares on foreign exchanges, such as in France.",
+            "verdict": "yes",
+            "reason": "The context directly mentions Interactive Brokers as a broker that allows US citizens to purchase shares on foreign exchanges, including France."
+          },
+          {
+            "statement": "Interactive Brokers may not be user-friendly for some users.",
+            "verdict": "yes",
+            "reason": "The context notes that the Interactive Brokers platform is not particularly user-friendly and has a steep learning curve."
+          },
+          {
+            "statement": "Users must handle currency conversion separately when trading on foreign exchanges through Interactive Brokers.",
+            "verdict": "yes",
+            "reason": "The context states that Interactive Brokers does not automatically convert currencies, requiring users to use their foreign exchange trading interface for conversions."
+          },
+          {
+            "statement": "Trading on foreign markets through Interactive Brokers may incur higher commissions and foreign exchange fees.",
+            "verdict": "no",
+            "reason": "The context specifies that Interactive Brokers' fees for foreign trading are 0.1% with a minimum and that their F/X spreads are competitive, but does not explicitly state that these are higher than other brokers. The claim about 'higher commissions' is not directly supported."
+          },
+          {
+            "statement": "US investors should consider tax implications and registration requirements with foreign tax authorities when trading internationally.",
+            "verdict": "no",
+            "reason": "The context discusses tax implications for US investors (e.g., capital gains taxes) and registration with US tax authorities (W-8BEN) for foreign nationals, but does not mention registration with foreign tax authorities for US investors."
+          },
+          {
+            "statement": "Some brokers may require completion of specific forms and charge higher fees for trading foreign securities.",
+            "verdict": "yes",
+            "reason": "The context mentions that foreign nationals must complete forms like W-8BEN and face higher fees for trading US securities, and that forms are required for exchanges, supporting the claim about forms and fees."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer effectively addresses the core reasons for the absence of a single global market, aligning with the reference answer and the document. It highlights **currency differences** (local exchanges tied to local currencies, cross-currency complications) and **regulatory/political factors** (bank account restrictions, companies listing in local currency for domestic investors). It a",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The primary reason there isn't a single global market is the complexity of currency differences.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that currency differences and the complications of cross-currency translation make a single global market impractical."
+          },
+          {
+            "statement": "Exchanges typically operate in local currencies.",
+            "verdict": "yes",
+            "reason": "The context clarifies that exchanges support transactions and settlement only in local currency."
+          },
+          {
+            "statement": "Securities are denominated in a single currency, making cross-currency transactions cumbersome.",
+            "verdict": "yes",
+            "reason": "The context explains that securities trade in a single currency and that cross-currency translation complicates transactions."
+          },
+          {
+            "statement": "Political and regulatory factors restrict bank accounts to local currencies.",
+            "verdict": "yes",
+            "reason": "The context notes political reasons for restricting domestic bank accounts to local currency."
+          },
+          {
+            "statement": "Companies often list on local exchanges to cater to domestic investors.",
+            "verdict": "yes",
+            "reason": "The context states companies list in local currency to serve domestic investors and business needs."
+          },
+          {
+            "statement": "The practicality of managing multiple currencies contributes to the existence of multiple markets.",
+            "verdict": "yes",
+            "reason": "The context links currency complexity to the need for multiple exchanges and mentions mechanisms like ADRs for cross-border listings."
+          },
+          {
+            "statement": "The competitive nature of exchanges contributes to the existence of multiple markets.",
+            "verdict": "yes",
+            "reason": "The context highlights that exchanges compete as private companies and regulators permit multiple exchanges to foster innovation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.724 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's frustration with market complexity by linking it to structural elements like pre-market/post-market trading, liquidity, and order types. It appropriately ties these points to the broader context of why a single global market doesn't exist, as discussed in prior turns. However, it lacks the detailed behavioral and strategic factors (e.g., following scams,",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7241379310344828,
+        "conditioned_score": 0.7241379310344828,
+        "statements": [
+          {
+            "statement": "Retail investors find financial markets complex because of pre-market and post-market trading, which have lower liquidity and require specific order types like limit orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that pre-market and post-market trading have lower liquidity and only allow limit orders, which adds complexity for retail investors."
+          },
+          {
+            "statement": "The complexity of financial markets, along with the need to understand global markets and trading schedules, makes investing difficult for retail investors.",
+            "verdict": "yes",
+            "reason": "The context discusses pre/post-market hours, broker-specific rules, and global Forex trading schedules, highlighting the complexity and need for understanding diverse systems."
+          },
+          {
+            "statement": "The financial market's structure is designed to meet diverse trading needs and time zones, which is why it isn't a single global market.",
+            "verdict": "yes",
+            "reason": "The context explains NASDAQ's segmented trading hours and Forex markets operating across time zones, showing a structure accommodating diverse needs and time zones."
+          },
+          {
+            "statement": "Although the complexities of the market make investing difficult, they also create opportunities for informed investors to capitalize on.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention opportunities arising from market complexities for informed investors, focusing instead on challenges like liquidity and order types."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 17907,
+    "completion_tokens": 12151,
+    "total_tokens": 30058,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 20,
+    "reasoning_tokens": 11609,
+    "reasoning_budget_verified_calls": 20
+  },
+  "elapsed_seconds": 514.4
+}

@@ -1,0 +1,482 @@
+{
+  "version": 1,
+  "fingerprint": "56fd3df02011ebd6b6ec7c9988600e20d8d5d70083744d51f730449ed992fd68",
+  "id": "fc3e765d7ffc28ffc7ee7ea38fd3c73a",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=0.500, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the enactment year of the Costa-Hawkins Rental Housing Act as 1995, aligning with the reference answer and the document. The response is faithful to the document's information, as the document explicitly states that Costa-Hawkins was a state law enacted in 1995. The assistant's answer is appropriate because it directly addresses the user's question about",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The Costa-Hawkins Rental Housing Act was enacted in California.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Costa-Hawkins Rental Housing Act as a state law in California, confirming its enactment in the state."
+          },
+          {
+            "statement": "The Costa-Hawkins Rental Housing Act was enacted in 1995.",
+            "verdict": "no",
+            "reason": "The context does not provide the enactment year of the Costa-Hawkins Rental Housing Act. It only references the date (February 1, 1995) for newly built housing, not the law's passage date."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the housing problem in California by highlighting the rapid increase in housing costs and the significant disparity between required income and median household income. It accurately cites the $2,500 monthly cost increase and the $235,000 annual income threshold, which are directly supported by the document. The answer is faithful to the provided evidenc",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Yes, there is a housing problem in California.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions a rapid increase in housing costs and a declared housing affordability crisis in California."
+          },
+          {
+            "statement": "Retrieved evidence indicates a rapid increase in housing costs, with monthly costs for a newly purchased home being about $2,500 higher than a few years ago.",
+            "verdict": "yes",
+            "reason": "The context directly states that monthly costs for a newly purchased home are about $2,500 higher than a few years ago."
+          },
+          {
+            "statement": "The annual income needed to qualify for a typical home is about $235,000, which is over two times higher than the median household income.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the annual income needed to qualify for a typical home is $235,000, over two times the median household income of $85,000."
+          },
+          {
+            "statement": "These factors suggest significant housing affordability challenges in the state.",
+            "verdict": "yes",
+            "reason": "The context highlights rising housing costs, income disparities, and a declared housing affordability crisis, all supporting significant challenges."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer addresses the key aspects of the question about renters in California, including high housing costs, local rent control laws, the limitations imposed by the Costa-Hawkins Act, and the state's rent increase cap. It also provides a relevant resource (ECHO Housing) for tenant assistance. However, it omits critical details from the reference answer and document, such as the **ho",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Renters in California face challenges such as high housing costs, with renters typically paying 50% more than in other states.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that California renters typically pay 50% more than renters in other states."
+          },
+          {
+            "statement": "Local rent control laws exist in cities like Los Angeles, San Francisco, and San Jose.",
+            "verdict": "yes",
+            "reason": "The context confirms that cities like Los Angeles, San Francisco, and San Jose have rent control laws."
+          },
+          {
+            "statement": "The Costa-Hawkins Rental Housing Act restricts rent control to non-single-family homes built before February 1, 1995.",
+            "verdict": "yes",
+            "reason": "The context states that Costa-Hawkins limits rent control to exclude single-family homes and newly built housing (post-1995)."
+          },
+          {
+            "statement": "The Costa-Hawkins Rental Housing Act prohibits setting rents for new tenants.",
+            "verdict": "yes",
+            "reason": "The context clarifies that Costa-Hawkins prohibits rent control laws from dictating rents for new tenants."
+          },
+          {
+            "statement": "A state law limits annual rent increases to 5% plus inflation, or 10%, whichever is lower, for most housing over 15 years old.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions this state law limiting rent increases for housing over 15 years old."
+          },
+          {
+            "statement": "Renters can seek assistance through organizations like ECHO Housing for tenant rights and dispute resolution.",
+            "verdict": "yes",
+            "reason": "The context references ECHO Housing as a resource for tenant rights and mediation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it accurately reflects the VA's health programs, mental health services, homeless support, and other non-housing-related resources. However, it diverges from the reference answer, which focuses on **VA housing assistance** and the **Supportive Services for Veteran Families (SSVF)** program. The assistant omitted these critical housing-specific",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Yes, there is help available for veterans.",
+            "verdict": "yes",
+            "reason": "The context lists numerous VA programs and services for veterans."
+          },
+          {
+            "statement": "The Veterans Health Administration offers various health programs.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions multiple health programs under the Veterans Health Administration."
+          },
+          {
+            "statement": "The Veterans Health Administration offers mental health services.",
+            "verdict": "yes",
+            "reason": "The context includes a section on Mental Health and references PTSD treatment and counseling."
+          },
+          {
+            "statement": "The Veterans Health Administration offers homeless services.",
+            "verdict": "yes",
+            "reason": "The context details Homeless Services and efforts to end veteran homelessness."
+          },
+          {
+            "statement": "The Veterans Health Administration offers substance abuse programs.",
+            "verdict": "yes",
+            "reason": "The context includes Substance Abuse Programs and treatment for substance use problems."
+          },
+          {
+            "statement": "Veterans can access these services through the VA.",
+            "verdict": "yes",
+            "reason": "The context provides instructions for applying for VA health care and accessing services."
+          },
+          {
+            "statement": "The VA offers same-day care.",
+            "verdict": "yes",
+            "reason": "The context states same-day services are available for urgent mental health needs."
+          },
+          {
+            "statement": "The VA offers telehealth.",
+            "verdict": "yes",
+            "reason": "The context mentions Telehealth as a service connecting veterans with providers."
+          },
+          {
+            "statement": "The VA offers in-person appointments.",
+            "verdict": "yes",
+            "reason": "The context lists face-to-face appointments as part of same-day services."
+          },
+          {
+            "statement": "The Veterans Crisis Line provides free, confidential support for veterans in crisis.",
+            "verdict": "yes",
+            "reason": "The context provides the Veterans Crisis Line number and confirms it is free and confidential."
+          },
+          {
+            "statement": "Veterans can find legal resources.",
+            "verdict": "yes",
+            "reason": "The context includes a section on Legal Resources for veterans and service members."
+          },
+          {
+            "statement": "Veterans can find job training.",
+            "verdict": "yes",
+            "reason": "The context references Veteran Readiness and Employment (VR&E) programs and job training resources."
+          },
+          {
+            "statement": "Veterans can find educational assistance.",
+            "verdict": "yes",
+            "reason": "The context mentions educational assistance programs like the Post-9/11 GI Bill and VR&E."
+          },
+          {
+            "statement": "Legal resources, job training, and educational assistance are available through the VA and other organizations.",
+            "verdict": "yes",
+            "reason": "The context lists both VA and external organizations (e.g., Swords to Plowshares) providing these services."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful, as it correctly references Section 8 housing and the Bringing Families Home (BFH) initiative, both of which are mentioned in the document. However, it omits key details from the reference answer and document, such as the **Foster Youth to Independence (FYI)/Family Unification Program (FUP) vouchers** and the role of the California Department of Housing",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Some people who receive welfare may also receive housing assistance.",
+            "verdict": "yes",
+            "reason": "The context discusses public housing programs for low-income individuals, which may overlap with welfare recipients. The Bringing Families Home (BFH) initiative also provides housing for families involved with child welfare, which could include welfare recipients."
+          },
+          {
+            "statement": "Section 8 housing provides subsidized housing for low-income individuals and families.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Section 8 and subsidized housing, stating that these programs help low-income people obtain affordable housing. The HUD guidelines and videos further explain these programs."
+          },
+          {
+            "statement": "The Bringing Families Home (BFH) initiative offers housing and supportive services for families involved with the child welfare system.",
+            "verdict": "yes",
+            "reason": "The context provides detailed information about BFH, including its purpose to assist families in the child welfare system with housing and supportive services like rental assistance, case management, and legal costs."
+          },
+          {
+            "statement": "The availability of housing assistance depends on eligibility.",
+            "verdict": "yes",
+            "reason": "The context references HUD guidelines to determine eligibility for public housing programs and mentions specific criteria for initiatives like BFH and HNMP, indicating that eligibility is a key factor."
+          },
+          {
+            "statement": "The availability of housing assistance depends on the specific programs in place.",
+            "verdict": "yes",
+            "reason": "The context outlines multiple programs (e.g., Section 8, BFH, HNMP) with distinct funding allocations, services, and target populations, showing that availability is program-specific."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.714, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.796 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the document and reference answer, accurately describing the Property Tax Postponement (PTP) Program, including eligibility criteria (income limit of $51,762, 40% equity requirement) and repayment terms. It also appropriately addresses the user's question by focusing on property tax assistance for homeowners without introducing irrelevant information. ",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.7142857142857143,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7964601769911505,
+        "conditioned_score": 0.7964601769911505,
+        "statements": [
+          {
+            "statement": "Assistance is available for property taxes for homeowners in California.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Property Tax Postponement Program in Sierra County, CA, which provides assistance to eligible homeowners."
+          },
+          {
+            "statement": "The Property Tax Postponement Program allows seniors, blind individuals, and disabled homeowners to defer property taxes if they meet specific criteria.",
+            "verdict": "yes",
+            "reason": "The context states that the program allows these groups to defer taxes if they meet criteria like equity and income requirements."
+          },
+          {
+            "statement": "Eligibility for the program requires at least 40% equity in the home and an annual income of $51,762 or less.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists these requirements as part of the program's eligibility criteria."
+          },
+          {
+            "statement": "The Property Tax Postponement Program is operated by the State Controller’s Office.",
+            "verdict": "yes",
+            "reason": "The context directly states that the program is operated by the State Controller's Office."
+          },
+          {
+            "statement": "The program provides loans to eligible homeowners, which are repaid later, often when the home is sold or transferred.",
+            "verdict": "yes",
+            "reason": "The context and the blog post both describe the program as providing loans secured by a lien, repaid when the home is sold or transferred."
+          },
+          {
+            "statement": "Some counties, like Sierra County, offer property tax assistance programs with similar eligibility requirements.",
+            "verdict": "no",
+            "reason": "The context describes Sierra County as part of the state-run program, not a separate county program with similar requirements. The program is state-level, not county-specific."
+          },
+          {
+            "statement": "Homeowners should contact their local county assessor or the State Controller’s Office for more details.",
+            "verdict": "no",
+            "reason": "The context provides contact information for the State Controller’s Office for the program, but does not mention contacting the county assessor for this specific program. The statement includes both, but only the State Controller’s Office is explicitly referenced."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer provides a general definition of discrimination and mentions the EEOC and state-level protections, which is accurate. However, it fails to address the key information in the reference answer about the **Department of Fair Employment and Housing (DFEH)** in California, which is central to enforcing anti-discrimination laws in housing, employment, and public accommodations. Th",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Discrimination refers to the act of treating someone unfairly or differently based on certain characteristics such as race, color, religion, sex, national origin, age, disability, or other protected classes.",
+            "verdict": "yes",
+            "reason": "The context explicitly defines discrimination in employment, education, and housing with these protected classes."
+          },
+          {
+            "statement": "It can occur in various contexts, including employment, education, housing, and more.",
+            "verdict": "yes",
+            "reason": "The context discusses discrimination in employment (EEOC), education (New York State AG), and housing (glossary definition)."
+          },
+          {
+            "statement": "In housing, discrimination may involve denying someone a rental opportunity, providing inferior terms, or segregating housing based on these factors.",
+            "verdict": "yes",
+            "reason": "The glossary definition of 'discrimination (in renting)' includes denial of housing, inferior terms, and segregation based on protected classes."
+          },
+          {
+            "statement": "In employment, it may involve unfair treatment or harassment in the workplace.",
+            "verdict": "yes",
+            "reason": "The EEOC and New York State AG sections describe employment discrimination as unfair treatment and harassment based on protected classes."
+          },
+          {
+            "statement": "Legal frameworks exist to address and prevent discrimination, such as the U.S. Equal Employment Opportunity Commission (EEOC) and state-level protections.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the EEOC and New York State Attorney General's role in enforcing anti-discrimination laws."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses the severity of homelessness in California, citing the 2020 homeless population figure (161,500 individuals) and linking it to housing affordability challenges. It also mentions the Governor’s Homelessness Plan as part of state efforts. However, it omits critical details from the document and reference answer, such as specific programs like the Emergency Housing an",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "The homeless situation in California is severe, with over 161,500 individuals experiencing homelessness as of January 2020, making it the state with the highest homeless population in the nation.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that California had 161,500 individuals experiencing homelessness in January 2020, representing 28% of the national homeless population, and that California has more homeless individuals than any other state."
+          },
+          {
+            "statement": "The high cost of housing is a significant factor contributing to homelessness, particularly affecting low-income households.",
+            "verdict": "yes",
+            "reason": "The context directly links rising housing costs exceeding wage growth for low-income households to housing instability and homelessness, noting that 2.5 million low-income households are cost burdened."
+          },
+          {
+            "statement": "There are efforts to address this crisis, including increased state funding and initiatives like the Governor’s Homelessness Plan.",
+            "verdict": "yes",
+            "reason": "The context describes the Governor’s 2022-23 Homelessness Plan, state funding increases, and the role of the California Interagency Council on Homelessness (Cal ICH) in coordinating efforts."
+          },
+          {
+            "statement": "Long-term solutions and sustained resources are necessary to effectively combat homelessness in California.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need for long-term fiscal strategies, sustained funding, and a clear state-local partnership to address the homelessness crisis, noting that past efforts relied on temporary funding."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.833, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.865 (threshold 0.80). RB_llm justification: The assistant's answer effectively addresses the user's question by refuting the claim that California has solved its homelessness and housing problems. It aligns with the reference answer by emphasizing that while the state has increased funding and support, the crisis remains unresolved. The assistant's response is faithful to the documents, which detail ongoing challenges such as high housing c",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8653846153846154,
+        "conditioned_score": 0.8653846153846154,
+        "statements": [
+          {
+            "statement": "The statement \"So, they have solved the problem\" is not supported by the retrieved evidence.",
+            "verdict": "no",
+            "reason": "The context discusses ongoing housing challenges and mandates, with no mention of the problem being solved."
+          },
+          {
+            "statement": "The evidence indicates that California continues to face significant housing challenges.",
+            "verdict": "yes",
+            "reason": "The context repeatedly highlights California's housing affordability issues and the need for policy changes."
+          },
+          {
+            "statement": "These challenges include high housing costs.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that housing costs in California are extremely high and exceed wage growth."
+          },
+          {
+            "statement": "There is a shortage of affordable housing in California.",
+            "verdict": "yes",
+            "reason": "The context notes a significant shortage of housing in coastal communities, a key driver of affordability issues."
+          },
+          {
+            "statement": "California is experiencing a severe homelessness crisis.",
+            "verdict": "yes",
+            "reason": "The context provides data on homelessness in California, including 161,500 individuals experiencing homelessness in 2020."
+          },
+          {
+            "statement": "There is no indication that these housing issues have been resolved.",
+            "verdict": "yes",
+            "reason": "The context emphasizes ongoing efforts and unresolved issues, with no indication of resolution for housing challenges."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 57642,
+    "completion_tokens": 32614,
+    "total_tokens": 90256,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 37,
+    "reasoning_tokens": 32464,
+    "reasoning_budget_verified_calls": 37
+  },
+  "elapsed_seconds": 1996.566
+}

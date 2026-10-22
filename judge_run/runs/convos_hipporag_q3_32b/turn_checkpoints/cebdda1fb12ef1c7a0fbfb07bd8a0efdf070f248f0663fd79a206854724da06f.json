@@ -1,0 +1,507 @@
+{
+  "version": 1,
+  "fingerprint": "cebdda1fb12ef1c7a0fbfb07bd8a0efdf070f248f0663fd79a206854724da06f",
+  "id": "1c74814752c3f9d4ed0b99c16e1ed192",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses alternative salary methods by discussing equity in an LLC, K-1 forms, 1099-MISC, profit-sharing, and salary deferral plans, which are relevant to the question. It aligns with the document's focus on tax implications and legal structures (e.g., distinguishing between LLC members and independent contractors). However, it omits key elements from the reference answer, ",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Alternative means of salary for employees can include equity, such as ownership in an LLC, which provides distributions and is taxed via a K-1 form.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that LLC members receive distributions and a K-1 form for tax treatment, contrasting with 1099 or W2."
+          },
+          {
+            "statement": "This differs from 1099-MISC, which is for independent contractors.",
+            "verdict": "yes",
+            "reason": "The context clarifies that 1099-MISC is used for contractors, which contradicts the equity allocation scenario described."
+          },
+          {
+            "statement": "If compensation is based on a percentage of real estate sales, it may be taxed as employment income.",
+            "verdict": "yes",
+            "reason": "The context specifies that such compensation would likely be treated as a commission and taxed as employment income."
+          },
+          {
+            "statement": "Profit-sharing or salary deferral plans could be considered as alternative salary methods.",
+            "verdict": "yes",
+            "reason": "The context discusses salary deferral and profit-sharing in the context of financial statements and compensation structures, implying these are viable alternatives."
+          },
+          {
+            "statement": "The specific tax implications and advantages depend on the structure and context, and consulting a tax professional is recommended for accurate guidance.",
+            "verdict": "yes",
+            "reason": "The context repeatedly emphasizes the complexity of tax implications and explicitly advises consulting a tax professional for detailed guidance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.600, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.600 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, as it correctly identifies that federal income tax withholding for household employees is optional unless the employee provides a W-4 form. It also accurately states the requirement to withhold Social Security and Medicare taxes and file Form W-2. However, the answer is **not fully complete** because it focuses narrowly on household employees",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6,
+        "conditioned_score": 0.6,
+        "statements": [
+          {
+            "statement": "Employers are not required to withhold federal income tax from wages paid to household employees.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that employers are not required to withhold federal income tax from household employees."
+          },
+          {
+            "statement": "Employers can withhold federal income tax from wages paid to household employees if the employee requests it and provides a completed Form W-4.",
+            "verdict": "yes",
+            "reason": "The context confirms that employers may withhold federal income tax if the employee requests it and provides a completed Form W-4."
+          },
+          {
+            "statement": "Employers must report employee salaries and withhold Social Security and Medicare taxes.",
+            "verdict": "no",
+            "reason": "The context does not state that employers are required to withhold Social Security and Medicare taxes; it only mentions that if they do, they must complete Form W-2."
+          },
+          {
+            "statement": "Employers must complete Form W-2 for each employee.",
+            "verdict": "no",
+            "reason": "The context specifies that Form W-2 is required only if Social Security/Medicare taxes are withheld or federal income tax is withheld, not universally for all employees."
+          },
+          {
+            "statement": "The information provided is based on IRS guidelines.",
+            "verdict": "yes",
+            "reason": "The context references IRS publications, tax topics, and forms, indicating the information aligns with IRS guidelines."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about why income tax is still required by explaining that income tax is levied on earned income regardless of business losses and mentions other taxes like sales and employment taxes. However, it lacks key details from the reference answer and document, such as the concept of gross income, the necessity to report all work-related income, and the",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "Income tax is levied on your income, which is the money you earn, regardless of whether you have expenses or not.",
+            "verdict": "no",
+            "reason": "The context clarifies that income tax is levied on profit (income minus expenses), not total income. For individuals, deductions for expenses are allowed, and for businesses, tax is on net profit. The statement incorrectly implies taxes are on total income without accounting for expenses."
+          },
+          {
+            "statement": "Even if your business incurs losses, you may still have to pay income tax on any salary or dividends you receive.",
+            "verdict": "yes",
+            "reason": "The context provides an example where a business owner pays personal income tax on their salary even if the business has a loss. This aligns with the statement."
+          },
+          {
+            "statement": "Other taxes such as sales tax, employment taxes, and consumption taxes may apply, even if you are not profitable.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that non-profitable businesses still pay sales tax on purchases, employment taxes, and other fees, supporting the statement."
+          },
+          {
+            "statement": "The government collects these taxes to fund public services and infrastructure, which all individuals and businesses benefit from.",
+            "verdict": "yes",
+            "reason": "The context discusses that taxes are used to fund government operations, including public services and infrastructure, which aligns with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.929, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.729 (threshold 0.80). RB_llm justification: The assistant's answer addresses payroll deductions (e.g., FICA, health insurance, retirement savings) and distinguishes between pre-tax and post-tax deductions, which aligns with the document's discussion of pay stubs and payroll processes. However, it omits key elements from the reference answer, such as **standard deductions, personal exemptions, and tax credits (e.g., student loan interest)**.",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.9285714285714286,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7289719626168224,
+        "conditioned_score": 0.7289719626168224,
+        "statements": [
+          {
+            "statement": "FICA is a mandatory deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that FICA is a fixed 7.65% deduction not affected by allowances or deductions, indicating it is mandatory."
+          },
+          {
+            "statement": "FICA amounts to 7.65% of the gross salary.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that FICA is a fixed 7.65% of the gross salary."
+          },
+          {
+            "statement": "Health insurance is an optional deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context lists health insurance as an optional employee benefit that can be elected."
+          },
+          {
+            "statement": "Retirement savings is an optional deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that retirement savings are an optional employee benefit."
+          },
+          {
+            "statement": "Flexible spending accounts are an optional deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context includes flexible spending accounts (e.g., Child Care) as optional deductions under employee-controlled benefits."
+          },
+          {
+            "statement": "Life insurance is a possible deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context lists life insurance as one of the deductions that may appear on a pay stub."
+          },
+          {
+            "statement": "Accident insurance is a possible deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions accident insurance as a possible deduction."
+          },
+          {
+            "statement": "Long-term disability is a possible deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context lists long-term disability as a possible deduction."
+          },
+          {
+            "statement": "Child care is a possible deduction from an employee's salary.",
+            "verdict": "yes",
+            "reason": "The context references a Child Care flexible spending account as a deduction, indicating child care is a possible deduction."
+          },
+          {
+            "statement": "Deductions are typically outlined on the pay stub.",
+            "verdict": "yes",
+            "reason": "The context states that pay stubs show 'all stuff that gets deducted' and how the payment is calculated."
+          },
+          {
+            "statement": "Pay stubs show how gross income is calculated.",
+            "verdict": "no",
+            "reason": "The context mentions that pay stubs show gross income but does not explain how it is calculated, only that it is displayed."
+          },
+          {
+            "statement": "Pay stubs show how net payment is determined.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that pay stubs show how the actual payment (net) is calculated."
+          },
+          {
+            "statement": "Some deductions are paid with before-tax money.",
+            "verdict": "yes",
+            "reason": "The context clarifies that some deductions are paid with before-tax money."
+          },
+          {
+            "statement": "Other deductions are paid with after-tax money.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that some deductions are paid with after-tax money."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly addresses the key aspects of FICA, including the distinction between employer/employee splits, self-employment tax for sole proprietors, and the scenario of being both employed and self-employed. It aligns with the reference answer on these core points. However, it omits critical details from the reference and documents, such as FICA being a \"pay-as-you-go\" system ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "FICA taxes are separate from federal and state income taxes.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that FICA taxes are separate from federal and state income taxes."
+          },
+          {
+            "statement": "As a sole proprietor, you owe all of those.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that as a sole proprietor, you owe all of those (FICA, federal, and state income taxes)."
+          },
+          {
+            "statement": "Additionally, there is a difference with FICA when you are employed versus self-employed.",
+            "verdict": "yes",
+            "reason": "The context explicitly states there is a difference in FICA treatment between being employed and self-employed."
+          },
+          {
+            "statement": "Typically, FICA taxes are split between the employer and the employee, so you pay half, and they pay half.",
+            "verdict": "yes",
+            "reason": "The context confirms that FICA taxes are typically split between employer and employee."
+          },
+          {
+            "statement": "However, when you are self-employed, you pay both halves, which is commonly referred to as the self-employment tax.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that self-employed individuals pay both halves of FICA, termed self-employment tax."
+          },
+          {
+            "statement": "If you are both employed and self-employed, your employer pays their portion of FICA on the income you earn there, and you pay both halves on the income you earn in your business.",
+            "verdict": "yes",
+            "reason": "The context directly supports this scenario, explaining how FICA is handled for dual employment/self-employment."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly distinguishes between personal income tax and corporate tax, highlighting key differences such as the tax bases (individuals vs. corporations), tax rates, and the concept of double taxation. It aligns with the documents by mentioning corporate tax on profits, the higher corporate tax rate, and the retention of earnings in corporations for tax efficiency. However, t",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Personal income tax and corporate tax are not the same.",
+            "verdict": "yes",
+            "reason": "The context explicitly contrasts corporate tax with individual tax rates and structures, noting differences in rates and tax bases."
+          },
+          {
+            "statement": "Personal income tax applies to individuals' earnings, while corporate tax applies to businesses.",
+            "verdict": "yes",
+            "reason": "The context clarifies that individuals are taxed on income after expenses, and corporations on their profits, aligning with the statement."
+          },
+          {
+            "statement": "Corporate tax is generally higher than individual tax rates.",
+            "verdict": "yes",
+            "reason": "The context directly states that corporate tax rates are much higher than average individual tax rates."
+          },
+          {
+            "statement": "Corporations are taxed on their profits, whereas individuals are taxed on their income after expenses.",
+            "verdict": "yes",
+            "reason": "The context explains that both corporations and individuals are taxed on net profit/income after expenses, but the statement correctly distinguishes the entities."
+          },
+          {
+            "statement": "Corporate taxes can lead to double taxation, as profits are taxed at the corporate level and again when distributed as dividends to shareholders.",
+            "verdict": "yes",
+            "reason": "The context acknowledges double taxation in the context of dividends and payroll taxes, supporting this claim."
+          },
+          {
+            "statement": "Personal income tax is based on an individual's taxable income, which is calculated after deducting personal expenses.",
+            "verdict": "yes",
+            "reason": "The context states individuals deduct personal expenses and are taxed on profit, even if simplified for most taxpayers."
+          },
+          {
+            "statement": "The two systems have different structures and purposes, and they are not interchangeable.",
+            "verdict": "yes",
+            "reason": "The context highlights structural differences (e.g., tax rates, deductions) and purposes (e.g., growth incentives), confirming they are not interchangeable."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer addresses the general topic of investments by discussing risk levels, diversification through mutual funds/ETFs, and long-term strategies. However, it fails to incorporate key information from the reference answer and document, particularly regarding **tax implications of investments** (e.g., taxation of dividends, capital gains, traditional/Roth IRAs, tax-exempt mutual fund",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "Investments can vary in risk and return.",
+            "verdict": "yes",
+            "reason": "The context discusses different investment types with varying risk levels (e.g., low-risk government bonds vs. high-risk stocks) and their corresponding returns."
+          },
+          {
+            "statement": "Safe options include government bonds, bank accounts (with FDIC insurance), and retirement accounts.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions government bonds and FDIC-insured bank accounts as safe, and advises understanding national retirement programs for long-term security."
+          },
+          {
+            "statement": "Riskier options like stocks or real estate may offer higher returns but involve more risk.",
+            "verdict": "yes",
+            "reason": "The context contrasts low-risk investments with higher-risk ones like stocks and real estate, noting their potential for higher returns but also significant risks (e.g., stock market volatility, real estate bubbles)."
+          },
+          {
+            "statement": "Mutual funds and ETFs provide diversification, reducing risk by spreading investments across multiple assets.",
+            "verdict": "yes",
+            "reason": "The context explains that mutual funds and ETFs reduce risk by pooling investments in multiple assets, insulating investors from individual stock or bond failures."
+          },
+          {
+            "statement": "However, all investments carry some level of risk, and it's important to research and understand the potential outcomes.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that all investments involve risk, advises researching FDIC rules, and highlights the need for due diligence in selecting investments (e.g., bond issuers, stock-specific research)."
+          },
+          {
+            "statement": "For long-term goals, stock mutual funds are often recommended due to their historical performance.",
+            "verdict": "yes",
+            "reason": "The context states that stock mutual funds (e.g., S&P 500) have historically provided strong returns (11% average over 35 years) and are suitable for long-term goals like retirement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=1/10, RL_F=0.250, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is entirely unrelated to the user's question about income tax variations across the USA. The reference answer clearly addresses state-level differences in personal income tax, residency rules, and foreign income taxation. However, the assistant's response discusses McDonald's pricing, paper sizes, and food quality, which are irrelevant to the tax topic. This indicates a comp",
+      "scores": {
+        "RB_llm": 1.0,
+        "RB_llm_norm": 0.1,
+        "RL_F": 0.25,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.14285714285714285,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The question of whether certain practices or standards are the same across the entire USA is not directly addressed by the retrieved evidence.",
+            "verdict": "no",
+            "reason": "The context explicitly discusses variations in pricing, paper sizes, and food quality across different locations, which directly addresses the question of consistency. The evidence shows that practices are not uniform, so the question is addressed."
+          },
+          {
+            "statement": "The provided passages discuss variations in pricing, paper sizes, and food quality at McDonald's in different locations.",
+            "verdict": "yes",
+            "reason": "The context includes examples of price variance by county, inconsistent paper sizes, and detailed comparisons of food quality across multiple McDonald's locations (e.g., US border vs. downtown, international locations)."
+          },
+          {
+            "statement": "The provided passages do not provide a clear, unified answer about whether these practices are consistent nationwide.",
+            "verdict": "no",
+            "reason": "The context provides clear evidence of inconsistencies (e.g., price swings, varying paper formats, food quality differences), which directly answers the question of consistency. The passages do offer a unified conclusion that practices are not consistent."
+          },
+          {
+            "statement": "Therefore, based on the evidence retrieved, it is not possible to definitively state whether they are the same all over the USA.",
+            "verdict": "no",
+            "reason": "The evidence explicitly demonstrates variability in practices (e.g., pricing, food quality, paper sizes), allowing a definitive conclusion that they are not the same nationwide. The statement contradicts the evidence."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about job loss by focusing on financial management strategies such as emergency funds, reducing expenses, and exploring unemployment insurance. However, it lacks the detailed explanation of unemployment insurance eligibility, state-specific rules, and benefit calculations provided in the reference answer and documents. While the assistant mentio",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "If you lose your job, it is crucial to manage your finances carefully.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of managing savings, reducing expenses, and planning for unemployment to mitigate financial risks after job loss."
+          },
+          {
+            "statement": "Maintain an emergency fund covering 6-9 times your monthly expenses to cover unexpected periods without income.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that experts recommend maintaining 6-9 times monthly expenses in a liquid account for such scenarios."
+          },
+          {
+            "statement": "Consider reducing non-essential expenses and exploring options like unemployment insurance, which provides temporary financial support.",
+            "verdict": "yes",
+            "reason": "The context advises cutting non-essential expenses and highlights unemployment insurance as a resource for temporary financial support."
+          },
+          {
+            "statement": "If you own a home, you may negotiate with your lender to extend your mortgage or reduce payments.",
+            "verdict": "yes",
+            "reason": "The context discusses renegotiating mortgages, extending mortgage terms, and reducing payments to manage financial strain."
+          },
+          {
+            "statement": "Additionally, you can sell possessions, seek part-time work, or ask for help from family and friends.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists selling possessions, part-time work, and seeking help from family/friends as viable options during financial hardship."
+          },
+          {
+            "statement": "Prioritize essential needs and avoid unnecessary debt.",
+            "verdict": "yes",
+            "reason": "The context emphasizes keeping expenses low, avoiding unnecessary debt, and focusing on essential needs to maintain financial stability."
+          },
+          {
+            "statement": "If your situation worsens, consider stopping non-essential payments and seeking temporary housing to protect your credit.",
+            "verdict": "yes",
+            "reason": "The context suggests halting non-essential payments and finding temporary housing (e.g., with family) to avoid foreclosure and protect credit."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 38796,
+    "completion_tokens": 25316,
+    "total_tokens": 64112,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 24343,
+    "reasoning_budget_verified_calls": 36
+  },
+  "elapsed_seconds": 1250.661
+}

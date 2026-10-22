@@ -1,0 +1,509 @@
+{
+  "version": 1,
+  "fingerprint": "f15ff907a0706ad7afb958a7d7801eccfc9b8f8e8bb15fd078471f768357a763",
+  "id": "e0f8a53d3ab93e7900633fc8fa40631e",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.889, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.894 (threshold 0.80). RB_llm justification: The assistant's answer effectively addresses the question of whether following an investment guru is a good idea. It aligns with the reference answer by emphasizing the importance of personal research, understanding the rationale behind strategies, and adapting advice to individual goals. The assistant also incorporates key points from the documents, such as the challenges of replicating a guru's ",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.8888888888888888,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8944099378881988,
+        "conditioned_score": 0.8944099378881988,
+        "statements": [
+          {
+            "statement": "Following an investment guru can be a good idea.",
+            "verdict": "yes",
+            "reason": "The context acknowledges that watching other investors like Warren Buffett can provide insights, though it emphasizes the need for personal research."
+          },
+          {
+            "statement": "It should not be the sole basis for your decisions.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that one's sole reason for investing should not be 'Warren did it' and stresses the importance of personal research."
+          },
+          {
+            "statement": "It is important to do your own research and understand the rationale behind their strategies.",
+            "verdict": "yes",
+            "reason": "The context repeatedly emphasizes researching and understanding investment strategies, such as reading 'A Random Walk Down Wall Street' and analyzing Buffett's methods."
+          },
+          {
+            "statement": "Warren Buffett's approach emphasizes value investing and long-term growth.",
+            "verdict": "yes",
+            "reason": "The context details Buffett's philosophy, including his focus on quality companies at good prices and his evolution from Graham's value investing to a balanced approach."
+          },
+          {
+            "statement": "Replicating his portfolio directly may not yield the same results due to timing differences and transaction costs.",
+            "verdict": "yes",
+            "reason": "The context explains that timing differences and transaction costs (e.g., fees) can significantly impact returns when attempting to replicate a fund's portfolio."
+          },
+          {
+            "statement": "Following a guru can provide insights.",
+            "verdict": "yes",
+            "reason": "The context suggests that watching investors like Buffett can offer insights, though it cautions against blind imitation."
+          },
+          {
+            "statement": "It is crucial to adapt their strategies to your personal financial goals and risk tolerance.",
+            "verdict": "yes",
+            "reason": "The context advises considering one's liquidity needs, risk tolerance, and personal expertise (e.g., 'invest in what you know') when applying investment strategies."
+          },
+          {
+            "statement": "Always consider diversification.",
+            "verdict": "yes",
+            "reason": "The context references index funds and Buffett's diversified portfolio (e.g., holding 50 stocks), implying the importance of diversification."
+          },
+          {
+            "statement": "Consult with a financial advisor if needed.",
+            "verdict": "no",
+            "reason": "The context warns against financial planners exploiting naive investors and does not recommend consulting them, instead advocating self-directed approaches."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=PARTIAL -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer effectively names three investment gurus (Warren Buffett, Burton G. Malkiel, and Peter Lynch) and briefly describes their investment philosophies, aligning with the documents and the reference answer. The inclusion of Buffett and Lynch is directly supported by the documents, while Malkiel is explicitly mentioned in the provided text. The assistant also incorporates the advic",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Warren Buffett is a notable investment guru known for his value investing approach.",
+            "verdict": "yes",
+            "reason": "The context discusses Buffett's investment philosophy, including his value investing approach influenced by Benjamin Graham and Philip Fisher."
+          },
+          {
+            "statement": "Burton G. Malkiel, author of 'A Random Walk Down Wall Street,' advocates for index fund investing.",
+            "verdict": "yes",
+            "reason": "The context explicitly recommends reading 'A Random Walk Down Wall Street' and highlights index funds as a superior strategy to professional investors."
+          },
+          {
+            "statement": "Peter Lynch, famous for his success at Fidelity, emphasizes investing in what you know.",
+            "verdict": "yes",
+            "reason": "The context directly quotes Peter Lynch's phrase 'invest in what you know' as a key principle for self-directed IRA strategies."
+          },
+          {
+            "statement": "Investment gurus like Warren Buffett, Burton G. Malkiel, and Peter Lynch offer valuable insights into different investment strategies.",
+            "verdict": "yes",
+            "reason": "The context references all three gurus and their distinct strategies (value investing, index funds, and 'invest in what you know'), highlighting their relevance to different approaches."
+          },
+          {
+            "statement": "It is essential to conduct your own research and not solely follow the strategies of investment gurus.",
+            "verdict": "yes",
+            "reason": "The context repeatedly emphasizes independent research, cautioning against blindly following gurus like Buffett and advising to verify strategies through personal analysis."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.833, IDK=1.0, answerability=PARTIAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful to the documents, as it correctly notes that the provided evidence does not include specific average returns for the investment gurus. However, it shifts focus to the Dalbar report's data on average investor returns (3.83% vs. S&P 500's 9.14%) instead of addressing the user's direct question about the gurus' returns. This makes the answer less appropria",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.8333333333333334,
+        "idk": 1.0,
+        "answerability": "PARTIAL",
+        "phi": 0.625,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The average return of those gurus is not directly provided in the evidence.",
+            "verdict": "yes",
+            "reason": "The context does not mention any specific 'gurus' or their returns, only the average investor and market returns."
+          },
+          {
+            "statement": "The retrieved evidence mentions that the average investor's return is significantly lower than the market return.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the S&P 9.14% vs. the average investor's 3.83% over 20 years."
+          },
+          {
+            "statement": "The S&P 500 returned 9.14% over a 20-year period.",
+            "verdict": "yes",
+            "reason": "The context directly cites this figure for the 20-year period ending 12/31/10."
+          },
+          {
+            "statement": "The average investor's return was 3.83% over the same period.",
+            "verdict": "yes",
+            "reason": "The context directly cites this figure for the average investor's return over the same 20-year period."
+          },
+          {
+            "statement": "The average return of investors following gurus or market strategies is lower than the market return.",
+            "verdict": "no",
+            "reason": "The context discusses average investor returns but does not specifically address investors following 'gurus' or market strategies."
+          },
+          {
+            "statement": "Specific figures for the gurus' average return are not provided in the evidence.",
+            "verdict": "yes",
+            "reason": "The context does not mention any 'gurus' or their returns, so no specific figures are provided."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.833, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.541 (threshold 0.80). RB_llm justification: The assistant's answer addresses the general theme of self-directed investment and the importance of personal research but falls short in directly answering the user's specific request for online self-help resources. While it mentions self-directed IRAs and the need for informed decision-making, it omits the specific platforms (e.g., quantopian.com, Seeking Alpha, OptionsXpress) and services highl",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5405405405405405,
+        "conditioned_score": 0.5405405405405405,
+        "statements": [
+          {
+            "statement": "Following the advice of investment gurus can be beneficial, but it's crucial to approach it critically.",
+            "verdict": "yes",
+            "reason": "The context explicitly warns against blindly following investment gurus and emphasizes critical evaluation, such as noting that experts like Warren Buffett operate under different circumstances and that copying their investments can lead to risks."
+          },
+          {
+            "statement": "Warren Buffett's strategies emphasize value investing and long-term growth, as detailed in his writings and practices.",
+            "verdict": "yes",
+            "reason": "The context discusses Buffett's investment philosophy, including his shift from Benjamin Graham's methods to a balance of Graham and Philip Fisher's approaches, focusing on high-quality companies at good prices, and references his writings and practices."
+          },
+          {
+            "statement": "Blindly following any single guru's investments may not suit your individual financial situation or goals.",
+            "verdict": "yes",
+            "reason": "The context highlights that copying a single expert's investments can be risky because you are not in the same situation as the expert, and one bad investment could disproportionately affect you."
+          },
+          {
+            "statement": "Self-directed IRAs offer an avenue for investing in diverse assets.",
+            "verdict": "yes",
+            "reason": "The context lists pros of self-directed IRAs, such as the ability to invest in non-traditional assets like real estate, private companies, and tax liens, which aligns with the statement."
+          },
+          {
+            "statement": "Self-directed IRAs come with their own set of considerations, such as higher fees and liquidity issues.",
+            "verdict": "yes",
+            "reason": "The context outlines cons of self-directed IRAs, including higher fees, illiquidity, prohibited transactions, and fraud risks, directly supporting the statement."
+          },
+          {
+            "statement": "It's recommended to research thoroughly and consider consulting a financial advisor to align investments with your personal circumstances.",
+            "verdict": "no",
+            "reason": "While the context emphasizes the importance of research and critical thinking, it does not explicitly recommend consulting a financial advisor. Instead, it warns against trusting financial planners who may push products, suggesting a cautious approach rather than direct consultation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.750, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.600 (threshold 0.80). RB_llm justification: The assistant's answer is partially faithful to the document, as it correctly notes that the provided document does not mention specific training resources. However, the assistant fails to leverage common knowledge or general recommendations for investment training (e.g., platforms like Udemy, Investopedia, or paper trading accounts), which the reference answer includes. The assistant’s response i",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.75,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6000000000000001,
+        "conditioned_score": 0.6000000000000001,
+        "statements": [
+          {
+            "statement": "You mentioned not referring to online trading but rather training.",
+            "verdict": "no",
+            "reason": "The context discusses both online trading and the need for training, but the statement incorrectly claims the author is not referring to online trading. The author does address online trading extensively."
+          },
+          {
+            "statement": "Based on the retrieved evidence, there is no direct information about training programs or resources related to investment strategies or financial training.",
+            "verdict": "yes",
+            "reason": "The context mentions the importance of study and reading but does not provide specific training programs or resources, supporting the statement's claim of no direct information."
+          },
+          {
+            "statement": "The evidence primarily discusses online trading, risks, and the nature of trading as a full-time job.",
+            "verdict": "yes",
+            "reason": "The context extensively covers online trading, its risks, and the challenges of trading as a full-time commitment, aligning with the statement."
+          },
+          {
+            "statement": "It is recommended to explore educational platforms, books, or courses focused on financial markets and investment strategies for training resources.",
+            "verdict": "yes",
+            "reason": "The context advises reading, studying, and engaging with others, which implies exploring educational resources, supporting the recommendation in the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=0.500, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the provided documents do not specify a minimum amount required for \"training\" (as previously discussed in the conversation). However, the user's question is ambiguous and could refer to either **investment minimums** (as implied in prior turns about mutual funds, IRAs, and stock purchases) or **training program fees** (as mentioned in the last turn",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 0.5,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The retrieved evidence does not provide specific information about a minimum amount required for the training mentioned.",
+            "verdict": "yes",
+            "reason": "The context discusses minimum amounts for stock purchases, mutual funds, and courses, but there is no mention of a specific minimum amount related to training employees. The training section only discusses general principles about minimum wage and employee treatment without quantifying any required minimums."
+          },
+          {
+            "statement": "I do not have specific information to answer this question.",
+            "verdict": "no",
+            "reason": "The context does not provide any information about the assistant's knowledge or lack thereof. The statement refers to the assistant's own information, which is not addressed in the provided context. Therefore, the context does not support this claim."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.900, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.788 (threshold 0.80). RB_llm justification: The assistant's answer is generally faithful to the document and previous conversation, as it correctly highlights key distinctions between IRAs and 401(k)s, such as employer matches, contribution limits, and investment flexibility. However, it omits critical details from the document, such as tax treatment differences (pre-tax vs. Roth), income limits for IRA contributions, and the rollover capab",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.9,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7875000000000001,
+        "conditioned_score": 0.7875000000000001,
+        "statements": [
+          {
+            "statement": "Deciding between an IRA and a 401(k) depends on your financial goals and circumstances.",
+            "verdict": "yes",
+            "reason": "The context discusses factors like tax brackets, employer matches, contribution limits, and investment flexibility, all of which depend on individual financial goals and circumstances."
+          },
+          {
+            "statement": "A 401(k) is typically offered by employers.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 401(k)s were invented for corporations to provide compensation and mentions employer-sponsored 401(k)s."
+          },
+          {
+            "statement": "A 401(k) allows for employer matches, which is essentially free money.",
+            "verdict": "yes",
+            "reason": "The context directly states that employer matches are free money and emphasizes their importance in choosing a 401(k)."
+          },
+          {
+            "statement": "A 401(k) has higher contribution limits compared to an IRA.",
+            "verdict": "yes",
+            "reason": "The context provides specific numbers ($53,000 for 401(k) vs. $18,000 for IRA) and highlights the higher limits as a key distinction."
+          },
+          {
+            "statement": "An IRA offers more investment flexibility.",
+            "verdict": "yes",
+            "reason": "The context states that 401(k)s limit investment choices while IRAs are self-directed, supporting the claim about flexibility."
+          },
+          {
+            "statement": "An IRA can be opened independently of an employer.",
+            "verdict": "yes",
+            "reason": "The context describes IRAs as individual accounts and mentions rolling over from a 401(k) to an IRA, implying independence from employers."
+          },
+          {
+            "statement": "Both accounts provide tax advantages.",
+            "verdict": "yes",
+            "reason": "The context discusses tax-deferred growth for traditional IRAs/401(k)s and tax-free growth for Roth IRAs, confirming tax benefits for both."
+          },
+          {
+            "statement": "The choice depends on your specific needs.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that individuals can have both accounts and that the decision hinges on personal factors like tax brackets and employer matches."
+          },
+          {
+            "statement": "Consider factors like employer match availability, contribution limits, and investment preferences.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists these factors as critical in deciding between accounts."
+          },
+          {
+            "statement": "Consider consulting a financial advisor for personalized guidance.",
+            "verdict": "no",
+            "reason": "The context does not mention financial advisors or personalized guidance, so this is not supported."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.600, IDK=0.0, answerability=PARTIAL -> conditioned score 0.720 (threshold 0.80). RB_llm justification: The assistant's answer is accurate and up-to-date, correctly stating that there is no maximum balance for a 401(k) but annual contribution limits apply. It provides the 2023 limits ($22,500 for under 50, $30,000 for 50+ with catch-up) and mentions employer contributions and RMDs. This aligns with the document's key point about no balance cap and annual limits, while also updating the reference ans",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.72,
+        "conditioned_score": 0.72,
+        "statements": [
+          {
+            "statement": "There is no specific maximum amount you can accumulate in a 401(k) account.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the IRS does not place limits on the balance of a 401(k), only on annual contributions."
+          },
+          {
+            "statement": "The IRS sets annual contribution limits, but there is no cap on the total balance.",
+            "verdict": "yes",
+            "reason": "The context confirms that the IRS only regulates annual contribution limits, not the total account balance."
+          },
+          {
+            "statement": "For 2023, the annual contribution limit is $22,500 for individuals under 50 and $30,000 for those 50 or older.",
+            "verdict": "no",
+            "reason": "The context provides historical data (2014-2016) but does not mention 2023 limits, making this statement unsupported."
+          },
+          {
+            "statement": "Employer contributions may increase the total balance in a 401(k) account.",
+            "verdict": "yes",
+            "reason": "The context discusses employer matching and how it adds to the account balance, confirming this statement."
+          },
+          {
+            "statement": "The IRS imposes required minimum distributions (RMDs) starting at age 73, based on your account balance and life expectancy.",
+            "verdict": "no",
+            "reason": "The context references RMDs at age 70 but does not mention the updated age of 73, making this statement unsupported."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=PARTIAL -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer correctly states that there is no maximum balance limit for a 401(k) account, only annual contribution limits, and mentions required minimum distributions (RMDs) starting at age 70½. This aligns with the document's assertion that \"there is no maximum\" and that the IRS does not impose a balance cap. The assistant also accurately highlights the key points from the document: th",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "There is no maximum amount you can accumulate in a 401(k) account.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'There is no maximum...'"
+          },
+          {
+            "statement": "The only limitation is on annual contributions, not the total balance.",
+            "verdict": "yes",
+            "reason": "The context clarifies that the IRS imposes limits on contributions and deferrals but not on the total balance."
+          },
+          {
+            "statement": "You can accumulate as much as desired, provided you adhere to contribution limits and take required minimum distributions (RMDs) starting at age 70½.",
+            "verdict": "yes",
+            "reason": "The context confirms that while there is no balance limit, RMDs at age 70½ apply, and contribution limits must be followed."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 10,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.724 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the documents and previous conversation, as it correctly states that a 401(k) may be divided via a QDRO in divorce and highlights the 10% penalty for early withdrawals (except under the Rule of 55). It also aligns with the prior discussion about 401(k) vs. IRA by suggesting rolling funds into an IRA for tax efficiency. However, it omits the **specific exam",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7241379310344828,
+        "conditioned_score": 0.7241379310344828,
+        "statements": [
+          {
+            "statement": "Divorce may require sharing a 401K as it is typically considered marital property.",
+            "verdict": "no",
+            "reason": "The context does not mention divorce, marital property, or 401K division in such scenarios."
+          },
+          {
+            "statement": "Early 401K withdrawals generally incur a 10% penalty and taxes, except for exceptions like being 55 or older when leaving a job.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the 10% penalty for early withdrawals and the Rule of 55 exception for those 55+ leaving a job."
+          },
+          {
+            "statement": "Early 401K withdrawals are rarely economically beneficial due to penalties and higher tax rates.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that early withdrawals are rarely economically beneficial due to penalties, taxes, and high tax brackets."
+          },
+          {
+            "statement": "Rolling a 401K into an IRA is recommended for tax-efficient withdrawals instead of early withdrawals.",
+            "verdict": "yes",
+            "reason": "The context advises rolling 401Ks into an IRA to avoid penalties and enable tax-efficient, spread-out withdrawals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 32768,
+    "max_requested_reasoning_tokens": 16384,
+    "prompt_tokens": 52469,
+    "completion_tokens": 26749,
+    "total_tokens": 79218,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 42,
+    "reasoning_tokens": 23922,
+    "reasoning_budget_verified_calls": 42
+  },
+  "elapsed_seconds": 1049.754
+}

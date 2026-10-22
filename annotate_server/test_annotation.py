@@ -47,7 +47,7 @@ def fixture():
                 {"id": "venus-corpus", "title": "Venus", "text": "Venus rotates westward.", "source_file": "conversation.json"},
                 {"id": "earth-corpus", "title": "Earth", "text": "Earth rotates eastward.", "source_file": "conversation.json"}
             ], "sources": [{"file": "conversation.json"}], "message": "Recorded passage archive, not the complete original corpus."}},
-            "failure_types": annotation.TAXONOMY, "extra_types": annotation.EXTRA_TYPES,
+            **annotation.taxonomy_data(),
             "judge_titles": annotation.JUDGE_TITLES,
             "coverage": {"mtrag": {"turns": 2}}, "criteria_html": "<p>Scoring guide.</p>"}
 
@@ -88,23 +88,23 @@ BROWSER_CHECKS = r"""
     click('input[value="incorrect"]');await Promise.resolve();
     assert(!reviewed(D.rows[1]),'Incorrect needs a cause');
     for(const type of D.failure_types){choose(type);assert($('failureGuide').textContent.includes(guides[type].check),'Guide '+type);}
-    choose('retrieval');
+    choose('E4');
     assert($('failureGuide').textContent.includes('candidate pool'),'Retrieval evidence limitation');
     assert(reviewed(D.rows[1]),'Incorrect and cause reviewed');
     choose('not_a_failure');
     assert(!reviewed(D.rows[1]),'Conflicting failure category incomplete');
     assert($('failureGuide').textContent.includes('conflicts'),'Conflict guidance');
-    choose('grounding');
-    assert(document.querySelectorAll('.failure-choice-grid input[type="checkbox"]').length===6,'Six visible checkbox choices replace the dropdown');
-    click('[data-failure-type="retrieval"]');click('[data-failure-type="response_coverage"]');
+    choose('E10');
+    assert(document.querySelectorAll('.failure-choice-grid input[type="checkbox"]').length===16,'Sixteen visible checkbox choices replace the dropdown');
+    click('[data-failure-type="E4"]');click('[data-failure-type="E12"]');
     assert(A['case#2'].failure_types.length===3&&A['case#2'].failure_type==='','Several causes selected without an implicit primary');
     assert($('failureCount').textContent==='3 selected','Selected cause count');
     assert($('failureGuide').querySelectorAll('.failure-help').length===3,'Evidence guidance for every selected cause');
-    click('[data-failure-type="retrieval"]');assert(A['case#2'].failure_types.length===2&&!getFailureTypes(A['case#2']).includes('retrieval'),'Individual causes can be deselected');
+    click('[data-failure-type="E4"]');assert(A['case#2'].failure_types.length===2&&!getFailureTypes(A['case#2']).includes('E4'),'Individual causes can be deselected');
     click('[data-failure-type="insufficient_evidence"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["insufficient_evidence"]','Unresolved outcome replaces confirmed causes');
-    click('[data-failure-type="grounding"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["grounding"]','A confirmed cause replaces an alternative outcome');
+    click('[data-failure-type="E10"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["E10"]','A confirmed cause replaces an alternative outcome');
     click('#clearFailureChoices');assert(!reviewed(D.rows[1])&&!getFailureTypes(A['case#2']).length,'Clear choices resets completion');
-    click('[data-failure-type="grounding"]');click('[data-failure-type="retrieval"]');click('[data-failure-type="response_coverage"]');
+    click('[data-failure-type="E10"]');click('[data-failure-type="E4"]');click('[data-failure-type="E12"]');
     $('notes').value='Wrong direction; the selected passage says westward.';
     $('notes').dispatchEvent(new Event('input'));
 
@@ -141,7 +141,7 @@ BROWSER_CHECKS = r"""
     assert(!$('blind'),'Hide judge assessment removed');
     assert(!$('coverage')&&!document.querySelector('.queue a[href="#guidelines"]'),'Sidebar footer removed');
     click('#judgeGuideButton');assert($('judgeGuidelines').open&&$('judgeGuidelines').textContent.includes('0.8'),'Judge guideline opens from top left');$('judgeGuidelines').close();
-    click('#failureGuideButton');assert($('failureGuidelines').open&&$('failureGuideContent').children.length===6,'Failure guideline includes six causes');$('failureGuidelines').close();
+    click('#failureGuideButton');assert($('failureGuidelines').open&&$('failureGuideContent').children.length===16,'Failure guideline includes 16 errors');$('failureGuidelines').close();
     if(window.innerWidth>950){const form=$('annotationPanel').getBoundingClientRect(),reading=document.querySelector('.reading').getBoundingClientRect();assert(form.left>=reading.right,'Annotation panel is on the right');assert(getComputedStyle($('annotationPanel')).position==='sticky','Right annotation bar stays visible');}
     click('[data-tab="compare"]');
     assert($('notes').value.includes('Wrong direction'),'Notes survive re-render');
@@ -153,11 +153,11 @@ BROWSER_CHECKS = r"""
     const second=out.find(o=>o.turn===2);
     assert(second.evidence[0].quote==='Venus'&&second.notes.includes('Wrong direction'),'JSON evidence export');
     assert(second.human_score_band==='mid','Historical band export');
-    assert(second.failure_types.length===3&&second.failure_types.includes('grounding')&&second.failure_types.includes('retrieval')&&second.failure_types.includes('response_coverage')&&second.failure_type==='','JSON exports all causes without a primary label');
+    assert(second.failure_types.length===3&&second.failure_types.includes('E10')&&second.failure_types.includes('E4')&&second.failure_types.includes('E12')&&second.failure_type==='','JSON exports all causes without a primary label');
     assert(exported.name.endsWith('_PS.json')&&out.every(o=>o.annotator==='PS'),'Exports identify PS');
     assert(second.gold_assessment==='incorrect'&&second.gold_notes.includes('contradicts'),'Gold review exported');
     click('#expCsv');assert(exported.text.includes('evidence')&&exported.text.includes('westward'),'CSV evidence export');
-    assert(exported.text.includes('failure_types')&&exported.text.includes('""retrieval""')&&exported.text.includes('""response_coverage""'),'CSV exports multiple causes as an array');
+    assert(exported.text.includes('failure_types')&&exported.text.includes('""E4""')&&exported.text.includes('""E12""'),'CSV exports multiple causes as an array');
     await $('imp').onchange({target:{files:[new File([JSON.stringify(out)],'roundtrip.json')],value:''}});
     await Promise.resolve();assert(A['case#2'].evidence.length===2,'JSON import roundtrip');
     assert(A['case#2'].failure_types.length===3&&A['case#2'].failure_type==='','Multiple causes survive JSON import');
@@ -170,7 +170,7 @@ BROWSER_CHECKS = r"""
     $('fTodo').checked=true;$('fTodo').dispatchEvent(new Event('change'));await Promise.resolve();
     assert(activeKey==='case#3'&&$('queue').querySelectorAll('.queue-item').length===1,'Unreviewed filter shows remaining cause');
     assert($('evidenceBody').textContent.includes('not recorded'),'Missing context distinguished');
-    choose('chunking');assert($('failureGuide').textContent.includes('Missing for this turn: selected context'),'Missing evidence guidance');
+    choose('E1');assert($('failureGuide').textContent.includes('Missing for this turn: selected context'),'Missing evidence guidance');
     $('fTodo').checked=false;$('fTodo').dispatchEvent(new Event('change'));
     $('fFail').checked=true;$('fFail').dispatchEvent(new Event('change'));
     assert($('queue').querySelectorAll('.queue-item').length===2,'Incorrect judge filter');
@@ -181,7 +181,7 @@ BROWSER_CHECKS = r"""
     openTurn('case#2');await Promise.resolve();click('input[value="correct"]');await Promise.resolve();
     assert(A['case#2'].failure_type==='not_a_failure'&&$('failureChoices').disabled,'Correct decision consistent');
     assert(A['case#2'].notes===second.notes&&A['case#2'].evidence.length===2,'Decision changes preserve notes and evidence');
-    delete A['case#2'].failure_types;A['case#2'].failure_type='retrieval';renderReview();await Promise.resolve();
+    delete A['case#2'].failure_types;A['case#2'].failure_type='E4';renderReview();await Promise.resolve();
     assert($('failureGuide').textContent.includes('conflict with Correct'),'Older conflicting label identified');
     $('failureGuide').querySelector('button').click();await Promise.resolve();
     assert(A['case#2'].failure_type==='not_a_failure','Older conflicting label can be corrected');
@@ -197,7 +197,7 @@ BROWSER_CHECKS = r"""
     await switchAnnotator('KH');await Promise.resolve();
     assert(activeKey===selectedTurn,'Switching annotator keeps the selected conversation and turn');
     assert(!hasAnnotation(A['case#2']),'KH starts with separate data for the same turn');
-    click('input[value="incorrect"]');await Promise.resolve();choose('retrieval');$('notes').value='KH independent notes';$('notes').dispatchEvent(new Event('input'));
+    click('input[value="incorrect"]');await Promise.resolve();choose('E4');$('notes').value='KH independent notes';$('notes').dispatchEvent(new Event('input'));
     assert($('progress').textContent==='1 / 3','KH has independent progress');
     await switchAnnotator('WN');await Promise.resolve();
     assert(!hasAnnotation(A['case#2'])&&!hasAnnotation(A['case#3']),'WN starts separately; shared legacy work is not assigned automatically');
@@ -213,7 +213,7 @@ BROWSER_CHECKS = r"""
     await $('imp').onchange({target:{files:[new File([JSON.stringify(mixed)],'mixed.json')],value:''}});await Promise.resolve();
     assert(A['case#2'].notes===ps['case#2'].notes,'Tagged import does not overwrite selected PS work');
     assert(getProfile('KH').annotations['case#2'].notes==='KH imported'&&getProfile('WN').annotations['case#2'].notes==='WN imported','Tagged imports route to their own profiles');
-    assert(JSON.stringify(getProfile('WN').annotations['case#2'].failure_types)==='["grounding"]','Older single-cause imports migrate to a one-item list');
+    assert(JSON.stringify(getProfile('WN').annotations['case#2'].legacy_failure_types)==='["grounding"]'&&!getProfile('WN').annotations['case#2'].failure_types.length,'Older single-cause imports are preserved without guessing an E1–E16 label');
     profiles.delete('KH');await switchAnnotator('KH');await Promise.resolve();
     assert(A['case#2'].notes==='KH imported','Profile reload restores persisted KH data');
     assert(rowsOut().every(o=>o.annotator==='KH'),'KH export only identifies KH');
@@ -235,7 +235,7 @@ LIVE_PROFILE_CHECKS = r"""
   async function saved(owner){return (await (await fetch(D.annotation_api+'/'+owner)).json()).annotations;}
   try{
     await annotationReady;await Promise.resolve();openTurn('case#2');await Promise.resolve();
-    label('incorrect');await Promise.resolve();document.querySelector('[data-failure-type="grounding"]').click();document.querySelector('[data-failure-type="retrieval"]').click();note('PS server note');await flushProfile('PS');
+    label('incorrect');await Promise.resolve();document.querySelector('[data-failure-type="E10"]').click();document.querySelector('[data-failure-type="E4"]').click();note('PS server note');await flushProfile('PS');
     assert((await saved('PS'))['case#2'].notes==='PS server note','PS saved to server');
     assert((await saved('PS'))['case#2'].failure_types.length===2&&(await saved('PS'))['case#2'].failure_type==='','Multiple failure causes saved to server');
     await switchAnnotator('KH');await Promise.resolve();
@@ -247,7 +247,7 @@ LIVE_PROFILE_CHECKS = r"""
     assert((await saved('KH'))['case#2'].notes==='KH server note'&&(await saved('WN'))['case#2'].notes==='WN server note','Other annotator files preserved');
     await switchAnnotator('KH');profiles.delete('PS');localStorage.removeItem(profileKey('PS'));localStorage.removeItem(profileKey('PS')+':pending');
     await switchAnnotator('PS');await Promise.resolve();assert(A['case#2'].notes==='PS server note','Server restores work after browser cache removal');
-    assert(A['case#2'].failure_types.length===2&&document.querySelector('[data-failure-type="grounding"]').checked&&document.querySelector('[data-failure-type="retrieval"]').checked,'Multiple checked causes restored from server');
+    assert(A['case#2'].failure_types.length===2&&document.querySelector('[data-failure-type="E10"]').checked&&document.querySelector('[data-failure-type="E4"]').checked,'Multiple checked causes restored from server');
     const realFetch=globalThis.fetch;globalThis.fetch=(url,options)=>options?.method==='POST'?Promise.reject(Error('Offline test')):realFetch(url,options);
     note('PS offline draft');await flushProfile('PS');
     assert(getProfile('PS').dirty.has('case#2'),'Failed server save remains pending');

@@ -8,16 +8,17 @@ import re
 import tempfile
 import threading
 
+from failure_taxonomy import EXTRA_TYPES, LEGACY_TYPES, TAXONOMY, TAXONOMY_VERSION
+
 ANNOTATORS = ("PS", "KH", "WN")
 RUN_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z")
-FIELDS = {"human_label", "human_score_band", "failure_type", "failure_types", "notes", "review_complete",
+FIELDS = {"human_label", "human_score_band", "failure_type", "failure_types", "legacy_failure_types", "failure_taxonomy", "notes", "review_complete",
           "gold_assessment", "gold_notes", "evidence"}
 CHOICES = {
-    "human_label": {"", "correct", "incorrect"},
+    "human_label": {"", "correct", "incorrect", "uncertain"},
     "human_score_band": {"", "low", "mid", "high"},
-    "failure_type": {"", "knowledge_boundary", "chunking", "retrieval", "context_selection",
-                     "grounding", "response_coverage", "not_a_failure", "outside_taxonomy",
-                     "insufficient_evidence"},
+    "failure_type": {"", *TAXONOMY, *EXTRA_TYPES, *LEGACY_TYPES},
+    "failure_taxonomy": {TAXONOMY_VERSION},
     "gold_assessment": {"", "supported", "questionable", "incorrect"},
 }
 
@@ -34,12 +35,14 @@ def validate_changes(changes, valid_keys):
             if field == "review_complete":
                 if not isinstance(value, bool):
                     raise ValueError("review_complete must be true or false.")
-            elif field == "failure_types":
-                allowed = CHOICES["failure_type"] - {""}
+            elif field in {"failure_types", "legacy_failure_types"}:
+                allowed = set(LEGACY_TYPES) if field == "legacy_failure_types" else CHOICES["failure_type"] - {""}
                 if (not isinstance(value, list) or
                         any(not isinstance(item, str) or item not in allowed for item in value) or
                         len(set(value)) != len(value)):
-                    raise ValueError("failure_types must be a list of distinct valid failure choices.")
+                    raise ValueError(field + " must be a list of distinct valid failure choices.")
+                if field == "legacy_failure_types":
+                    continue
                 if len(value) > 1 and set(value) & {"not_a_failure", "outside_taxonomy", "insufficient_evidence"}:
                     raise ValueError("Alternative outcomes must be selected on their own.")
                 legacy = value[0] if len(value) == 1 else ""

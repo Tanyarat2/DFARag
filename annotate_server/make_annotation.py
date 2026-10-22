@@ -5,7 +5,7 @@
 
 Reads input.json and out.mtrag.json from the run folder. Existing result JSON is
 never overwritten. The human binary label is stored separately from the
-judge's binary screening label and the six-category failure annotation.
+judge's binary screening label and the paper's E1–E16 failure annotation.
 """
 
 import argparse
@@ -17,12 +17,9 @@ import math
 import pathlib
 
 from corpus_store import CORPUS_DIR, CorpusIndex, corpus_metadata
+from failure_taxonomy import TAXONOMY, EXTRA_TYPES, taxonomy_data
 
 JUDGE_TITLES = {"mtrag": "mtRAG (RB_llm + RL_F + IDK)"}
-# Locked six-category taxonomy first; the extra entries are annotation-only escape hatches.
-TAXONOMY = ["knowledge_boundary", "chunking", "retrieval", "context_selection",
-            "grounding", "response_coverage"]
-EXTRA_TYPES = ["not_a_failure", "outside_taxonomy", "insufficient_evidence"]
 DEFAULT_THRESHOLDS = {"f": 1.0, "mtrag": 0.8, "rb_llm_min_rating": 6.0}
 
 
@@ -295,15 +292,19 @@ def build_data(work_dir, live=False):
         "records": len(judged or {}),
         "turns": sum(row["judges"]["mtrag"]["status"] == "judged" for row in rows),
         "source": "out.mtrag.json" if judged is not None else None}}
-    archive = load_passage_archive(pathlib.Path(__file__).resolve().parent.parent / "conversation")
-    corpus = {collection: archive.get(collection, {"kind": "missing", "documents": [], "sources": [],
-               "message": "No conversation passage archive is available for this collection."})
-              for collection in sorted({row["corpus_collection"] for row in rows})}
+    collections = sorted({row['corpus_collection'] for row in rows})
+    official_stores = {collection: corpus_metadata(collection) for collection in collections}
+    archive = (load_passage_archive(pathlib.Path(__file__).resolve().parent.parent / 'conversation')
+               if any(store is None for store in official_stores.values()) else {})
+    corpus = {collection: official_stores[collection] or archive.get(collection, {
+                  'kind': 'missing', 'documents': [], 'sources': [],
+                  'message': 'No conversation passage archive is available for this collection.'})
+              for collection in collections}
     first_questions = {}
     for row in rows:
         first_questions.setdefault(row['id'], row['question'])
     for collection in corpus:
-        official = corpus_metadata(collection)
+        official = official_stores[collection]
         if official is None:
             continue
         corpus[collection] = official
@@ -325,7 +326,7 @@ def build_data(work_dir, live=False):
                                'Matches retain BM25 search order without answer-based reranking.')
     return {"run": work_dir.name, "rows": rows, "judge_titles": JUDGE_TITLES,
             "corpus": corpus,
-            "failure_types": TAXONOMY, "extra_types": EXTRA_TYPES, "thresholds": thresholds,
+            **taxonomy_data(), "thresholds": thresholds,
             "coverage": coverage, "total_records": len(ids),
             "criteria_html": criteria_html(thresholds)}
 
@@ -380,7 +381,7 @@ PAGE = pathlib.Path(__file__).with_name("annotation_template.html").read_text(en
 
 
 def render_page(data):
-    payload = json.dumps(data, ensure_ascii=False)
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     # keep the JSON from ever closing the script element or opening an HTML comment
     payload = payload.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
     payload = payload.replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")

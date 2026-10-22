@@ -232,6 +232,7 @@ li{margin:6px 0}
 .annotation-left,.annotation-right{min-width:0}
 .annotation-footer{display:flex;align-items:center;justify-content:flex-end;gap:12px}
 .annotation-footer .status{margin-right:auto}
+.failure-stage{margin-top:14px}.failure-stage-title{font-size:13px;color:var(--accent);margin:0 0 7px}.legacy-failures{margin-top:12px}
 .gold-review{margin-top:18px}.gold-review textarea{margin-top:8px}
 @media(min-width:1600px){.review-grid{display:block}.workspace{padding:24px 32px}}
 @media(max-width:1200px){.layout{grid-template-columns:250px minmax(0,1fr)}.review-grid{display:block}.workspace{padding:20px 16px}}
@@ -288,6 +289,44 @@ li{margin:6px 0}
 .failure-help>p{margin-top:9px}
 .failure-help ul{padding-left:17px}
 
+/* Guided annotation: one stage at a time, with compact optional detail. */
+[hidden]{display:none!important}
+.annotation-trail{list-style:none;display:flex;padding:0;margin:0 0 12px;gap:5px;font-size:11px;color:var(--muted)}
+.annotation-trail li{flex:1;padding:6px 3px;border-bottom:3px solid var(--line);text-align:center}
+.annotation-trail li[data-active=true]{border-color:var(--accent);color:var(--accent);font-weight:700}
+.decision-step{border:0;padding:0;margin:0 0 20px;min-width:0}
+.guided-decisions{display:grid;grid-template-columns:1fr;gap:7px}
+.guided-decisions .choice{display:flex;align-items:flex-start;gap:8px;padding:10px;text-align:left}
+.guided-decisions .choice span{display:grid;gap:2px;min-width:0}
+.guided-decisions input{margin-top:4px;flex-shrink:0}
+.guided-decisions[data-editing=false] .hint{display:none}
+.guided-decisions .hint{font-size:11px;font-weight:400}
+.chosen-stage{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:10px 0;font-size:12px}.chosen-stage button{font-size:11px;padding:4px;white-space:nowrap;flex-shrink:0}
+.stage-picker{display:grid;gap:6px;margin:10px 0}
+.stage-pick{display:grid;gap:3px;text-align:left;padding:10px;font-size:12px}
+.stage-pick small{font-size:10px;color:var(--muted);line-height:1.5}
+.stage-pick[aria-pressed=true]{border-color:var(--accent);background:var(--soft)}
+.stage-evidence{border-left:3px solid #c8ad74;background:#faf7ef;padding:10px;margin-top:12px;font-size:11px}
+.stage-evidence p{margin-top:5px}.stage-evidence summary{font-weight:600}.failure-alternatives .hint{display:none}
+.failure-choice-grid{grid-template-columns:1fr;margin:7px 0}
+.failure-option{padding:10px;gap:8px}
+.failure-option-text b{font-size:13px}
+.failure-option-text .hint{font-size:11px;overflow-wrap:normal}
+.failure-subheading{font-size:11px;color:var(--muted);margin:14px 0 6px}
+.other-outcomes{font-size:11px;color:var(--muted);margin:10px 0}
+.other-outcomes .failure-option{margin-top:6px;color:var(--ink)}
+.selected-causes{margin:12px 0}
+.cause-chip{display:inline-block;margin:4px 3px 0 0;padding:4px 7px;background:var(--soft);border-color:#a6c4b8;font-size:11px;text-align:left}
+.annotation .notice{font-size:12px}
+.annotation .example{padding:9px;background:var(--soft);border-radius:6px}
+.annotation-right>.step-title{margin:0 0 8px;font-size:13px}
+.annotation-right textarea{min-height:80px;margin-top:6px}
+.citation-step{margin-top:10px}
+.annotation-footer .primary{padding:10px 8px;white-space:normal}
+.annotation-footer .review-toggle{font-size:11px}
+.gold-review{padding:10px;margin-top:14px}
+.gold-review>label{display:block;margin-top:10px}
+
 </style>
 </head>
 <body>
@@ -323,7 +362,7 @@ li{margin:6px 0}
 </dialog>
 <dialog id="failureGuidelines" aria-labelledby="failureGuideTitle" class="guideline-dialog">
   <div class="dialog-heading"><h2 id="failureGuideTitle">Failure annotation guideline</h2><form method="dialog"><button aria-label="Close failure guideline">Close</button></form></div>
-  <div class="guide-body"><p>First establish an observable error in the RAG answer. Compare selected context, gold documents, conversation, and corpus evidence. Review the gold answer independently too.</p><p>Select every failure cause supported by the original evidence. More than one cause can be selected; explain the evidence for each. Missing selected context alone cannot distinguish corpus scope, chunking, retrieval, and context selection. The conversation passage archive has limited coverage.</p><div id="failureGuideContent"></div><p><b>Other outcomes:</b> use Not a failure for an acceptable answer, Outside taxonomy for an established error beyond the six causes, or Insufficient evidence when the cause remains unresolved. Outside taxonomy and Insufficient evidence are alternative outcomes, selected on their own.</p></div>
+  <div class="guide-body"><p>First establish an observable error in the RAG answer. Compare selected context, gold documents, conversation, and corpus evidence. Review the gold answer independently too.</p><p>The 16 error types follow <a href="https://aclanthology.org/2026.eacl-long.147/" target="_blank" rel="noopener">Leung et al., EACL 2026</a>. เลือกขั้นตอนแรกที่มีหลักฐานยืนยันว่าผิด แล้วเลือกหนึ่งหรือหลายประเภทภายในขั้นตอนนั้นตามแนวทางของ paper ข้อมูลเดิมที่เลือกข้ามขั้นตอนจะยังคงอยู่ให้ตรวจและแก้ด้วยตนเอง</p><p>Original pre-rerank candidates and indexed chunk boundaries are not supplied by these conversation exports. Fresh corpus search does not reconstruct the original trace. Select Insufficient evidence when required traces are missing.</p><div id="failureGuideContent"></div><p><b>Other outcomes:</b> use Not a failure for an acceptable answer, Outside taxonomy for an established error beyond the 16 error types, or Insufficient evidence when the cause remains unresolved. Outside taxonomy and Insufficient evidence are alternative outcomes, selected on their own.</p></div>
 </dialog>
 <div id="message" role="status" aria-live="polite"></div>
 <script id="data" type="application/json">__DATA__</script>
@@ -340,12 +379,13 @@ function readLocal(key,fallback){try{const raw=localStorage.getItem(key);return 
 function migrateBinaryLabel(a){if(['correct','incorrect'].includes(a.human_score_band)){if(!['correct','incorrect'].includes(a.human_label))a.human_label=a.human_score_band;delete a.human_score_band;}}
 
 function getFailureTypes(a){const allowed=D.failure_types.concat(D.extra_types),raw=Array.isArray(a?.failure_types)?a.failure_types:(a?.failure_type?[a.failure_type]:[]);return allowed.filter(type=>raw.includes(type));}
-function setFailureTypes(a,types){a.failure_types=getFailureTypes({failure_types:types});a.failure_type=a.failure_types.length===1?a.failure_types[0]:'';}
+function getLegacyFailureTypes(a){const raw=[...(Array.isArray(a?.legacy_failure_types)?a.legacy_failure_types:[]),...(Array.isArray(a?.failure_types)?a.failure_types:[]),a?.failure_type];return Object.keys(D.legacy_failure_labels).filter(type=>raw.includes(type));}
+function setFailureTypes(a,types){a.failure_taxonomy=D.failure_taxonomy;a.failure_types=getFailureTypes({failure_types:types});a.failure_type=a.failure_types.length===1?a.failure_types[0]:'';}
 function legacyFailureType(a){const types=getFailureTypes(a);return types.length===1?types[0]:'';}
 
 function normalizeEntry(o){
   if(!o||typeof o!=='object'||Array.isArray(o))return null;
-  const a={human_score_band:['low','mid','high','correct','incorrect'].includes(o.human_score_band)?o.human_score_band:'',human_label:['correct','incorrect'].includes(o.human_label)?o.human_label:'',failure_type:D.failure_types.concat(D.extra_types).includes(o.failure_type)?o.failure_type:'',notes:typeof o.notes==='string'?o.notes:'',gold_assessment:['supported','questionable','incorrect'].includes(o.gold_assessment)?o.gold_assessment:'',gold_notes:typeof o.gold_notes==='string'?o.gold_notes:'',evidence:Array.isArray(o.evidence)?o.evidence.filter(e=>e&&['source','locator','quote'].every(k=>typeof e[k]==='string')).map(e=>({source:e.source,locator:e.locator,quote:e.quote})):[]};if(typeof o.review_complete==='boolean')a.review_complete=o.review_complete;migrateBinaryLabel(a);const types=getFailureTypes(o);if(types.length>1&&types.some(t=>D.extra_types.includes(t)))return null;setFailureTypes(a,types);return a;
+  const a={human_score_band:['low','mid','high','correct','incorrect'].includes(o.human_score_band)?o.human_score_band:'',human_label:['correct','incorrect','uncertain'].includes(o.human_label)?o.human_label:'',failure_type:D.failure_types.concat(D.extra_types).includes(o.failure_type)?o.failure_type:'',notes:typeof o.notes==='string'?o.notes:'',gold_assessment:['supported','questionable','incorrect'].includes(o.gold_assessment)?o.gold_assessment:'',gold_notes:typeof o.gold_notes==='string'?o.gold_notes:'',evidence:Array.isArray(o.evidence)?o.evidence.filter(e=>e&&['source','locator','quote'].every(k=>typeof e[k]==='string')).map(e=>({source:e.source,locator:e.locator,quote:e.quote})):[]};if(typeof o.review_complete==='boolean')a.review_complete=o.review_complete;migrateBinaryLabel(a);const types=getFailureTypes(o);if(types.length>1&&types.some(t=>D.extra_types.includes(t)))return null;a.legacy_failure_types=getLegacyFailureTypes(o);setFailureTypes(a,types);return a;
 }
 const rowKeys=new Set(D.rows.map(r=>r.key)), rowByKey=new Map(D.rows.map(r=>[r.key,r])), profiles=new Map();
 function cleanAnnotations(data){const result={};if(data&&typeof data==='object'&&!Array.isArray(data))Object.entries(data).forEach(([key,value])=>{const a=normalizeEntry(value);if(rowKeys.has(key)&&a)result[key]=a;});return result;}
@@ -361,7 +401,7 @@ function getProfile(name){
   }
   return profiles.get(name);
 }
-function hasAnnotation(a){return !!(a&&(typeof a.review_complete==='boolean'||a.human_label||a.human_score_band||getFailureTypes(a).length||a.notes||a.gold_assessment||a.gold_notes||a.evidence?.length));}
+function hasAnnotation(a){return !!(a&&(typeof a.review_complete==='boolean'||a.human_label||a.human_score_band||getFailureTypes(a).length||getLegacyFailureTypes(a).length||a.notes||a.gold_assessment||a.gold_notes||a.evidence?.length));}
 function persistProfile(state){
   try{localStorage.setItem(profileKey(state.name),JSON.stringify(state.annotations));localStorage.setItem(profileKey(state.name)+':pending',JSON.stringify([...state.dirty]));state.storageOK=true;}
   catch{state.storageOK=false;notify('Browser backup could not be saved for '+state.name+'. Export JSON to keep a copy.');}
@@ -405,12 +445,15 @@ async function switchAnnotator(name){
   if(profiles.has(currentAnnotator))flushProfile(currentAnnotator);
   currentAnnotator=name;KEY=profileKey(name);const state=getProfile(name);A=state.annotations;storageOK=state.storageOK;$('annotator').value=name;
   try{localStorage.setItem(BASE_KEY+':active-annotator',JSON.stringify(name));}catch{}
+  $('fTodo').checked=false;
   if(D.annotation_api){
-    state.loading=true;$('annotator').disabled=true;document.querySelector('.queue').inert=true;document.querySelector('.workspace').inert=true;$('review').replaceChildren(el('p','notice','Loading '+name+' annotations…'));
+    state.loading=true;$('annotator').disabled=true;
+    ['expJson','expCsv','imp'].forEach(id=>$(id).disabled=true);$('importLabel').setAttribute('aria-disabled','true');
+    queue();renderReview();updateSaveStatus();
     try{await loadServerProfile(state);}catch(error){state.connected=false;state.error=error.message;notify('Server annotations could not be loaded for '+name+'. Your separate browser copy is available.');}
-    finally{state.loading=false;$('annotator').disabled=false;document.querySelector('.queue').inert=false;document.querySelector('.workspace').inert=false;}
+    finally{state.loading=false;$('annotator').disabled=false;['expJson','expCsv','imp'].forEach(id=>$(id).disabled=false);$('importLabel').setAttribute('aria-disabled','false');}
   }
-  A=state.annotations;$('fTodo').checked=false;queue();renderReview();updateSaveStatus();if(state.dirty.size)flushProfile(name);
+  A=state.annotations;applyFilters();updateSaveStatus();if(state.dirty.size)flushProfile(name);
 }
 function copyLegacyAnnotations(){
   const state=getProfile(currentAnnotator);let count=0;Object.entries(legacyAnnotations).forEach(([key,value])=>{if(hasAnnotation(value)&&!hasAnnotation(state.annotations[key])){state.annotations[key]=JSON.parse(JSON.stringify(value));count++;}});A=state.annotations;save();queue();renderReview();notify('Copied '+count+' earlier annotation(s) to '+currentAnnotator+'. The original shared copy was retained.');
@@ -418,19 +461,13 @@ function copyLegacyAnnotations(){
 function openGuideline(kind){$(kind==='judge'?'judgeGuidelines':'failureGuidelines').showModal();}
 let activeKey=D.rows[0]?.key, activeTab='compare', evidenceQuery='', storageOK=true;
 const goldVisibility=new Map(), judgeVisibility=new Map();
-const guides={
-  knowledge_boundary:{title:'Knowledge boundary',short:'Outside the corpus or conversation scope',check:'Verify that the requested fact is outside the original corpus or established conversation scope. Check whether the answer should have acknowledged this limit.',need:['The original corpus or verified scope','The user request and expected handling of an unsupported request'],look:['question','gold','corpus'],missing:'Original corpus scope is not supplied here. Missing selected context or a reference passage alone cannot establish this cause.'},
-  chunking:{title:'Chunking',short:'Source evidence was broken into unusable chunks',check:'Compare the original source with its indexed chunks. Look for a split that removes a required relationship, qualifier, table header, or surrounding explanation.',need:['The original source passage','The indexed chunks used by this run'],look:['gold','selected','corpus'],missing:'Original indexed chunks and their source boundaries are not supplied here. Selected passages alone cannot establish a chunking failure.'},
-  retrieval:{title:'Retrieval',short:'Usable indexed evidence did not reach the candidates',check:'Verify that usable evidence existed in the original index, then check whether it was absent from the original retrieved candidate pool.',need:['Usable evidence in the original index','Original retrieval candidates, IDs, and ranks'],look:['gold','selected','corpus'],missing:'The original index and candidate pool are not supplied here. A relevant reference document is a comparison aid, not proof that retrieval failed.'},
-  context_selection:{title:'Context selection',short:'Useful retrieved evidence was excluded from the prompt',check:'Compare original retrieval candidates with the passages actually supplied to generation. Identify a useful candidate that was dropped or truncated.',need:['Original retrieved candidate pool','The final selected context supplied to generation'],look:['selected','gold','corpus'],missing:'The original candidate pool is not supplied here. Without it, retrieval and context selection remain unresolved.'},
-  grounding:{title:'Grounding',short:'The answer misuses or contradicts available evidence',check:'Find the exact answer claim that is unsupported, contradicts selected evidence, confuses an entity, or misreads the established request. Compare it with the relevant passage and conversation.',need:['The problematic answer claim','Selected context and any conversation evidence needed to assess it'],look:['answer','selected','history'],missing:'Confirm the claim against the recorded evidence yourself. Judge statement checks are suggestions to inspect, not a verified failure label.'},
-  response_coverage:{title:'Response coverage',short:'An essential requested point was left unanswered',check:'Name the essential part of the request that the answer omitted, and locate the available evidence that could answer it. Extra reference details are not automatically required.',need:['The essential requested facet','Available supporting evidence and the answer showing its omission'],look:['question','answer','gold','selected'],missing:'An answer shorter than the reference is not enough. Cite a required facet and the evidence available to answer it.'},
+const guides={...D.failure_definitions,
   not_a_failure:{title:'Not a failure',short:'The answer is acceptable',check:'Use when your independent review finds the answer acceptable, including a justified refusal. Record why you disagree with any incorrect judge screening.',need:['The request, answer, and supporting evidence'],look:['question','answer','selected'],missing:''},
-  outside_taxonomy:{title:'Outside taxonomy',short:'An observed error does not fit the six causes',check:'Describe the observable answer error and explain why none of the six primary categories fits the evidence.',need:['The exact error and evidence for it','Why the existing categories do not apply'],look:['answer','gold','selected','corpus'],missing:''},
+  outside_taxonomy:{title:'Outside taxonomy',short:'An observed error does not fit the 16 error types',check:'Describe the observable answer error and explain why none of the 16 paper categories fits the evidence.',need:['The exact error and evidence for it','Why the existing categories do not apply'],look:['answer','gold','selected','corpus'],missing:''},
   insufficient_evidence:{title:'Insufficient evidence',short:'The cause cannot be established from this record',check:'Describe the observable issue, list the competing explanations, and name the missing original trace needed to distinguish them.',need:['The observed issue, if one is established','The missing evidence and unresolved explanations'],look:['answer','selected','gold'],missing:'Do not infer a root cause from the judge score, a missing selected passage, or a new retrieval result.'}
 };
 
-const queueOpen=new Map(), queueButtons=new Map(), corpusOverrides=Object.create(null), corpusQueries=Object.create(null);
+const queueOpen=new Map(), queueButtons=new Map(), queueGroups=new Map(), corpusOverrides=Object.create(null), corpusQueries=Object.create(null);
 const conversationNames=new Map();
 function conversationInfo(id){
   if(!conversationNames.has(id)){
@@ -449,8 +486,8 @@ function collectionFor(r){return r.corpus_collection||'unspecified';}
 function corpusFor(r){const name=collectionFor(r);return corpusOverrides[name]||D.corpus?.[name]||{kind:'missing',documents:[],sources:[],message:'No corpus passages are connected for this collection.'};}
 
 function entry(r){return A[r.key]||(A[r.key]={});}
-function labelled(r){return ['correct','incorrect'].includes(A[r.key]?.human_label);}
-function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return a?.human_label==='correct'&&(types.length===0||types.length===1&&types[0]==='not_a_failure')||a?.human_label==='incorrect'&&types.length>0&&!types.includes('not_a_failure');}
+function labelled(r){return ['correct','incorrect','uncertain'].includes(A[r.key]?.human_label);}
+function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return a?.human_label==='uncertain'&&types.length===1&&types[0]==='insufficient_evidence'||a?.human_label==='correct'&&(types.length===0||types.length===1&&types[0]==='not_a_failure')||a?.human_label==='incorrect'&&(types.length>0&&!types.includes('not_a_failure')||!types.length&&getLegacyFailureTypes(a).length>0);}
 function failureLabelled(r){return getFailureTypes(A[r.key]).some(type=>type!=='not_a_failure');}
 function reviewed(r){return typeof A[r.key]?.review_complete==='boolean'?A[r.key].review_complete:annotationComplete(r);}
 function firstIncorrectTurns(){const first=new Map();D.rows.forEach(r=>{if(mtLabel(r)==='incorrect'&&(!first.has(r.id)||r.turn<first.get(r.id).turn))first.set(r.id,r);});return first;}
@@ -471,14 +508,13 @@ function observeQueueEdges(){
   root.querySelectorAll('.queue-group').forEach(group=>queueEdgeObserver.observe(group));
 }
 function queue(){
-  const root=$('queue');root.replaceChildren();queueButtons.clear();const rows=filtered(),groups=new Map(),targets=firstIncorrectTurns(),allTurns=new Map();
+  const root=$('queue');root.replaceChildren();queueButtons.clear();queueGroups.clear();const rows=filtered(),groups=new Map(),targets=firstIncorrectTurns(),allTurns=new Map();
   D.rows.forEach(r=>{if(!allTurns.has(r.id))allTurns.set(r.id,[]);allTurns.get(r.id).push(r);});
   rows.forEach(r=>{if(!groups.has(r.id))groups.set(r.id,[]);groups.get(r.id).push(r);});
   for(const [id,turns] of groups){
     const target=targets.get(id),complete=target?failureLabelled(target):false,allCorrect=allTurns.get(id).every(r=>mtLabel(r)==='correct');
     const group=el('details','queue-group');group.dataset.id=id;group.dataset.labelled=String(complete);group.dataset.allCorrect=String(allCorrect);
     group.open=turns.some(r=>r.key===activeKey)||queueOpen.get(id)===true;
-    group.ontoggle=()=>queueOpen.set(id,group.open);
     const summary=el('summary'),info=conversationInfo(id),name=el('strong','conversation-name'),ident=el('div','conversation-ident'),caseId=el('span','case-id',id);
     name.append(el('span',null,info.name));name.title=info.name;caseId.title='Conversation ID: '+id;
     ident.append(el('span','conversation-number',info.number),caseId);
@@ -488,6 +524,8 @@ function queue(){
     const failures=turns.filter(r=>mtLabel(r)==='incorrect').length;
     counts.append(el('span','judges',failures+' incorrect'));summary.append(counts,el('span','conversation-label-state',target?(complete?'✓ Failure labelled':'Label first incorrect')+' · Turn '+target.turn:allCorrect?'All turns correct':'Not fully scored'));group.append(summary);
     const list=el('div','queue-turns');
+    function buildTurns(){
+    if(list.childElementCount)return;
     turns.forEach(r=>{
       const b=button('',()=>openTurn(r.key),'queue-item');b.dataset.key=r.key;queueButtons.set(r.key,b);b.dataset.judge=mtLabel(r)||'unscored';b.dataset.reviewed=String(reviewed(r));b.dataset.labelTarget=String(target?.key===r.key);b.dataset.labelled=String(target?.key===r.key&&complete);
       b.setAttribute('aria-current',String(r.key===activeKey));b.title=r.question;
@@ -497,13 +535,23 @@ function queue(){
       status.append(el('span',null,judgeLabel),el('span',null,scoreLabel(r.judges.mtrag)));
       b.append(m);if(target?.key===r.key)b.append(el('span','badge first-failure','First incorrect'));b.append(el('div','queue-question',r.question||'(No question)'),status);list.append(b);
     });
+    }
+    queueGroups.set(id,{group,buildTurns});
+    group.ontoggle=()=>{
+      if(!group.isConnected)return;
+      queueOpen.set(id,group.open);
+      if(group.open){buildTurns();ensureConversation(id).catch(()=>{});}
+    };
+    if(group.open)buildTurns();
     group.append(list);root.append(group);
   }
   if(!rows.length)root.append(el('p','hint','No turns match these filters.'));
   focusQueueTurn();observeQueueEdges();progress();
 }
 function focusQueueTurn(){
-  const root=$('queue'),current=queueButtons.get(activeKey);if(!current)return false;
+  const root=$('queue');let current=queueButtons.get(activeKey);
+  if(!current){const row=rowByKey.get(activeKey),shell=row&&queueGroups.get(row.id);if(!shell)return false;shell.group.open=true;shell.buildTurns();current=queueButtons.get(activeKey);}
+  if(!current)return false;
   const previous=root.querySelector('[aria-current=true]');if(previous&&previous!==current)previous.setAttribute('aria-current','false');
   current.setAttribute('aria-current','true');const group=current.closest('.queue-group');group.open=true;queueOpen.set(group.dataset.id,true);
   const a=current.getBoundingClientRect(),b=root.getBoundingClientRect(),summary=group.querySelector('summary'),top=b.top+summary.offsetHeight+4,bottom=b.bottom-4;
@@ -513,7 +561,7 @@ function openTurn(key){activeKey=key;activeTab='compare';evidenceQuery='';if(!fo
 function applyFilters(){const rows=filtered();if(!rows.some(r=>r.key===activeKey))activeKey=rows[0]?.key;queue();renderReview();}
 function next(unreviewedOnly=false){const rows=filtered(),i=rows.findIndex(r=>r.key===activeKey);const candidates=rows.slice(i+1).concat(rows.slice(0,Math.max(i,0)));const target=candidates.find(r=>!unreviewedOnly||!reviewed(r));if(target)openTurn(target.key);else notify(unreviewedOnly?'No other unreviewed turns in this queue.':'You reached the end of this queue.');}
 function heading(label,extra){const h=el('div','section-heading');h.append(el('div','eyebrow',label));if(extra)h.append(extra);return h;}
-function cite(r,source,locator,text,container){let quote=String(text||'');const selection=window.getSelection();if(selection&&!selection.isCollapsed&&container.contains(selection.anchorNode)&&container.contains(selection.focusNode))quote=selection.toString();if(!quote.trim()){notify('No text is available to cite.');return;}const a=entry(r);a.evidence=Array.isArray(a.evidence)?a.evidence:[];if(a.evidence.some(e=>e.source===source&&e.locator===locator&&e.quote===quote)){notify('This evidence is already attached.');return;}a.evidence.push({source,locator,quote});save();renderCitations(r);notify('Evidence attached to this review.');}
+function cite(r,source,locator,text,container){if(getProfile(currentAnnotator).loading){notify('Saved annotations are loading. You can read and browse; cite evidence once loading finishes.');return;}let quote=String(text||'');const selection=window.getSelection();if(selection&&!selection.isCollapsed&&container.contains(selection.anchorNode)&&container.contains(selection.focusNode))quote=selection.toString();if(!quote.trim()){notify('No text is available to cite.');return;}const a=entry(r);a.evidence=Array.isArray(a.evidence)?a.evidence:[];if(a.evidence.some(e=>e.source===source&&e.locator===locator&&e.quote===quote)){notify('This evidence is already attached.');return;}a.evidence.push({source,locator,quote});save();renderCitations(r);notify('Evidence attached to this review.');}
 function textPanel(r,label,text,source,reference=''){const s=el('section');s.id=source;const p=highlighted(text||'Not recorded.','',reference,source==='answer'?(r.contexts||[]):[]);p.classList.add('answer-body');s.append(heading(label,button('Cite selection',()=>cite(r,label,source,text,p),'text-button')),p);return s;}
 const conversationLoads=new Map();
 async function ensureConversation(id){
@@ -568,7 +616,7 @@ function renderReview(){
   }
   evidence.append(tabs,answer);const search=el('input','evidence-search');search.type='search';search.id='evidenceSearch';search.placeholder='Find text in the selected context and gold documents…';search.setAttribute('aria-label','Find text in evidence');search.value=evidenceQuery;search.oninput=()=>{evidenceQuery=search.value;renderEvidence(r);};evidence.append(search);
   const body=el('div','evidence-scroll');body.id='evidenceBody';body.setAttribute('role','tabpanel');evidence.append(body);reading.append(evidence);
-  grid.append(reading,annotation(r));root.append(grid);renderEvidence(r);
+  grid.append(reading,annotation(r));root.append(grid);renderEvidence(r);fitAnnotationPanel();
 }
 function contentWords(text){return [...new Set((String(text||'').toLowerCase().match(/\p{N}+(?:\.\p{N}+)?|[\p{L}_][\p{L}\p{N}_]*/gu)||[]).filter(t=>!corpusStopWords.has(t)&&(t.length>2||/^\d+(?:\.\d+)?$/.test(t))))];}
 const sentenceCache=new Map(),sentenceSegmenter=typeof Intl.Segmenter==='function'?new Intl.Segmenter('en',{granularity:'sentence'}):null;
@@ -613,7 +661,7 @@ function evidenceColumn(title,subtitle,key){
 }
 function renderComparison(r,root){
   const track=el('div','comparison-track');root.append(track);const q=evidenceQuery.trim().toLowerCase();
-  const selected=evidenceColumn('Selected / retrieved chunks','Recorded generator context in its original order.','selected');
+  const selected=evidenceColumn('Selected context','ข้อความที่ส่งให้โมเดลใช้ตอบจริง · เรียงตามลำดับเดิม','selected');
   selected.body.append(el('div','column-divider','Selected context · '+(r.contexts?.length??'not recorded')+' passages'));
   if(r.contexts===null)selected.body.append(el('p','notice warn','Selected context was not recorded. This does not mean retrieval returned nothing.'));
   else if(!r.contexts.length)selected.body.append(el('p','notice','The recorded selected context is empty.'));
@@ -707,68 +755,129 @@ function renderJudge(r,root){const v=r.judges.mtrag;root.append(el('p','notice',
   [...(v.statements||[])].sort((a,b)=>(a.verdict==='no'?-1:1)-(b.verdict==='no'?-1:1)).forEach((s)=>{const item=el('div','statement '+(s.verdict==='no'?'no':''));item.append(el('span','badge '+(s.verdict==='no'?'incorrect':''),s.verdict==='yes'?'Supported by judge':s.verdict==='no'?'Unsupported by judge':'Uncertain'),el('p',null,s.statement),el('p','muted',s.reason||'No explanation saved.'));root.append(item);});
   const metrics=el('details');metrics.append(el('summary',null,'Scores & calculation'));const table=el('table');const tr=el('tr');['Metric','Value','Verdict'].forEach(t=>tr.append(el('th',null,t)));table.append(tr);(v.metrics||[]).forEach(m=>{const row=el('tr');m.forEach(t=>row.append(el('td',null,t)));table.append(row);});metrics.append(table);const steps=el('ol');(v.score_steps||[]).forEach(s=>steps.append(el('li',null,s)));metrics.append(steps);root.append(metrics);
 }
-function annotation(r){
-  const a=entry(r),box=el('section','panel annotation');box.id='annotationPanel';box.setAttribute('aria-label','Annotation controls');box.append(heading(currentAnnotator+' / Annotation'));const legacyCount=Object.entries(legacyAnnotations).filter(([key,value])=>hasAnnotation(value)&&!hasAnnotation(A[key])).length;if(legacyCount){const old=el('div','notice');old.append(el('p',null,legacyCount+' earlier shared annotation(s) are available.'),button('Copy earlier labels to '+currentAnnotator,copyLegacyAnnotations,'text-button'));box.append(old);}
-  const left=el('div','annotation-left'),right=el('div','annotation-right');
-  const step=el('fieldset','step');step.style.cssText='border:0;padding:0;min-width:0';step.append(el('legend','step-title','Is the RAG answer correct?'));
-  const decisions=el('div','decision');[['correct','Correct'],['incorrect','Incorrect']].forEach(([value,title])=>{const label=el('label','choice'),radio=el('input');radio.type='radio';radio.name='humanLabel';radio.value=value;radio.checked=a.human_label===value;radio.onchange=()=>{a.human_label=value;if(value==='correct')setFailureTypes(a,['not_a_failure']);else if(getFailureTypes(a).includes('not_a_failure'))setFailureTypes(a,[]);save();queue();renderReview();};label.append(radio,document.createTextNode(title));decisions.append(label);});step.append(decisions,el('p','hint','Use the request and evidence. You may disagree with mtRAG or the gold answer.'));left.append(step);
-  left.append(failureChoices(r));
-  const noteLabel=el('label','step-title','What is wrong, and why?');noteLabel.htmlFor='notes';const notes=el('textarea');notes.id='notes';notes.placeholder='Name the wrong claim or missing required point. Explain how the evidence supports your decision.';notes.value=a.notes||'';notes.oninput=()=>{a.notes=notes.value;save();};right.append(noteLabel,notes);
-  const goldCheck=el('div','gold-review'),goldLabel=el('label','step-title','Gold answer check');goldLabel.htmlFor='goldAssessment';const goldSelect=el('select');goldSelect.id='goldAssessment';[['','Not reviewed'],['supported','Supported by the evidence'],['questionable','Questionable / unresolved'],['incorrect','Gold answer appears incorrect']].forEach(([v,t])=>goldSelect.append(new Option(t,v)));goldSelect.value=a.gold_assessment||'';
-  const goldNotes=el('textarea');goldNotes.id='goldNotes';goldNotes.setAttribute('aria-label','Gold answer review explanation');goldNotes.placeholder='Explain any problem with the gold answer and cite the evidence you used.';goldNotes.value=a.gold_notes||'';goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;goldSelect.onchange=()=>{a.gold_assessment=goldSelect.value;goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;save();};goldNotes.oninput=()=>{a.gold_notes=goldNotes.value;save();};goldCheck.append(goldLabel,goldSelect,goldNotes,el('p','hint','This records your reference review separately; it does not change the saved gold answer or judge scores.'));right.append(goldCheck);
-  const citations=el('div','step');citations.style.marginTop='18px';citations.append(el('div','step-title','Supporting evidence'),el('p','hint','Cite the answer, selected context, gold documents, or corpus evidence above.'));const list=el('div','citations');list.id='citations';citations.append(list);right.append(citations);
-  if(['low','mid','high'].includes(a.human_score_band))left.append(el('p','hint','Earlier three-level rating: '+a.human_score_band));
-  const reviewControl=el('label','review-toggle'),reviewCheck=el('input');reviewCheck.type='checkbox';reviewCheck.id='reviewComplete';reviewCheck.checked=reviewed(r);reviewCheck.onchange=()=>{a.review_complete=reviewCheck.checked;save();queue();};reviewControl.append(reviewCheck,document.createTextNode('Reviewed this turn'));
-  const footer=el('div','annotation-footer'),status=el('span','status',storageOK?'Saved in this browser':'Not saved — export a copy');status.id='saveStatus';status.setAttribute('role','status');footer.append(reviewControl,status,button('Next unreviewed →',()=>next(true),'primary'),button('Clear decision',()=>{delete a.human_label;delete a.failure_type;delete a.failure_types;save();queue();renderReview();},'text-button'));
-  box.append(left,right,footer);queueMicrotask(()=>{refreshFailureChoices(r);renderCitations(r);updateSaveStatus();});return box;
+const failureStageViews=new Map(),decisionEditors=new Set(),stageEditors=new Set();
+const GENERATION_GROUPS=[['ข้อมูลที่ใช้ตอบ',['E9','E10','E11']],['การใช้หลักฐานและความครบถ้วน',['E12','E13','E14']],['เวลาและตัวเลข',['E15','E16']]];
+function stageViewKey(r){return currentAnnotator+':'+r.key;}
+function selectedFailureStages(a){return [...new Set(getFailureTypes(a).filter(t=>D.failure_types.includes(t)).map(t=>guides[t].stage))];}
+function visibleFailureStage(r){const explicit=failureStageViews.get(stageViewKey(r));if(explicit)return explicit;const stages=selectedFailureStages(entry(r));return stages.length===1?stages[0]:'';}
+function finishProblem(r){
+  const a=entry(r),types=getFailureTypes(a);
+  if(!['correct','incorrect','uncertain'].includes(a.human_label))return 'เลือกก่อนว่าคำตอบถูก ผิด หรือหลักฐานไม่พอตัดสิน';
+  if(a.human_label==='correct')return types.some(t=>t!=='not_a_failure')?'ยืนยันคำตอบถูก เพื่อล้าง failure ที่ขัดกันก่อน':'';
+  if(a.human_label==='uncertain')return types.length!==1||types[0]!=='insufficient_evidence'?'เลือกหลักฐานไม่พอตัดสินอีกครั้งเพื่อยืนยันผล':'';
+  if(!types.length||types.includes('not_a_failure'))return 'เลือก failure หรือใช้ “ยังระบุสาเหตุไม่ได้”';
+  if(selectedFailureStages(a).length>1)return 'เลือกประเภทในขั้นตอนแรกที่มีหลักฐานยืนยัน แล้วนำประเภทจากขั้นตอนอื่นออก';
+  return '';
 }
-const failureHints={knowledge_boundary:'Outside corpus scope',chunking:'Evidence split badly',retrieval:'Evidence not retrieved',context_selection:'Useful context left out',grounding:'Unsupported or wrong claim',response_coverage:'Required point missing'};
+async function finishAndNext(r){
+  if(getProfile(currentAnnotator).loading)return;
+  const problem=finishProblem(r);if(problem){notify(problem);$('annotationPanel').scrollIntoView({behavior:'smooth',block:'nearest'});return;}
+  const owner=currentAnnotator,a=entry(r);a.review_complete=true;save();queue();
+  const finish=$('finishReview');if(finish)finish.disabled=true;
+  await flushProfile(owner);
+  if(owner!==currentAnnotator||activeKey!==r.key)return;
+  if(D.annotation_api&&!getProfile(owner).connected){notify('บันทึกในเบราว์เซอร์แล้ว · รอเชื่อมต่อเพื่อส่งขึ้น server');refreshFailureChoices(r);return;}
+  const candidates=filtered().filter(row=>row.key!==r.key&&!reviewed(row));
+  if(candidates.length){const rows=filtered(),index=rows.findIndex(row=>row.key===r.key);const target=rows.slice(index+1).concat(rows.slice(0,index)).find(row=>row.key!==r.key&&!reviewed(row));if(target){openTurn(target.key);$('question')?.scrollIntoView({behavior:'smooth',block:'start'});return;}}
+  refreshFailureChoices(r);notify('บันทึกแล้ว · ไม่มี turn ที่ยังไม่ review ในรายการนี้');
+}
+function annotation(r){
+  const a=entry(r),box=el('section','panel annotation');box.id='annotationPanel';box.lang='th';box.inert=!!getProfile(currentAnnotator).loading;box.setAttribute('aria-label','Annotation controls');box.append(heading(currentAnnotator+' / Annotation'));
+  const trail=el('ol','annotation-trail');[['อ่านคำตอบ','decision'],['เลือกสาเหตุ','cause'],['บันทึก','save']].forEach(([label,key],i)=>{const item=el('li',null,(i+1)+' '+label);item.dataset.reviewStep=key;trail.append(item);});box.append(trail);
+  const legacyCount=Object.entries(legacyAnnotations).filter(([key,value])=>hasAnnotation(value)&&!hasAnnotation(A[key])).length;
+  if(legacyCount){const old=el('details','guide');old.append(el('summary',null,'มีงานเดิมที่ยังไม่ระบุผู้ตรวจ '+legacyCount+' turn'),button('Copy earlier labels to '+currentAnnotator,copyLegacyAnnotations,'text-button'));box.append(old);}
+  const left=el('div','annotation-left'),right=el('div','annotation-right');right.id='reviewNotes';
+  const step=el('fieldset','step decision-step');step.append(el('legend','step-title','1 · คำตอบนี้ถูกต้องไหม?'));
+  const decisions=el('div','decision guided-decisions');
+  [['correct','ถูกต้อง','ตอบสิ่งที่ถาม และมีหลักฐานรองรับ'],['incorrect','มีข้อผิดพลาด','พบสิ่งที่ผิด หรือขาดประเด็นสำคัญ'],['uncertain','หลักฐานไม่พอตัดสิน','ยังสรุปความถูกต้องของคำตอบไม่ได้']].forEach(([value,title,description])=>{
+    const label=el('label','choice'),radio=el('input');radio.type='radio';radio.name='humanLabel';radio.value=value;radio.checked=a.human_label===value;
+    radio.onchange=()=>{decisionEditors.delete(stageViewKey(r));a.human_label=value;if(value==='correct')setFailureTypes(a,['not_a_failure']);else if(value==='uncertain')setFailureTypes(a,['insufficient_evidence']);else if(getFailureTypes(a).includes('not_a_failure'))setFailureTypes(a,[]);save();queue();renderReview();};
+    const text=el('span');text.append(el('b',null,title),el('small','hint',description));label.append(radio,text);decisions.append(label);
+  });const changeDecision=button('เปลี่ยนการตัดสิน',()=>{decisionEditors.add(stageViewKey(r));refreshFailureChoices(r);},'text-button');changeDecision.id='changeDecision';const decisionHint=el('p','hint','ตรวจคำถาม คำตอบ และ Selected context ก่อน · เปิด Gold หรือ Judge เมื่อต้องการ');decisionHint.id='decisionHint';step.append(decisions,changeDecision,decisionHint);left.append(step,failureChoices(r));
+  right.append(el('h3','step-title','3 · เหตุผลและหลักฐาน'));
+  const noteLabel=el('label','hint','สรุปสิ่งที่พบสั้น ๆ');noteLabel.htmlFor='notes';const notes=el('textarea');notes.id='notes';notes.placeholder='คำตอบผิดตรง… หลักฐานระบุว่า… / ยังขาดข้อมูลอะไร…';notes.value=a.notes||'';notes.oninput=()=>{a.notes=notes.value;save();};right.append(noteLabel,notes);
+  const citations=el('div','step citation-step');citations.append(el('div','hint','เลือกข้อความในคำตอบหรือเอกสาร แล้วกด Cite selection เพื่อแนบหลักฐาน'));const list=el('div','citations');list.id='citations';citations.append(list);right.append(citations);
+  const goldDetails=el('details','guide gold-review');goldDetails.id='goldReviewDetails';goldDetails.open=!!(a.gold_assessment||a.gold_notes);goldDetails.append(el('summary',null,'ตรวจ Gold answer เพิ่มเติม (ถ้าต้องการ)'));
+  const goldLabel=el('label','hint','Gold answer check');goldLabel.htmlFor='goldAssessment';const goldSelect=el('select');goldSelect.id='goldAssessment';[['','ยังไม่ได้ตรวจ'],['supported','มีหลักฐานรองรับ'],['questionable','ยังไม่แน่ใจ'],['incorrect','Gold answer อาจผิด']].forEach(([v,t])=>goldSelect.append(new Option(t,v)));goldSelect.value=a.gold_assessment||'';
+  const goldNotes=el('textarea');goldNotes.id='goldNotes';goldNotes.setAttribute('aria-label','Gold answer review explanation');goldNotes.placeholder='อธิบายปัญหาของ Gold answer และหลักฐาน';goldNotes.value=a.gold_notes||'';goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;goldSelect.onchange=()=>{a.gold_assessment=goldSelect.value;goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;save();};goldNotes.oninput=()=>{a.gold_notes=goldNotes.value;save();};goldDetails.append(goldLabel,goldSelect,goldNotes,el('p','hint','บันทึกแยกจากการตัดสิน RAG answer'));right.append(goldDetails);
+  if(['low','mid','high'].includes(a.human_score_band))left.append(el('p','hint','Earlier three-level rating: '+a.human_score_band));
+  const reviewControl=el('label','review-toggle'),reviewCheck=el('input');reviewCheck.type='checkbox';reviewCheck.id='reviewComplete';reviewCheck.checked=reviewed(r);reviewCheck.onchange=()=>{a.review_complete=reviewCheck.checked;save();queue();};reviewControl.append(reviewCheck,document.createTextNode('Reviewed this turn · ตรวจ turn นี้แล้ว'));
+  const footer=el('div','annotation-footer'),status=el('span','status');status.id='saveStatus';status.setAttribute('role','status');const finish=button('บันทึกและไป turn ถัดไป →',()=>finishAndNext(r),'primary');finish.id='finishReview';
+  const draft=el('p','hint','ทุกการแก้ไขบันทึกเป็นร่างอัตโนมัติ');draft.id='finishHint';footer.append(status,finish,draft,reviewControl,button('ล้างการตัดสิน',()=>{delete a.human_label;delete a.failure_type;delete a.failure_types;failureStageViews.delete(stageViewKey(r));decisionEditors.delete(stageViewKey(r));stageEditors.delete(stageViewKey(r));save();queue();renderReview();},'text-button'));
+  box.append(left,right,footer);queueMicrotask(()=>{if(activeKey!==r.key||!box.isConnected)return;refreshFailureChoices(r);renderCitations(r);updateSaveStatus();});return box;
+}
 let lastFailureHelp='';
 function failureChoices(r){
-  const field=el('fieldset','step failure-choices');field.id='failureChoices';field.disabled=entry(r).human_label==='correct';field.append(el('legend','step-title','Failure causes'));
-  const meta=el('div','failure-choice-meta'),count=el('span','badge');count.id='failureCount';const clear=button('Clear choices',()=>{setFailureTypes(entry(r),[]);lastFailureHelp='';save();queue();refreshFailureChoices(r);},'text-button');clear.id='clearFailureChoices';meta.append(count,clear);
-  const hint=el('p','hint','Select one or more supported causes.');hint.id='failureChoiceHint';field.setAttribute('aria-describedby','failureChoiceHint');field.append(meta,hint);
-  const grid=el('div','failure-choice-grid');
-  function choice(type,subtitle){
-    const label=el('label','failure-option');label.title=guides[type].check;const input=el('input');input.type='checkbox';input.value=type;input.dataset.failureType=type;input.name='failure_causes';input.onchange=()=>toggleFailure(r,type,input.checked);const text=el('span','failure-option-text');text.append(el('b',null,guides[type].title),el('span','hint',subtitle));label.append(input,text);return label;
-  }
-  D.failure_types.forEach(type=>grid.append(choice(type,failureHints[type])));field.append(grid,el('p','hint failure-outcome-hint','Or use one alternative outcome instead of the causes above:'));
-  const alternatives=el('div','failure-alternatives');alternatives.append(choice('outside_taxonomy','An error beyond these causes'),choice('insufficient_evidence','Cannot establish the cause'));field.append(alternatives);
+  const field=el('fieldset','step failure-choices');field.id='failureChoices';field.append(el('legend','step-title','2 · ข้อผิดพลาดเริ่มที่ขั้นตอนไหน?'));
+  const stageHint=el('p','hint','เลือกขั้นตอนแรกที่มีหลักฐานยืนยัน แล้วเลือกประเภทในกลุ่มนั้น');stageHint.id='stagePickerHint';field.append(stageHint);
+  const stages=el('div','stage-picker');stages.setAttribute('aria-label','Failure stage');
+  D.failure_stages.forEach((stage,i)=>{const g=D.failure_stage_guides[stage],pick=button('',()=>{failureStageViews.set(stageViewKey(r),stage);stageEditors.delete(stageViewKey(r));refreshFailureChoices(r);},'stage-pick');pick.dataset.failureStage=stage;pick.append(el('b',null,(i+1)+' · '+g.label),el('small',null,stage+' · '+g.short));stages.append(pick);});const stageSummary=el('div','chosen-stage');stageSummary.id='chosenStage';const stageName=el('b');stageName.id='chosenStageName';stageSummary.append(stageName,button('เปลี่ยนขั้นตอน',()=>{stageEditors.add(stageViewKey(r));refreshFailureChoices(r);},'text-button'));field.append(stages,stageSummary);
+  const unknown=el('div','failure-alternatives');unknown.append(failureOption(r,'insufficient_evidence','ยังระบุสาเหตุไม่ได้','พบปัญหา แต่หลักฐานไม่พอแยกสาเหตุ'));field.append(unknown);
+  const more=el('details','other-outcomes');more.append(el('summary',null,'ข้อผิดพลาดไม่อยู่ใน 16 ประเภท'),failureOption(r,'outside_taxonomy','นอก taxonomy','มีข้อผิดพลาดที่ยืนยันได้ แต่ไม่ตรงกับ E1–E16'));
+  const stageHelp=el('details','stage-evidence');stageHelp.id='stageEvidence';field.append(stageHelp);
+  const selected=el('div','selected-causes');selected.id='selectedCauses';selected.setAttribute('aria-live','polite');field.append(selected);
+  const meta=el('div','failure-choice-meta'),count=el('span','badge');count.id='failureCount';const clear=button('ล้างประเภทที่เลือก',()=>{setFailureTypes(entry(r),[]);lastFailureHelp='';save();queue();refreshFailureChoices(r);},'text-button');clear.id='clearFailureChoices';meta.append(count,clear);field.append(meta);
+  const hint=el('p','hint','เลือกได้หลายประเภทภายในขั้นตอนเดียวกัน');hint.id='failureChoiceHint';field.setAttribute('aria-describedby','failureChoiceHint');field.append(hint);
+  D.failure_stages.forEach(stage=>{const group=el('section','failure-stage');group.dataset.stage=stage;group.hidden=true;group.append(el('h3','failure-stage-title',D.failure_stage_guides[stage].label+' · '+stage));
+    const groups=stage==='Generation'?GENERATION_GROUPS:[['',D.failure_types.filter(type=>guides[type].stage===stage)]];
+    groups.forEach(([name,codes])=>{if(name)group.append(el('h4','failure-subheading',name));const grid=el('div','failure-choice-grid');codes.forEach(type=>{const aid=D.failure_annotation_aids[type];grid.append(failureOption(r,type,aid.label,guides[type].name+' · '+guides[type].code));});group.append(grid);});field.append(group);
+  });field.append(more);
   const help=el('div');help.id='failureGuide';const wrapper=el('div');wrapper.append(field,help);return wrapper;
+}
+function failureOption(r,type,title,subtitle){
+  const label=el('label','failure-option');label.title=guides[type].check;const input=el('input');input.type='checkbox';input.value=type;input.dataset.failureType=type;input.name='failure_causes';input.onchange=()=>toggleFailure(r,type,input.checked);const text=el('span','failure-option-text');text.append(el('b',null,title),el('span','hint',subtitle));label.append(input,text);return label;
 }
 function toggleFailure(r,type,checked){
   const a=entry(r);let types=getFailureTypes(a);
-  if(checked){types=D.extra_types.includes(type)?[type]:types.filter(t=>!D.extra_types.includes(t)).concat(type);lastFailureHelp=type;}
+  if(checked){types=D.extra_types.includes(type)?[type]:types.filter(t=>!D.extra_types.includes(t)).concat(type);lastFailureHelp=type;if(D.failure_types.includes(type))failureStageViews.set(stageViewKey(r),guides[type].stage);}
   else{types=types.filter(t=>t!==type);if(lastFailureHelp===type)lastFailureHelp='';}
   setFailureTypes(a,types);save();queue();refreshFailureChoices(r);
 }
 function refreshFailureChoices(r){
-  const field=$('failureChoices');if(!field)return;const a=entry(r),types=getFailureTypes(a);field.disabled=a.human_label==='correct';
+  const field=$('failureChoices');if(!field)return;const a=entry(r),types=getFailureTypes(a),stage=visibleFailureStage(r),stages=selectedFailureStages(a);
+  field.disabled=['correct','uncertain'].includes(a.human_label);field.hidden=field.disabled||!a.human_label&&!types.length&&!getLegacyFailureTypes(a).length;
+  const editingDecision=decisionEditors.has(stageViewKey(r))||!a.human_label;document.querySelectorAll('.guided-decisions label').forEach(label=>label.hidden=!editingDecision&&!label.querySelector('input').checked);document.querySelector('.guided-decisions').dataset.editing=String(editingDecision);$('changeDecision').hidden=editingDecision;$('decisionHint').hidden=!editingDecision;
+  const editingStage=stageEditors.has(stageViewKey(r))||!stage;field.querySelector('.stage-picker').hidden=!editingStage;$('chosenStage').hidden=editingStage;$('stagePickerHint').hidden=!editingStage;$('chosenStageName').textContent=stage?D.failure_stage_guides[stage].label+' · '+stage:'';
   field.querySelectorAll('[data-failure-type]').forEach(input=>{input.checked=types.includes(input.dataset.failureType);input.closest('label').classList.toggle('selected',input.checked);});
-  $('clearFailureChoices').disabled=a.human_label==='correct'||!types.length;$('failureCount').textContent=types.includes('not_a_failure')?'No failure':types.length+' selected';renderGuide(r);
+  field.querySelectorAll('[data-failure-stage]').forEach(pick=>pick.setAttribute('aria-pressed',String(pick.dataset.failureStage===stage)));
+  field.querySelectorAll('.failure-stage').forEach(group=>group.hidden=group.dataset.stage!==stage);
+  const evidence=$('stageEvidence');evidence.replaceChildren();evidence.hidden=!stage;
+  if(stage){const g=D.failure_stage_guides[stage];evidence.open=stage!=='Generation';evidence.append(el('summary',null,'ดูหลักฐานที่ต้องใช้'),el('p',null,g.evidence),el('p','hint',g.missing));}
+  const chosen=$('selectedCauses');chosen.replaceChildren();const causes=types.filter(t=>D.failure_types.includes(t));chosen.hidden=!causes.length;
+  if(causes.length){chosen.append(el('p','hint','เลือกไว้แล้ว · กด × เพื่อนำออก'));causes.forEach(type=>{const chip=button(D.failure_annotation_aids[type].label+' · '+type+' ×',()=>toggleFailure(r,type,false),'cause-chip');chip.setAttribute('aria-label','นำ '+type+' ออก');chosen.append(chip);});chosen.append(button('เขียนเหตุผล / แนบหลักฐาน ↓',()=>$('reviewNotes').scrollIntoView({behavior:'smooth',block:'nearest'}),'text-button'));}
+  if(stages.length>1)chosen.append(el('p','notice warn','มีประเภทจากหลายขั้นตอน · เก็บข้อมูลเดิมไว้แล้ว เลือกขั้นตอนแรกที่ยืนยันได้และนำประเภทอื่นออกก่อนกดบันทึกเสร็จ'));
+  field.querySelector('.failure-choice-meta').hidden=!types.length;$('clearFailureChoices').disabled=field.disabled||!types.length;$('failureCount').textContent=types.includes('not_a_failure')?'No failure':types.length+' selected';
+  const hasWork=!!(a.human_label||types.length||a.notes||a.evidence?.length||a.gold_assessment||a.gold_notes);$('reviewNotes').hidden=!hasWork;
+  const problem=finishProblem(r);$('finishHint').textContent=problem||'พร้อมบันทึก · ระบุเหตุผลหรือแนบหลักฐานได้ด้านบน';$('finishReview').disabled=!!getProfile(currentAnnotator).loading;
+  document.querySelectorAll('[data-review-step]').forEach(node=>node.dataset.active=String(node.dataset.reviewStep===(a.human_label?(problem?'cause':'save'):'decision')));
+  renderGuide(r);
+}
+function jumpToEvidence(r,where){
+  if(['selected','gold','corpus','history'].includes(where)){activeTab=where==='history'?'history':'compare';evidenceQuery='';$('evidenceSearch').value='';renderEvidence(r);if(where==='gold'){const disclosure=$('goldDisclosure');if(disclosure)disclosure.open=true;}const target=where==='history'?$('evidence'):$('evidence-'+where);target?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});}
+  else{if(!$('answer')){activeTab='compare';renderEvidence(r);}$(where)?.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function renderGuide(r){
-  const a=entry(r),root=$('failureGuide');if(!root)return;root.replaceChildren();const types=getFailureTypes(a);
+  const a=entry(r),root=$('failureGuide');if(!root)return;root.replaceChildren();const types=getFailureTypes(a),legacy=getLegacyFailureTypes(a);
+  if(legacy.length){const old=el('details','guide legacy-failures');old.open=!types.length;old.append(el('summary',null,'Earlier labels preserved · '+legacy.map(t=>D.legacy_failure_labels[t]).join(', ')),el('p',null,'เก็บ label จาก 6 ประเภทเดิมไว้ครบ กรุณาตรวจใหม่ก่อนเลือก E1–E16 ไม่มีการแปลง label ให้อัตโนมัติ'));root.append(old);}
   if(a.human_label==='correct'&&types.some(t=>t!=='not_a_failure')){root.append(el('p','notice warn','These saved failure causes conflict with Correct. Confirm the correct decision to clear them.'),button('Confirm correct',()=>{setFailureTypes(a,['not_a_failure']);save();queue();renderReview();},'text-button'));return;}
   if(a.human_label==='incorrect'&&types.includes('not_a_failure')){root.append(el('p','notice warn','Not a failure conflicts with Incorrect. Select a supported cause above, or mark the answer Correct.'));return;}
-  if(!types.length||types[0]==='not_a_failure'){
-    root.append(el('p','notice',a.human_label==='correct'?'Marked correct. No failure causes are needed.':a.human_label==='incorrect'?'Select every cause supported by the evidence. Use Insufficient evidence when the cause cannot be established.':'Compare the answer and evidence, then choose Correct or Incorrect.'));
-    return;
-  }
+  if(a.human_label==='correct'){root.append(el('p','notice','คำตอบถูกต้อง · ไม่ต้องเลือก failure'));return;}
+  if(a.human_label==='uncertain'){root.append(el('p','notice','ยังตัดสินความถูกต้องไม่ได้ · บันทึกเป็น uncertain และ Insufficient evidence แยกจากคำตอบผิด'));return;}
+  if(!types.length||types[0]==='not_a_failure')return;
   types.forEach(type=>{
-    const g=guides[type],d=el('details','guide failure-help');d.open=types.length===1||type===lastFailureHelp;d.append(el('summary',null,g.title+' · evidence to check'),el('p',null,g.check));
-    const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));d.append(list);const links=el('div','nav-actions'),labels={question:'Question',answer:'RAG answer',selected:'Selected context',gold:'Gold documents',corpus:'Corpus evidence',history:'Conversation'};
-    g.look.forEach(where=>links.append(button(labels[where],()=>{if(['selected','gold','corpus','history'].includes(where)){activeTab=where==='history'?'history':'compare';evidenceQuery='';$('evidenceSearch').value='';renderEvidence(r);const target=where==='history'?$('evidence'):$('evidence-'+where);target.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});}else{if(!$('answer')){activeTab='compare';renderEvidence(r);}$(where).scrollIntoView({behavior:'smooth',block:'center'});}},'text-button')));d.append(links);if(g.missing)d.append(el('p','missing',g.missing));root.append(d);
+    const g=guides[type],aid=D.failure_annotation_aids[type],d=el('details','guide failure-help');d.open=false;d.append(el('summary',null,aid?aid.label+' · '+type+' · ดูตัวอย่าง / หลักฐาน':g.title+' · evidence to check'));
+    if(aid)d.append(el('p','example','ตัวอย่าง: '+aid.example));d.append(el('p',null,g.check));
+    const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));d.append(list);const links=el('div','nav-actions'),labels={question:'คำถาม',answer:'RAG answer',selected:'Selected context',gold:'Gold documents',corpus:'Corpus evidence',history:'Conversation'};
+    g.look.forEach(where=>links.append(button(labels[where],()=>jumpToEvidence(r,where),'text-button')));d.append(links);if(g.missing)d.append(el('p','missing',g.missing));root.append(d);
   });
   if(r.contexts===null)root.append(el('p','hint','Missing for this turn: selected context.'));else if(!r.contexts.length)root.append(el('p','hint','Recorded for this turn: zero selected passages.'));
   if(r.gold_support?.status!=='available')root.append(el('p','hint','Missing for this turn: verified reference passages.'));
-  if(!a.human_label)root.append(el('p','notice','Choose a correctness decision to complete this review.'));
 }
 function renderCitations(r){const root=$('citations');if(!root)return;root.replaceChildren();const items=entry(r).evidence||[];if(!items.length){root.append(el('p','hint','No evidence cited yet.'));return;}items.forEach((e,i)=>{const c=el('div','citation'),top=el('div','citation-top');const remove=button('×',()=>{entry(r).evidence.splice(i,1);save();renderCitations(r);},'text-button');remove.setAttribute('aria-label','Remove evidence '+(i+1));top.append(el('b',null,e.source+' · '+e.locator),remove);c.append(top,el('blockquote',null,e.quote));root.append(c);});}
-function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
+function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),failure_taxonomy:D.failure_taxonomy,legacy_failure_types:getLegacyFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
 function download(name,text,type){const a=el('a');const url=URL.createObjectURL(new Blob([text],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('expJson').onclick=()=>download('annotations_'+D.run+'_'+currentAnnotator+'.json',JSON.stringify(rowsOut(),null,2),'application/json');
-$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','failure_type','failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
+$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','failure_type','failure_types','failure_taxonomy','legacy_failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types','legacy_failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
 $('imp').onchange=async ev=>{
   const file=ev.target.files[0];if(!file)return;
   try{
@@ -785,9 +894,12 @@ $('importLabel').onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDef
 $('annotator').onchange=()=>switchAnnotator($('annotator').value);
 $('judgeGuideButton').onclick=()=>openGuideline('judge');$('failureGuideButton').onclick=()=>openGuideline('failure');
 $('title').textContent=D.run;$('crit').innerHTML=D.criteria_html;
-D.failure_types.forEach(type=>{const g=guides[type],section=el('section','guideline-entry');section.append(el('h3',null,g.title),el('p',null,g.check));const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));section.append(list);if(g.missing)section.append(el('p','hint',g.missing));$('failureGuideContent').append(section);});
+D.failure_types.forEach(type=>{const g=guides[type],section=el('section','guideline-entry');section.append(el('h3',null,g.stage+' · '+g.title),el('p',null,g.check));const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));section.append(list);if(g.missing)section.append(el('p','hint',g.missing));$('failureGuideContent').append(section);});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')profiles.forEach(state=>flushProfile(state.name));});
 function fitQueue(){document.querySelector('.queue').style.setProperty('--queue-offset',Math.ceil(document.querySelector('.layout').getBoundingClientRect().top+window.scrollY)+'px');observeQueueEdges();}
+let annotationFitFrame;
+function fitAnnotationPanel(){cancelAnimationFrame(annotationFitFrame);annotationFitFrame=requestAnimationFrame(()=>{const box=$('annotationPanel');if(!box)return;if(window.innerWidth<=950){box.style.removeProperty('max-height');return;}const top=Math.max(16,Math.ceil(box.getBoundingClientRect().top));box.style.maxHeight='calc(100dvh - '+top+'px - 16px)';});}
+window.addEventListener('scroll',fitAnnotationPanel,{passive:true});window.addEventListener('resize',fitAnnotationPanel);
 window.addEventListener('resize',fitQueue);fitQueue();
 const annotationReady=switchAnnotator(currentAnnotator);
 </script>

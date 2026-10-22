@@ -77,7 +77,7 @@ class CorpusTests(unittest.TestCase):
             'ground_truth_answers': ['Westward.'], 'metadata': {'collection': 'clapnq'}}]))
         with mock.patch.object(corpus_store, 'CORPUS_DIR', self.root), \
                 mock.patch.object(make_annotation, 'CORPUS_DIR', self.root), \
-                mock.patch.object(make_annotation, 'load_passage_archive', return_value={}):
+                mock.patch.object(make_annotation, 'load_passage_archive', return_value={}) as archive_loader:
             self.assertIsNone(corpus_store.corpus_metadata('fiqa'))
             live = make_annotation.build_data(work, live=True)['corpus']['clapnq']
             self.assertEqual(live['kind'], 'ibm_corpus')
@@ -89,6 +89,7 @@ class CorpusTests(unittest.TestCase):
             self.assertIn('offline', snapshot['message'].lower())
             self.assertEqual(snapshot['sources'][0]['revision'], 'fixture-revision')
             self.assertTrue(all(doc['id'] in {'passage-1', 'passage-2'} for doc in snapshot['documents']))
+            archive_loader.assert_not_called()
 
 
 if __name__ == '__main__':

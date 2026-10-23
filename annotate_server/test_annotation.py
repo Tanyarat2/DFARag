@@ -148,6 +148,26 @@ BROWSER_CHECKS = r"""
     $('evidenceSearch').value='';$('evidenceSearch').dispatchEvent(new Event('input'));
     assert($('evidence-gold').textContent.includes('Dataset relevance: relevant'),'Reference relevance visible');
     assert($('evidence-corpus').textContent.includes('not the complete original corpus'),'Archive limitations visible');
+    assert(!$('corpusDisclosure').open,'Corpus starts collapsed');
+    click('#corpusDisclosure > summary');
+    assert($('corpusDisclosure').open,'Corpus opens with its search controls');
+    assert(!$('retrievedDisclosure').open,'Retrieved toggle starts closed');
+    const row=D.rows[1];
+    row.retrieval_context={documents:[{id:'retrieved-venus',title:'Venus',text:'Venus rotates westward.',retrieval_rank:1},{id:'retrieved-earth',title:'Earth',text:'Earth rotates eastward.',retrieval_rank:2}],source:{file:'test/candidates.jsonl',inference_stage:'new_retrieval_experiment'}};
+    renderEvidence(row);click('#retrievedDisclosure > summary');
+    assert($('retrievedDisclosure').open,'Retrieved context opens independently');
+    assert($('retrievedDisclosure').querySelectorAll('.passage').length===2,'Retrieved chunks shown as separate cards');
+    assert(!$('retrievedDisclosure').querySelector('.evidence-badge.used'),'Candidate matching selected text does not claim original generator use');
+    assert($('retrievedDisclosure').textContent.includes('Before rerank'),'Retrieved context identifies its pipeline stage');
+    const hint=document.createElement('div');renderInlineComparison(row,'E4',hint);
+    assert(!hint.textContent.includes('not recorded'),'Available retrieval is reflected in failure hints');
+    delete row.retrieval_context;renderEvidence(row);
+    click('#corpusDisclosure > summary');
+    if(!$('corpusDisclosure').open)click('#corpusDisclosure > summary');
+
+    click('#corpusDisclosure > summary');
+    assert(!$('corpusDisclosure').open,'Corpus closes independently from Gold');
+    click('#corpusDisclosure > summary');
     $('corpusSearch').value='earth-corpus';$('corpusSearch').dispatchEvent(new Event('input'));
     assert($('evidence-corpus').textContent.includes('Earth rotates eastward.'),'Corpus search by original document ID');
     assert(!$('evidence-corpus').querySelector('.column-body').textContent.includes('Venus rotates westward.'),'Corpus search filters evidence');
@@ -519,6 +539,31 @@ class GenerationEvidenceTests(unittest.TestCase):
         result = annotation.generation_evidence({}, 'other', 'case', '1', 'Q', 'A', ['Context'])
         self.assertEqual(result['selected_passages'], [{'id': '', 'title': '', 'text': 'Context'}])
         self.assertIsNone(result['retrieved_candidates'])
+
+
+class RetrievalContextTests(unittest.TestCase):
+    def test_candidates_match_backend_collection_task_and_question(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=pathlib.Path(tmp)/'hippo'/'cloud'/'candidates.jsonl'
+            path.parent.mkdir(parents=True)
+            record={'method':'hipporag2','domain':'cloud','task_id':'case<::>1','question':'Q?',
+                    'inference_stage':'new_retrieval_experiment','original_answers_reused':False,
+                    'candidates':[{'id':'doc','text':'Before rerank','retrieval_rank':1}]}
+            path.write_text(json.dumps(record)+'\n',encoding='utf-8')
+            records=annotation.retrieval_records(annotation.retrieval_snapshot(tmp))
+            result=annotation.retrieval_evidence(records,'hipporag2','cloud','case<::>1','Q?')
+            self.assertEqual(result['documents'][0]['id'],'doc')
+            self.assertEqual(result['source']['inference_stage'],'new_retrieval_experiment')
+            self.assertIsNone(annotation.retrieval_evidence(records,'vector','cloud','case<::>1','Q?'))
+            self.assertIsNone(annotation.retrieval_evidence(records,'hipporag2','fiqa','case<::>1','Q?'))
+            self.assertIsNone(annotation.retrieval_evidence(records,'hipporag2','cloud','case<::>1','Different?'))
+            path.write_text(json.dumps({**record,'candidates':[]})+'\n',encoding='utf-8')
+            refreshed=annotation.retrieval_records(annotation.retrieval_snapshot(tmp))
+            self.assertEqual(annotation.retrieval_evidence(refreshed,'hipporag2','cloud','case<::>1','Q?')['documents'],[])
+
+    def test_ambiguous_pool_is_not_attached(self):
+        records={('hipporag2','cloud','case<::>1'):[{'question':'Q?'},{'question':'Q?'}]}
+        self.assertIsNone(annotation.retrieval_evidence(records,'hipporag2','cloud','case<::>1','Q?'))
 
 
 if __name__ == '__main__':

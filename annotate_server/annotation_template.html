@@ -219,7 +219,7 @@ li{margin:6px 0}
 .column-body .passage{padding:14px 0}
 .column-divider{font-weight:650;font-size:12px;border-top:1px solid var(--line);padding-top:14px;margin:6px 0 12px}
 .column-body .passage h3{font-size:12px}
-.gold-disclosure>summary{color:var(--accent);font-size:13px;font-weight:650}
+.corpus-disclosure{margin-top:16px}.gold-disclosure pre{white-space:pre-wrap;overflow-wrap:anywhere}.gold-disclosure>summary{color:var(--accent);font-size:13px;font-weight:650}
 .gold-content{margin-top:14px}
 .archive-kind{font-size:11px;font-weight:650;color:var(--accent);margin-top:7px}
 .corpus-controls{margin-top:10px;display:grid;gap:7px}
@@ -465,7 +465,7 @@ function copyLegacyAnnotations(){
 }
 function openGuideline(kind){$(kind==='judge'?'judgeGuidelines':'failureGuidelines').showModal();}
 let activeKey=D.rows[0]?.key, activeTab='compare', evidenceQuery='', storageOK=true;
-const goldVisibility=new Map(), judgeVisibility=new Map();
+const goldVisibility=new Map(), judgeVisibility=new Map(), evidenceVisibility=new Map();
 const guides={...D.failure_definitions,
   not_a_failure:{title:'Not a failure',short:'The answer is acceptable',check:'Use when your independent review finds the answer acceptable, including a justified refusal. Record why you disagree with any incorrect judge screening.',need:['The request, answer, and supporting evidence'],look:['question','answer','selected'],missing:''},
   outside_taxonomy:{title:'Outside taxonomy',short:'An observed error does not fit the 16 error types',check:'Describe the observable answer error and explain why none of the 16 paper categories fits the evidence.',need:['The exact error and evidence for it','Why the existing categories do not apply'],look:['answer','gold','selected','corpus'],missing:''},
@@ -673,7 +673,8 @@ function passageFacts(r,doc,options={}){
 function passage(r,source,locator,title,text,meta,reference='',options={}){
   const box=el('article','passage'),head=el('div','passage-heading');head.append(el('h3',null,title));
   const facts=('id' in options||options.used||options.gold)?passageFacts(r,{id:options.id||'',text},options):{used:false,goldDocument:false,goldRanges:[]},badges=el('div','passage-badges');
-  if(facts.used)badges.append(el('span','evidence-badge used','Used by generator'));
+  if(options.retrieved)badges.append(el('span','evidence-badge','Retrieved'));
+  if(facts.used&&!options.retrieved)badges.append(el('span','evidence-badge used','Used by generator'));
   if(facts.goldDocument)badges.append(el('span','evidence-badge gold-document','Gold document'));
   if(facts.goldRanges.length){const badge=el('span','evidence-badge gold-excerpt','Gold supporting excerpt');badge.title='Contains exact text from a gold supporting passage for this turn.';badges.append(badge);}
   head.append(badges);box.append(head);if(meta)box.append(el('p','hint',meta));const p=highlighted(text,evidenceQuery,reference,[],facts.goldRanges);box.append(p);const a=el('div','passage-actions');a.append(button('Cite passage / selection',()=>cite(r,source,locator,text,p),'text-button'));box.append(a);return box;
@@ -691,10 +692,16 @@ function renderEvidence(r){
 function evidenceColumn(title,subtitle,key){
   const column=el('section','evidence-column');column.id='evidence-'+key;const head=el('div','column-heading');head.append(el('h3',null,title),el('p','hint',subtitle));const body=el('div','column-body');column.append(head,body);return {column,head,body};
 }
+function evidenceDisclosure(r,key,title){
+  const disclosure=el('details','gold-disclosure'),content=el('div');
+  disclosure.id=key+'Disclosure';disclosure.open=evidenceVisibility.get(key+':'+r.key)||false;
+  disclosure.ontoggle=()=>{if(disclosure.isConnected)evidenceVisibility.set(key+':'+r.key,disclosure.open);};
+  disclosure.append(el('summary',null,title),content);return {disclosure,content};
+}
 function renderComparison(r,root){
   const track=el('div','comparison-track');root.append(track);const q=evidenceQuery.trim().toLowerCase();
   const selected=evidenceColumn('Selected context','Final passages used to answer.','selected');
-  selected.head.append(el('p','hint','Retrieved context not recorded.'));
+  if(!r.retrieval_context)selected.head.append(el('p','hint','Retrieved context not recorded.'));
   selected.body.append(el('div','column-divider','Selected context · '+(r.contexts?.length??'not recorded')+' passages'));
   if(r.contexts===null)selected.body.append(el('p','notice warn','Selected context not recorded.'));
   else if(!r.contexts.length)selected.body.append(el('p','notice','No selected passages recorded.'));
@@ -716,11 +723,26 @@ function renderComparison(r,root){
   if(!docs.length)goldContent.append(el('p','hint',q?'No matching gold documents.':gs?.status==='available'?'The reference task records no supporting passages.':'No verified reference documents are attached.'));
   if(gs?.source){const provenance=el('details');provenance.append(el('summary',null,'Gold-document provenance'),el('p','hint','File: '+gs.source.file+' · SHA-256: '+gs.source.sha256));if(/^https?:\/\//.test(gs.source.dataset_url||'')){const link=el('a',null,'Reference dataset');link.href=gs.source.dataset_url;link.target='_blank';link.rel='noopener noreferrer';provenance.append(link);}goldContent.append(provenance);}
   track.append(gold.column);
-  const corpus=evidenceColumn('Corpus evidence','Collection: '+collectionFor(r),'corpus');
-  const store=corpusFor(r);corpus.head.append(el('p','archive-kind',store.kind==='ibm_corpus'?'IBM MTRAG · full passage corpus':store.kind==='ibm_corpus_snapshot'?'IBM MTRAG · offline passage snapshot':store.kind==='conversation_passages'?'Conversation passage archive':store.kind==='local_file'?'Local document collection':'Corpus not connected'));
-  const controls=el('div','corpus-controls');const search=el('input');search.type='search';search.id='corpusSearch';search.setAttribute('aria-label','Search corpus evidence');search.placeholder='Search words or document ID…';search.value=corpusQueries[collectionFor(r)]||'';search.oninput=()=>{corpusQueries[collectionFor(r)]=search.value;clearTimeout(corpusSearchTimer);if(store.remote)corpusSearchTimer=setTimeout(()=>{if(corpus.body.isConnected)renderCorpus(r,corpus.body);},150);else renderCorpus(r,corpus.body);};
-  const actions=el('div','nav-actions');actions.append(button('Clear search',()=>{corpusQueries[collectionFor(r)]='';search.value='';renderCorpus(r,corpus.body);},'text-button'));
-  const fileLabel=el('label','file-button text-button','Load corpus file');fileLabel.tabIndex=0;fileLabel.setAttribute('role','button');const file=el('input');file.type='file';file.accept='.json,.jsonl,application/json';file.setAttribute('aria-label','Load corpus JSON or JSONL for '+collectionFor(r));file.onchange=async()=>{if(file.files[0])await loadCorpusFile(r,file.files[0]);};fileLabel.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();file.click();}};fileLabel.append(file);actions.append(fileLabel);controls.append(search,actions);corpus.head.append(controls);track.append(corpus.column);renderCorpus(r,corpus.body);
+  const corpus=evidenceColumn('Retrieved context + Corpus','Collection: '+collectionFor(r),'corpus');
+  const retrieved=evidenceDisclosure(r,'retrieved','Retrieved context'),retrievedContent=retrieved.content;
+  corpus.body.append(retrieved.disclosure);
+  const retrieval=r.retrieval_context;
+  if(!retrieval)retrievedContent.append(el('p','hint','Retrieved context not recorded.'));
+  else{
+    retrievedContent.append(el('p','hint','Before rerank · '+retrieval.documents.length+' passages'));
+    const matches=retrieval.documents.map((doc,i)=>({doc,i})).filter(({doc})=>!q||(doc.id+' '+doc.title+' '+doc.text).toLowerCase().includes(q));
+    matches.forEach(({doc,i})=>retrievedContent.append(passage(r,'Retrieved context','retrieved:'+(i+1)+' / '+doc.id,'#'+(doc.retrieval_rank??i+1)+' · '+doc.id,doc.text,doc.title||'',r.answer,{id:doc.id,retrieved:true})));
+    if(!matches.length)retrievedContent.append(el('p','hint',q?'No matching retrieved passages.':'No retrieved passages.'));
+    const provenance=el('details');provenance.append(el('summary',null,'Source'),el('pre','hint',JSON.stringify(retrieval.source,null,2)));retrievedContent.append(provenance);
+  }
+
+  const corpusView=evidenceDisclosure(r,'corpus','Corpus'),corpusContent=corpusView.content;
+  corpusView.disclosure.classList.add('corpus-disclosure');corpus.body.append(corpusView.disclosure);
+  const corpusResults=el('div','corpus-results');
+  const store=corpusFor(r);corpusContent.append(el('p','archive-kind',store.kind==='ibm_corpus'?'IBM MTRAG · full passage corpus':store.kind==='ibm_corpus_snapshot'?'IBM MTRAG · offline passage snapshot':store.kind==='conversation_passages'?'Conversation passage archive':store.kind==='local_file'?'Local document collection':'Corpus not connected'));
+  const controls=el('div','corpus-controls');const search=el('input');search.type='search';search.id='corpusSearch';search.setAttribute('aria-label','Search corpus evidence');search.placeholder='Search words or document ID…';search.value=corpusQueries[collectionFor(r)]||'';search.oninput=()=>{corpusQueries[collectionFor(r)]=search.value;clearTimeout(corpusSearchTimer);if(store.remote)corpusSearchTimer=setTimeout(()=>{if(corpus.body.isConnected)renderCorpus(r,corpusResults);},150);else renderCorpus(r,corpusResults);};
+  const actions=el('div','nav-actions');actions.append(button('Clear search',()=>{corpusQueries[collectionFor(r)]='';search.value='';renderCorpus(r,corpusResults);},'text-button'));
+  const fileLabel=el('label','file-button text-button','Load corpus file');fileLabel.tabIndex=0;fileLabel.setAttribute('role','button');const file=el('input');file.type='file';file.accept='.json,.jsonl,application/json';file.setAttribute('aria-label','Load corpus JSON or JSONL for '+collectionFor(r));file.onchange=async()=>{if(file.files[0])await loadCorpusFile(r,file.files[0]);};fileLabel.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();file.click();}};fileLabel.append(file);actions.append(fileLabel);controls.append(search,actions);corpusContent.append(controls,corpusResults);track.append(corpus.column);renderCorpus(r,corpusResults);
 }
 const corpusStopWords=new Set('the a an and or to of in on for at is are was were be been do does did can could would should what which who when where why how this that these those it its they their them i you we me my your our have has had with from about as any some thanks clarifying please tell more also answer information according based'.split(' '));
 const corpusSearchIndexes=new WeakMap();
@@ -899,6 +921,7 @@ function comparisonSources(type){
 function renderInlineComparison(r,type,root){
   const g=guides[type];root.replaceChildren(el('p','comparison-note','Compare: '+comparisonSources(type).map(where=>comparisonLabels[where]).join(' | ')));
   const limits={Chunking:'Original chunk boundaries unavailable.',Retrieval:'Retrieved context not recorded.',Reranking:'Retrieved context and reranking logs not recorded.'};
+  if(r.retrieval_context){delete limits.Retrieval;limits.Reranking='Reranking logs not recorded.';}
   if(limits[g.stage])root.append(el('p','hint',limits[g.stage]));
 }
 function renderCitations(r){const root=$('citations');if(!root)return;root.replaceChildren();const items=entry(r).evidence||[];if(!items.length){root.append(el('p','hint','No evidence cited yet.'));return;}items.forEach((e,i)=>{const c=el('div','citation'),top=el('div','citation-top');const remove=button('×',()=>{entry(r).evidence.splice(i,1);save();renderCitations(r);},'text-button');remove.setAttribute('aria-label','Remove evidence '+(i+1));top.append(el('b',null,e.source+' · '+e.locator),remove);c.append(top,el('blockquote',null,e.quote));root.append(c);});}

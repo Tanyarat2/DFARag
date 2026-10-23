@@ -131,6 +131,8 @@ class RunPages:
         sources.extend(annotation.output_paths(work_dir, "mtrag"))
         sources.extend(pathlib.Path(filename) for filename, _mtime, _size
                        in annotation.conversation_snapshot(root / "conversation"))
+        sources.extend(pathlib.Path(filename) for filename, _mtime, _size
+                       in annotation.retrieval_snapshot(root / "conversation"))
         sources.extend(sorted(CORPUS_DIR.glob('*.sqlite3')))
         with self.lock:
             snapshot = []

@@ -305,9 +305,12 @@ Retrieved context means the candidate list before final context selection.
 A boolean `retrieved` flag does not supply that list. The `candidates.jsonl` and
 `reranked.jsonl` files added in commit `93157a0` explicitly identify a
 `new_retrieval_experiment` with `answer_generation_performed: false`; they are
-preserved as separate experiment artifacts and are not substituted for the original
-trace of the saved RAG answer. This is why original retrieval remains marked
-unavailable in the annotation view.
+displayed under **Retrieved context** inside the Corpus evidence block. **Corpus**
+is a separate disclosure containing corpus search. Both start collapsed. Candidate
+pools attach only when method, domain, task ID, and question match; order and
+source metadata are retained. The Source disclosure preserves the experiment
+metadata. These candidates do not replace the saved answer or selected context,
+and matching text does not assign a Used by generator badge to these candidates.
 
 Changing the stage view never deletes existing selections, notes, or citations.
 Selected types appear as removable chips, including types outside the currently

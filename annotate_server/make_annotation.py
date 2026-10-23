@@ -322,6 +322,38 @@ def generation_evidence(traces, rag, cid, turn_id, question, answer, selected):
     return result
 
 
+def retrieval_snapshot(folder):
+    return tuple((str(p.resolve()), p.stat().st_mtime_ns, p.stat().st_size)
+                 for p in sorted(pathlib.Path(folder).rglob("candidates.jsonl")))
+
+
+@functools.lru_cache(maxsize=2)
+def retrieval_records(snapshot):
+    """Read candidate pools separately from original generation evidence."""
+    records = {}
+    for filename, _mtime, _size in snapshot:
+        path = pathlib.Path(filename)
+        with path.open(encoding="utf-8-sig") as stream:
+            for line in stream:
+                if not line.strip():
+                    continue
+                record = json.loads(line)
+                key = (record.get("method"), record.get("domain"), record.get("task_id"))
+                records.setdefault(key, []).append({
+                    "question": record.get("question", ""),
+                    "documents": record.get("candidates", []),
+                    "source": {"file": path.relative_to(path.parents[2]).as_posix(),
+                               **{k: record.get(k) for k in ("inference_stage", "original_answers_reused",
+                                                            "source_sha256", "rewritten_query")}}})
+    return records
+
+
+def retrieval_evidence(records, rag, collection, task_id, question):
+    matches = [record for record in records.get((rag, collection, task_id), [])
+               if record["question"].strip() == question.strip()]
+    return matches[0] if len(matches) == 1 else None
+
+
 def build_data(work_dir, live=False):
     work_dir = pathlib.Path(work_dir)
     evidence_path = pathlib.Path(__file__).resolve().parent.parent / "judge_run" / "gold_support.json"
@@ -345,6 +377,7 @@ def build_data(work_dir, live=False):
     conversation_folder = pathlib.Path(__file__).resolve().parent.parent / "conversation"
     trace_snapshot = conversation_snapshot(conversation_folder)
     traces = generation_traces(trace_snapshot)
+    retrieved = retrieval_records(retrieval_snapshot(conversation_folder))
     for cid in ids:
         source = inputs.get(cid)
         if source is None:
@@ -373,6 +406,10 @@ def build_data(work_dir, live=False):
                 "corpus_collection": str(source.get("metadata", {}).get("collection") or
                                          source.get("metadata", {}).get("dataset") or "unspecified"),
                 "gold_support": gold_evidence(evidence_index, task_id, question, gold),
+                "retrieval_context": retrieval_evidence(
+                    retrieved, source.get("metadata", {}).get("rag"),
+                    source.get("metadata", {}).get("collection") or source.get("metadata", {}).get("dataset"),
+                    task_id, question),
                 "answerability": (str(answerability[k - 1]).upper()
                                   if answerability and k - 1 < len(answerability) and answerability[k - 1]
                                   else "not recorded"),

@@ -8,11 +8,13 @@ annotations/KH.json, and annotations/WN.json files.
 
 import argparse
 from collections import OrderedDict
+import errno
 import gzip
 import html
 import json
 import pathlib
 import re
+import socket
 import sys
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -61,7 +63,7 @@ def available_runs(runs_dir):
         if not folder.is_dir() or not NAME_PATTERN.fullmatch(folder.name):
             continue
         input_exists = (folder / "input.json").is_file()
-        found = [name for name in JUDGES if (folder / ("out.%s.json" % name)).is_file()]
+        found = [name for name in JUDGES if any(path.is_file() for path in annotation.output_paths(folder, name))]
         if input_exists or found:
             rows.append({"name": folder.name, "has_input": input_exists, "judges": found})
     return rows
@@ -116,7 +118,7 @@ def accepts_gzip(header):
 
 
 class RunPages:
-    """Keep at most two rendered runs; refresh when their source files change."""
+    """Keep at most four rendered runs; refresh when their source files change."""
 
     def __init__(self):
         self.pages = OrderedDict()
@@ -125,8 +127,8 @@ class RunPages:
     def get(self, work_dir):
         work_dir = pathlib.Path(work_dir).resolve()
         root = HERE.parent
-        sources = [work_dir / "input.json", work_dir / "out.mtrag.json",
-                   root / "judge_run" / "gold_support.json"]
+        sources = [work_dir / "input.json", root / "judge_run" / "gold_support.json"]
+        sources.extend(annotation.output_paths(work_dir, "mtrag"))
         sources.extend(sorted((root / "conversation").glob("*.json")))
         sources.extend(sorted(CORPUS_DIR.glob('*.sqlite3')))
         with self.lock:
@@ -165,7 +167,7 @@ class RunPages:
 
             self.pages[work_dir] = (snapshot, result)
             self.pages.move_to_end(work_dir)
-            while len(self.pages) > 2:
+            while len(self.pages) > 4:
                 self.pages.popitem(last=False)
             return result
 
@@ -309,27 +311,58 @@ def make_handler(runs_dir):
             self.wfile.write(payload)
 
         def log_message(self, fmt, *args):
-            print("[%s] %s" % (self.log_date_time_string(), fmt % args))
+            print("[%s] %s" % (self.log_date_time_string(), fmt % args), flush=True)
 
     return Handler
+
+
+class IPv6HTTPServer(ThreadingHTTPServer):
+    address_family = socket.AF_INET6
+
+
+def create_servers(host, port, handler):
+    """Default to both loopback families on one port; never bind the LAN."""
+    if host != 'localhost':
+        server_type = IPv6HTTPServer if ':' in host else ThreadingHTTPServer
+        return [server_type((host, port), handler)]
+    servers = [ThreadingHTTPServer(('127.0.0.1', port), handler)]
+    try:
+        servers.append(IPv6HTTPServer(('::1', servers[0].server_port), handler))
+    except OSError as exc:
+        if exc.errno not in (errno.EAFNOSUPPORT, errno.EADDRNOTAVAIL, errno.EPROTONOSUPPORT):
+            servers[0].server_close()
+            raise
+    return servers
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--runs-dir", type=pathlib.Path, default=HERE.parent / "judge_run" / "runs")
-    parser.add_argument("--host", default="127.0.0.1", help="local-only by default")
+    parser.add_argument("--host", default="localhost", help="default: IPv4 and IPv6 loopback only")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args(argv)
-    server = ThreadingHTTPServer((args.host, args.port), make_handler(args.runs_dir.resolve()))
-    url = "http://%s:%d/" % (args.host, server.server_port)
+    servers = create_servers(args.host, args.port, make_handler(args.runs_dir.resolve()))
+    server = servers[0]
+    display_host = '127.0.0.1' if args.host == 'localhost' else ('[' + args.host + ']' if ':' in args.host else args.host)
+    url = "http://%s:%d/" % (display_host, server.server_port)
     print("RAG judge annotation: %s" % url, flush=True)
+    if len(servers) > 1:
+        print("Also accepting IPv6 loopback at http://[::1]:%d/" % server.server_port, flush=True)
     print("Press Ctrl+C to stop. Judge runs can continue in another terminal.", flush=True)
+    threads = [threading.Thread(target=other.serve_forever, daemon=True) for other in servers[1:]]
+    for thread in threads:
+        thread.start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nStopping annotation server.")
     finally:
-        server.server_close()
+        for other in servers[1:]:
+            other.shutdown()
+        for thread in threads:
+            thread.join()
+        for current in servers:
+            current.server_close()
 
 
 if __name__ == "__main__":

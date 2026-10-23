@@ -232,6 +232,7 @@ li{margin:6px 0}
 .annotation-left,.annotation-right{min-width:0}
 .annotation-footer{display:flex;align-items:center;justify-content:flex-end;gap:12px}
 .annotation-footer .status{margin-right:auto}
+.failure-stage{margin-top:14px}.failure-stage-title{font-size:13px;color:var(--accent);margin:0 0 7px}.legacy-failures{margin-top:12px}
 .gold-review{margin-top:18px}.gold-review textarea{margin-top:8px}
 @media(min-width:1600px){.review-grid{display:block}.workspace{padding:24px 32px}}
 @media(max-width:1200px){.layout{grid-template-columns:250px minmax(0,1fr)}.review-grid{display:block}.workspace{padding:20px 16px}}
@@ -288,6 +289,49 @@ li{margin:6px 0}
 .failure-help>p{margin-top:9px}
 .failure-help ul{padding-left:17px}
 
+/* Guided annotation: one stage at a time, with compact optional detail. */
+[hidden]{display:none!important}
+.annotation-trail{list-style:none;display:flex;padding:0;margin:0 0 12px;gap:5px;font-size:11px;color:var(--muted)}
+.annotation-trail li{flex:1;padding:6px 3px;border-bottom:3px solid var(--line);text-align:center}
+.annotation-trail li[data-active=true]{border-color:var(--accent);color:var(--accent);font-weight:700}
+.decision-step{border:0;padding:0;margin:0 0 20px;min-width:0}
+.guided-decisions{display:grid;grid-template-columns:1fr;gap:7px}
+.guided-decisions .choice{display:flex;align-items:flex-start;gap:8px;padding:10px;text-align:left}
+.guided-decisions .choice span{display:grid;gap:2px;min-width:0}
+.guided-decisions input{margin-top:4px;flex-shrink:0}
+.guided-decisions[data-editing=false] .hint{display:none}
+.guided-decisions .hint{font-size:11px;font-weight:400}
+.chosen-stage{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:10px 0;font-size:12px}.chosen-stage button{font-size:11px;padding:4px;white-space:nowrap;flex-shrink:0}
+.stage-picker{display:grid;gap:6px;margin:10px 0}
+.stage-pick{display:grid;gap:3px;text-align:left;padding:10px;font-size:12px}
+.stage-pick small{font-size:10px;color:var(--muted);line-height:1.5}
+.stage-pick[aria-pressed=true]{border-color:var(--accent);background:var(--soft)}
+.stage-evidence{border-left:3px solid #c8ad74;background:#faf7ef;padding:10px;margin-top:12px;font-size:11px}
+.stage-evidence p{margin-top:5px}.stage-evidence summary{font-weight:600}.failure-alternatives .hint{display:none}
+.failure-choice-grid{grid-template-columns:1fr;margin:7px 0}
+.failure-option{padding:10px;gap:8px}
+.failure-option-text b{font-size:13px}
+.failure-option-text .hint{font-size:11px;overflow-wrap:normal}
+.failure-subheading{font-size:11px;color:var(--muted);margin:14px 0 6px}
+.other-outcomes{font-size:11px;color:var(--muted);margin:10px 0}
+.other-outcomes .failure-option{margin-top:6px;color:var(--ink)}
+.selected-causes{margin:12px 0}
+.cause-chip{display:inline-block;margin:4px 3px 0 0;padding:4px 7px;background:var(--soft);border-color:#a6c4b8;font-size:11px;text-align:left}
+.annotation .notice{font-size:12px}
+.annotation .example{padding:9px;background:var(--soft);border-radius:6px}
+.annotation-right>.step-title{margin:0 0 8px;font-size:13px}
+.annotation-right textarea{min-height:80px;margin-top:6px}
+.citation-step{margin-top:10px}
+.annotation-footer .primary{padding:10px 8px;white-space:normal}
+.annotation-footer .review-toggle{font-size:11px}
+.gold-review{padding:10px;margin-top:14px}
+.gold-review>label{display:block;margin-top:10px}
+
+.passage-heading{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px}.passage-badges{display:flex;flex-wrap:wrap;gap:4px}.evidence-badge{font-size:11px;padding:4px 7px;border-radius:4px;white-space:normal}.evidence-badge.used,.evidence-badge.gold-document{background:#e1f2eb;color:#14564d}.evidence-badge.gold-excerpt{background:#fff0c9;color:#805100}mark.gold-excerpt{background:#ffe08a;color:inherit}
+.failure-inline-help{margin:0 0 8px;padding:10px;border-left:3px solid var(--accent);background:var(--soft);font-size:12px;line-height:1.55}.failure-inline-help p{margin:0 0 8px}.compare-links .text-button{padding:2px 0;font-size:11px}.failure-option-wrap{min-width:0}
+.failure-inline-help{margin:2px 0 6px;padding:0 9px 5px!important;border:0;background:transparent;color:var(--muted);font-size:10px;line-height:1.5}.failure-inline-help p{margin:0 0 2px!important}
+.annotation-footer{grid-template-columns:minmax(0,1fr) auto;gap:4px;margin-top:6px;padding:6px 0 8px;align-items:center}.annotation-footer .status,.annotation-footer .primary,.annotation-footer #finishHint{grid-column:1/-1}.annotation-footer .status,.annotation-footer #finishHint,.annotation-footer .review-toggle{font-size:10px;line-height:1.3}.annotation-footer #finishHint{margin:0}.annotation-footer .primary{padding:7px 8px;font-size:12px;line-height:1.2}.annotation-footer>.text-button{padding:3px 6px;font-size:10px}.annotation-footer .review-toggle{margin:0}
+.column-body .passage{border:1px solid var(--line);border-radius:8px;padding:12px;margin:10px 0;background:#fff}.column-body .passage:first-child{border-top:1px solid var(--line);padding-top:12px}.column-body .passage-heading{padding-bottom:7px;border-bottom:1px solid #edf1ef;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -323,7 +367,7 @@ li{margin:6px 0}
 </dialog>
 <dialog id="failureGuidelines" aria-labelledby="failureGuideTitle" class="guideline-dialog">
   <div class="dialog-heading"><h2 id="failureGuideTitle">Failure annotation guideline</h2><form method="dialog"><button aria-label="Close failure guideline">Close</button></form></div>
-  <div class="guide-body"><p>First establish an observable error in the RAG answer. Compare selected context, gold documents, conversation, and corpus evidence. Review the gold answer independently too.</p><p>Select every failure cause supported by the original evidence. More than one cause can be selected; explain the evidence for each. Missing selected context alone cannot distinguish corpus scope, chunking, retrieval, and context selection. The conversation passage archive has limited coverage.</p><div id="failureGuideContent"></div><p><b>Other outcomes:</b> use Not a failure for an acceptable answer, Outside taxonomy for an established error beyond the six causes, or Insufficient evidence when the cause remains unresolved. Outside taxonomy and Insufficient evidence are alternative outcomes, selected on their own.</p></div>
+  <div class="guide-body"><p>First establish an observable error in the RAG answer. Compare selected context, gold documents, conversation, and corpus evidence. Review the gold answer independently too.</p><p>The 16 error types follow <a href="https://aclanthology.org/2026.eacl-long.147/" target="_blank" rel="noopener">Leung et al., EACL 2026</a>. Choose the earliest stage where evidence shows an error. Then choose one or more failure types in that stage. Earlier labels from other stages stay saved until you review them.</p><p>Original pre-rerank candidates and indexed chunk boundaries are not supplied by these conversation exports. Fresh corpus search does not reconstruct the original trace. Select Insufficient evidence when required traces are missing.</p><div id="failureGuideContent"></div><p><b>Other outcomes:</b> use Not a failure for an acceptable answer, Outside taxonomy for an established error beyond the 16 error types, or Insufficient evidence when the cause remains unresolved. Outside taxonomy and Insufficient evidence are alternative outcomes, selected on their own.</p></div>
 </dialog>
 <div id="message" role="status" aria-live="polite"></div>
 <script id="data" type="application/json">__DATA__</script>
@@ -340,12 +384,13 @@ function readLocal(key,fallback){try{const raw=localStorage.getItem(key);return 
 function migrateBinaryLabel(a){if(['correct','incorrect'].includes(a.human_score_band)){if(!['correct','incorrect'].includes(a.human_label))a.human_label=a.human_score_band;delete a.human_score_band;}}
 
 function getFailureTypes(a){const allowed=D.failure_types.concat(D.extra_types),raw=Array.isArray(a?.failure_types)?a.failure_types:(a?.failure_type?[a.failure_type]:[]);return allowed.filter(type=>raw.includes(type));}
-function setFailureTypes(a,types){a.failure_types=getFailureTypes({failure_types:types});a.failure_type=a.failure_types.length===1?a.failure_types[0]:'';}
+function getLegacyFailureTypes(a){const raw=[...(Array.isArray(a?.legacy_failure_types)?a.legacy_failure_types:[]),...(Array.isArray(a?.failure_types)?a.failure_types:[]),a?.failure_type];return Object.keys(D.legacy_failure_labels).filter(type=>raw.includes(type));}
+function setFailureTypes(a,types){a.failure_taxonomy=D.failure_taxonomy;a.failure_types=getFailureTypes({failure_types:types});a.failure_type=a.failure_types.length===1?a.failure_types[0]:'';}
 function legacyFailureType(a){const types=getFailureTypes(a);return types.length===1?types[0]:'';}
 
 function normalizeEntry(o){
   if(!o||typeof o!=='object'||Array.isArray(o))return null;
-  const a={human_score_band:['low','mid','high','correct','incorrect'].includes(o.human_score_band)?o.human_score_band:'',human_label:['correct','incorrect'].includes(o.human_label)?o.human_label:'',failure_type:D.failure_types.concat(D.extra_types).includes(o.failure_type)?o.failure_type:'',notes:typeof o.notes==='string'?o.notes:'',gold_assessment:['supported','questionable','incorrect'].includes(o.gold_assessment)?o.gold_assessment:'',gold_notes:typeof o.gold_notes==='string'?o.gold_notes:'',evidence:Array.isArray(o.evidence)?o.evidence.filter(e=>e&&['source','locator','quote'].every(k=>typeof e[k]==='string')).map(e=>({source:e.source,locator:e.locator,quote:e.quote})):[]};if(typeof o.review_complete==='boolean')a.review_complete=o.review_complete;migrateBinaryLabel(a);const types=getFailureTypes(o);if(types.length>1&&types.some(t=>D.extra_types.includes(t)))return null;setFailureTypes(a,types);return a;
+  const a={human_score_band:['low','mid','high','correct','incorrect'].includes(o.human_score_band)?o.human_score_band:'',human_label:['correct','incorrect','uncertain'].includes(o.human_label)?o.human_label:'',failure_type:D.failure_types.concat(D.extra_types).includes(o.failure_type)?o.failure_type:'',notes:typeof o.notes==='string'?o.notes:'',gold_assessment:['supported','questionable','incorrect'].includes(o.gold_assessment)?o.gold_assessment:'',gold_notes:typeof o.gold_notes==='string'?o.gold_notes:'',evidence:Array.isArray(o.evidence)?o.evidence.filter(e=>e&&['source','locator','quote'].every(k=>typeof e[k]==='string')).map(e=>({source:e.source,locator:e.locator,quote:e.quote})):[]};if(typeof o.review_complete==='boolean')a.review_complete=o.review_complete;migrateBinaryLabel(a);const types=getFailureTypes(o);if(types.length>1&&types.some(t=>D.extra_types.includes(t)))return null;a.legacy_failure_types=getLegacyFailureTypes(o);setFailureTypes(a,types);return a;
 }
 const rowKeys=new Set(D.rows.map(r=>r.key)), rowByKey=new Map(D.rows.map(r=>[r.key,r])), profiles=new Map();
 function cleanAnnotations(data){const result={};if(data&&typeof data==='object'&&!Array.isArray(data))Object.entries(data).forEach(([key,value])=>{const a=normalizeEntry(value);if(rowKeys.has(key)&&a)result[key]=a;});return result;}
@@ -361,7 +406,7 @@ function getProfile(name){
   }
   return profiles.get(name);
 }
-function hasAnnotation(a){return !!(a&&(typeof a.review_complete==='boolean'||a.human_label||a.human_score_band||getFailureTypes(a).length||a.notes||a.gold_assessment||a.gold_notes||a.evidence?.length));}
+function hasAnnotation(a){return !!(a&&(typeof a.review_complete==='boolean'||a.human_label||a.human_score_band||getFailureTypes(a).length||getLegacyFailureTypes(a).length||a.notes||a.gold_assessment||a.gold_notes||a.evidence?.length));}
 function persistProfile(state){
   try{localStorage.setItem(profileKey(state.name),JSON.stringify(state.annotations));localStorage.setItem(profileKey(state.name)+':pending',JSON.stringify([...state.dirty]));state.storageOK=true;}
   catch{state.storageOK=false;notify('Browser backup could not be saved for '+state.name+'. Export JSON to keep a copy.');}
@@ -405,12 +450,15 @@ async function switchAnnotator(name){
   if(profiles.has(currentAnnotator))flushProfile(currentAnnotator);
   currentAnnotator=name;KEY=profileKey(name);const state=getProfile(name);A=state.annotations;storageOK=state.storageOK;$('annotator').value=name;
   try{localStorage.setItem(BASE_KEY+':active-annotator',JSON.stringify(name));}catch{}
+  $('fTodo').checked=false;
   if(D.annotation_api){
-    state.loading=true;$('annotator').disabled=true;document.querySelector('.queue').inert=true;document.querySelector('.workspace').inert=true;$('review').replaceChildren(el('p','notice','Loading '+name+' annotations…'));
+    state.loading=true;$('annotator').disabled=true;
+    ['expJson','expCsv','imp'].forEach(id=>$(id).disabled=true);$('importLabel').setAttribute('aria-disabled','true');
+    queue();renderReview();updateSaveStatus();
     try{await loadServerProfile(state);}catch(error){state.connected=false;state.error=error.message;notify('Server annotations could not be loaded for '+name+'. Your separate browser copy is available.');}
-    finally{state.loading=false;$('annotator').disabled=false;document.querySelector('.queue').inert=false;document.querySelector('.workspace').inert=false;}
+    finally{state.loading=false;$('annotator').disabled=false;['expJson','expCsv','imp'].forEach(id=>$(id).disabled=false);$('importLabel').setAttribute('aria-disabled','false');}
   }
-  A=state.annotations;$('fTodo').checked=false;queue();renderReview();updateSaveStatus();if(state.dirty.size)flushProfile(name);
+  A=state.annotations;applyFilters();updateSaveStatus();if(state.dirty.size)flushProfile(name);
 }
 function copyLegacyAnnotations(){
   const state=getProfile(currentAnnotator);let count=0;Object.entries(legacyAnnotations).forEach(([key,value])=>{if(hasAnnotation(value)&&!hasAnnotation(state.annotations[key])){state.annotations[key]=JSON.parse(JSON.stringify(value));count++;}});A=state.annotations;save();queue();renderReview();notify('Copied '+count+' earlier annotation(s) to '+currentAnnotator+'. The original shared copy was retained.');
@@ -418,19 +466,13 @@ function copyLegacyAnnotations(){
 function openGuideline(kind){$(kind==='judge'?'judgeGuidelines':'failureGuidelines').showModal();}
 let activeKey=D.rows[0]?.key, activeTab='compare', evidenceQuery='', storageOK=true;
 const goldVisibility=new Map(), judgeVisibility=new Map();
-const guides={
-  knowledge_boundary:{title:'Knowledge boundary',short:'Outside the corpus or conversation scope',check:'Verify that the requested fact is outside the original corpus or established conversation scope. Check whether the answer should have acknowledged this limit.',need:['The original corpus or verified scope','The user request and expected handling of an unsupported request'],look:['question','gold','corpus'],missing:'Original corpus scope is not supplied here. Missing selected context or a reference passage alone cannot establish this cause.'},
-  chunking:{title:'Chunking',short:'Source evidence was broken into unusable chunks',check:'Compare the original source with its indexed chunks. Look for a split that removes a required relationship, qualifier, table header, or surrounding explanation.',need:['The original source passage','The indexed chunks used by this run'],look:['gold','selected','corpus'],missing:'Original indexed chunks and their source boundaries are not supplied here. Selected passages alone cannot establish a chunking failure.'},
-  retrieval:{title:'Retrieval',short:'Usable indexed evidence did not reach the candidates',check:'Verify that usable evidence existed in the original index, then check whether it was absent from the original retrieved candidate pool.',need:['Usable evidence in the original index','Original retrieval candidates, IDs, and ranks'],look:['gold','selected','corpus'],missing:'The original index and candidate pool are not supplied here. A relevant reference document is a comparison aid, not proof that retrieval failed.'},
-  context_selection:{title:'Context selection',short:'Useful retrieved evidence was excluded from the prompt',check:'Compare original retrieval candidates with the passages actually supplied to generation. Identify a useful candidate that was dropped or truncated.',need:['Original retrieved candidate pool','The final selected context supplied to generation'],look:['selected','gold','corpus'],missing:'The original candidate pool is not supplied here. Without it, retrieval and context selection remain unresolved.'},
-  grounding:{title:'Grounding',short:'The answer misuses or contradicts available evidence',check:'Find the exact answer claim that is unsupported, contradicts selected evidence, confuses an entity, or misreads the established request. Compare it with the relevant passage and conversation.',need:['The problematic answer claim','Selected context and any conversation evidence needed to assess it'],look:['answer','selected','history'],missing:'Confirm the claim against the recorded evidence yourself. Judge statement checks are suggestions to inspect, not a verified failure label.'},
-  response_coverage:{title:'Response coverage',short:'An essential requested point was left unanswered',check:'Name the essential part of the request that the answer omitted, and locate the available evidence that could answer it. Extra reference details are not automatically required.',need:['The essential requested facet','Available supporting evidence and the answer showing its omission'],look:['question','answer','gold','selected'],missing:'An answer shorter than the reference is not enough. Cite a required facet and the evidence available to answer it.'},
+const guides={...D.failure_definitions,
   not_a_failure:{title:'Not a failure',short:'The answer is acceptable',check:'Use when your independent review finds the answer acceptable, including a justified refusal. Record why you disagree with any incorrect judge screening.',need:['The request, answer, and supporting evidence'],look:['question','answer','selected'],missing:''},
-  outside_taxonomy:{title:'Outside taxonomy',short:'An observed error does not fit the six causes',check:'Describe the observable answer error and explain why none of the six primary categories fits the evidence.',need:['The exact error and evidence for it','Why the existing categories do not apply'],look:['answer','gold','selected','corpus'],missing:''},
+  outside_taxonomy:{title:'Outside taxonomy',short:'An observed error does not fit the 16 error types',check:'Describe the observable answer error and explain why none of the 16 paper categories fits the evidence.',need:['The exact error and evidence for it','Why the existing categories do not apply'],look:['answer','gold','selected','corpus'],missing:''},
   insufficient_evidence:{title:'Insufficient evidence',short:'The cause cannot be established from this record',check:'Describe the observable issue, list the competing explanations, and name the missing original trace needed to distinguish them.',need:['The observed issue, if one is established','The missing evidence and unresolved explanations'],look:['answer','selected','gold'],missing:'Do not infer a root cause from the judge score, a missing selected passage, or a new retrieval result.'}
 };
 
-const queueOpen=new Map(), queueButtons=new Map(), corpusOverrides=Object.create(null), corpusQueries=Object.create(null);
+const queueOpen=new Map(), queueButtons=new Map(), queueGroups=new Map(), corpusOverrides=Object.create(null), corpusQueries=Object.create(null);
 const conversationNames=new Map();
 function conversationInfo(id){
   if(!conversationNames.has(id)){
@@ -449,8 +491,8 @@ function collectionFor(r){return r.corpus_collection||'unspecified';}
 function corpusFor(r){const name=collectionFor(r);return corpusOverrides[name]||D.corpus?.[name]||{kind:'missing',documents:[],sources:[],message:'No corpus passages are connected for this collection.'};}
 
 function entry(r){return A[r.key]||(A[r.key]={});}
-function labelled(r){return ['correct','incorrect'].includes(A[r.key]?.human_label);}
-function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return a?.human_label==='correct'&&(types.length===0||types.length===1&&types[0]==='not_a_failure')||a?.human_label==='incorrect'&&types.length>0&&!types.includes('not_a_failure');}
+function labelled(r){return ['correct','incorrect','uncertain'].includes(A[r.key]?.human_label);}
+function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return types.length>0||a?.human_label==='correct'||a?.human_label==='incorrect'&&getLegacyFailureTypes(a).length>0;}
 function failureLabelled(r){return getFailureTypes(A[r.key]).some(type=>type!=='not_a_failure');}
 function reviewed(r){return typeof A[r.key]?.review_complete==='boolean'?A[r.key].review_complete:annotationComplete(r);}
 function firstIncorrectTurns(){const first=new Map();D.rows.forEach(r=>{if(mtLabel(r)==='incorrect'&&(!first.has(r.id)||r.turn<first.get(r.id).turn))first.set(r.id,r);});return first;}
@@ -471,14 +513,13 @@ function observeQueueEdges(){
   root.querySelectorAll('.queue-group').forEach(group=>queueEdgeObserver.observe(group));
 }
 function queue(){
-  const root=$('queue');root.replaceChildren();queueButtons.clear();const rows=filtered(),groups=new Map(),targets=firstIncorrectTurns(),allTurns=new Map();
+  const root=$('queue');root.replaceChildren();queueButtons.clear();queueGroups.clear();const rows=filtered(),groups=new Map(),targets=firstIncorrectTurns(),allTurns=new Map();
   D.rows.forEach(r=>{if(!allTurns.has(r.id))allTurns.set(r.id,[]);allTurns.get(r.id).push(r);});
   rows.forEach(r=>{if(!groups.has(r.id))groups.set(r.id,[]);groups.get(r.id).push(r);});
   for(const [id,turns] of groups){
     const target=targets.get(id),complete=target?failureLabelled(target):false,allCorrect=allTurns.get(id).every(r=>mtLabel(r)==='correct');
     const group=el('details','queue-group');group.dataset.id=id;group.dataset.labelled=String(complete);group.dataset.allCorrect=String(allCorrect);
     group.open=turns.some(r=>r.key===activeKey)||queueOpen.get(id)===true;
-    group.ontoggle=()=>queueOpen.set(id,group.open);
     const summary=el('summary'),info=conversationInfo(id),name=el('strong','conversation-name'),ident=el('div','conversation-ident'),caseId=el('span','case-id',id);
     name.append(el('span',null,info.name));name.title=info.name;caseId.title='Conversation ID: '+id;
     ident.append(el('span','conversation-number',info.number),caseId);
@@ -488,6 +529,8 @@ function queue(){
     const failures=turns.filter(r=>mtLabel(r)==='incorrect').length;
     counts.append(el('span','judges',failures+' incorrect'));summary.append(counts,el('span','conversation-label-state',target?(complete?'✓ Failure labelled':'Label first incorrect')+' · Turn '+target.turn:allCorrect?'All turns correct':'Not fully scored'));group.append(summary);
     const list=el('div','queue-turns');
+    function buildTurns(){
+    if(list.childElementCount)return;
     turns.forEach(r=>{
       const b=button('',()=>openTurn(r.key),'queue-item');b.dataset.key=r.key;queueButtons.set(r.key,b);b.dataset.judge=mtLabel(r)||'unscored';b.dataset.reviewed=String(reviewed(r));b.dataset.labelTarget=String(target?.key===r.key);b.dataset.labelled=String(target?.key===r.key&&complete);
       b.setAttribute('aria-current',String(r.key===activeKey));b.title=r.question;
@@ -497,13 +540,23 @@ function queue(){
       status.append(el('span',null,judgeLabel),el('span',null,scoreLabel(r.judges.mtrag)));
       b.append(m);if(target?.key===r.key)b.append(el('span','badge first-failure','First incorrect'));b.append(el('div','queue-question',r.question||'(No question)'),status);list.append(b);
     });
+    }
+    queueGroups.set(id,{group,buildTurns});
+    group.ontoggle=()=>{
+      if(!group.isConnected)return;
+      queueOpen.set(id,group.open);
+      if(group.open){buildTurns();ensureConversation(id).catch(()=>{});}
+    };
+    if(group.open)buildTurns();
     group.append(list);root.append(group);
   }
   if(!rows.length)root.append(el('p','hint','No turns match these filters.'));
   focusQueueTurn();observeQueueEdges();progress();
 }
 function focusQueueTurn(){
-  const root=$('queue'),current=queueButtons.get(activeKey);if(!current)return false;
+  const root=$('queue');let current=queueButtons.get(activeKey);
+  if(!current){const row=rowByKey.get(activeKey),shell=row&&queueGroups.get(row.id);if(!shell)return false;shell.group.open=true;shell.buildTurns();current=queueButtons.get(activeKey);}
+  if(!current)return false;
   const previous=root.querySelector('[aria-current=true]');if(previous&&previous!==current)previous.setAttribute('aria-current','false');
   current.setAttribute('aria-current','true');const group=current.closest('.queue-group');group.open=true;queueOpen.set(group.dataset.id,true);
   const a=current.getBoundingClientRect(),b=root.getBoundingClientRect(),summary=group.querySelector('summary'),top=b.top+summary.offsetHeight+4,bottom=b.bottom-4;
@@ -513,7 +566,7 @@ function openTurn(key){activeKey=key;activeTab='compare';evidenceQuery='';if(!fo
 function applyFilters(){const rows=filtered();if(!rows.some(r=>r.key===activeKey))activeKey=rows[0]?.key;queue();renderReview();}
 function next(unreviewedOnly=false){const rows=filtered(),i=rows.findIndex(r=>r.key===activeKey);const candidates=rows.slice(i+1).concat(rows.slice(0,Math.max(i,0)));const target=candidates.find(r=>!unreviewedOnly||!reviewed(r));if(target)openTurn(target.key);else notify(unreviewedOnly?'No other unreviewed turns in this queue.':'You reached the end of this queue.');}
 function heading(label,extra){const h=el('div','section-heading');h.append(el('div','eyebrow',label));if(extra)h.append(extra);return h;}
-function cite(r,source,locator,text,container){let quote=String(text||'');const selection=window.getSelection();if(selection&&!selection.isCollapsed&&container.contains(selection.anchorNode)&&container.contains(selection.focusNode))quote=selection.toString();if(!quote.trim()){notify('No text is available to cite.');return;}const a=entry(r);a.evidence=Array.isArray(a.evidence)?a.evidence:[];if(a.evidence.some(e=>e.source===source&&e.locator===locator&&e.quote===quote)){notify('This evidence is already attached.');return;}a.evidence.push({source,locator,quote});save();renderCitations(r);notify('Evidence attached to this review.');}
+function cite(r,source,locator,text,container){if(getProfile(currentAnnotator).loading){notify('Saved annotations are loading. You can read and browse; cite evidence once loading finishes.');return;}let quote=String(text||'');const selection=window.getSelection();if(selection&&!selection.isCollapsed&&container.contains(selection.anchorNode)&&container.contains(selection.focusNode))quote=selection.toString();if(!quote.trim()){notify('No text is available to cite.');return;}const a=entry(r);a.evidence=Array.isArray(a.evidence)?a.evidence:[];if(a.evidence.some(e=>e.source===source&&e.locator===locator&&e.quote===quote)){notify('This evidence is already attached.');return;}a.evidence.push({source,locator,quote});save();renderCitations(r);notify('Evidence attached to this review.');}
 function textPanel(r,label,text,source,reference=''){const s=el('section');s.id=source;const p=highlighted(text||'Not recorded.','',reference,source==='answer'?(r.contexts||[]):[]);p.classList.add('answer-body');s.append(heading(label,button('Cite selection',()=>cite(r,label,source,text,p),'text-button')),p);return s;}
 const conversationLoads=new Map();
 async function ensureConversation(id){
@@ -547,7 +600,7 @@ function renderReview(){
   const qt=el('p','question',r.question);question.append(heading('01 / Understand the request',button('Cite selection',()=>cite(r,'Question','question',r.question,qt),'text-button')),qt);
   const meta=el('div','question-meta');meta.append(el('span','badge','Recorded answerability: '+r.answerability));question.append(meta);reading.append(question);
   const answer=textPanel(r,'RAG answer',r.answer,'answer',(r.contexts||[]).join('\n'));answer.classList.add('turn-answer');
-  const legend=el('p','overlap-legend');legend.append(el('span',null,'Likely sentence match'),document.createTextNode(' highlights complete sentences similar to selected chunks. Hover for chunk numbers. Similar sentences can contradict the answer; matching does not prove support or model usage.'));answer.append(legend);
+  const legend=el('p','overlap-legend');legend.append(el('span',null,'Likely sentence match'),document.createTextNode(' · Text overlap only; check meaning.'));answer.append(legend);
   const j=r.judges.mtrag,label=mtLabel(r);
   const judgeKey=currentAnnotator+':'+r.key,assessment=el('details','panel judges judge-overview'),judgeSummary=el('summary'),judgeContent=el('div','judge-content');
   assessment.id='judgeDisclosure';assessment.open=judgeVisibility.get(judgeKey)||false;
@@ -561,14 +614,14 @@ function renderReview(){
   }
   renderJudge(r,judgeContent);reading.append(assessment);
   const evidence=el('section','panel');evidence.id='evidence';
-  evidence.append(heading('02 / Compare evidence',button('Annotate this turn ↓',()=>$('annotationPanel').scrollIntoView({behavior:'smooth',block:'start'}),'text-button')),el('p','hint','Selected chunks and gold evidence retain their recorded order. Corpus matches retain search order. Green highlights mark complete sentences likely to match a RAG-answer sentence; yellow highlights match your search. Select text to cite it.'));
+  evidence.append(heading('02 / Compare evidence',button('Annotate this turn ↓',()=>$('annotationPanel').scrollIntoView({behavior:'smooth',block:'start'}),'text-button')),el('p','hint','Green: likely answer match. Amber: gold excerpt. Matches do not prove support. Select text to cite.'));
   const tabs=el('div','tabbar');tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Evidence views');
   for(const [key,title] of Object.entries({compare:'Side-by-side comparison',history:'Conversation ('+(r.turn-1)+')'})){
     const b=button(title,()=>{activeTab=key;renderEvidence(r);});b.id='tab-'+key;b.dataset.tab=key;b.setAttribute('role','tab');b.setAttribute('aria-controls','evidenceBody');tabs.append(b);
   }
   evidence.append(tabs,answer);const search=el('input','evidence-search');search.type='search';search.id='evidenceSearch';search.placeholder='Find text in the selected context and gold documents…';search.setAttribute('aria-label','Find text in evidence');search.value=evidenceQuery;search.oninput=()=>{evidenceQuery=search.value;renderEvidence(r);};evidence.append(search);
   const body=el('div','evidence-scroll');body.id='evidenceBody';body.setAttribute('role','tabpanel');evidence.append(body);reading.append(evidence);
-  grid.append(reading,annotation(r));root.append(grid);renderEvidence(r);
+  grid.append(reading,annotation(r));root.append(grid);renderEvidence(r);fitAnnotationPanel();
 }
 function contentWords(text){return [...new Set((String(text||'').toLowerCase().match(/\p{N}+(?:\.\p{N}+)?|[\p{L}_][\p{L}\p{N}_]*/gu)||[]).filter(t=>!corpusStopWords.has(t)&&(t.length>2||/^\d+(?:\.\d+)?$/.test(t))))];}
 const sentenceCache=new Map(),sentenceSegmenter=typeof Intl.Segmenter==='function'?new Intl.Segmenter('en',{granularity:'sentence'}):null;
@@ -585,19 +638,46 @@ function likelySentenceMatch(a,b){
   if(small===1)return shared.length===1&&shared[0].length>=4;
   return shared.length>=2&&shared.length/small>=.6&&2*shared.length/(a.words.size+b.words.size)>=.3;
 }
-function highlighted(text,q,reference='',chunks=[]){
+function highlighted(text,q,reference='',chunks=[],goldRanges=[]){
   const p=el('div','prose');text=String(text||'');q=q.trim();const ranges=[],referenceSentences=evidenceSentences(reference),chunkSentences=chunks.map(evidenceSentences);
   for(const sentence of evidenceSentences(text)){
     const using=chunkSentences.map((sentences,i)=>sentences.some(other=>likelySentenceMatch(sentence,other))?i+1:null).filter(Boolean);
     if(!using.length&&!referenceSentences.some(other=>likelySentenceMatch(sentence,other)))continue;
     ranges.push({start:sentence.start,end:sentence.end,kind:'answer-match',title:using.length?'Likely sentence match with selected chunk(s) '+using.join(', '):'Likely match to a RAG-answer sentence; verify meaning and support against the evidence.'});
   }
+  ranges.push(...goldRanges.map(range=>({...range,kind:'gold-excerpt',title:'Exact text from a gold supporting passage for this turn (ignoring whitespace). This match is not a correctness decision.'})));
   if(q){const lower=text.toLowerCase(),needle=q.toLowerCase();let n=0;while((n=lower.indexOf(needle,n))!==-1){ranges.push({start:n,end:n+q.length,kind:'search-match',title:'Search match'});n+=q.length;}}
   const points=[...new Set([0,text.length,...ranges.flatMap(r=>[r.start,r.end])])].sort((a,b)=>a-b);
   for(let i=1;i<points.length;i++){const start=points[i-1],end=points[i],active=ranges.filter(r=>r.start<=start&&r.end>=end);if(!active.length){p.append(document.createTextNode(text.slice(start,end)));continue;}const mark=el('mark',[...new Set(active.map(r=>r.kind))].join(' '),text.slice(start,end));mark.title=[...new Set(active.map(r=>r.title))].join(' · ');p.append(mark);}
   return p;
 }
-function passage(r,source,locator,title,text,meta,reference=''){const box=el('article','passage');box.append(el('h3',null,title));if(meta)box.append(el('p','hint',meta));const p=highlighted(text,evidenceQuery,reference);box.append(p);const a=el('div','passage-actions');a.append(button('Cite passage / selection',()=>cite(r,source,locator,text,p),'text-button'));box.append(a);return box;}
+function evidenceText(text){return String(text||'').replace(/\s+/g,' ').trim();}
+function goldExcerptRanges(r,text){
+  if(r.gold_support?.status!=='available')return [];
+  const chars=[],offsets=[];for(let i=0;i<text.length;i++){if(/\s/.test(text[i])){if(chars.length&&chars[chars.length-1]!==' '){chars.push(' ');offsets.push(i);}}else{chars.push(text[i]);offsets.push(i);}}
+  if(chars[chars.length-1]===' '){chars.pop();offsets.pop();}const normalized=chars.join('');if(!normalized)return [];
+  const ranges=[];const add=needle=>{let at=0;while((at=normalized.indexOf(needle,at))!==-1){ranges.push({start:offsets[at],end:offsets[at+needle.length-1]+1});at+=needle.length;}};
+  for(const doc of r.gold_support.documents||[]){const gold=evidenceText(doc.text);if(!gold)continue;
+    if(gold.includes(normalized)){ranges.push({start:offsets[0],end:offsets[offsets.length-1]+1});continue;}
+    if(normalized.includes(gold)){add(gold);continue;}
+    for(const sentence of evidenceSentences(doc.text)){const exact=evidenceText(doc.text.slice(sentence.start,sentence.end));if(sentence.words.size>=3&&exact&&normalized.includes(exact))add(exact);}
+  }
+  return ranges;
+}
+function passageFacts(r,doc,options={}){
+  const text=evidenceText(doc.text),gold=r.gold_support?.status==='available'?(r.gold_support.documents||[]):[];
+  const goldDocument=!!options.gold||gold.some(item=>(doc.id&&item.id===doc.id)||(text&&evidenceText(item.text)===text));
+  const used=!!options.used||!!text&&(r.contexts||[]).some(item=>evidenceText(item)===text);
+  return {goldDocument,used,goldRanges:goldExcerptRanges(r,doc.text)};
+}
+function passage(r,source,locator,title,text,meta,reference='',options={}){
+  const box=el('article','passage'),head=el('div','passage-heading');head.append(el('h3',null,title));
+  const facts=('id' in options||options.used||options.gold)?passageFacts(r,{id:options.id||'',text},options):{used:false,goldDocument:false,goldRanges:[]},badges=el('div','passage-badges');
+  if(facts.used)badges.append(el('span','evidence-badge used','Used by generator'));
+  if(facts.goldDocument)badges.append(el('span','evidence-badge gold-document','Gold document'));
+  if(facts.goldRanges.length){const badge=el('span','evidence-badge gold-excerpt','Gold supporting excerpt');badge.title='Contains exact text from a gold supporting passage for this turn.';badges.append(badge);}
+  head.append(badges);box.append(head);if(meta)box.append(el('p','hint',meta));const p=highlighted(text,evidenceQuery,reference,[],facts.goldRanges);box.append(p);const a=el('div','passage-actions');a.append(button('Cite passage / selection',()=>cite(r,source,locator,text,p),'text-button'));box.append(a);return box;
+}
 function renderEvidence(r){
   document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===activeTab)));
   const root=$('evidenceBody');root.replaceChildren();root.setAttribute('aria-labelledby','tab-'+activeTab);root.classList.toggle('comparing',activeTab==='compare');
@@ -613,15 +693,16 @@ function evidenceColumn(title,subtitle,key){
 }
 function renderComparison(r,root){
   const track=el('div','comparison-track');root.append(track);const q=evidenceQuery.trim().toLowerCase();
-  const selected=evidenceColumn('Selected / retrieved chunks','Recorded generator context in its original order.','selected');
+  const selected=evidenceColumn('Selected context','Final passages used to answer.','selected');
+  selected.head.append(el('p','hint','Retrieved context not recorded.'));
   selected.body.append(el('div','column-divider','Selected context · '+(r.contexts?.length??'not recorded')+' passages'));
-  if(r.contexts===null)selected.body.append(el('p','notice warn','Selected context was not recorded. This does not mean retrieval returned nothing.'));
-  else if(!r.contexts.length)selected.body.append(el('p','notice','The recorded selected context is empty.'));
+  if(r.contexts===null)selected.body.append(el('p','notice warn','Selected context not recorded.'));
+  else if(!r.contexts.length)selected.body.append(el('p','notice','No selected passages recorded.'));
   const passages=(r.contexts||[]).map((text,i)=>({text,i})).filter(x=>!q||x.text.toLowerCase().includes(q));
-  passages.forEach(({text,i})=>selected.body.append(passage(r,'Selected context','selected:'+(i+1),'Selected chunk '+(i+1),text,'Recorded position '+(i+1),r.answer)));
+  passages.forEach(({text,i})=>{const original=r.selected_passages?.[i],doc=original&&original.text===text?original:{id:'',title:'',text};selected.body.append(passage(r,'Selected context','selected:'+(i+1),doc.id?'#'+(i+1)+' · '+doc.id:'Selected chunk '+(i+1),text,'Recorded position '+(i+1),r.answer,{id:doc.id,used:true}));});
   if(q&&!passages.length)selected.body.append(el('p','hint','No matching selected passages. Clear the search to see all.'));
   track.append(selected.column);
-  const gold=evidenceColumn('Gold answer + gold documents','Benchmark evidence; review the gold answer too.','gold');
+  const gold=evidenceColumn('Gold answer + gold documents','Reference answer and evidence.','gold');
   const goldKey=currentAnnotator+':'+r.key,disclosure=el('details','gold-disclosure'),summary=el('summary',null,'Show gold answer + gold documents'),goldContent=el('div','gold-content');
   disclosure.id='goldDisclosure';disclosure.open=goldVisibility.get(goldKey)||false;
   summary.textContent=disclosure.open?'Hide gold answer + gold documents':'Show gold answer + gold documents';
@@ -629,13 +710,13 @@ function renderComparison(r,root){
   disclosure.append(summary,goldContent);gold.body.append(disclosure);
   goldContent.append(textPanel(r,'Gold answer',r.gold,'reference',r.answer));
   const gs=r.gold_support,docs=(gs?.documents||[]).map((p,i)=>({p,i})).filter(({p})=>!q||(p.title+' '+p.text+' '+p.id).toLowerCase().includes(q));
-  goldContent.append(el('div','column-divider','Gold supporting documents · '+(gs?.documents?.length||0)),el('p','notice',gs?.message||'Reference evidence is unavailable.'));
-  goldContent.append(el('p','hint','These documents support the benchmark target; they do not guarantee that target is correct or that the RAG index contained them.'));
-  docs.forEach(({p,i})=>goldContent.append(passage(r,'Reference document','gold:'+(i+1)+' / '+p.id,'['+(i+1)+'] '+(p.title||'Untitled'),p.text,'ID: '+p.id+' · Dataset relevance: '+((p.relevance||[]).join(', ')||'not recorded'),r.answer)));
+  goldContent.append(el('div','column-divider','Gold supporting documents · '+(gs?.documents?.length||0)),el('p','notice',gs?.status==='available'?'Gold reference passages.':gs?.status==='mismatch'?'Gold evidence does not match this turn.':'Gold evidence unavailable.'));
+  goldContent.append(el('p','hint','Check the gold answer against these passages.'));
+  docs.forEach(({p,i})=>goldContent.append(passage(r,'Reference document','gold:'+(i+1)+' / '+p.id,'['+(i+1)+'] '+(p.title||'Untitled'),p.text,'ID: '+p.id+' · Dataset relevance: '+((p.relevance||[]).join(', ')||'not recorded'),r.answer,{id:p.id,gold:gs?.status==='available'})));
   if(!docs.length)goldContent.append(el('p','hint',q?'No matching gold documents.':gs?.status==='available'?'The reference task records no supporting passages.':'No verified reference documents are attached.'));
   if(gs?.source){const provenance=el('details');provenance.append(el('summary',null,'Gold-document provenance'),el('p','hint','File: '+gs.source.file+' · SHA-256: '+gs.source.sha256));if(/^https?:\/\//.test(gs.source.dataset_url||'')){const link=el('a',null,'Reference dataset');link.href=gs.source.dataset_url;link.target='_blank';link.rel='noopener noreferrer';provenance.append(link);}goldContent.append(provenance);}
   track.append(gold.column);
-  const corpus=evidenceColumn('Corpus evidence','Collection: '+collectionFor(r)+' · Check either answer.','corpus');
+  const corpus=evidenceColumn('Corpus evidence','Collection: '+collectionFor(r),'corpus');
   const store=corpusFor(r);corpus.head.append(el('p','archive-kind',store.kind==='ibm_corpus'?'IBM MTRAG · full passage corpus':store.kind==='ibm_corpus_snapshot'?'IBM MTRAG · offline passage snapshot':store.kind==='conversation_passages'?'Conversation passage archive':store.kind==='local_file'?'Local document collection':'Corpus not connected'));
   const controls=el('div','corpus-controls');const search=el('input');search.type='search';search.id='corpusSearch';search.setAttribute('aria-label','Search corpus evidence');search.placeholder='Search words or document ID…';search.value=corpusQueries[collectionFor(r)]||'';search.oninput=()=>{corpusQueries[collectionFor(r)]=search.value;clearTimeout(corpusSearchTimer);if(store.remote)corpusSearchTimer=setTimeout(()=>{if(corpus.body.isConnected)renderCorpus(r,corpus.body);},150);else renderCorpus(r,corpus.body);};
   const actions=el('div','nav-actions');actions.append(button('Clear search',()=>{corpusQueries[collectionFor(r)]='';search.value='';renderCorpus(r,corpus.body);},'text-button'));
@@ -682,11 +763,11 @@ function renderCorpus(r,root){
   drawCorpus(r,root,store,query,matches,matches.length,store.document_count??documents.length);
 }
 function drawCorpus(r,root,store,query,matches,matchCount,documentCount){
-  root.replaceChildren();root.append(el('p','notice '+(store.kind==='missing'?'warn':''),store.message));
-  const summary=query?'Search results for “'+query+'”':'Question matches · corpus search order';root.append(el('p','hint',summary+'. Highlighting does not change passage order or prove support.'));
-  root.append(el('p','hint',matchCount+' matching passages / '+documentCount+(store.kind.startsWith('ibm_corpus')?' passages':' documents')+' in this collection. Showing up to 30.'));
+  root.replaceChildren();root.append(el('p','hint',({conversation_passages:'Recorded passages, not the complete original corpus.',ibm_corpus:'Full passage corpus.',ibm_corpus_snapshot:'Saved corpus search results only.',local_file:'Uploaded documents.',missing:'Corpus not connected.'})[store.kind]||store.message));
+  const summary=query?'Search results for “'+query+'”':'Question matches · corpus search order';root.append(el('p','hint',summary+'. Matches do not prove support.'));
+  root.append(el('p','hint',matchCount+' matches / '+documentCount+' total · Up to 30 shown.'));
   const corpusSource=store.kind==='conversation_passages'?'Conversation passage archive':store.kind==='ibm_corpus'?'IBM MTRAG corpus':store.kind==='ibm_corpus_snapshot'?'IBM MTRAG corpus snapshot':'Local corpus file';
-  matches.slice(0,30).forEach(({doc,i})=>root.append(passage(r,corpusSource,'corpus:'+collectionFor(r)+':'+(doc.id||'row-'+(i+1))+' / '+(doc.source_file||store.sources?.[0]?.file||'')+(store.sources?.[0]?.revision?' / revision:'+store.sources[0].revision:''),doc.title||doc.id||'Document '+(i+1),doc.text,'Document ID: '+(doc.id||'not recorded')+' · Source: '+(doc.source_file||store.sources?.[0]?.file||'local file')+(doc.observed_task?' · Observed task: '+doc.observed_task:''),r.answer)));
+  matches.slice(0,30).forEach(({doc,i})=>root.append(passage(r,corpusSource,'corpus:'+collectionFor(r)+':'+(doc.id||'row-'+(i+1))+' / '+(doc.source_file||store.sources?.[0]?.file||'')+(store.sources?.[0]?.revision?' / revision:'+store.sources[0].revision:''),doc.title||doc.id||'Document '+(i+1),doc.text,'Document ID: '+(doc.id||'not recorded')+' · Source: '+(doc.source_file||store.sources?.[0]?.file||'local file')+(doc.observed_task?' · Observed task: '+doc.observed_task:''),r.answer,{id:doc.id})));
   if(!matches.length)root.append(el('p','hint',documentCount?'No text matches. Try another query. Absence from this archive does not prove absence from the original corpus.':'Load the original corpus file to inspect evidence beyond the recorded snapshots.'));
   if(store.sources?.length){const provenance=el('details');provenance.append(el('summary',null,'Corpus evidence provenance'));store.sources.forEach(source=>{provenance.append(el('p','hint',source.file+(source.revision?' · Git revision: '+source.revision:'')+(source.sha256?' · '+(source.unit==='passage'?'Archive ':'')+'SHA-256: '+source.sha256:'')));if(/^https:\/\/github.com\/IBM\/mt-rag-benchmark\//.test(source.dataset_url||'')){const link=el('a',null,'IBM corpus source');link.href=source.dataset_url;link.target='_blank';link.rel='noopener noreferrer';provenance.append(link);}});root.append(provenance);}
 }
@@ -707,34 +788,74 @@ function renderJudge(r,root){const v=r.judges.mtrag;root.append(el('p','notice',
   [...(v.statements||[])].sort((a,b)=>(a.verdict==='no'?-1:1)-(b.verdict==='no'?-1:1)).forEach((s)=>{const item=el('div','statement '+(s.verdict==='no'?'no':''));item.append(el('span','badge '+(s.verdict==='no'?'incorrect':''),s.verdict==='yes'?'Supported by judge':s.verdict==='no'?'Unsupported by judge':'Uncertain'),el('p',null,s.statement),el('p','muted',s.reason||'No explanation saved.'));root.append(item);});
   const metrics=el('details');metrics.append(el('summary',null,'Scores & calculation'));const table=el('table');const tr=el('tr');['Metric','Value','Verdict'].forEach(t=>tr.append(el('th',null,t)));table.append(tr);(v.metrics||[]).forEach(m=>{const row=el('tr');m.forEach(t=>row.append(el('td',null,t)));table.append(row);});metrics.append(table);const steps=el('ol');(v.score_steps||[]).forEach(s=>steps.append(el('li',null,s)));metrics.append(steps);root.append(metrics);
 }
-function annotation(r){
-  const a=entry(r),box=el('section','panel annotation');box.id='annotationPanel';box.setAttribute('aria-label','Annotation controls');box.append(heading(currentAnnotator+' / Annotation'));const legacyCount=Object.entries(legacyAnnotations).filter(([key,value])=>hasAnnotation(value)&&!hasAnnotation(A[key])).length;if(legacyCount){const old=el('div','notice');old.append(el('p',null,legacyCount+' earlier shared annotation(s) are available.'),button('Copy earlier labels to '+currentAnnotator,copyLegacyAnnotations,'text-button'));box.append(old);}
-  const left=el('div','annotation-left'),right=el('div','annotation-right');
-  const step=el('fieldset','step');step.style.cssText='border:0;padding:0;min-width:0';step.append(el('legend','step-title','Is the RAG answer correct?'));
-  const decisions=el('div','decision');[['correct','Correct'],['incorrect','Incorrect']].forEach(([value,title])=>{const label=el('label','choice'),radio=el('input');radio.type='radio';radio.name='humanLabel';radio.value=value;radio.checked=a.human_label===value;radio.onchange=()=>{a.human_label=value;if(value==='correct')setFailureTypes(a,['not_a_failure']);else if(getFailureTypes(a).includes('not_a_failure'))setFailureTypes(a,[]);save();queue();renderReview();};label.append(radio,document.createTextNode(title));decisions.append(label);});step.append(decisions,el('p','hint','Use the request and evidence. You may disagree with mtRAG or the gold answer.'));left.append(step);
-  left.append(failureChoices(r));
-  const noteLabel=el('label','step-title','What is wrong, and why?');noteLabel.htmlFor='notes';const notes=el('textarea');notes.id='notes';notes.placeholder='Name the wrong claim or missing required point. Explain how the evidence supports your decision.';notes.value=a.notes||'';notes.oninput=()=>{a.notes=notes.value;save();};right.append(noteLabel,notes);
-  const goldCheck=el('div','gold-review'),goldLabel=el('label','step-title','Gold answer check');goldLabel.htmlFor='goldAssessment';const goldSelect=el('select');goldSelect.id='goldAssessment';[['','Not reviewed'],['supported','Supported by the evidence'],['questionable','Questionable / unresolved'],['incorrect','Gold answer appears incorrect']].forEach(([v,t])=>goldSelect.append(new Option(t,v)));goldSelect.value=a.gold_assessment||'';
-  const goldNotes=el('textarea');goldNotes.id='goldNotes';goldNotes.setAttribute('aria-label','Gold answer review explanation');goldNotes.placeholder='Explain any problem with the gold answer and cite the evidence you used.';goldNotes.value=a.gold_notes||'';goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;goldSelect.onchange=()=>{a.gold_assessment=goldSelect.value;goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;save();};goldNotes.oninput=()=>{a.gold_notes=goldNotes.value;save();};goldCheck.append(goldLabel,goldSelect,goldNotes,el('p','hint','This records your reference review separately; it does not change the saved gold answer or judge scores.'));right.append(goldCheck);
-  const citations=el('div','step');citations.style.marginTop='18px';citations.append(el('div','step-title','Supporting evidence'),el('p','hint','Cite the answer, selected context, gold documents, or corpus evidence above.'));const list=el('div','citations');list.id='citations';citations.append(list);right.append(citations);
-  if(['low','mid','high'].includes(a.human_score_band))left.append(el('p','hint','Earlier three-level rating: '+a.human_score_band));
-  const reviewControl=el('label','review-toggle'),reviewCheck=el('input');reviewCheck.type='checkbox';reviewCheck.id='reviewComplete';reviewCheck.checked=reviewed(r);reviewCheck.onchange=()=>{a.review_complete=reviewCheck.checked;save();queue();};reviewControl.append(reviewCheck,document.createTextNode('Reviewed this turn'));
-  const footer=el('div','annotation-footer'),status=el('span','status',storageOK?'Saved in this browser':'Not saved — export a copy');status.id='saveStatus';status.setAttribute('role','status');footer.append(reviewControl,status,button('Next unreviewed →',()=>next(true),'primary'),button('Clear decision',()=>{delete a.human_label;delete a.failure_type;delete a.failure_types;save();queue();renderReview();},'text-button'));
-  box.append(left,right,footer);queueMicrotask(()=>{refreshFailureChoices(r);renderCitations(r);updateSaveStatus();});return box;
+const failureStageViews=new Map(),decisionEditors=new Set(),stageEditors=new Set();
+const GENERATION_GROUPS=[['Answer sources',['E9','E10','E11']],['Using evidence and covering the question',['E12','E13','E14']],['Time and numbers',['E15','E16']]];
+function stageViewKey(r){return currentAnnotator+':'+r.key;}
+function selectedFailureStages(a){return [...new Set(getFailureTypes(a).filter(t=>D.failure_types.includes(t)).map(t=>guides[t].stage))];}
+function visibleFailureStage(r){return failureStageViews.get(stageViewKey(r))||'all';}
+function finishProblem(r){
+  const a=entry(r),types=getFailureTypes(a);
+  if(!types.length&&a.human_label!=='correct')return 'Choose a label.';
+  if(selectedFailureStages(a).length>1)return 'Keep types from the earliest proven stage and remove types from other stages';
+  return '';
 }
-const failureHints={knowledge_boundary:'Outside corpus scope',chunking:'Evidence split badly',retrieval:'Evidence not retrieved',context_selection:'Useful context left out',grounding:'Unsupported or wrong claim',response_coverage:'Required point missing'};
+async function finishAndNext(r){
+  if(getProfile(currentAnnotator).loading)return;
+  const problem=finishProblem(r);if(problem){notify(problem);$('annotationPanel').scrollIntoView({behavior:'smooth',block:'nearest'});return;}
+  const owner=currentAnnotator,a=entry(r);a.review_complete=true;save();queue();
+  const finish=$('finishReview');if(finish)finish.disabled=true;
+  await flushProfile(owner);
+  if(owner!==currentAnnotator||activeKey!==r.key)return;
+  if(D.annotation_api&&!getProfile(owner).connected){notify('Saved in this browser. Waiting to sync with the server.');refreshFailureChoices(r);return;}
+  const candidates=filtered().filter(row=>row.key!==r.key&&!reviewed(row));
+  if(candidates.length){const rows=filtered(),index=rows.findIndex(row=>row.key===r.key);const target=rows.slice(index+1).concat(rows.slice(0,index)).find(row=>row.key!==r.key&&!reviewed(row));if(target){openTurn(target.key);$('question')?.scrollIntoView({behavior:'smooth',block:'start'});return;}}
+  refreshFailureChoices(r);notify('Saved. No unreviewed turns remain in this list.');
+}
+function annotation(r){
+  const a=entry(r),box=el('section','panel annotation');box.id='annotationPanel';box.lang='en';box.inert=!!getProfile(currentAnnotator).loading;box.setAttribute('aria-label','Annotation controls');box.append(heading(currentAnnotator+' / Annotation'));
+  const trail=el('ol','annotation-trail');[['Choose failure','cause'],['Add evidence','evidence'],['Save','save']].forEach(([label,key],i)=>{const item=el('li',null,(i+1)+' '+label);item.dataset.reviewStep=key;trail.append(item);});box.append(trail);
+  const legacyCount=Object.entries(legacyAnnotations).filter(([key,value])=>hasAnnotation(value)&&!hasAnnotation(A[key])).length;
+  if(legacyCount){const old=el('details','guide');old.append(el('summary',null,'Earlier labels without a reviewer: '+legacyCount+' turn'),button('Copy earlier labels to '+currentAnnotator,copyLegacyAnnotations,'text-button'));box.append(old);}
+  const left=el('div','annotation-left'),right=el('div','annotation-right');right.id='reviewNotes';
+  const step=el('fieldset','step decision-step');step.append(el('legend','step-title','Your correctness check (optional)'));
+  const decisions=el('div','decision guided-decisions');
+  [['correct','Correct','Answers the question and has evidence'],['incorrect','Incorrect','Has an error or misses an important point'],['uncertain','Not enough evidence','There is not enough evidence to decide']].forEach(([value,title,description])=>{
+    const label=el('label','choice'),radio=el('input');radio.type='radio';radio.name='humanLabel';radio.value=value;radio.checked=a.human_label===value;
+    radio.onchange=()=>{decisionEditors.delete(stageViewKey(r));a.human_label=value;if(value==='correct')setFailureTypes(a,['not_a_failure']);else if(value==='uncertain')setFailureTypes(a,['insufficient_evidence']);else if(getFailureTypes(a).includes('not_a_failure'))setFailureTypes(a,[]);save();queue();renderReview();};
+    const text=el('span');text.append(el('b',null,title),el('small','hint',description));label.append(radio,text);decisions.append(label);
+  });const changeDecision=button('Change decision',()=>{decisionEditors.add(stageViewKey(r));refreshFailureChoices(r);},'text-button');changeDecision.id='changeDecision';const decisionHint=el('p','hint','Check the question, answer, and selected context first. Open Gold or Judge if needed.');decisionHint.id='decisionHint';step.append(decisions,changeDecision,decisionHint,button('Skip correctness check',()=>{delete a.human_label;save();queue();renderReview();},'text-button'));const optionalDecision=el('details','guide optional-correctness');optionalDecision.id='optionalCorrectness';optionalDecision.append(el('summary',null,'Correct / Incorrect check (optional)'),step);left.append(failureChoices(r),optionalDecision);
+  right.append(el('h3','step-title','Notes and evidence (optional)'));
+  const noteLabel=el('label','hint','Briefly explain what you found');noteLabel.htmlFor='notes';const notes=el('textarea');notes.id='notes';notes.placeholder='The answer says... The evidence says... Or explain what is missing.';notes.value=a.notes||'';notes.oninput=()=>{a.notes=notes.value;save();};right.append(noteLabel,notes);
+  const citations=el('div','step citation-step');citations.append(el('div','hint','Select text in the answer or a document, then click Cite selection.'));const list=el('div','citations');list.id='citations';citations.append(list);right.append(citations);
+  const goldDetails=el('details','guide gold-review');goldDetails.id='goldReviewDetails';goldDetails.open=!!(a.gold_assessment||a.gold_notes);goldDetails.append(el('summary',null,'Check the gold answer (optional)'));
+  const goldLabel=el('label','hint','Gold answer check');goldLabel.htmlFor='goldAssessment';const goldSelect=el('select');goldSelect.id='goldAssessment';[['','Not checked'],['supported','Supported'],['questionable','Not sure'],['incorrect','Gold answer may be wrong']].forEach(([v,t])=>goldSelect.append(new Option(t,v)));goldSelect.value=a.gold_assessment||'';
+  const goldNotes=el('textarea');goldNotes.id='goldNotes';goldNotes.setAttribute('aria-label','Gold answer review explanation');goldNotes.placeholder='Explain the gold answer problem and cite evidence';goldNotes.value=a.gold_notes||'';goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;goldSelect.onchange=()=>{a.gold_assessment=goldSelect.value;goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;save();};goldNotes.oninput=()=>{a.gold_notes=goldNotes.value;save();};goldDetails.append(goldLabel,goldSelect,goldNotes,el('p','hint','Saved separately from your RAG answer decision'));right.append(goldDetails);
+  if(['low','mid','high'].includes(a.human_score_band))left.append(el('p','hint','Earlier three-level rating: '+a.human_score_band));
+  const reviewControl=el('label','review-toggle'),reviewCheck=el('input');reviewCheck.type='checkbox';reviewCheck.id='reviewComplete';reviewCheck.checked=reviewed(r);reviewCheck.onchange=()=>{a.review_complete=reviewCheck.checked;save();queue();};reviewControl.append(reviewCheck,document.createTextNode('Reviewed'));
+  const footer=el('div','annotation-footer'),status=el('span','status');status.id='saveStatus';status.setAttribute('role','status');const finish=button('Save & next →',()=>finishAndNext(r),'primary');finish.id='finishReview';
+  const draft=el('p','hint','Auto-saved');draft.id='finishHint';footer.append(status,finish,draft,reviewControl,button('Clear',()=>{delete a.human_label;delete a.failure_type;delete a.failure_types;failureStageViews.delete(stageViewKey(r));decisionEditors.delete(stageViewKey(r));stageEditors.delete(stageViewKey(r));save();queue();renderReview();},'text-button'));
+  box.append(left,right,footer);queueMicrotask(()=>{if(activeKey!==r.key||!box.isConnected)return;refreshFailureChoices(r);renderCitations(r);updateSaveStatus();});return box;
+}
 let lastFailureHelp='';
 function failureChoices(r){
-  const field=el('fieldset','step failure-choices');field.id='failureChoices';field.disabled=entry(r).human_label==='correct';field.append(el('legend','step-title','Failure causes'));
-  const meta=el('div','failure-choice-meta'),count=el('span','badge');count.id='failureCount';const clear=button('Clear choices',()=>{setFailureTypes(entry(r),[]);lastFailureHelp='';save();queue();refreshFailureChoices(r);},'text-button');clear.id='clearFailureChoices';meta.append(count,clear);
-  const hint=el('p','hint','Select one or more supported causes.');hint.id='failureChoiceHint';field.setAttribute('aria-describedby','failureChoiceHint');field.append(meta,hint);
-  const grid=el('div','failure-choice-grid');
-  function choice(type,subtitle){
-    const label=el('label','failure-option');label.title=guides[type].check;const input=el('input');input.type='checkbox';input.value=type;input.dataset.failureType=type;input.name='failure_causes';input.onchange=()=>toggleFailure(r,type,input.checked);const text=el('span','failure-option-text');text.append(el('b',null,guides[type].title),el('span','hint',subtitle));label.append(input,text);return label;
-  }
-  D.failure_types.forEach(type=>grid.append(choice(type,failureHints[type])));field.append(grid,el('p','hint failure-outcome-hint','Or use one alternative outcome instead of the causes above:'));
-  const alternatives=el('div','failure-alternatives');alternatives.append(choice('outside_taxonomy','An error beyond these causes'),choice('insufficient_evidence','Cannot establish the cause'));field.append(alternatives);
+  const field=el('fieldset','step failure-choices');field.id='failureChoices';field.append(el('legend','step-title','Choose a failure · E1–E16'));
+  const stageHint=el('p','hint','Choose a type. Comparison hints are shown below each one.');stageHint.id='stagePickerHint';field.append(stageHint);
+  const stages=el('div','stage-picker');stages.setAttribute('aria-label','Failure stage');
+  D.failure_stages.forEach((stage,i)=>{const g=D.failure_stage_guides[stage],pick=button('',()=>{failureStageViews.set(stageViewKey(r),stage);stageEditors.delete(stageViewKey(r));refreshFailureChoices(r);},'stage-pick');pick.dataset.failureStage=stage;pick.append(el('b',null,(i+1)+' · '+g.label),el('small',null,stage+' · '+g.short));stages.append(pick);});const stageSummary=el('div','chosen-stage');stageSummary.id='chosenStage';const stageName=el('b');stageName.id='chosenStageName';stageSummary.append(stageName,button('Change stage',()=>{stageEditors.add(stageViewKey(r));refreshFailureChoices(r);},'text-button'));stageSummary.append(button('Show all 16',()=>{failureStageViews.set(stageViewKey(r),'all');stageEditors.delete(stageViewKey(r));refreshFailureChoices(r);},'text-button'));const filter=el('details','stage-filter');filter.id='stageFilter';filter.append(el('summary',null,'Filter by stage (optional)'),stages);field.append(filter,stageSummary);
+  const unknown=el('div','failure-alternatives');unknown.append(failureOption(r,'not_a_failure','No failure','No error found in this answer'),failureOption(r,'insufficient_evidence','Cause not clear','The answer has an error, but the evidence does not show its cause'));field.append(unknown);
+  const more=el('details','other-outcomes');more.append(el('summary',null,'Error outside these 16 types'),failureOption(r,'outside_taxonomy','Outside taxonomy','A proven error that does not fit E1–E16'));
+  const stageHelp=el('details','stage-evidence');stageHelp.id='stageEvidence';field.append(stageHelp);
+  const selected=el('div','selected-causes');selected.id='selectedCauses';selected.setAttribute('aria-live','polite');field.append(selected);
+  const meta=el('div','failure-choice-meta'),count=el('span','badge');count.id='failureCount';const clear=button('Clear selected types',()=>{setFailureTypes(entry(r),[]);lastFailureHelp='';save();queue();refreshFailureChoices(r);},'text-button');clear.id='clearFailureChoices';meta.append(count,clear);field.append(meta);
+  const hint=el('p','hint','You can choose more than one type within the same stage.');hint.id='failureChoiceHint';field.setAttribute('aria-describedby','failureChoiceHint');field.append(hint);
+  D.failure_stages.forEach(stage=>{const group=el('section','failure-stage');group.dataset.stage=stage;group.hidden=true;group.append(el('h3','failure-stage-title',D.failure_stage_guides[stage].label+' · '+stage));
+    const groups=stage==='Generation'?GENERATION_GROUPS:[['',D.failure_types.filter(type=>guides[type].stage===stage)]];
+    groups.forEach(([name,codes])=>{if(name)group.append(el('h4','failure-subheading',name));const grid=el('div','failure-choice-grid');codes.forEach(type=>{const aid=D.failure_annotation_aids[type];grid.append(failureOption(r,type,aid.label,guides[type].name+' · '+guides[type].code));});group.append(grid);});field.append(group);
+  });field.append(more);
   const help=el('div');help.id='failureGuide';const wrapper=el('div');wrapper.append(field,help);return wrapper;
+}
+function failureOption(r,type,title,subtitle){
+  const label=el('label','failure-option');label.title=guides[type].check;const input=el('input');input.type='checkbox';input.value=type;input.dataset.failureType=type;input.name='failure_causes';input.onchange=()=>toggleFailure(r,type,input.checked);const text=el('span','failure-option-text');text.append(el('b',null,title),el('span','hint',subtitle));label.append(input,text);const wrapper=el('div','failure-option-wrap'),note=el('div','failure-help failure-inline-help');note.dataset.helpType=type;note.hidden=!D.failure_types.includes(type);wrapper.append(label,note);return wrapper;
 }
 function toggleFailure(r,type,checked){
   const a=entry(r);let types=getFailureTypes(a);
@@ -743,32 +864,53 @@ function toggleFailure(r,type,checked){
   setFailureTypes(a,types);save();queue();refreshFailureChoices(r);
 }
 function refreshFailureChoices(r){
-  const field=$('failureChoices');if(!field)return;const a=entry(r),types=getFailureTypes(a);field.disabled=a.human_label==='correct';
+  const field=$('failureChoices');if(!field)return;const a=entry(r),types=getFailureTypes(a),stage=visibleFailureStage(r),stages=selectedFailureStages(a);
+  field.disabled=false;field.hidden=false;
+  const editingDecision=decisionEditors.has(stageViewKey(r))||!a.human_label;document.querySelectorAll('.guided-decisions label').forEach(label=>label.hidden=!editingDecision&&!label.querySelector('input').checked);document.querySelector('.guided-decisions').dataset.editing=String(editingDecision);$('changeDecision').hidden=editingDecision;$('decisionHint').hidden=!editingDecision;
+  const editingStage=stageEditors.has(stageViewKey(r));field.querySelector('.stage-picker').hidden=false;$('stageFilter').hidden=stage!=='all'&&!editingStage;$('stageFilter').open=editingStage;$('chosenStage').hidden=stage==='all';$('stagePickerHint').hidden=false;$('chosenStageName').textContent=stage!=='all'?D.failure_stage_guides[stage].label+' · '+stage:'';
   field.querySelectorAll('[data-failure-type]').forEach(input=>{input.checked=types.includes(input.dataset.failureType);input.closest('label').classList.toggle('selected',input.checked);});
-  $('clearFailureChoices').disabled=a.human_label==='correct'||!types.length;$('failureCount').textContent=types.includes('not_a_failure')?'No failure':types.length+' selected';renderGuide(r);
+  field.querySelectorAll('[data-help-type]').forEach(note=>{const type=note.dataset.helpType;note.hidden=!D.failure_types.includes(type);if(!note.hidden)renderInlineComparison(r,type,note);});
+  field.querySelectorAll('[data-failure-stage]').forEach(pick=>pick.setAttribute('aria-pressed',String(pick.dataset.failureStage===stage)));
+  field.querySelectorAll('.failure-stage').forEach(group=>group.hidden=stage!=='all'&&group.dataset.stage!==stage);
+  const evidence=$('stageEvidence');evidence.replaceChildren();evidence.hidden=stage==='all';
+  if(stage!=='all'){const g=D.failure_stage_guides[stage];evidence.open=stage!=='Generation';evidence.append(el('summary',null,'Evidence needed for this stage'),el('p',null,g.evidence),el('p','hint',g.missing));}
+  const chosen=$('selectedCauses');chosen.replaceChildren();const causes=types.filter(t=>D.failure_types.includes(t));chosen.hidden=!causes.length;
+  if(causes.length){chosen.append(el('p','hint','Selected types · Click × to remove'));causes.forEach(type=>{const chip=button(D.failure_annotation_aids[type].label+' · '+type+' ×',()=>toggleFailure(r,type,false),'cause-chip');chip.setAttribute('aria-label','Remove '+type);chosen.append(chip);});chosen.append(button('Add notes or evidence ↓',()=>$('reviewNotes').scrollIntoView({behavior:'smooth',block:'nearest'}),'text-button'));}
+  if(stages.length>1)chosen.append(el('p','notice warn','Types from more than one stage are saved. Keep the earliest proven stage before finishing.'));
+  field.querySelector('.failure-choice-meta').hidden=!types.length;$('clearFailureChoices').disabled=field.disabled||!types.length;$('failureCount').textContent=types.includes('not_a_failure')?'No failure':types.length+' selected';
+  $('reviewNotes').hidden=false;
+  const problem=finishProblem(r);$('finishHint').textContent=problem||'Ready.';$('finishReview').disabled=!!getProfile(currentAnnotator).loading;
+  document.querySelectorAll('[data-review-step]').forEach(node=>node.dataset.active=String(node.dataset.reviewStep===(problem?'cause':'save')));
+  renderGuide(r);
+}
+function jumpToEvidence(r,where){
+  if(['selected','gold','corpus','history'].includes(where)){activeTab=where==='history'?'history':'compare';evidenceQuery='';$('evidenceSearch').value='';renderEvidence(r);if(where==='gold'){const disclosure=$('goldDisclosure');if(disclosure)disclosure.open=true;}const target=where==='history'?$('evidence'):$('evidence-'+where);target?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});}
+  else{if(!$('answer')){activeTab='compare';renderEvidence(r);}$(where)?.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function renderGuide(r){
-  const a=entry(r),root=$('failureGuide');if(!root)return;root.replaceChildren();const types=getFailureTypes(a);
-  if(a.human_label==='correct'&&types.some(t=>t!=='not_a_failure')){root.append(el('p','notice warn','These saved failure causes conflict with Correct. Confirm the correct decision to clear them.'),button('Confirm correct',()=>{setFailureTypes(a,['not_a_failure']);save();queue();renderReview();},'text-button'));return;}
-  if(a.human_label==='incorrect'&&types.includes('not_a_failure')){root.append(el('p','notice warn','Not a failure conflicts with Incorrect. Select a supported cause above, or mark the answer Correct.'));return;}
-  if(!types.length||types[0]==='not_a_failure'){
-    root.append(el('p','notice',a.human_label==='correct'?'Marked correct. No failure causes are needed.':a.human_label==='incorrect'?'Select every cause supported by the evidence. Use Insufficient evidence when the cause cannot be established.':'Compare the answer and evidence, then choose Correct or Incorrect.'));
-    return;
-  }
-  types.forEach(type=>{
-    const g=guides[type],d=el('details','guide failure-help');d.open=types.length===1||type===lastFailureHelp;d.append(el('summary',null,g.title+' · evidence to check'),el('p',null,g.check));
-    const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));d.append(list);const links=el('div','nav-actions'),labels={question:'Question',answer:'RAG answer',selected:'Selected context',gold:'Gold documents',corpus:'Corpus evidence',history:'Conversation'};
-    g.look.forEach(where=>links.append(button(labels[where],()=>{if(['selected','gold','corpus','history'].includes(where)){activeTab=where==='history'?'history':'compare';evidenceQuery='';$('evidenceSearch').value='';renderEvidence(r);const target=where==='history'?$('evidence'):$('evidence-'+where);target.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});}else{if(!$('answer')){activeTab='compare';renderEvidence(r);}$(where).scrollIntoView({behavior:'smooth',block:'center'});}},'text-button')));d.append(links);if(g.missing)d.append(el('p','missing',g.missing));root.append(d);
-  });
+  const a=entry(r),root=$('failureGuide');if(!root)return;root.replaceChildren();const types=getFailureTypes(a),legacy=getLegacyFailureTypes(a);
+  if(legacy.length){const old=el('details','guide legacy-failures');old.open=!types.length;old.append(el('summary',null,'Earlier labels preserved · '+legacy.map(t=>D.legacy_failure_labels[t]).join(', ')),el('p',null,'Earlier labels are kept. Review them before choosing E1–E16; no labels were converted automatically.'));root.append(old);}
+  if(types.includes('not_a_failure')){root.append(el('p','notice','No failure selected. The judge result is unchanged.'));return;}
+  if(!types.length||types[0]==='not_a_failure')return;
   if(r.contexts===null)root.append(el('p','hint','Missing for this turn: selected context.'));else if(!r.contexts.length)root.append(el('p','hint','Recorded for this turn: zero selected passages.'));
   if(r.gold_support?.status!=='available')root.append(el('p','hint','Missing for this turn: verified reference passages.'));
-  if(!a.human_label)root.append(el('p','notice','Choose a correctness decision to complete this review.'));
+}
+const comparisonLabels={question:'Question',answer:'RAG answer',retrieved:'Retrieved context',selected:'Selected context',gold:'Gold',corpus:'Corpus',history:'Conversation'};
+function comparisonSources(type){
+  const g=guides[type],sources=[...g.look];
+  if(['Retrieval','Reranking'].includes(g.stage)){const at=sources.indexOf('selected');sources.splice(at<0?0:at,0,'retrieved');}
+  return sources;
+}
+function renderInlineComparison(r,type,root){
+  const g=guides[type];root.replaceChildren(el('p','comparison-note','Compare: '+comparisonSources(type).map(where=>comparisonLabels[where]).join(' | ')));
+  const limits={Chunking:'Original chunk boundaries unavailable.',Retrieval:'Retrieved context not recorded.',Reranking:'Retrieved context and reranking logs not recorded.'};
+  if(limits[g.stage])root.append(el('p','hint',limits[g.stage]));
 }
 function renderCitations(r){const root=$('citations');if(!root)return;root.replaceChildren();const items=entry(r).evidence||[];if(!items.length){root.append(el('p','hint','No evidence cited yet.'));return;}items.forEach((e,i)=>{const c=el('div','citation'),top=el('div','citation-top');const remove=button('×',()=>{entry(r).evidence.splice(i,1);save();renderCitations(r);},'text-button');remove.setAttribute('aria-label','Remove evidence '+(i+1));top.append(el('b',null,e.source+' · '+e.locator),remove);c.append(top,el('blockquote',null,e.quote));root.append(c);});}
-function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
+function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),failure_taxonomy:D.failure_taxonomy,legacy_failure_types:getLegacyFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
 function download(name,text,type){const a=el('a');const url=URL.createObjectURL(new Blob([text],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('expJson').onclick=()=>download('annotations_'+D.run+'_'+currentAnnotator+'.json',JSON.stringify(rowsOut(),null,2),'application/json');
-$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','failure_type','failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
+$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','failure_type','failure_types','failure_taxonomy','legacy_failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types','legacy_failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
 $('imp').onchange=async ev=>{
   const file=ev.target.files[0];if(!file)return;
   try{
@@ -785,9 +927,12 @@ $('importLabel').onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDef
 $('annotator').onchange=()=>switchAnnotator($('annotator').value);
 $('judgeGuideButton').onclick=()=>openGuideline('judge');$('failureGuideButton').onclick=()=>openGuideline('failure');
 $('title').textContent=D.run;$('crit').innerHTML=D.criteria_html;
-D.failure_types.forEach(type=>{const g=guides[type],section=el('section','guideline-entry');section.append(el('h3',null,g.title),el('p',null,g.check));const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));section.append(list);if(g.missing)section.append(el('p','hint',g.missing));$('failureGuideContent').append(section);});
+D.failure_types.forEach(type=>{const g=guides[type],section=el('section','guideline-entry');section.append(el('h3',null,g.stage+' · '+g.title),el('p',null,g.check));const aid=D.failure_annotation_aids[type];if(aid?.example)section.append(el('p','example','Example: '+aid.example));section.append(el('p','hint','Compare: '+comparisonSources(type).map(where=>comparisonLabels[where]).join(' | ')));const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));section.append(list);if(g.missing)section.append(el('p','hint',g.missing));$('failureGuideContent').append(section);});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')profiles.forEach(state=>flushProfile(state.name));});
 function fitQueue(){document.querySelector('.queue').style.setProperty('--queue-offset',Math.ceil(document.querySelector('.layout').getBoundingClientRect().top+window.scrollY)+'px');observeQueueEdges();}
+let annotationFitFrame;
+function fitAnnotationPanel(){cancelAnimationFrame(annotationFitFrame);annotationFitFrame=requestAnimationFrame(()=>{const box=$('annotationPanel');if(!box)return;if(window.innerWidth<=950){box.style.removeProperty('max-height');return;}const top=Math.max(16,Math.ceil(box.getBoundingClientRect().top));box.style.maxHeight='calc(100dvh - '+top+'px - 16px)';});}
+window.addEventListener('scroll',fitAnnotationPanel,{passive:true});window.addEventListener('resize',fitAnnotationPanel);
 window.addEventListener('resize',fitQueue);fitQueue();
 const annotationReady=switchAnnotator(currentAnnotator);
 </script>

@@ -4,7 +4,7 @@ Run commands from `judge_run`. This folder prepares inputs, judges turns with
 the project's mtRAG-style judge, and recovers incomplete runs. Run data stays in
 `judge_run/runs/`. Human review tools live separately in
 [annotate_server](../annotate_server/README.md). Judging selects failed RAG cases
-for later attribution; it does not assign one of the six failure causes.
+for later attribution; it does not assign one of the 16 E1–E16 failure types used in human annotation.
 
 ## Start a new judge run
 

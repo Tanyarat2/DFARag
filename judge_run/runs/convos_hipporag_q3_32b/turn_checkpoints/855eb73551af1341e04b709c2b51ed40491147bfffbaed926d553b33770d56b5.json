@@ -74,18 +74,369 @@
           "conditioned": "correct"
         }
       }
+    },
+    {
+      "turn": 2,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that the provided documents do not explicitly state whether Cohasset Associates, Inc. is a legal or IT management consulting firm. While the reference answer asserts that Cohasset is an \"IT management consulting firm,\" this classification is not directly stated in the documents. The documents only mention that IBM engaged Cohasset to conduct an independe",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "Cohasset Associates, Inc., is mentioned in the retrieved evidence as an entity engaged by IBM to conduct an independent assessment of IBM’s Immutable Object Storage.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that IBM engaged Cohasset Associates Inc. to conduct an independent assessment of IBM’s Immutable Object Storage and provides a link to their report."
+          },
+          {
+            "statement": "The evidence does not explicitly state whether Cohasset Associates, Inc., is a legal or IT management consulting firm.",
+            "verdict": "yes",
+            "reason": "The context only mentions Cohasset Associates Inc. as an entity that conducted an assessment but does not specify whether it is a legal or IT management consulting firm."
+          },
+          {
+            "statement": "The specific nature of the firm as a legal or IT management consulting firm cannot be determined from the provided information.",
+            "verdict": "yes",
+            "reason": "The context does not provide any information about the firm’s classification (legal or IT management consulting), making it impossible to determine its specific nature from the given text."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly states the maximum retention period as 1000 years, aligning with the document's explicit mention of \"1000 years\" and the reference answer's clarification of 365243 days (1000 years). The assistant's response is **faithful** to the document, as it directly quotes the key value without introducing errors. It is **appropriate** because the question specifically asks f",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The maximum retention period for Immutable data Storage is 1000 years.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a maximum retention period of 1000 years can be specified for objects in a retention policy, which applies to Immutable Object Storage."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly states the maximum retention period of 1000 years as per the document. However, the claim that \"the timespan mentioned is not excessive according to the provided information\" is an interpretation not supported by the documents. The documents only specify the technical maximum (365,243 days) without any evaluation of its reasonableness or whether it is considered ex",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The maximum retention period is 1000 years.",
+            "verdict": "yes",
+            "reason": "The context states that the maximum retention period is 365243 days (1000 years)."
+          },
+          {
+            "statement": "The maximum retention period is equivalent to 365,243 days.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 365243 days as the maximum retention period."
+          },
+          {
+            "statement": "The 1000-year retention period is the maximum supported value for retention period settings.",
+            "verdict": "yes",
+            "reason": "The context confirms that 1000 years (365243 days) is the maximum supported value."
+          },
+          {
+            "statement": "The timespan mentioned is not excessive according to the provided information.",
+            "verdict": "yes",
+            "reason": "The context provides 1000 years as the maximum, so it is not considered excessive within the given information."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.750, IDK=0.5, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies Block Storage, File Storage, and IBM Cloud Object Storage as alternative storage methods beyond the Cloud, which are explicitly mentioned in the document. The reference answer incorrectly claims the document does not provide information on other storage methods, which is inaccurate given the document's detailed descriptions of these options. The assistan",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.75,
+        "idk": 0.5,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.7741935483870969,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The Cloud is not the only method of storage.",
+            "verdict": "no",
+            "reason": "The context discusses IBM Cloud storage options but does not mention non-cloud storage methods."
+          },
+          {
+            "statement": "Other methods include Block Storage.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Block Storage as a storage option."
+          },
+          {
+            "statement": "Other methods include File Storage.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions File Storage as a storage option."
+          },
+          {
+            "statement": "Other methods include IBM Cloud Object Storage.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions IBM Cloud Object Storage as a storage option."
+          },
+          {
+            "statement": "These options provide high-performance iSCSI storage as a storage solution.",
+            "verdict": "yes",
+            "reason": "The Block Storage section states it uses iSCSI for high-performance storage."
+          },
+          {
+            "statement": "These options provide network-attached NFS-based file storage as a storage solution.",
+            "verdict": "yes",
+            "reason": "The File Storage section specifies it uses NFS-based network-attached storage."
+          },
+          {
+            "statement": "These options provide distributed object storage for unstructured data as a storage solution.",
+            "verdict": "yes",
+            "reason": "The IBM Cloud Object Storage section describes it as distributed storage for unstructured data."
+          },
+          {
+            "statement": "Thus, there are multiple storage methods available beyond the Cloud.",
+            "verdict": "no",
+            "reason": "The context only discusses IBM Cloud storage options and does not mention non-cloud methods."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that on-premises storage is an option, referencing IBM Cloud Satellite as a key enabler. It aligns with the document's discussion of Satellite's flexibility for hybrid deployments, addressing security, latency, and cost concerns. The answer is faithful to the document's content, as it highlights the ability to transition between cloud and on-premises envir",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "On-premises storage is a valid option for data storage.",
+            "verdict": "yes",
+            "reason": "The context discusses on-premises storage solutions like NetApp and IBM Spectrum Accelerate, and mentions deploying applications on-premises to address security and latency concerns."
+          },
+          {
+            "statement": "On-premises storage can be used in conjunction with cloud solutions like IBM Cloud's Satellite to deploy applications and manage data.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Satellite enables applications to be deployed on-premises or in the cloud, with unified management and backup to IBM Cloud Object Storage."
+          },
+          {
+            "statement": "On-premises storage offers flexibility, allowing businesses to transition between cloud and on-premises storage as needed.",
+            "verdict": "yes",
+            "reason": "The context highlights the ability to start with cloud deployment and move to on-premises as business scales, avoiding vendor lock-in and enabling distributed deployment."
+          },
+          {
+            "statement": "On-premises storage addresses security, latency, and cost concerns, making it a viable and often preferred option for certain use cases.",
+            "verdict": "yes",
+            "reason": "The context directly mentions on-premises deployment addressing security and latency, and discusses cost optimization strategies like using on-premises for base operations and scaling to cloud during peak times."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.571, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer correctly distinguishes between IBM Immutable Object Storage (a specific IBM Cloud feature) and the broader concept of Immutable Data Storage. The document explicitly describes IBM Immutable Object Storage as a WORM-based feature within IBM Cloud Object Storage, while the assistant accurately frames \"Immutable Data Storage\" as a general category. This distinction is faithful",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.5714285714285714,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.6990291262135923,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "IBM Immutable Object Storage is a specific feature within IBM Cloud Object Storage.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Immutable Object Storage is a feature of IBM Cloud Object Storage."
+          },
+          {
+            "statement": "It enables data to be stored in a WORM (Write-Once-Read-Many) format.",
+            "verdict": "yes",
+            "reason": "The context mentions that retention policies enforce WORM (Write-Once-Read-Many) storage."
+          },
+          {
+            "statement": "This ensures data integrity and non-erasability through retention policies.",
+            "verdict": "yes",
+            "reason": "The context states that retention policies ensure data is stored in a non-erasable and non-rewritable manner."
+          },
+          {
+            "statement": "Immutable Data Storage is a broader concept referring to storage systems that prevent data modification or deletion once stored.",
+            "verdict": "no",
+            "reason": "The context does not explicitly define 'Immutable Data Storage' as a broader concept; it focuses on IBM's specific implementation."
+          },
+          {
+            "statement": "IBM Immutable Object Storage is a type of immutable data storage.",
+            "verdict": "yes",
+            "reason": "The context describes IBM's feature as a specific implementation of immutable storage principles."
+          },
+          {
+            "statement": "It is not the only method of immutable data storage.",
+            "verdict": "no",
+            "reason": "The context does not compare IBM's solution to other methods or assert its uniqueness."
+          },
+          {
+            "statement": "IBM Immutable Object Storage and Immutable Data Storage are related but not the same thing.",
+            "verdict": "no",
+            "reason": "The context does not distinguish between IBM's feature and the general concept of 'Immutable Data Storage'; it only describes IBM's implementation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.600, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer acknowledges the user's frustration but fails to address the core issues raised. It does not provide the detailed, definitive information from the document that the user seeks, such as the 1000-year retention period, regional availability, pricing requirements, or the clarification that Cohasset Associates is an IT management consulting firm. The reference answer, in contras",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.6,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.48,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The assistant acknowledges the user's frustration in seeking definitive answers.",
+            "verdict": "no",
+            "reason": "The context does not mention any acknowledgment of user frustration by the assistant."
+          },
+          {
+            "statement": "IBM Immutable Object Storage is a specific feature within IBM Cloud Object Storage designed for long-term data retention with WORM policies.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Immutable Object Storage is part of IBM Cloud Object Storage and enforces WORM policies for data retention."
+          },
+          {
+            "statement": "Immutable Data Storage is a broader concept compared to IBM Immutable Object Storage.",
+            "verdict": "no",
+            "reason": "The context does not discuss a broader concept of 'Immutable Data Storage' beyond IBM's specific implementation."
+          },
+          {
+            "statement": "The evidence does not confirm whether Immutable Data Storage is the same as IBM Immutable Object Storage.",
+            "verdict": "yes",
+            "reason": "The context only describes IBM's Immutable Object Storage and does not compare it to a general concept of 'Immutable Data Storage'."
+          },
+          {
+            "statement": "A definitive answer cannot be provided without further clarification on the relationship between the two concepts.",
+            "verdict": "yes",
+            "reason": "The context lacks information about the relationship between 'Immutable Data Storage' and IBM's implementation, making a definitive answer impossible."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=0.333, IDK=1.0, answerability=CONVERSATIONAL -> conditioned score 1.000 (threshold 0.80). RB_llm justification: The assistant's answer acknowledges the user's concern and seeks clarification, which is appropriate. However, it fails to reference the document's detailed information on passage retrieval and answer-finding features (e.g., `passages.enabled=true`, `passages.find_answers=true`) that could directly address the user's issue. The reference answer, while contextually aligned with the previous convers",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 0.3333333333333333,
+        "idk": 1.0,
+        "answerability": "CONVERSATIONAL",
+        "phi": 0.42857142857142855,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "I understand your concern.",
+            "verdict": "no",
+            "reason": "The context does not mention acknowledging user concerns or providing empathetic responses."
+          },
+          {
+            "statement": "It seems the system is not providing the useful passages you are looking for.",
+            "verdict": "yes",
+            "reason": "The context discusses cases where the system's answers are incomplete or not direct, which aligns with the statement."
+          },
+          {
+            "statement": "Please clarify what specific information or type of content you are seeking, so I can assist you better.",
+            "verdict": "no",
+            "reason": "The context does not include any part where the system requests clarification from the user."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
     }
   ],
   "usage": {
     "max_requested_completion_tokens": 8192,
     "max_requested_reasoning_tokens": 4096,
-    "prompt_tokens": 5887,
-    "completion_tokens": 2796,
-    "total_tokens": 8683,
+    "prompt_tokens": 50912,
+    "completion_tokens": 20990,
+    "total_tokens": 71902,
     "is_byok": 0,
-    "completion_budget_verified_calls": 4,
-    "reasoning_tokens": 2493,
-    "reasoning_budget_verified_calls": 4
+    "completion_budget_verified_calls": 36,
+    "reasoning_tokens": 20360,
+    "reasoning_budget_verified_calls": 36
   },
-  "elapsed_seconds": 114.473
+  "elapsed_seconds": 830.862
 }

@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "fingerprint": "c478042b69b6664890c2289d77138d2382eaf614f870bded102d9d4d276429d5",
+  "id": "35e6be0f2049527ae17cf77169cc4f70",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=UNANSWERABLE -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the documents, which explicitly mention the Safe at Home program as a method to maintain address confidentiality during legal processes like restraining orders. The documents confirm that this program, administered by the California Secretary of State, provides substitute mailing addresses for victims of domestic violence, sexual assault, or stalking. The assi",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "UNANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "To obtain a restraining order without notifying the other person of your address, you can use the Safe at Home program offered by the California Secretary of State.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the Safe at Home program provides a substitute mailing address for government services, including court purposes, to keep addresses confidential. This directly supports the statement about using it for restraining orders."
+          },
+          {
+            "statement": "This program allows you to keep your residential address confidential by providing a substitute mailing address for court and other official purposes.",
+            "verdict": "yes",
+            "reason": "The context describes the Safe at Home program as providing a substitute address for state, county, and city government agencies, including court-related purposes, to maintain address confidentiality."
+          },
+          {
+            "statement": "You can enroll in this program if you are a victim of domestic violence, sexual assault, or stalking.",
+            "verdict": "yes",
+            "reason": "The context specifies that eligibility for the Safe at Home program includes being a victim of domestic violence, sexual assault, or stalking, as stated in both the program description and the FAQ section."
+          },
+          {
+            "statement": "This ensures your address remains private while you proceed with the restraining order process.",
+            "verdict": "yes",
+            "reason": "The context and FAQ confirm that the Safe at Home program's substitute address is used for court purposes, ensuring the real address remains private during legal processes like restraining orders."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=PARTIAL -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the user's question about filing a restraining order by referencing the Safe at Home program, which aligns with the previous conversation and the documents. It correctly mentions filing online or in person and includes the requirement for personal service of the respondent. However, the assistant's answer lacks critical details from the documents, such as the disti",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "To file an order for a restraining order without notifying the other person of your address, use the Safe at Home program provided by the California Secretary of State.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Safe at Home program as a solution for keeping an address confidential when filing court papers."
+          },
+          {
+            "statement": "The Safe at Home program provides a secure address for court papers to keep your actual address confidential.",
+            "verdict": "yes",
+            "reason": "The context directly states that Safe at Home provides a secure address for court papers and other purposes to maintain confidentiality."
+          },
+          {
+            "statement": "You can file the necessary forms online or in person at the court to ensure your address remains private.",
+            "verdict": "yes",
+            "reason": "The context confirms e-filing is available for restraining orders and mentions Safe at Home for address confidentiality, but does not explicitly link the two methods (online filing and Safe at Home) as a combined requirement for privacy. However, the statement is still supported as the Safe at Home program itself ensures address privacy regardless of filing method."
+          },
+          {
+            "statement": "The respondent must be personally served no later than five (5) days prior to the scheduled hearing date.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this requirement for both Civil Harassment and Workplace Violence Restraining Orders."
+          },
+          {
+            "statement": "Proof of service must be filed with the court.",
+            "verdict": "yes",
+            "reason": "The context explicitly requires proof of service to be filed with the court prior to or at the time of the hearing."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.833, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.865 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document and previous conversation, as it correctly references the Safe at Home program and provides specific details about the Gordon D. Schaber Courthouse in Sacramento, including the address and room number. The mention of Civil Self-Help Services aligns with the document's guidance on assistance for completing forms. The answer is appropriate for the u",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8653846153846154,
+        "conditioned_score": 0.8653846153846154,
+        "statements": [
+          {
+            "statement": "I am in Sacramento.",
+            "verdict": "no",
+            "reason": "The context is about Sacramento Superior Court, but the statement is a personal location claim not addressed in the context."
+          },
+          {
+            "statement": "To get a restraining order without notifying the other person of your address, you can use the Safe at Home program run by the California Secretary of State.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Safe at Home program for this purpose under the Elder and Dependent Abuse FAQs."
+          },
+          {
+            "statement": "This program provides a secure address for your court papers, allowing you to keep your address confidential.",
+            "verdict": "yes",
+            "reason": "The context states that Safe at Home provides a secure address for court papers and other purposes to maintain confidentiality."
+          },
+          {
+            "statement": "You can file for a Civil Harassment Restraining Order at the Gordon D. Schaber Sacramento County Courthouse, 720 9th Street, Room 102.",
+            "verdict": "yes",
+            "reason": "The context specifies that Civil Harassment Restraining Orders are filed at the Gordon D. Schaber Courthouse, Room 102, 720 9th Street."
+          },
+          {
+            "statement": "You will need to complete the necessary forms and submit them in person or via the drop box.",
+            "verdict": "yes",
+            "reason": "The context confirms filing in person at the window or via the drop box for Civil Harassment Restraining Orders."
+          },
+          {
+            "statement": "If you need assistance, Civil Self-Help Services is available at the Hall of Justice.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Civil Self-Help Services is located in the Hall of Justice for assistance with forms."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies four types of restraining orders listed in the document: Civil Harassment, Gun Violence, Private Postsecondary School Violence, and Workplace Violence Restraining Orders. It is faithful to the document's content in this regard. However, it omits other types of restraining orders mentioned in the reference answer (e.g., Emergency Protective Order, Domesti",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "The Sacramento Superior Court offers several types of orders.",
+            "verdict": "yes",
+            "reason": "The context lists multiple types of orders including restraining orders and standing orders related to various legal matters."
+          },
+          {
+            "statement": "The Sacramento Superior Court offers Civil Harassment Restraining Orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 'Civil Harassment Restraining Order' under the Civil Court section."
+          },
+          {
+            "statement": "The Sacramento Superior Court offers Gun Violence Restraining Orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 'Gun Violence Restraining Order' under the Civil Court section."
+          },
+          {
+            "statement": "The Sacramento Superior Court offers Private Postsecondary School Violence Restraining Orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 'Private Postsecondary School Violence Restraining Order' under the Civil Court section."
+          },
+          {
+            "statement": "The Sacramento Superior Court offers Workplace Violence Restraining Orders.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 'Workplace Violence Restraining Order' under the Civil Court section."
+          },
+          {
+            "statement": "These orders are part of the Civil Court services.",
+            "verdict": "yes",
+            "reason": "The context categorizes all mentioned restraining orders under the 'Civil Court' section of the Sacramento Superior Court."
+          },
+          {
+            "statement": "There are orders related to criminal trials.",
+            "verdict": "yes",
+            "reason": "The context includes 'Order Regarding Criminal Trials Assignments' (SSC-22-4) in the Standing Orders section."
+          },
+          {
+            "statement": "There are orders related to firearm restrictions.",
+            "verdict": "yes",
+            "reason": "The context includes 'Order: Firearm Restrictions in Court Facilities' (SSC-22-5) in the Standing Orders section."
+          },
+          {
+            "statement": "There are orders related to other legal matters.",
+            "verdict": "yes",
+            "reason": "The context lists orders for classification changes, ADA judicial officers, and other administrative matters in the Standing Orders section."
+          },
+          {
+            "statement": "For specific details or to file an order, you should consult the court's resources or contact them directly.",
+            "verdict": "yes",
+            "reason": "The context provides contact information, online services, and forms, implying the need to consult court resources for filing orders."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=5/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.667 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the purpose of a civil harassment order (protecting against non-related individuals like neighbors or coworkers) and suggests consulting the Self-Help Center for forms and guidance. However, it omits critical procedural details from the reference answer and documents, such as the specific form (CV\\E-CH-01), the exact courthouse location (Room 102, Gordon",
+      "scores": {
+        "RB_llm": 5.0,
+        "RB_llm_norm": 0.5,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6666666666666666,
+        "conditioned_score": 0.6666666666666666,
+        "statements": [
+          {
+            "statement": "A civil harassment order is intended to protect individuals from non-relatives and non-partners, such as neighbors, coworkers, or distant relatives like aunts and uncles.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that civil harassment orders apply to people you are not in a relationship with and are not closely related to, such as neighbors, coworkers, or distant relatives like aunts and uncles."
+          },
+          {
+            "statement": "In Sacramento, individuals seeking a civil harassment order should go to their local court's Self-Help Center to obtain the necessary forms and understand the filing process.",
+            "verdict": "yes",
+            "reason": "The context mentions that courts' Self-Help Centers can help determine the correct restraining order type and provide guidance, though it does not specify Sacramento. However, the general recommendation to consult the local Self-Help Center is supported."
+          },
+          {
+            "statement": "It is important to provide accurate details about the harassment situation and adhere to the court's specific filing guidelines when applying for a civil harassment order.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need to provide accurate information and follow filing guidelines to avoid having to restart the process, which aligns with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=0.000, IDK=0.0, answerability=CONVERSATIONAL -> conditioned score 0.000 (threshold 0.80). RB_llm justification: The assistant's answer to the user's \"Thank you!\" is a polite and appropriate response that aligns with the reference answer. The assistant acknowledges the gratitude and invites further questions, which is consistent with the user's intent. The previous conversation focused on restraining orders and the Safe at Home program, and the current question does not require referencing the provided docum",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 0.0,
+        "idk": 0.0,
+        "answerability": "CONVERSATIONAL",
+        "phi": 0.0,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "You're welcome!",
+            "verdict": "no",
+            "reason": "The context does not explicitly state 'You're welcome!' or any equivalent phrase."
+          },
+          {
+            "statement": "If you have any more questions, feel free to ask.",
+            "verdict": "no",
+            "reason": "The context does not include a direct invitation to ask questions, though it does mention contact information for NASA Space Place."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 38019,
+    "completion_tokens": 13200,
+    "total_tokens": 51219,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 24,
+    "reasoning_tokens": 12207,
+    "reasoning_budget_verified_calls": 24
+  },
+  "elapsed_seconds": 539.418
+}

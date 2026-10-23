@@ -2,6 +2,7 @@
 
 import gzip
 import json
+import os
 import pathlib
 import shutil
 import subprocess
@@ -85,8 +86,8 @@ class ProgressiveTests(unittest.TestCase):
                     self.assertEqual(data['corpus']['planets']['documents'], [])
                     self.assertEqual(data['corpus']['planets']['document_count'], 35)
                     self.assertEqual(data['rows'][-1]['judges']['mtrag']['conditioned_score'], .95)
-                    self.assertLess(len(body), 120_000)
-                    self.assertLess(len(gzip.compress(body)), 30_000)
+                    self.assertLess(len(body), 125_000)
+                    self.assertLess(len(gzip.compress(body)), 35_000)
                     status, body = get('/api/conversation/pilot?id=other')
                     self.assertEqual(status, 200)
                     details = json.loads(body)['rows']
@@ -145,6 +146,7 @@ class ProgressiveTests(unittest.TestCase):
             AnnotationStore(base).patch('pilot', 'PS', {'other#2': {'notes': 'Earlier saved note'}}, {'other#2'})
             finished = threading.Event()
             corpus_gate = threading.Event()
+            profile_gate = threading.Event()
             outcomes = []
             with mock.patch.object(annotation, 'load_passage_archive', return_value=archive):
                 parent = make_handler(base)
@@ -156,12 +158,17 @@ class ProgressiveTests(unittest.TestCase):
                         if self.path == '/workflow':
                             self.respond(200, page)
                         else:
+                            if self.path == '/api/annotations/pilot/PS':
+                                profile_gate.wait(timeout=5)
                             if self.path.startswith('/api/corpus/'):
                                 corpus_gate.wait(timeout=5)
                             super().do_GET()
 
                     def do_POST(self):
-                        if self.path == '/test/unblock':
+                        if self.path == '/test/unblock-profile':
+                            profile_gate.set()
+                            self.respond_json(200, {'ok': True})
+                        elif self.path == '/test/unblock':
                             corpus_gate.set()
                             self.respond_json(200, {'ok': True})
                         elif self.path == '/test/result':
@@ -189,7 +196,65 @@ class ProgressiveTests(unittest.TestCase):
                     self.assertEqual(AnnotationStore(base).read('pilot', 'PS')['annotations']['other#1']['notes'],
                                      'Progressive autosave')
                 finally:
+                    profile_gate.set()
                     corpus_gate.set()
+                    process.terminate()
+                    try:
+                        process.communicate(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        process.kill()
+                        process.communicate()
+                    server.shutdown()
+                    server.server_close()
+                    thread.join(timeout=2)
+
+
+    def test_firefox_guided_desktop_and_mobile_layout(self):
+        from test_annotation import fixture
+        binary = pathlib.Path('/snap/firefox/current/usr/lib/firefox/firefox')
+        firefox = str(binary) if binary.is_file() else shutil.which('firefox')
+        if not firefox:
+            self.skipTest('Firefox is unavailable')
+        # A regular Firefox window has a 500px minimum; both desktop and mobile CSS paths are exercised.
+        for width in (1280, 500):
+            with self.subTest(width=width), tempfile.TemporaryDirectory(prefix='guided-layout-') as folder:
+                finished, outcomes = threading.Event(), []
+                page = annotation.render_page(fixture()).replace('</body>', LAYOUT_CHECKS + '</body>')
+
+                from http.server import BaseHTTPRequestHandler
+
+                class Handler(BaseHTTPRequestHandler):
+                    def do_GET(self):
+                        payload = page.encode()
+                        self.send_response(200)
+                        self.send_header('Content-Type', 'text/html; charset=utf-8')
+                        self.send_header('Content-Length', str(len(payload)))
+                        self.end_headers()
+                        self.wfile.write(payload)
+
+                    def do_POST(self):
+                        outcomes.append(json.loads(self.rfile.read(int(self.headers['Content-Length']))))
+                        self.send_response(200)
+                        self.end_headers()
+                        finished.set()
+
+                    def log_message(self, *args):
+                        pass
+
+                server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+                thread = threading.Thread(target=server.serve_forever, daemon=True)
+                thread.start()
+                profile = pathlib.Path(folder) / 'profile'
+                profile.mkdir()
+                process = subprocess.Popen([firefox, '--headless', '--no-remote', '--profile', str(profile),
+                    'http://127.0.0.1:%d/' % server.server_port],
+                    env=dict(os.environ, MOZ_HEADLESS_WIDTH=str(width), MOZ_HEADLESS_HEIGHT='1000'),
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                try:
+                    self.assertTrue(finished.wait(timeout=20), 'Browser did not report layout checks.')
+                    self.assertEqual(outcomes[0]['status'], 'pass', outcomes[0].get('error'))
+                    self.assertEqual(outcomes[0]['width'], width)
+                finally:
                     process.terminate()
                     try:
                         process.communicate(timeout=5)
@@ -208,11 +273,43 @@ PROGRESSIVE_CHECKS = r"""
   const assert=(ok,message)=>{if(!ok)throw Error(message);checks++;};
   const wait=async test=>{const start=Date.now();while(!test()){if(Date.now()-start>10000)throw Error('Timed out waiting for live data.');await new Promise(resolve=>setTimeout(resolve,25));}};
   try{
+    assert(document.querySelector('#question .question')&&document.querySelector('#answer .prose'),'Question and answer are visible while saved annotations are delayed');
+    assert(getProfile(currentAnnotator).loading&&document.getElementById('annotationPanel').inert,'Annotation controls stay locked until saved labels arrive');
+    assert(!document.querySelector('.queue').inert&&!document.querySelector('.workspace').inert,'Reading and conversation navigation remain available while the profile loads');
+    assert(document.getElementById('expJson').disabled&&document.getElementById('imp').disabled,'Exports and imports cannot overwrite or export an unloaded annotation profile');
+    openTurn('case#2');assert(activeKey==='case#2'&&document.getElementById('annotationPanel').inert,'Users can browse another turn before saved labels arrive');
+    cite(D.rows[1],'Question','question',D.rows[1].question,document.querySelector('#question .question'));
+    assert(!entry(D.rows[1]).evidence?.length,'Citation edits wait for the saved annotation profile');
+    openTurn('case#1');
+    await fetch('/test/unblock-profile',{method:'POST'});
     await annotationReady;
-    assert(corpusRequests.size===1,'Corpus request runs separately from the form');
+    assert(!document.getElementById('annotationPanel').inert&&!document.getElementById('expJson').disabled,'Editing and exports become available after loading saved labels');
+    const visible=node=>!!node&&node.getClientRects().length>0;
+    assert(document.querySelectorAll('input[name="humanLabel"]').length===3,'Correctness has correct, incorrect, and explicit uncertainty decisions');
+    assert(!visible(document.getElementById('failureChoices'))&&!visible(document.getElementById('reviewNotes')),'Fresh turns show only the correctness decision, without 16 competing labels');
+    document.querySelector('input[value="incorrect"]').click();await Promise.resolve();
+    assert(visible(document.querySelector('.stage-picker'))&&![...document.querySelectorAll('.failure-stage')].some(visible),'Incorrect reveals stage choices without choosing a stage automatically');
+    document.querySelector('[data-failure-stage="Generation"]').click();
+    assert(document.querySelector('.failure-stage:not([hidden])').dataset.stage==='Generation'&&[...document.querySelectorAll('.failure-choice-grid input')].filter(visible).length===8,'Only the chosen stage types are visible');
+    assert(document.querySelectorAll('.failure-stage[data-stage="Generation"] .failure-subheading').length===3,'Generation errors have three smaller groups');
+    document.querySelector('#chosenStage button').click();assert(visible(document.querySelector('.stage-picker')),'Reviewer can reopen the compact stage picker');
+    document.querySelector('[data-failure-stage="Retrieval"]').click();
+    assert([...document.querySelectorAll('.failure-choice-grid input')].filter(visible).length===3&&!getFailureTypes(entry(D.rows[0])).length,'Browsing stages does not assign any failure');
+    assert(document.getElementById('stageEvidence').textContent.includes('ก่อน rerank')&&document.getElementById('stageEvidence').textContent.includes('ไม่ได้'),'Stage guide explains required original traces');
+    delete A['case#1'];failureStageViews.delete(stageViewKey(D.rows[0]));save();queue();renderReview();await Promise.resolve();
+    assert(JSON.stringify(D.failure_types)===JSON.stringify(Array.from({length:16},(_,i)=>'E'+(i+1))),'Paper codes E1 through E16 appear exactly once in order');
+    assert(document.querySelectorAll('.failure-stage').length===4&&document.querySelectorAll('.failure-choice-grid input').length===16,'All 16 errors are grouped into four pipeline stages');
+    assert(JSON.stringify([...document.querySelectorAll('.failure-stage')].map(s=>s.querySelectorAll('input').length))==='[3,3,2,8]','Stage boundaries follow the paper');
+    for(const code of D.failure_types){document.querySelector('[data-failure-type="'+code+'"]').click();assert(document.getElementById('failureGuide').textContent.includes(guides[code].check),'Evidence guide for '+code);document.getElementById('clearFailureChoices').click();}
+    assert(document.getElementById('failureGuideContent').children.length===16&&document.getElementById('failureGuidelines').textContent.includes('ขั้นตอนแรก'),'Guideline covers all errors and the paper protocol');
+
+    const unopened=document.querySelector('.queue-group[data-id="other"]');
+    assert(!unopened.open&&unopened.querySelectorAll('.queue-item').length===0,'Collapsed conversations do not build hidden turn cards during startup');
+    assert(corpusRequests.has(JSON.stringify(['case#1',''])),'Corpus request runs separately from the form and starts before profile loading finishes');
     const sidebar=document.querySelector('.queue'),queueList=document.getElementById('queue');
-    assert(queueList.clientHeight>sidebar.clientHeight*.45,'Compact sidebar leaves most of its height for scrolling conversations and turns');
+    assert(queueList.clientHeight>sidebar.clientHeight*.45,'Compact sidebar leaves most of its height for scrolling conversations and turns: '+queueList.clientHeight+'/'+sidebar.clientHeight);
     const firstGroup=queueList.querySelector('.queue-group[data-id="case"]');
+    assert(firstGroup.querySelectorAll('.queue-item').length===3,'Expanded conversation has all of its turn cards');
     assert(firstGroup.querySelector('.conversation-name').textContent.includes('Venus')&&firstGroup.querySelector('.case-id').textContent==='case','Readable first-question name appears with the original conversation ID');
     const laterQuestion=D.rows[2].question;D.rows[2].question='A follow-up without the original topic';
     document.getElementById('search').value=conversationInfo('case').name;applyFilters();
@@ -292,7 +389,7 @@ PROGRESSIVE_CHECKS = r"""
     assert(document.querySelectorAll('#evidence-corpus .passage').length===1,'Live corpus search shows only its matches');
     assert(document.querySelector('#evidence-corpus .passage').textContent.includes('doc-17'),'Live search keeps document provenance');
     document.querySelector('input[value="incorrect"]').click();await Promise.resolve();
-    document.querySelector('[data-failure-type="grounding"]').click();
+    document.querySelector('[data-failure-type="E10"]').click();
     const notes=document.getElementById('notes');notes.value='Progressive autosave';notes.dispatchEvent(new Event('input'));
     await flushProfile('PS');
     const saved=await (await fetch('/api/annotations/pilot/PS')).json();
@@ -305,7 +402,7 @@ PROGRESSIVE_CHECKS = r"""
     await switchAnnotator('PS');assert(A['other#1'].notes==='Progressive autosave','Saved reviewer data survives switching');
     assert(judge().open,'Original reviewer keeps their own disclosure choice');
     const later=D.rows.find(r=>r.key==='case#2');later.judges.mtrag={...later.judges.mtrag,conditioned_score:.3,label:'incorrect'};
-    A['case#1']={review_complete:true};A['case#2']={human_label:'incorrect',failure_types:['retrieval'],review_complete:true};save();queue();
+    A['case#1']={review_complete:true};A['case#2']={human_label:'incorrect',failure_types:['E4'],review_complete:true};save();queue();
     assert(document.getElementById('labelProgress').textContent==='0 / 1','Review-only first failure and a labelled later failure do not count as a labelled conversation');
     assert(document.querySelector('.queue-item[data-key="case#2"]').dataset.reviewed==='true','A non-first incorrect turn has its own reviewed checkmark');
     assert(document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='false','Conversation stays incomplete until its first incorrect turn is labelled');
@@ -313,18 +410,18 @@ PROGRESSIVE_CHECKS = r"""
     openTurn('case#2');document.getElementById('reviewComplete').click();
     assert(!reviewed(later)&&annotationComplete(later),'Review status can be cleared independently of a complete failure annotation');
     A['case#1']={review_complete:false};openTurn('case#1');
-    document.querySelector('[data-failure-type="grounding"]').click();
+    document.querySelector('[data-failure-type="E10"]').click();
     assert(document.getElementById('labelProgress').textContent==='1 / 1'&&document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'One checked failure cause on the first incorrect turn is enough for the label and conversation mark');
     assert(!A['case#1'].human_label&&!reviewed(D.rows[0]),'Checkbox-only labelling requires neither a correctness decision nor a reviewed mark');
-    document.querySelector('[data-failure-type="retrieval"]').click();
+    document.querySelector('[data-failure-type="E4"]').click();
     assert(document.getElementById('labelProgress').textContent==='1 / 1','Multiple checked causes still count the conversation once');
-    document.querySelector('[data-failure-type="grounding"]').click();document.querySelector('[data-failure-type="retrieval"]').click();
+    document.querySelector('[data-failure-type="E10"]').click();document.querySelector('[data-failure-type="E4"]').click();
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Removing the last checked failure choice removes its count and mark');
     document.querySelector('[data-failure-type="insufficient_evidence"]').click();
     assert(document.getElementById('labelProgress').textContent==='1 / 1','Checked alternative outcomes also count as failure choices');
     document.querySelector('input[value="correct"]').click();
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Correct alone and its automatic Not a failure value do not count as a checked failure choice');
-    A['case#1']={human_label:'incorrect',failure_types:['grounding']};save();queue();
+    A['case#1']={human_label:'incorrect',failure_types:['E10']};save();queue();
     assert(document.getElementById('labelProgress').textContent==='1 / 1','First incorrect turn counts its conversation once');
     assert(document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='true'&&document.querySelector('.queue-item[data-key="case#1"]').dataset.labelled==='true','Completed first failure marks the conversation and target as labelled');
     const completedStatus=document.querySelector('.queue-item[data-key="case#1"] .turn-status');
@@ -374,8 +471,97 @@ PROGRESSIVE_CHECKS = r"""
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&document.querySelector('.queue-group[data-id="case"]').dataset.labelled==='false','Clearing the first failure cause removes conversation completion');
     assert(!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Clearing the first-failure annotation also removes its ID completion mark');
     assert(document.querySelector('.queue-item[data-key="case#1"] .turn-status').textContent.includes('Incorrect'),'Clearing the final failure choice preserves the original judge verdict on its card');
+    // Historical labels stay separate from the new scientific categories.
+    const oldRecords=[{id:'case',turn:1,annotator:'WN',human_label:'incorrect',failure_type:'grounding',notes:'Original label',evidence:[{source:'RAG answer',locator:'answer',quote:'Venus'}]},
+      {id:'case',turn:2,annotator:'WN',human_label:'incorrect',failure_types:['retrieval','response_coverage'],review_complete:false},
+      {id:'case',turn:3,annotator:'WN',failure_type:'chunking'}];
+    await document.getElementById('imp').onchange({target:{files:[new File([JSON.stringify(oldRecords)],'older-labels.json')],value:''}});
+    await flushProfile('WN');profiles.delete('WN');await switchAnnotator('WN');openTurn('case#1');await Promise.resolve();
+    assert(JSON.stringify(A['case#1'].legacy_failure_types)==='["grounding"]'&&!A['case#1'].failure_types.length,'Old single category survives import and server reload without a guessed conversion');
+    assert(JSON.stringify(A['case#2'].legacy_failure_types)==='["retrieval","response_coverage"]'&&!A['case#2'].failure_types.length,'Old multi-category arrays survive intact');
+    assert(A['case#1'].notes==='Original label'&&A['case#1'].evidence[0].quote==='Venus','Taxonomy migration preserves notes and citations');
+    assert(reviewed(D.rows[0])&&!reviewed(D.rows[1]),'Historical completed reviews and explicit unreviewed flags remain independent');
+    assert(document.getElementById('labelProgress').textContent==='0 / 1'&&document.querySelector('.legacy-failures').textContent.includes('Grounding'),'Legacy history is visible and does not count as a new-taxonomy label');
+    document.querySelector('[data-failure-type="E13"]').click();await flushProfile('WN');profiles.delete('WN');await switchAnnotator('WN');
+    assert(document.querySelector('[data-failure-type="E13"]').checked&&A['case#1'].legacy_failure_types[0]==='grounding','New paper label and earlier history save together');
+    assert(document.getElementById('labelProgress').textContent==='1 / 1','One new failure checkbox completes the first-incorrect label');
+    let exported;download=(name,text,type)=>exported={name,text,type};document.getElementById('expJson').click();
+    const exportedRows=JSON.parse(exported.text),first=exportedRows.find(r=>r.turn===1);
+    assert(first.failure_taxonomy==='ragec-e1-e16-2026'&&first.failure_type==='E13'&&JSON.stringify(first.failure_types)==='["E13"]'&&first.legacy_failure_types[0]==='grounding','JSON identifies the taxonomy and preserves current plus historical labels');
+    document.getElementById('expCsv').click();assert(exported.text.includes('legacy_failure_types')&&exported.text.includes('ragec-e1-e16-2026')&&exported.text.includes('""grounding""')&&exported.text.includes('""E13""'),'CSV preserves taxonomy, current labels, and old labels');
+    await document.getElementById('imp').onchange({target:{files:[new File([JSON.stringify(exportedRows)],'new-taxonomy.json')],value:''}});
+    assert(A['case#1'].failure_type==='E13'&&A['case#1'].legacy_failure_types[0]==='grounding','New JSON import preserves both label vocabularies');
+    assert(!getProfile('PS').annotations['case#1'].legacy_failure_types?.length,'Legacy import remains isolated by reviewer');
+    await switchAnnotator('PS');
+    // Guided completion preserves old multi-stage work until the reviewer resolves it.
+    await switchAnnotator('KH');
+    A['case#2']={human_label:'incorrect',failure_types:['E4','E13'],notes:'Keep these notes',review_complete:false};openTurn('case#2');await Promise.resolve();
+    assert(document.querySelectorAll('.cause-chip').length===2&&finishProblem(D.rows[1]),'Earlier cross-stage selections stay visible and need an explicit decision');
+    document.querySelector('[data-failure-stage="Chunking"]').click();
+    assert(JSON.stringify(getFailureTypes(A['case#2']))==='["E4","E13"]','Changing the stage view never silently clears existing labels');
+    await finishAndNext(D.rows[1]);assert(activeKey==='case#2'&&A['case#2'].review_complete===false,'Save and next does not complete unresolved cross-stage labels');
+    document.querySelector('.cause-chip[aria-label="Remove E4"]').click();
+    assert(!finishProblem(D.rows[1])&&A['case#2'].notes==='Keep these notes','Removing a conflicting selection preserves explanation and permits completion');
+    failureStageViews.delete(stageViewKey(D.rows[1]));refreshFailureChoices(D.rows[1]);
+    const example=document.querySelector('[data-help-type="E13"]');assert(!example.hidden&&example.textContent.includes('Compare:'),'Selected failure shows comparison notes inline');
+    openGuideline('failure');assert(document.getElementById('failureGuidelines').textContent.includes(D.failure_annotation_aids.E13.example),'Detailed examples are available in the top-left guideline');document.getElementById('failureGuidelines').close();
+    // Reset only this fixture profile to test completion and navigation deterministically.
+    A['case#1']={};A['case#2']={review_complete:true};A['case#3']={review_complete:true};A['other#1']={};A['other#2']={review_complete:true};openTurn('case#1');await Promise.resolve();
+    await finishAndNext(D.rows[0]);assert(activeKey==='case#1'&&!reviewed(D.rows[0]),'An empty decision cannot be completed accidentally');
+    document.querySelector('input[value="uncertain"]').click();await Promise.resolve();
+    assert(A['case#1'].human_label==='uncertain'&&JSON.stringify(getFailureTypes(A['case#1']))==='["insufficient_evidence"]'&&visible(document.getElementById('failureChoices')),'Optional uncertain review preserves its value without hiding failure annotation');
+    document.getElementById('notes').value='Missing evidence to decide';document.getElementById('notes').dispatchEvent(new Event('input'));
+    await finishAndNext(D.rows[0]);assert(activeKey==='other#1','Save and next goes to the next unreviewed turn, skipping completed turns');
+    const completed=await (await fetch('/api/annotations/pilot/KH')).json();
+    assert(completed.annotations['case#1'].human_label==='uncertain'&&completed.annotations['case#1'].review_complete===true,'Server saves uncertain decisions with explicit review completion');
+    profiles.delete('KH');await switchAnnotator('KH');openTurn('case#1');await Promise.resolve();
+    assert(document.querySelector('input[value="uncertain"]').checked&&A['case#1'].notes==='Missing evidence to decide','Uncertain decision and notes survive server reload');
+    const unknownExport=rowsOut();await document.getElementById('imp').onchange({target:{files:[new File([JSON.stringify(unknownExport)],'uncertain.json')],value:''}});
+    assert(A['case#1'].human_label==='uncertain','JSON roundtrip preserves uncertainty without changing it to incorrect');
+    openTurn('other#1');document.querySelector('input[value="correct"]').click();await Promise.resolve();
+    assert(visible(document.getElementById('failureChoices'))&&JSON.stringify(getFailureTypes(A['other#1']))==='["not_a_failure"]','Optional Correct review keeps failure annotation available');
+    await finishAndNext(D.rows.find(r=>r.key==='other#1'));assert(activeKey==='other#1'&&reviewed(D.rows.find(r=>r.key==='other#1')),'Final save completes the last turn without wrapping to a reviewed turn');
+    // Offline failure keeps the saved draft and current turn visible for retry.
+    A['other#1']={human_label:'incorrect',failure_types:['E13'],review_complete:false};renderReview();await Promise.resolve();
+    const workingFetch=window.fetch;window.fetch=(url,options)=>String(url)===D.annotation_api+'/KH'&&options?.method==='POST'?Promise.resolve(new Response(JSON.stringify({error:'Fixture offline'}),{status:503,headers:{'Content-Type':'application/json'}})):workingFetch(url,options);
+    await finishAndNext(D.rows.find(r=>r.key==='other#1'));
+    assert(activeKey==='other#1'&&!getProfile('KH').connected&&getProfile('KH').dirty.has('other#1'),'Failed server save retains the turn and retryable local draft');
+    assert(JSON.parse(localStorage.getItem(profileKey('KH')))['other#1'].failure_types[0]==='E13','Offline draft retains the selected failure');
+    window.fetch=workingFetch;await flushProfile('KH');assert(getProfile('KH').connected&&!getProfile('KH').dirty.size,'Retry syncs the completed local review');
+    await switchAnnotator('PS');assert(A['other#1'].notes==='Progressive autosave','Guided workflow keeps other annotators independent');
     await fetch('/test/result',{method:'POST',body:JSON.stringify({status:'pass',checks})});
   }catch(error){await fetch('/test/result',{method:'POST',body:JSON.stringify({status:'fail',checks,error:error.message+'\n'+error.stack})});}
+})();
+</script>
+"""
+
+
+LAYOUT_CHECKS = r"""
+<script>
+(async()=>{
+  const assert=(ok,message)=>{if(!ok)throw Error(message);};
+  const frames=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  try{
+    await annotationReady;openTurn('case#2');await Promise.resolve();
+    document.querySelector('input[value="incorrect"]').click();await Promise.resolve();
+    document.querySelector('[data-failure-stage="Generation"]').click();await frames();
+    const panel=document.getElementById('annotationPanel'),finish=document.getElementById('finishReview');
+    assert(document.documentElement.scrollWidth<=window.innerWidth+1,'The page fits the viewport without horizontal overflow');
+    assert(panel.getBoundingClientRect().width<=window.innerWidth,'The annotation panel fits on screen');
+    assert(document.querySelectorAll('.failure-stage:not([hidden])').length===1,'Only the chosen failure stage is exposed');
+    assert(document.getElementById('stageFilter').hidden,'Chosen stage filter collapses to a compact summary');
+    if(window.innerWidth>950){
+      assert(finish.getBoundingClientRect().bottom<=window.innerHeight-8,'Save and next stays inside the visible desktop viewport');
+      assert(getComputedStyle(panel).position==='sticky','Desktop annotation stays beside the evidence');
+    }else{
+      panel.scrollIntoView();await frames();
+      assert(panel.getBoundingClientRect().top>=-1&&panel.getBoundingClientRect().top<40,'Mobile can scroll directly to the annotation form');
+      assert(getComputedStyle(panel).position==='static','Mobile form scrolls with the page');
+    }
+    document.querySelector('[data-failure-type="E13"]').click();await frames();
+    const guide=document.querySelector('[data-help-type="E13"]');assert(!guide.hidden&&guide.textContent.includes('Compare:')&&!document.querySelector('dialog[open]'),'Failure selection shows comparison notes without opening a popup');
+    await fetch('/result',{method:'POST',body:JSON.stringify({status:'pass',width:window.innerWidth})});
+  }catch(error){await fetch('/result',{method:'POST',body:JSON.stringify({status:'fail',error:error.message+'\n'+error.stack})});}
 })();
 </script>
 """

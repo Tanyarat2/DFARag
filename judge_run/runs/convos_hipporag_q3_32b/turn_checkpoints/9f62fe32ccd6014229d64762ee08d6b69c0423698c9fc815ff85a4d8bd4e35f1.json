@@ -1,0 +1,460 @@
+{
+  "version": 1,
+  "fingerprint": "9f62fe32ccd6014229d64762ee08d6b69c0423698c9fc815ff85a4d8bd4e35f1",
+  "id": "f0d2873b877409f61da7dbdddd22d279",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly confirms that the user can visit the law library for legal research and mentions its role in providing access to legal materials. It also references online broadcasts of oral arguments, which is present in the document. However, it omits key details from the reference answer and document, such as **Form APP-001**, **self-help guides**, **resources on reserve**, **l",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "You can visit the law library to conduct legal research for your oral argument.",
+            "verdict": "yes",
+            "reason": "The context mentions law libraries as resources for legal research and provides specific examples with addresses and contact information."
+          },
+          {
+            "statement": "Law libraries are critical community resources for legal research, including local, state, federal, and international law.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the LA Law Library is a critical community resource for these types of law research."
+          },
+          {
+            "statement": "Law libraries provide access to legal materials.",
+            "verdict": "yes",
+            "reason": "The context lists law libraries and their services, such as legal research through LexisNexis, implying access to legal materials."
+          },
+          {
+            "statement": "Some courts broadcast oral arguments online, allowing remote viewing.",
+            "verdict": "yes",
+            "reason": "The context mentions that some courts broadcast oral arguments online and provides a link to California Courts for live-streaming."
+          },
+          {
+            "statement": "For specific law library locations and details, refer to the provided information.",
+            "verdict": "yes",
+            "reason": "The context includes a list of law libraries with addresses, phone numbers, websites, and other details."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer is mostly faithful to the documents and addresses the key steps for hiring a lawyer, such as using the State Bar of California's resources, legal databases, and asking critical questions during interviews. It aligns with the reference answer in emphasizing experience, fees, and understanding agreements. However, it omits specific resources like the California Courts website ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "To hire a lawyer in California, you can find one through the State Bar of California's consumer education pamphlets, such as \"How Can I Find and Hire the Right Lawyer?\".",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the State Bar of California provides consumer education pamphlets, including the title \"How Can I Find and Hire the Right Lawyer?\"."
+          },
+          {
+            "statement": "You can also use legal databases like [http://law.slu.edu/library] or [http://law.cornell.edu/].",
+            "verdict": "yes",
+            "reason": "The context lists [http://law.slu.edu/library] and [http://law.cornell.edu/] as legal databases for research."
+          },
+          {
+            "statement": "When interviewing a lawyer, ask about their experience.",
+            "verdict": "yes",
+            "reason": "The context states to ask lawyers about their experience in the field and whether they have handled similar cases."
+          },
+          {
+            "statement": "When interviewing a lawyer, ask about expected steps in your case.",
+            "verdict": "yes",
+            "reason": "The context advises asking lawyers about the steps involved in the case."
+          },
+          {
+            "statement": "When interviewing a lawyer, ask about possible outcomes.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions asking about possible outcomes of the case."
+          },
+          {
+            "statement": "When interviewing a lawyer, ask about fees.",
+            "verdict": "yes",
+            "reason": "The context includes questions about fees and how the lawyer charges for services."
+          },
+          {
+            "statement": "When interviewing a lawyer, ask how they charge.",
+            "verdict": "yes",
+            "reason": "The context provides specific questions about billing methods (hourly, fixed fee, contingency, etc.)."
+          },
+          {
+            "statement": "Ensure you understand the agreement and fees before signing.",
+            "verdict": "yes",
+            "reason": "The context emphasizes understanding the agreement and fees before signing it."
+          },
+          {
+            "statement": "If you are not comfortable with any terms, consider finding a new lawyer.",
+            "verdict": "yes",
+            "reason": "The context advises not signing an agreement if uncomfortable and suggests finding a new lawyer if disagreements arise."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer addresses the core elements of the grounds for lodging an appeal, such as the requirement to demonstrate a legal mistake that affected the final decision and the 30-day filing deadline. It correctly emphasizes that an appeal is not a retrial and that the appellate court reviews the trial court's application of law. However, it omits key details from the reference answer and ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The grounds for lodging an appeal involve demonstrating a legal mistake in the trial court that significantly affected the final decision.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that an appeal is based on whether a legal mistake was made in the trial court and whether this mistake changed the final decision."
+          },
+          {
+            "statement": "An appeal is not a retrial or a chance to present new evidence; it is a legal procedure for a higher court to review the trial court's decision.",
+            "verdict": "yes",
+            "reason": "The context clarifies that an appeal is not a new trial, does not involve presenting new evidence, and is a legal review of the trial court's decision."
+          },
+          {
+            "statement": "To file an appeal, you must show that the legal error changed the outcome of the case.",
+            "verdict": "yes",
+            "reason": "The context states that the appellate court only reverses a decision if the legal error was significant enough to change the outcome."
+          },
+          {
+            "statement": "The appeal must be filed within 30 days of the court's decision or the mailing of the judgment.",
+            "verdict": "yes",
+            "reason": "The context specifies that appeals must be filed within 30 days of the court's decision or the mailing of the judgment."
+          },
+          {
+            "statement": "The appellate court examines whether the trial court applied the correct law to the facts of the case.",
+            "verdict": "yes",
+            "reason": "The context explains that the appellate court reviews whether the trial court made a legal mistake, such as applying the wrong law to the facts."
+          },
+          {
+            "statement": "If a legal error is found, the appellate court may reverse the trial court's decision.",
+            "verdict": "yes",
+            "reason": "The context confirms that the appellate court can reverse the trial court's decision if a legal error is identified that affected the outcome."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=2/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.333 (threshold 0.80). RB_llm justification: The assistant's answer is not aligned with the user's question about legal expense responsibility in the context of an appeal. The reference answer clearly explains that the prevailing party in an appeal typically recovers costs from the opposing party, referencing the legal process (e.g., remittitur, memorandum of costs). The assistant's response, however, diverts to unrelated topics: VA travel r",
+      "scores": {
+        "RB_llm": 2.0,
+        "RB_llm_norm": 0.2,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.3333333333333333,
+        "conditioned_score": 0.3333333333333333,
+        "statements": [
+          {
+            "statement": "The responsibility for covering your expenses depends on the specific situation.",
+            "verdict": "yes",
+            "reason": "The context shows that interns must cover all expenses, while Veterans may be eligible for reimbursement under VA guidelines, indicating situation-dependent responsibility."
+          },
+          {
+            "statement": "If you are a Veteran traveling for care, you may be eligible for reimbursement for certain expenses, such as transportation, meals, and lodging, as outlined by the VA.",
+            "verdict": "yes",
+            "reason": "The VA section explicitly outlines reimbursement eligibility for transportation, meals, and lodging for Veterans under specific conditions."
+          },
+          {
+            "statement": "Applicants are responsible for paying all individual expenses associated with relocation, travel, and room and board in some contexts, such as internships.",
+            "verdict": "yes",
+            "reason": "The MBNMS internship section states that applicants must cover all relocation, travel, and room and board expenses."
+          },
+          {
+            "statement": "For precise details, it is recommended to consult the relevant guidelines or contact the appropriate authority.",
+            "verdict": "yes",
+            "reason": "The context provides detailed guidelines for both internships and VA travel reimbursement, supporting the recommendation to consult them for specifics."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is largely faithful to the documents and addresses the key procedures for a child support case in California. It correctly outlines steps such as establishing parentage via a Voluntary Declaration of Parentage (VDOP) or court determination, the role of the Local Child Support Agency (LCSA), and the use of forms like the Request for Order (FL-300). It also mentions the import",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "The procedures for a child support case in California involve several steps.",
+            "verdict": "yes",
+            "reason": "The context outlines multiple steps such as filing forms, court involvement, and LCSA participation."
+          },
+          {
+            "statement": "To establish child support, you can sign a Voluntary Declaration of Parentage (VDOP) form.",
+            "verdict": "yes",
+            "reason": "The context states that signing a VDOP establishes legal parentage, which is a prerequisite for child support."
+          },
+          {
+            "statement": "To establish child support, you can ask the court to determine parentage.",
+            "verdict": "yes",
+            "reason": "The context explains that a judge can determine parentage through a court case, which is necessary for child support."
+          },
+          {
+            "statement": "If the Local Child Support Agency (LCSA) is involved, they will help ensure the child receives support.",
+            "verdict": "yes",
+            "reason": "The LCSA's role is explicitly mentioned as ensuring children receive adequate support."
+          },
+          {
+            "statement": "To request a child support order or modification, you may need to file a Request for Order (form FL-300) or other relevant forms.",
+            "verdict": "yes",
+            "reason": "The context specifies that Form FL-300 is used to request child support orders or modifications."
+          },
+          {
+            "statement": "If you do not respond to the papers, a judge may make a child support order without your input.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that failing to respond may result in a judge making an order without your input."
+          },
+          {
+            "statement": "The LCSA may also assist in collecting support payments.",
+            "verdict": "yes",
+            "reason": "The LCSA is described as being in charge of collecting child support payments."
+          },
+          {
+            "statement": "For more details, consult the Family Law Facilitator in your county.",
+            "verdict": "yes",
+            "reason": "The context recommends contacting the Family Law Facilitator for assistance with child support cases."
+          },
+          {
+            "statement": "For more details, contact the LCSA.",
+            "verdict": "yes",
+            "reason": "The LCSA is presented as a resource for help with child support matters."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.667, IDK=0.0, answerability=PARTIAL -> conditioned score 0.727 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies that a jail sentence can be imposed for a child support conviction through the mechanism of contempt of court, as defined in the document. The document explicitly states that \"contempt\" includes willful failure to pay child support and that punishment can involve jail. The assistant accurately references this and connects it to the Department of Child Su",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "PARTIAL",
+        "phi": 0.7272727272727273,
+        "conditioned_score": 0.7272727272727273,
+        "statements": [
+          {
+            "statement": "Yes, a jail sentence can be given for a child support conviction.",
+            "verdict": "no",
+            "reason": "The context does not mention a 'conviction' for child support leading to jail. Instead, it refers to 'contempt of court' for willful non-payment, which can result in jail or fines. The term 'conviction' is not used in this context for child support cases."
+          },
+          {
+            "statement": "Contempt of court, which includes willfully failing to pay child support, can result in punishment such as a fine or jail.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that contempt of court includes willful failure to pay child support and that punishment can include fines or jail. This is directly supported."
+          },
+          {
+            "statement": "The Department of Child Support Services (DCSS) may file contempt charges against a parent who willfully fails to pay child support.",
+            "verdict": "yes",
+            "reason": "The context states that DCSS may file contempt charges against a parent who willfully fails to pay child support. This is directly supported."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, as it accurately reflects the procedures outlined for engaging the Department of Child Support Services (DCSS) and the Self-Help Center for enforcement support. The document explicitly mentions DCSS's enforcement tools (e.g., license suspension, tax intercepts, contempt charges) and the Self-Help Center's role, which the assistant correctly incor",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "To get enforcement support for a child support case, you can engage the services of the Department of Child Support Services (DCSS).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that DCSS is available to assist with enforcement of child support orders."
+          },
+          {
+            "statement": "The Department of Child Support Services (DCSS) can assist with enforcing child support orders through administrative actions.",
+            "verdict": "yes",
+            "reason": "The context mentions DCSS can issue administrative orders like suspending licenses and intercepting tax refunds."
+          },
+          {
+            "statement": "DCSS can suspend the other parent's driver license as part of enforcement actions.",
+            "verdict": "yes",
+            "reason": "The context explicitly states DCSS can suspend the other parent's driver license."
+          },
+          {
+            "statement": "DCSS can intercept tax refunds to enforce child support payments.",
+            "verdict": "yes",
+            "reason": "The context explicitly states DCSS can intercept tax refunds."
+          },
+          {
+            "statement": "DCSS can place liens on bank accounts to enforce child support obligations.",
+            "verdict": "yes",
+            "reason": "The context explicitly states DCSS can place liens on bank accounts."
+          },
+          {
+            "statement": "DCSS can file contempt charges for willful failure to pay child support.",
+            "verdict": "yes",
+            "reason": "The context explicitly states DCSS may file contempt charges for willful non-payment."
+          },
+          {
+            "statement": "You can contact the Department of Child Support Services (DCSS) directly for assistance.",
+            "verdict": "yes",
+            "reason": "The context provides a phone number and address for DCSS."
+          },
+          {
+            "statement": "You can visit the Self-Help Center at the William R. Ridgeway Family Relations Courthouse for help.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions visiting the Self-Help Center at that location."
+          },
+          {
+            "statement": "The Self-Help Center can assist with preparing necessary forms for enforcement procedures.",
+            "verdict": "yes",
+            "reason": "The context states the Self-Help Center can help prepare forms for enforcement."
+          },
+          {
+            "statement": "The Self-Help Center provides information on child support enforcement procedures.",
+            "verdict": "yes",
+            "reason": "The context explicitly states the Self-Help Center provides information on enforcement procedures."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies spousal support as a payment from a higher-earning to a lower-earning spouse and notes its association with divorce or legal separation. It also mentions procedural elements like financial disclosures and hearings, which align with the documents. However, it omits key details from the reference answer and documents, such as the specific role of **tempora",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Spousal support is a payment from a higher-earning spouse to a lower-earning spouse.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that spousal support is a payment made by a higher earning spouse to a lower earning spouse."
+          },
+          {
+            "statement": "Spousal support was previously known as 'alimony'.",
+            "verdict": "yes",
+            "reason": "The context directly mentions that spousal support (SS) used to be called 'alimony'."
+          },
+          {
+            "statement": "Spousal support can be temporary or long-term in duration.",
+            "verdict": "yes",
+            "reason": "The context distinguishes between temporary spousal support (pendente lite orders) and 'long-term' spousal support, explicitly noting that DISSOMASTER does not calculate the latter."
+          },
+          {
+            "statement": "Spousal support is typically determined during divorce or legal separation processes.",
+            "verdict": "yes",
+            "reason": "The context outlines divorce processes (e.g., financial disclosures, custody decisions) and legal separation as part of the framework for spousal support, including references to 'defaults' and 'finalizing divorce'."
+          },
+          {
+            "statement": "Procedures and eligibility criteria for spousal support are outlined in legal documents and court processes.",
+            "verdict": "yes",
+            "reason": "The context describes legal documents (e.g., financial disclosures, requests for orders) and court processes (e.g., hearings, trials) as part of determining spousal support."
+          },
+          {
+            "statement": "Legal processes for spousal support may involve financial disclosures, requests for orders, and hearings.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions financial disclosures, requests for orders (RFO), and hearings as part of the legal process for spousal support."
+          },
+          {
+            "statement": "Consulting legal resources or a legal professional is recommended for detailed information on spousal support.",
+            "verdict": "yes",
+            "reason": "The context includes a 'Self-Help Guide' and advises consulting a lawyer in specific scenarios (e.g., student debt), implying the need for legal resources."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 16384,
+    "max_requested_reasoning_tokens": 8192,
+    "prompt_tokens": 54509,
+    "completion_tokens": 19428,
+    "total_tokens": 73937,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 33,
+    "reasoning_tokens": 16579,
+    "reasoning_budget_verified_calls": 33
+  },
+  "elapsed_seconds": 608.651
+}

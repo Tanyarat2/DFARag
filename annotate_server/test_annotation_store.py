@@ -1,6 +1,7 @@
 """Persistence and HTTP checks; all test annotations stay in temporary folders."""
 
 import gzip
+import errno
 import json
 import pathlib
 import tempfile
@@ -29,6 +30,51 @@ def make_run(root, name='pilot'):
 
 
 class AnnotationStoreTests(unittest.TestCase):
+    def test_both_loopback_addresses_share_one_port_and_annotations(self):
+        with tempfile.TemporaryDirectory() as folder:
+            make_run(folder)
+            handler = make_handler(pathlib.Path(folder))
+            handler.log_message = lambda *args: None
+            servers = annotation_server.create_servers('localhost', 0, handler)
+            threads = [threading.Thread(target=server.serve_forever, daemon=True) for server in servers]
+            for thread in threads:
+                thread.start()
+            opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+            try:
+                port = servers[0].server_port
+                self.assertTrue(all(server.server_port == port for server in servers))
+                self.assertEqual(servers[0].server_address[0], '127.0.0.1')
+                request = urllib.request.Request('http://127.0.0.1:%d/api/annotations/pilot/PS' % port,
+                    data=json.dumps({'changes': {'case#1': {'notes': 'Shared loopback annotation'}}}).encode(),
+                    headers={'Content-Type': 'application/json'})
+                with opener.open(request, timeout=3) as response:
+                    self.assertTrue(json.load(response)['saved'])
+                for server in servers:
+                    host = '[::1]' if ':' in server.server_address[0] else '127.0.0.1'
+                    with opener.open('http://%s:%d/' % (host, port), timeout=3) as response:
+                        self.assertIn('pilot', response.read().decode())
+                    with opener.open('http://%s:%d/api/annotations/pilot/PS' % (host, port), timeout=3) as response:
+                        self.assertEqual(json.load(response)['annotations']['case#1']['notes'], 'Shared loopback annotation')
+            finally:
+                for server in servers:
+                    server.shutdown()
+                    server.server_close()
+                for thread in threads:
+                    thread.join(timeout=2)
+
+    def test_unsupported_ipv6_keeps_ipv4_and_port_conflict_closes_it(self):
+        for error, supported in [(errno.EAFNOSUPPORT, False), (errno.EADDRINUSE, True)]:
+            with self.subTest(error=error), mock.patch.object(annotation_server, 'ThreadingHTTPServer') as ipv4, \
+                    mock.patch.object(annotation_server, 'IPv6HTTPServer', side_effect=OSError(error, 'Fixture bind error')):
+                ipv4.return_value.server_port = 8765
+                if supported:
+                    with self.assertRaises(OSError):
+                        annotation_server.create_servers('localhost', 8765, object())
+                    ipv4.return_value.server_close.assert_called_once()
+                else:
+                    self.assertEqual(annotation_server.create_servers('localhost', 8765, object()), [ipv4.return_value])
+                    ipv4.return_value.server_close.assert_not_called()
+
     def test_independent_review_status_roundtrips_and_rejects_non_booleans(self):
         with tempfile.TemporaryDirectory() as folder:
             make_run(folder)
@@ -42,6 +88,21 @@ class AnnotationStoreTests(unittest.TestCase):
             for invalid in ('true', 1, None):
                 with self.assertRaises(ValueError):
                     store.patch('pilot', 'PS', {'case#1': {'review_complete': invalid}}, {'case#1'})
+            self.assertEqual(store.path('pilot', 'PS').read_bytes(), before)
+
+    def test_uncertain_correctness_saves_separately_from_incorrect(self):
+        with tempfile.TemporaryDirectory() as folder:
+            make_run(folder)
+            store = AnnotationStore(folder)
+            for owner, label in [('PS', 'uncertain'), ('KH', 'incorrect')]:
+                store.patch('pilot', owner, {'case#1': {
+                    'human_label': label, 'failure_types': ['insufficient_evidence'],
+                    'failure_type': 'insufficient_evidence', 'review_complete': True}}, {'case#1'})
+                self.assertEqual(AnnotationStore(folder).read('pilot', owner)
+                                 ['annotations']['case#1']['human_label'], label)
+            before = store.path('pilot', 'PS').read_bytes()
+            with self.assertRaises(ValueError):
+                store.patch('pilot', 'PS', {'case#1': {'human_label': 'maybe'}}, {'case#1'})
             self.assertEqual(store.path('pilot', 'PS').read_bytes(), before)
 
     def test_multiple_causes_and_legacy_single_cause_can_both_be_saved(self):
@@ -58,6 +119,30 @@ class AnnotationStoreTests(unittest.TestCase):
             self.assertEqual(data['case#1']['failure_types'], ['retrieval', 'grounding'])
             self.assertEqual(data['case#1']['failure_type'], '')
             self.assertEqual(store.read('pilot', 'KH')['annotations']['case#1']['failure_type'], 'grounding')
+
+    def test_paper_errors_roundtrip_with_legacy_history(self):
+        from failure_taxonomy import DEFINITIONS, TAXONOMY, TAXONOMY_VERSION
+        self.assertEqual(TAXONOMY, ['E%d' % n for n in range(1, 17)])
+        self.assertEqual([sum(d['stage'] == stage for d in DEFINITIONS.values())
+                          for stage in ('Chunking', 'Retrieval', 'Reranking', 'Generation')], [3, 3, 2, 8])
+        with tempfile.TemporaryDirectory() as folder:
+            make_run(folder)
+            store = AnnotationStore(folder)
+            for code in TAXONOMY:
+                entry = {'failure_types': [code], 'failure_type': code,
+                         'failure_taxonomy': TAXONOMY_VERSION,
+                         'legacy_failure_types': ['retrieval', 'grounding']}
+                store.patch('pilot', 'PS', {'case#1': entry}, {'case#1'})
+                self.assertEqual(AnnotationStore(folder).read('pilot', 'PS')['annotations']['case#1'], entry)
+            before = store.path('pilot', 'PS').read_bytes()
+            for invalid in ({'failure_types': ['E17']}, {'failure_types': ['E1', 'E1']},
+                            {'failure_types': ['E16', 'insufficient_evidence']},
+                            {'legacy_failure_types': ['E1']}, {'legacy_failure_types': 'grounding'},
+                            {'legacy_failure_types': ['grounding', 'grounding']},
+                            {'failure_taxonomy': 'unknown'}):
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    store.patch('pilot', 'PS', {'case#1': invalid}, {'case#1'})
+            self.assertEqual(store.path('pilot', 'PS').read_bytes(), before)
 
     def test_invalid_multiple_cause_records_do_not_overwrite_saved_work(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -176,7 +261,8 @@ class AnnotationStoreTests(unittest.TestCase):
                             {'turn': 1, 'label': 'correct', 'scores': {'conditioned_score': 0.95}}
                         ]}}]), encoding='utf-8')
                     refreshed = page('gzip')
-                    self.assertIn('"conditioned_score": 0.95', refreshed)
+                    payload = json.loads(refreshed.split('<script id="data" type="application/json">', 1)[1].split('</script>', 1)[0])
+                    self.assertEqual(payload['rows'][0]['judges']['mtrag']['conditioned_score'], .95)
                     self.assertNotEqual(refreshed, compressed)
                     self.assertEqual(build.call_count, 2)
                     records = json.loads((work / 'input.json').read_text())
@@ -224,7 +310,8 @@ class AnnotationStoreTests(unittest.TestCase):
                 self.assertEqual(request('/api/annotations/pilot/PS', {'changes': {}}, {'Origin': 'https://unrelated.example'})[0], 403)
                 self.assertEqual(request('/api/annotations/pilot/PS', {'changes': {}}, {'Content-Type': 'text/plain'})[0], 415)
                 page = urllib.request.urlopen(base + '/run/pilot', timeout=5).read().decode()
-                self.assertIn('"annotation_api": "/api/annotations/pilot"', page)
+                payload = json.loads(page.split('<script id="data" type="application/json">', 1)[1].split('</script>', 1)[0])
+                self.assertEqual(payload['annotation_api'], '/api/annotations/pilot')
                 self.assertNotIn('id="blind"', page)
                 self.assertNotIn('id="coverage"', page)
                 self.assertEqual(len(list((work / 'annotations').glob('*.json'))), 3)

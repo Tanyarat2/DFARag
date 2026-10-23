@@ -24,6 +24,12 @@ python3 -B annotate_server/annotation_server.py
 
 The server uses port **8765**. With VS Code Remote SSH, forward remote port 8765
 to local port 8765 and open <http://127.0.0.1:8765/>.
+By default the same server accepts both `127.0.0.1` and `::1` on that one port,
+so forwarding can use IPv4 or IPv6 loopback. Both addresses use the same saved
+annotations and run cache. It does not bind the LAN. `--host 127.0.0.1` selects
+only IPv4 explicitly. If a blank browser page never reaches the server log,
+check the VS Code Ports panel's Local Address and any local proxy/VPN settings;
+request logs are flushed immediately for diagnosis.
 
 The default run directory is `judge_run/runs`, resolved relative to the script,
 so it works from any working directory. To use another run directory:
@@ -39,15 +45,26 @@ No judge API key is needed. Restart the server after changing the Python or HTML
 UI files, then refresh the browser.
 
 The live page initially downloads the full turn list and the first conversation.
+It displays the conversation and starts corpus search immediately while saved
+reviewer annotations load in parallel. You can read, scroll and browse turns during
+that request. Annotation edits, citations, imports and exports wait for the saved
+profile to prevent overwriting work or exporting incomplete labels. The form
+unlocks when that request finishes; a connection failure falls back to the separate
+browser copy and shows a notification.
 Other conversations load when selected, including their answers, selected context,
 gold evidence, and full turn history. Corpus search runs on the server and returns
 up to 30 matching passages, so the annotation form is available while matches load.
 Repeated navigation reuses downloaded conversations and the existing sidebar.
+Collapsed conversations render only their header; turn cards are built when
+expanded. Expanding a conversation starts downloading its details in advance of
+selecting a turn. All counters and filters still use the complete run.
 
 The server compresses responses for browsers that support gzip and caches the last
-two runs. Changes to judge inputs, results, gold evidence, or conversation archives
-invalidate the cache on the next request. Human annotations load separately;
-autosave and exports include annotations for every turn, including unopened turns.
+four runs. Changes to judge inputs, results, gold evidence, or conversation archives
+invalidate the cache on the next request. When all required official corpus indexes
+are installed, building a run page skips the conversation-archive scan entirely.
+Human annotations load separately; autosave and exports include annotations for
+every turn, including unopened turns.
 Static HTML exports embed all conversations and a BM25 search snapshot of official
 corpus passages (top 10 per turn), or the recorded passage archive as a fallback.
 
@@ -237,21 +254,84 @@ existed in the original RAG's index or reached its retrieval candidate pool.
 optional. Check the original corpus version yourself. Loaded files stay in memory
 until reload; citations retain their source and document locator in exports.
 
-Choose **Correct** or **Incorrect** in the annotation panel. For an incorrect
-answer, click one or more failure-cause checkbox cards. Each card includes a short
-description; the selected count and **Clear choices** make the set easy to review.
-Selected causes have expandable evidence guides, with links to relevant panels
-and missing original traces. These guides
-do not automatically assign a failure. Original corpus scope, indexed chunks,
-and retrieval candidates are not provided by the current annotation data, so use
-**Insufficient evidence** when those traces are needed to establish the cause.
-**Outside taxonomy** and **Insufficient evidence** are alternative outcomes: choosing
-one replaces the cause selections, and choosing a cause replaces the alternative.
-Marking the answer Correct records Not a failure and clears the failure causes.
+The failure choices use the 16 errors from [Leung et al., *Classifying and
+Addressing the Diversity of Errors in Retrieval-Augmented Generation Systems*,
+EACL 2026](https://aclanthology.org/2026.eacl-long.147/):
+
+| Stage | Codes and names |
+| --- | --- |
+| Chunking | E1 Overchunking; E2 Underchunking; E3 Context Mismatch |
+| Retrieval | E4 Missed Retrieval; E5 Low Relevance; E6 Semantic Drift |
+| Reranking | E7 Low Recall; E8 Low Precision |
+| Generation | E9 Abstention Failure; E10 Fabricated Content; E11 Parametric Overreliance; E12 Incomplete Answer; E13 Misinterpretation; E14 Contextual Misalignment; E15 Chronological Inconsistency; E16 Numerical Error |
+
+Names, codes, stage groups, and project evidence guides share one definition in
+[`failure_taxonomy.py`](failure_taxonomy.py). The paper's human protocol selects
+the earliest faulty stage, then one or more types within that stage. The guided
+form follows that sequence. It retains older selections across stages as saved
+history; it never clears labels when merely browsing a different stage. The
+**Save and next** action asks the reviewer to resolve cross-stage choices before
+completing the guided review. Independent per-turn review checkmarks remain
+available. The extra outcomes below are separate from the 16 errors.
+
+Original pre-rerank candidates are absent from these exports. Selected context
+and a fresh corpus search cannot distinguish retrieval from reranking failures.
+E7/E8 require an actual reranker and its original trace. E9 means answering when
+abstention was needed, not an unnecessary refusal. E10 concerns invented content
+for an answerable query. Use the per-type evidence guide before selecting a cause.
+
+### Guided annotation
+
+The annotation panel uses Thai explanations with the paper's English names and
+stable E1–E16 codes. It starts with the correctness decision, rather than showing
+all 16 types at once:
+
+1. **คำตอบนี้ถูกต้องไหม?** Choose correct, incorrect, or insufficient evidence to
+   decide correctness. Correct bypasses failure diagnosis. The third choice saves
+   `human_label: "uncertain"` with `failure_types: ["insufficient_evidence"]`;
+   it is distinct from an incorrect answer whose root cause is unresolved.
+2. **ข้อผิดพลาดเริ่มที่ขั้นตอนไหน?** For an incorrect answer, choose a stage to
+   reveal only its types. The stage itself is a view, not a failure prediction or
+   saved root-cause label. Evidence requirements and missing original traces are
+   shown for that stage. Generation has three smaller groups. Each type shows a
+   short Thai label and its English name/code; examples and detailed checks are
+   collapsed until opened. **ยังระบุสาเหตุไม่ได้** saves Insufficient evidence,
+   while **ข้อผิดพลาดไม่อยู่ใน 16 ประเภท** expands the Outside taxonomy option.
+3. **เหตุผลและหลักฐาน** Write a short explanation and optionally attach exact
+   quotations using Cite selection. Gold-answer assessment remains optional and
+   collapsed unless an assessment is already saved. **บันทึกและไป turn ถัดไป**
+   marks the turn reviewed, waits for server save, and opens the next unreviewed
+   turn in the current filters. If no turn remains, it stays on the completed
+   turn. A failed server save keeps the current turn and a retryable browser copy.
+
+Changing the stage view never deletes existing selections, notes, or citations.
+Selected types appear as removable chips, including types outside the currently
+visible stage. Multiple choices within one stage are supported. Existing
+cross-stage records remain readable and exportable; the guided completion action
+asks the reviewer to retain the earliest stage supported by evidence. Clearing
+choices does not clear the explanation or evidence. Marking the answer correct
+records Not a failure and clears active failure causes, preserving older
+six-category history.
+
+The UI does not automatically assign a stage or error. Original corpus scope,
+indexed chunk boundaries, and retrieval candidates are not provided by the
+current annotation data, so use **Insufficient evidence** when those traces are
+needed to establish the cause. **Outside taxonomy** and **Insufficient evidence**
+are exclusive alternatives to the 16 error types. Uncertain correctness must be
+reported separately from binary correct/incorrect labels in agreement or accuracy
+calculations; it is never automatically converted to incorrect.
 
 All chosen values are stored in the canonical `failure_types` array. Earlier
-`failure_type` strings load as one-item lists. JSON includes the complete array;
-CSV stores it as a JSON-encoded cell. The legacy `failure_type` field contains a
+`failure_type` strings containing an E-code or extra outcome load as one-item
+lists. Historical six-category labels are preserved in `legacy_failure_types`,
+shown as earlier labels, and are never guessed into an E1–E16 category. Original
+saved files are not rewritten merely by loading them. Existing review marks,
+notes, gold checks, and citations are preserved. Old categories alone do not
+count toward the new taxonomy's **Failure labels** completion; select a new error
+or alternative outcome to label the first incorrect turn. JSON includes the complete array;
+CSV stores it as a JSON-encoded cell. Both formats also include
+`failure_taxonomy: "ragec-e1-e16-2026"` and the historical `legacy_failure_types`
+array (JSON-encoded in CSV). The legacy `failure_type` field contains a
 value only when exactly one choice is selected; it stays empty for multiple
 choices. No primary cause is inferred from selection order. Autosave, offline
 backup, annotator switching, and imports preserve the complete selection.

@@ -1,0 +1,306 @@
+{
+  "version": 1,
+  "fingerprint": "c781aac78ab935377019dd9a63b22b010a1bd6a2875f47063edb0671c95550ad",
+  "id": "8a19ee37ca7d97eaddbe2e19ca600556",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.500, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.643 (threshold 0.80). RB_llm justification: The assistant's answer correctly states the required bin size (3x3x3 feet) as specified in the Madison County document. It also appropriately explains the rationale (aeration and decomposition) based on the document's discussion of pile structure and aeration. The answer is concise, directly addresses the question, and includes relevant context from the document without adding unsupported informat",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.5,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.6428571428571428,
+        "conditioned_score": 0.6428571428571428,
+        "statements": [
+          {
+            "statement": "The bin for compost should be at least 3x3x3 feet in size, as recommended in the retrieved evidence.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a bin should be at least 3x3x3 feet in size for backyard composting."
+          },
+          {
+            "statement": "This size ensures adequate space for the composting process and helps maintain proper aeration and decomposition conditions.",
+            "verdict": "no",
+            "reason": "The context does not explicitly state that the 3x3x3 feet size directly ensures proper aeration and decomposition conditions, though it mentions general composting requirements like aeration and pile structure."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer is a concise and accurate summary of the composting steps, aligning with the key points from the document and previous conversation. It correctly emphasizes the 3x3x3 feet bin size, the 3:1 brown-to-green ratio, avoiding non-organic materials, layering, moisture control, and turning. These elements are directly supported by the Madison County document and the reference answe",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Select a bin that is at least 3x3x3 feet in size for composting at home.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'Make sure your bin is at least 3x3x3 feet in size.'"
+          },
+          {
+            "statement": "Ensure the compost bin allows for proper aeration to facilitate decomposition.",
+            "verdict": "yes",
+            "reason": "The context mentions drilling holes for oxygen exchange in closed bins, and the EPA resource emphasizes aeration methods like turning and adding bulking agents."
+          },
+          {
+            "statement": "Gather composting materials using a 3:1 ratio of browns (carbon-rich) to greens (nitrogen-rich).",
+            "verdict": "yes",
+            "reason": "The context states '3 parts brown to 1 part green is optimal.'"
+          },
+          {
+            "statement": "Avoid including non-organic items in your compost pile to maintain its quality.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists 'plastics or non organic matter' as materials to leave out."
+          },
+          {
+            "statement": "Layer browns and greens in the compost pile to maintain the correct carbon-to-nitrogen balance.",
+            "verdict": "yes",
+            "reason": "The context describes layering browns and greens and emphasizes the 3:1 ratio for balance."
+          },
+          {
+            "statement": "Keep the compost pile consistently moist to support microbial activity.",
+            "verdict": "yes",
+            "reason": "The context specifies maintaining 40-60% water content, and the EPA resource highlights moisture as critical for microbial activity."
+          },
+          {
+            "statement": "Turn the compost pile regularly to promote aeration and speed up decomposition.",
+            "verdict": "yes",
+            "reason": "The context states 'Turning helps a pile break down faster,' and the EPA resource explicitly mentions turning as an aeration method."
+          },
+          {
+            "statement": "Harvest compost when it emits an earthy smell and has a dark soil-like appearance.",
+            "verdict": "yes",
+            "reason": "The context defines completion as 'an earthy smell and looks like rich dark soil.'"
+          },
+          {
+            "statement": "The finished compost is ready for use when it reaches a uniform texture and color resembling soil.",
+            "verdict": "yes",
+            "reason": "The context describes finished compost as 'rich dark soil,' implying uniform texture and color."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.80). RB_llm justification: The assistant's answer correctly identifies the optimal temperature range for composting (131–160°F) and explains the consequences of temperatures outside this range. It aligns with the document's information on microbial activity and pathogen reduction. However, it omits key details from the reference answer and document, such as the **specific requirement for temperatures to remain above 131°F f",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The optimal temperature range for composting is 131 to 160 degrees Fahrenheit.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the optimal temperature range for composting is 131 to 160 degrees Fahrenheit, as this range promotes rapid decomposition and destroys pathogens and weed seeds."
+          },
+          {
+            "statement": "Temperatures within this range accelerate decomposition and eliminate harmful pathogens and weed seeds.",
+            "verdict": "yes",
+            "reason": "The context confirms that temperatures within 131 to 160°F promote rapid decomposition and destroy pathogens and weed seeds, directly supporting the statement."
+          },
+          {
+            "statement": "Exceeding the upper limit of 160°F can kill beneficial microorganisms, while temperatures below 131°F may result in incomplete decomposition and the presence of pathogens and weed seeds in the compost.",
+            "verdict": "yes",
+            "reason": "The context specifies that temperatures above 160°F kill beneficial microorganisms and below 131°F lead to slower decomposition and potential pathogen/seed survival, aligning with the statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.80). RB_llm justification: The assistant's answer is faithful to the document, which explicitly states that recyclables should not be bagged and must be kept loose in curbside bins. It correctly addresses the user's concern about rain by explaining that wet recyclables are acceptable and offers a practical solution (placing heavier bins on top of lighter ones to prevent items from blowing out). The answer is appropriate as ",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "You should not bag your recyclables.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'Do NOT put recyclables in a plastic bag. Keep recyclables loose in the recycling bins.'"
+          },
+          {
+            "statement": "Recyclables should be kept loose in curbside bins.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'recyclables should be kept loose in curbside bins and at the transfer station containers.'"
+          },
+          {
+            "statement": "Bagging recyclables is not recommended because it can cause issues with the recycling process.",
+            "verdict": "yes",
+            "reason": "The context implies that bagging recyclables is problematic by stating 'Do NOT put recyclables in a plastic bag' without explicitly mentioning the recycling process issues."
+          },
+          {
+            "statement": "If it rains, it is acceptable for recyclables to get wet.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'It is okay if your recyclables get wet from the rain.'"
+          },
+          {
+            "statement": "To prevent recyclables from blowing away, place heavier bins on top of lighter ones.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'we recommend placing your heavier plastic/metal/glass recycling bin on top of your paper/cardboard recycling bin to weigh everything down.'"
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.80). RB_llm justification: The assistant's answer effectively outlines the key differences between paper and container recycling bins by categorizing accepted and excluded items, aligning with the document's guidance. It correctly identifies that paper bins exclude items with metal, foil, or plastic, while container bins exclude plastic bags and partially filled containers. The mention of keeping recyclables loose (not bagg",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Paper bins accept items like newspaper, magazines, cardboard, paper bags, and paper products.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists these items under the 'Accepted Items in Your Paper Recycling Bin' section."
+          },
+          {
+            "statement": "Paper bins exclude items with foil, metal, or plastic.",
+            "verdict": "yes",
+            "reason": "The context states that items containing foil, metal, or plastic are not accepted in the paper bin."
+          },
+          {
+            "statement": "Container bins accept plastic bottles, glass jars, aluminum cans, and metal containers.",
+            "verdict": "yes",
+            "reason": "The context lists these items under the 'Accepted in Your Containers Recycling Bin' section."
+          },
+          {
+            "statement": "Container bins exclude plastic bags, partially filled containers, and certain plastics.",
+            "verdict": "yes",
+            "reason": "The context specifies these exclusions in the 'Not Accepted in Your Containers Recycling Bin' section."
+          },
+          {
+            "statement": "Paper bins should be kept separate from container bins.",
+            "verdict": "yes",
+            "reason": "The context describes a two-bin system where paper and containers are separated into distinct bins."
+          },
+          {
+            "statement": "Recyclables should be loose, not bagged.",
+            "verdict": "yes",
+            "reason": "The context explicitly instructs not to put recyclables in plastic bags and to keep them loose."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.833, IDK=0.5, answerability=ANSWERABLE -> conditioned score 0.865 (threshold 0.80). RB_llm justification: The assistant's answer is **faithful** to the document, accurately reflecting the key points about residential yard waste. It correctly identifies the use of green containers, the 300-pound weight limit, and the size restrictions (6 inches in diameter, 10 feet in length) for items placed in these containers. It also appropriately notes that oversized items must be taken to designated facilities, a",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.5,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8653846153846154,
+        "conditioned_score": 0.8653846153846154,
+        "statements": [
+          {
+            "statement": "Residential yard waste should be placed in green containers provided by the servicer.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that yard waste must be placed in green containers under curbside service."
+          },
+          {
+            "statement": "The green containers are designated specifically for yard waste.",
+            "verdict": "yes",
+            "reason": "The context specifies that green containers are used exclusively for yard waste, while black containers are for refuse and recyclables."
+          },
+          {
+            "statement": "The contents of the green containers should not exceed 300 pounds.",
+            "verdict": "yes",
+            "reason": "The context prohibits containers (including green ones) from exceeding 300 pounds."
+          },
+          {
+            "statement": "Items larger than 6 inches in diameter or 10 feet in length may need to be taken to designated transfer stations or specific facilities.",
+            "verdict": "no",
+            "reason": "The context allows residential yard waste up to 6 inches and 10 feet at transfer stations but does not explicitly address oversized items beyond these limits for residential disposal."
+          },
+          {
+            "statement": "The disposal of large yard waste items depends on local regulations.",
+            "verdict": "yes",
+            "reason": "The context outlines specific rules for residential and commercial yard waste, indicating local regulations govern disposal."
+          },
+          {
+            "statement": "Residents should consult their local waste management authority for precise guidelines on yard waste disposal.",
+            "verdict": "yes",
+            "reason": "The context provides detailed guidelines, but advising consultation with local authorities aligns with standard practices for ensuring compliance."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "max_requested_completion_tokens": 8192,
+    "max_requested_reasoning_tokens": 4096,
+    "prompt_tokens": 34670,
+    "completion_tokens": 13869,
+    "total_tokens": 48539,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 24,
+    "reasoning_tokens": 12422,
+    "reasoning_budget_verified_calls": 24
+  },
+  "elapsed_seconds": 988.397
+}

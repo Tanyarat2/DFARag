@@ -944,7 +944,7 @@ $('importLabel').onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDef
 ['fTodo','fFail'].forEach(id=>$(id).onchange=applyFilters);$('search').oninput=applyFilters;
 $('annotator').onchange=()=>switchAnnotator($('annotator').value);
 $('judgeGuideButton').onclick=()=>openGuideline('judge');$('failureGuideButton').onclick=()=>openGuideline('failure');
-$('title').textContent=D.run;$('crit').innerHTML=D.criteria_html;
+const conversationCount=D.total_records??new Set(D.rows.map(row=>row.id)).size;$('title').textContent=D.run+' · '+conversationCount+(conversationCount===1?' conversation':' conversations');$('crit').innerHTML=D.criteria_html;
 D.failure_types.forEach(type=>{const g=guides[type],section=el('section','guideline-entry');section.append(el('h3',null,g.stage+' · '+g.title),el('p',null,g.check));const aid=D.failure_annotation_aids[type];if(aid?.example)section.append(el('p','example','Example: '+aid.example));section.append(el('p','hint','Compare: '+comparisonSources(type).map(where=>comparisonLabels[where]).join(' | ')));const list=el('ul');g.need.forEach(text=>list.append(el('li',null,text)));section.append(list);if(g.missing)section.append(el('p','hint',g.missing));$('failureGuideContent').append(section);});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')profiles.forEach(state=>flushProfile(state.name));});
 function fitQueue(){document.querySelector('.queue').style.setProperty('--queue-offset',Math.ceil(document.querySelector('.layout').getBoundingClientRect().top+window.scrollY)+'px');observeQueueEdges();}

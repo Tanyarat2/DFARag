@@ -98,37 +98,60 @@ TAXONOMY = list(DEFINITIONS)
 
 # Plain-language annotation aids; examples illustrate labels, not predictions.
 ANNOTATION_AIDS = {
-    "E1": {"label": "แบ่ง chunk เล็กเกินไป", "example": "ชื่อระบบอยู่ chunk หนึ่ง แต่คำอธิบายถูกตัดไปอีก chunk จนตอบไม่ได้"},
-    "E2": {"label": "แบ่ง chunk ใหญ่เกินไป", "example": "รวมหลายหัวข้อใน chunk เดียว จนข้อมูลที่ไม่เกี่ยวข้องกลบข้อมูลที่ต้องใช้"},
-    "E3": {"label": "ตัดความหมายที่ต้องเชื่อมกัน", "example": "ชื่อประเทศอยู่ก่อนจุดตัด ส่วน chunk ถัดไปมีเพียงคำว่า ‘ประเทศนี้’"},
-    "E4": {"label": "ค้นไม่เจอหลักฐานที่มีอยู่", "example": "มี chunk ที่ตอบได้ใน index เดิม แต่ไม่อยู่ในรายการที่ retrieve มา"},
-    "E5": {"label": "ค้นได้ข้อมูลที่เกี่ยวเพียงกว้าง ๆ", "example": "ถามปีที่เผยแพร่รายงาน แต่ค้นได้แต่เนื้อหาทั่วไปในรายงาน"},
-    "E6": {"label": "คำตรงกัน แต่คนละความหมาย", "example": "คำค้นตรงกับเอกสาร แต่เนื้อหาไม่ตรงเจตนาหรือประเด็นที่ถาม"},
-    "E7": {"label": "reranker ตัดหลักฐานสำคัญออก", "example": "retrieve เจอคำตอบแล้ว แต่ถูกจัดอันดับต่ำจนไม่ถูกส่งให้โมเดล"},
-    "E8": {"label": "reranker เลือกข้อมูลที่ไม่เกี่ยว", "example": "chunk ที่ไม่ตอบคำถามได้อันดับสูงและถูกส่งไปใช้สร้างคำตอบ"},
-    "E9": {"label": "ควรงดตอบ แต่กลับตอบผิด", "example": "ไม่มีข้อมูลเงินระดมทุนใน corpus แต่ตอบยืนยันว่า ‘ไม่ได้ระดมทุน’"},
-    "E10": {"label": "แต่งข้อมูลที่ไม่มีหลักฐาน", "example": "คำถามมีคำตอบ แต่โมเดลเพิ่มประวัติโรคที่ไม่ปรากฏในหลักฐาน"},
-    "E11": {"label": "ใช้ความรู้ภายในแทนหลักฐาน", "example": "ใช้ข้อสมมติจากความรู้ทั่วไปมาตอบ ทั้งที่เอกสารไม่รองรับข้อสมมตินั้น"},
-    "E12": {"label": "ตอบถูกบางส่วน แต่ขาดสิ่งสำคัญ", "example": "ถามเหตุผลสองข้อ มีหลักฐานครบ แต่ตอบถูกมาเพียงข้อเดียว"},
-    "E13": {"label": "ตีความหลักฐานผิด", "example": "เอกสารกล่าวถึงคนสองคน แต่คำตอบนำข้อมูลของอีกคนมาปนกัน"},
-    "E14": {"label": "ข้อมูลจริง แต่ตอบไม่ตรงคำถาม", "example": "ถามว่าก่อเหตุอย่างไร แต่ตอบเฉพาะโทษจำคุกที่ได้รับ"},
-    "E15": {"label": "เวลา หรือลำดับเหตุการณ์ผิด", "example": "ตอบว่าเดือนธันวาคมเกิดก่อนเดือนตุลาคมในปีเดียวกัน"},
-    "E16": {"label": "ตัวเลข หน่วย หรือคำนวณผิด", "example": "หลักฐานระบุ 30 ล้านบาท แต่คำตอบรวมตัวเลขผิดเป็น 50 ล้านบาท"},
+    "E1": {"label": "Chunks are too small", "example": "A system name is in one chunk, but its explanation is cut into another."},
+    "E2": {"label": "Chunks are too large", "example": "One chunk mixes many topics, hiding the evidence needed to answer."},
+    "E3": {"label": "Chunk boundaries break a link", "example": "One chunk names a country; the next only says 'this country'."},
+    "E4": {"label": "Needed evidence was not retrieved", "example": "The original index has an answer, but the retrieved list does not include it."},
+    "E5": {"label": "Retrieved passages are not relevant enough", "example": "The question asks when a report was published, but the passages only discuss its contents."},
+    "E6": {"label": "Matching words have the wrong meaning", "example": "The search finds the same words, but they refer to a different topic."},
+    "E7": {"label": "Reranking removed needed evidence", "example": "Search found the answer, but its low rank kept it out of the final context."},
+    "E8": {"label": "Reranking kept irrelevant evidence", "example": "A passage that does not answer the question is ranked high and sent to the model."},
+    "E9": {"label": "Answered when it should not", "example": "The corpus has no funding details, but the answer claims the company raised no money."},
+    "E10": {"label": "Made up unsupported details", "example": "The question is answerable, but the answer adds a medical history absent from the evidence."},
+    "E11": {"label": "Used model knowledge instead of evidence", "example": "The answer uses a general assumption that the supplied documents do not support."},
+    "E12": {"label": "Left out an important part", "example": "The question asks for two reasons. Evidence gives both, but the answer gives only one."},
+    "E13": {"label": "Misread the evidence", "example": "The passage describes two people, but the answer mixes up their details."},
+    "E14": {"label": "True facts, but not an answer to the question", "example": "The question asks how a crime happened, but the answer only gives the prison sentence."},
+    "E15": {"label": "Got the time or event order wrong", "example": "The answer puts December before October in the same year."},
+    "E16": {"label": "Got numbers, units, or calculations wrong", "example": "The evidence says 30 million baht, but the answer adds the figures as 50 million."},
 }
 STAGE_GUIDES = {
-    "Chunking": {"label": "การแบ่งเอกสาร", "short": "ข้อมูลเสียความหมายตอนแบ่ง chunk",
-                 "evidence": "ดูเอกสารต้นฉบับและขอบเขต chunks ที่ index ไว้จริง",
-                 "missing": "ข้อมูลชุดนี้ไม่มีขอบเขต chunks เดิมครบ ต้องมีหลักฐานเพิ่มเพื่อยืนยัน"},
-    "Retrieval": {"label": "การค้นหา", "short": "ค้นไม่เจอ หรือค้นได้ข้อมูลไม่ตรง",
-                  "evidence": "ดู index เดิมและรายการ retrieve ก่อน rerank",
-                  "missing": "ข้อมูลชุดนี้ไม่มีรายการ retrieve ก่อน rerank การค้น corpus ตอนนี้ใช้แทน log เดิมไม่ได้"},
-    "Reranking": {"label": "การจัดอันดับ", "short": "เลือกหรือตัด candidates ผิดหลังค้นเจอ",
-                  "evidence": "เทียบรายการก่อน–หลัง rerank กับ Selected context",
-                  "missing": "ต้องมี reranker ในระบบนั้น และมี log ก่อน–หลัง rerank ซึ่งข้อมูลชุดนี้ไม่ได้แนบมา"},
-    "Generation": {"label": "การสร้างคำตอบ", "short": "หลักฐานกับคำตอบแสดงข้อผิดพลาดตอนตอบ",
-                   "evidence": "ดูคำถาม คำตอบ Selected context และประวัติสนทนาที่เกี่ยวข้อง",
-                   "missing": "เลือกเมื่อมีหลักฐานรองรับ ห้ามสรุปเป็น Generation เพียงเพราะไม่มี retrieval log"},
+    "Chunking": {"label": "Split documents", "short": "Evidence loses meaning when text is split",
+                 "evidence": "Check the original documents and the chunks stored in the index.",
+                 "missing": "These exports do not include all original chunk boundaries. More evidence is needed to confirm this stage."},
+    "Retrieval": {"label": "Find passages", "short": "Search misses or finds the wrong evidence",
+                  "evidence": "Check the original index and the retrieved list before reranking.",
+                  "missing": "The original retrieved list is not included here. A new corpus search cannot replace it."},
+    "Reranking": {"label": "Rank passages", "short": "Ranking drops useful passages or keeps wrong ones",
+                  "evidence": "Compare candidates before and after reranking with the final selected context.",
+                  "missing": "Only use this stage if the system has a reranker and its before-and-after logs are available."},
+    "Generation": {"label": "Write the answer", "short": "The answer uses the evidence incorrectly",
+                   "evidence": "Check the question, answer, selected context, and relevant conversation history.",
+                   "missing": "Choose this stage only when evidence supports it. Missing retrieval logs alone do not prove a generation error."},
 }
+
+
+# Short comparison notes for the annotation cards; paper definitions stay unchanged.
+COMPARISON_NOTES = {
+    "E1": "Check whether splitting a passage removed evidence needed to answer.",
+    "E2": "Check whether a large chunk mixes useful evidence with unrelated topics.",
+    "E3": "Check whether a chunk boundary separates a name or reference from its explanation.",
+    "E4": "Find the needed evidence in Gold or Corpus, then check whether the original search missed it.",
+    "E5": "Compare the question with the retrieved passages. Do they cover the exact information requested?",
+    "E6": "Check whether matching words refer to a different meaning or topic.",
+    "E7": "Check whether useful evidence was retrieved but removed before generation.",
+    "E8": "Check whether reranking kept irrelevant passages in the final context.",
+    "E9": "Check whether the corpus can answer the question. Should the model have said it could not answer?",
+    "E10": "Find a claim in the answer that the selected context and verified evidence do not support.",
+    "E11": "Check whether the answer replaces supplied evidence with outside knowledge. Do not guess the model’s reasoning.",
+    "E12": "Find a requested detail that is supported by selected context but missing from the answer.",
+    "E13": "Compare the answer’s claim with the selected passage. Check names, facts, and relationships.",
+    "E14": "Check whether the answer addresses the actual question, even if its facts are true.",
+    "E15": "Compare dates and the order of events in the answer with the evidence.",
+    "E16": "Compare numbers and units with the evidence, then check the calculation."
+}
+for _code, _note in COMPARISON_NOTES.items():
+    ANNOTATION_AIDS[_code]["compare_note"] = _note
 
 
 def taxonomy_data():

@@ -63,7 +63,7 @@ def available_runs(runs_dir):
         if not folder.is_dir() or not NAME_PATTERN.fullmatch(folder.name):
             continue
         input_exists = (folder / "input.json").is_file()
-        found = [name for name in JUDGES if (folder / ("out.%s.json" % name)).is_file()]
+        found = [name for name in JUDGES if any(path.is_file() for path in annotation.output_paths(folder, name))]
         if input_exists or found:
             rows.append({"name": folder.name, "has_input": input_exists, "judges": found})
     return rows
@@ -127,8 +127,8 @@ class RunPages:
     def get(self, work_dir):
         work_dir = pathlib.Path(work_dir).resolve()
         root = HERE.parent
-        sources = [work_dir / "input.json", work_dir / "out.mtrag.json",
-                   root / "judge_run" / "gold_support.json"]
+        sources = [work_dir / "input.json", root / "judge_run" / "gold_support.json"]
+        sources.extend(annotation.output_paths(work_dir, "mtrag"))
         sources.extend(sorted((root / "conversation").glob("*.json")))
         sources.extend(sorted(CORPUS_DIR.glob('*.sqlite3')))
         with self.lock:

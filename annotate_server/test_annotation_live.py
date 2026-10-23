@@ -500,16 +500,16 @@ PROGRESSIVE_CHECKS = r"""
     document.querySelector('[data-failure-stage="Chunking"]').click();
     assert(JSON.stringify(getFailureTypes(A['case#2']))==='["E4","E13"]','Changing the stage view never silently clears existing labels');
     await finishAndNext(D.rows[1]);assert(activeKey==='case#2'&&A['case#2'].review_complete===false,'Save and next does not complete unresolved cross-stage labels');
-    document.querySelector('.cause-chip[aria-label="นำ E4 ออก"]').click();
+    document.querySelector('.cause-chip[aria-label="Remove E4"]').click();
     assert(!finishProblem(D.rows[1])&&A['case#2'].notes==='Keep these notes','Removing a conflicting selection preserves explanation and permits completion');
     failureStageViews.delete(stageViewKey(D.rows[1]));refreshFailureChoices(D.rows[1]);
-    const example=document.querySelector('.failure-help');assert(!example.open&&example.textContent.includes(D.failure_annotation_aids.E13.example),'Examples and detailed guidance are optional collapsed help');
-    example.open=true;assert(example.open,'Reviewer can expand the failure example');
+    const example=document.querySelector('[data-help-type="E13"]');assert(!example.hidden&&example.textContent.includes('Compare:'),'Selected failure shows comparison notes inline');
+    openGuideline('failure');assert(document.getElementById('failureGuidelines').textContent.includes(D.failure_annotation_aids.E13.example),'Detailed examples are available in the top-left guideline');document.getElementById('failureGuidelines').close();
     // Reset only this fixture profile to test completion and navigation deterministically.
     A['case#1']={};A['case#2']={review_complete:true};A['case#3']={review_complete:true};A['other#1']={};A['other#2']={review_complete:true};openTurn('case#1');await Promise.resolve();
     await finishAndNext(D.rows[0]);assert(activeKey==='case#1'&&!reviewed(D.rows[0]),'An empty decision cannot be completed accidentally');
     document.querySelector('input[value="uncertain"]').click();await Promise.resolve();
-    assert(A['case#1'].human_label==='uncertain'&&JSON.stringify(getFailureTypes(A['case#1']))==='["insufficient_evidence"]'&&!visible(document.getElementById('failureChoices')),'Uncertain correctness remains distinct from incorrect with an unknown cause');
+    assert(A['case#1'].human_label==='uncertain'&&JSON.stringify(getFailureTypes(A['case#1']))==='["insufficient_evidence"]'&&visible(document.getElementById('failureChoices')),'Optional uncertain review preserves its value without hiding failure annotation');
     document.getElementById('notes').value='Missing evidence to decide';document.getElementById('notes').dispatchEvent(new Event('input'));
     await finishAndNext(D.rows[0]);assert(activeKey==='other#1','Save and next goes to the next unreviewed turn, skipping completed turns');
     const completed=await (await fetch('/api/annotations/pilot/KH')).json();
@@ -519,7 +519,7 @@ PROGRESSIVE_CHECKS = r"""
     const unknownExport=rowsOut();await document.getElementById('imp').onchange({target:{files:[new File([JSON.stringify(unknownExport)],'uncertain.json')],value:''}});
     assert(A['case#1'].human_label==='uncertain','JSON roundtrip preserves uncertainty without changing it to incorrect');
     openTurn('other#1');document.querySelector('input[value="correct"]').click();await Promise.resolve();
-    assert(!visible(document.getElementById('failureChoices'))&&JSON.stringify(getFailureTypes(A['other#1']))==='["not_a_failure"]','Correct answers bypass failure diagnosis');
+    assert(visible(document.getElementById('failureChoices'))&&JSON.stringify(getFailureTypes(A['other#1']))==='["not_a_failure"]','Optional Correct review keeps failure annotation available');
     await finishAndNext(D.rows.find(r=>r.key==='other#1'));assert(activeKey==='other#1'&&reviewed(D.rows.find(r=>r.key==='other#1')),'Final save completes the last turn without wrapping to a reviewed turn');
     // Offline failure keeps the saved draft and current turn visible for retry.
     A['other#1']={human_label:'incorrect',failure_types:['E13'],review_complete:false};renderReview();await Promise.resolve();
@@ -549,7 +549,7 @@ LAYOUT_CHECKS = r"""
     assert(document.documentElement.scrollWidth<=window.innerWidth+1,'The page fits the viewport without horizontal overflow');
     assert(panel.getBoundingClientRect().width<=window.innerWidth,'The annotation panel fits on screen');
     assert(document.querySelectorAll('.failure-stage:not([hidden])').length===1,'Only the chosen failure stage is exposed');
-    assert(document.querySelector('.stage-picker').hidden,'Chosen stage collapses to a compact summary');
+    assert(document.getElementById('stageFilter').hidden,'Chosen stage filter collapses to a compact summary');
     if(window.innerWidth>950){
       assert(finish.getBoundingClientRect().bottom<=window.innerHeight-8,'Save and next stays inside the visible desktop viewport');
       assert(getComputedStyle(panel).position==='sticky','Desktop annotation stays beside the evidence');
@@ -559,7 +559,7 @@ LAYOUT_CHECKS = r"""
       assert(getComputedStyle(panel).position==='static','Mobile form scrolls with the page');
     }
     document.querySelector('[data-failure-type="E13"]').click();await frames();
-    const guide=document.querySelector('.failure-help');assert(!guide.open&&guide.textContent.includes('ตัวอย่าง'),'Examples are available without opening long guides by default');
+    const guide=document.querySelector('[data-help-type="E13"]');assert(!guide.hidden&&guide.textContent.includes('Compare:')&&!document.querySelector('dialog[open]'),'Failure selection shows comparison notes without opening a popup');
     await fetch('/result',{method:'POST',body:JSON.stringify({status:'pass',width:window.innerWidth})});
   }catch(error){await fetch('/result',{method:'POST',body:JSON.stringify({status:'fail',error:error.message+'\n'+error.stack})});}
 })();

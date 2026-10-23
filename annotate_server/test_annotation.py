@@ -60,10 +60,28 @@ BROWSER_CHECKS = r"""
   let checks=0;
   function assert(ok,message){if(!ok)throw Error(message);checks++;}
   function click(selector){const node=document.querySelector(selector);assert(!!node,'Missing '+selector);node.click();}
-  function choose(value){const r=D.rows.find(r=>r.key===activeKey);if(value==='not_a_failure'){setFailureTypes(entry(r),[value]);save();queue();refreshFailureChoices(r);return;}$('clearFailureChoices').click();document.querySelector('[data-failure-type="'+value+'"]').click();}
+  function choose(value){const r=D.rows.find(r=>r.key===activeKey);if(value==='not_a_failure'){setFailureTypes(entry(r),[value]);save();queue();refreshFailureChoices(r);return;}$('clearFailureChoices').click();const stage=guides[value]?.stage;if(D.failure_stages.includes(stage)){document.querySelector('[data-failure-stage="'+stage+'"]').click();assert(!document.querySelector('.failure-stage[data-stage="'+stage+'"]').hidden,'Chosen stage exposes its failure types');}document.querySelector('[data-failure-type="'+value+'"]').click();const note=document.querySelector('[data-help-type="'+value+'"]');assert(!note.hidden&&note.textContent.includes('Compare: '+comparisonSources(value).map(where=>comparisonLabels[where]).join(' | ')),'Selecting a failure shows a note directly below its card');assert(!document.querySelector('dialog[open]'),'Selecting a failure never opens a popup');assert(note.querySelectorAll('button,a,summary,input').length===0,'Comparison hints are plain text without controls');}
+
   function checkVisible(){assert(document.body.scrollWidth<=document.body.clientWidth,'Horizontal layout overflow');}
   try{
     await Promise.resolve();
+    assert(!$('failureChoices').hidden&&!$('failureChoices').disabled,'Failure annotation is available immediately, including previously reviewed turns');
+    assert(document.querySelectorAll('.failure-stage:not([hidden]) [data-failure-type]').length===16,'All sixteen paper failure types are shown by default');
+    assert(!$('optionalCorrectness').open,'Correctness check is optional and collapsed');
+    assert($('failureChoices').querySelectorAll('.failure-inline-help:not([hidden])').length===16,'All sixteen plain comparison hints are visible before selection');
+    const originalHint=document.querySelector('[data-help-type="E13"]').textContent;document.querySelector('[data-failure-type="E13"]').click();document.querySelector('[data-failure-type="E13"]').click();assert(document.querySelector('[data-help-type="E13"]').textContent===originalHint&&!document.querySelector('[data-help-type="E13"]').hidden,'Selecting and clearing a failure does not toggle its hint');
+    const evidenceRow={contexts:['Venus rotates westward.'],gold_support:{status:'available',documents:[{id:'gold-1',text:'Venus rotates westward.'}]}};
+    const evidenceFacts=passageFacts(evidenceRow,{id:'gold-1',text:'Venus rotates westward.'});
+    assert(evidenceFacts.used&&evidenceFacts.goldDocument&&evidenceFacts.goldRanges.length,'Exact selected gold passage has all three evidence badges');
+    const containing=passageFacts(evidenceRow,{id:'other',text:'An introduction. Venus   rotates westward. More text.'});
+    assert(!containing.used&&!containing.goldDocument&&containing.goldRanges.length,'Containing an excerpt does not imply the same gold document or generation context');
+    const wrong=passageFacts(evidenceRow,{id:'other',text:'Venus rotates eastward.'});
+    assert(!wrong.goldRanges.length&&!wrong.used&&!wrong.goldDocument,'Similar words with different evidence do not create gold badges');
+    assert(!goldExcerptRanges({...evidenceRow,gold_support:{...evidenceRow.gold_support,status:'mismatch'}},'Venus rotates westward.').length,'Mismatched reference tasks cannot highlight gold text');
+    const badgeCard=passage(evidenceRow,'Selected context','selected:1','Chunk','Venus rotates westward.','','',{id:'gold-1',used:true});
+    assert(badgeCard.querySelectorAll('.evidence-badge').length===3&&badgeCard.querySelector('mark.gold-excerpt'),'Badges and exact gold highlight are rendered');
+    assert(!badgeCard.textContent.includes('Retrieved'),'Final context alone never creates a Retrieved badge');
+    assert(badgeCard.querySelector('.prose').textContent==='Venus rotates westward.','Highlighting preserves original evidence text for citations');
     assert(A['case#1'].human_label==='correct','Legacy binary label migration');
     assert(!A['case#1'].human_score_band,'Migrated binary field removed');
     assert(A['case#2'].human_score_band==='mid','Historical band preserved');
@@ -87,19 +105,23 @@ BROWSER_CHECKS = r"""
     assert($('queue').querySelectorAll('[aria-current=true]').length===1&&$('queue').querySelector('[aria-current=true]').dataset.key==='case#2','Turn navigation updates the selected queue item');
     click('input[value="incorrect"]');await Promise.resolve();
     assert(!reviewed(D.rows[1]),'Incorrect needs a cause');
-    for(const type of D.failure_types){choose(type);assert($('failureGuide').textContent.includes(guides[type].check),'Guide '+type);}
+    for(const type of D.failure_types){choose(type);assert(document.querySelector('[data-help-type="'+type+'"]').textContent.includes('Compare: '+comparisonSources(type).map(where=>comparisonLabels[where]).join(' | ')),'Guide '+type);}
     choose('E4');
-    assert($('failureGuide').textContent.includes('candidate pool'),'Retrieval evidence limitation');
+    assert(document.querySelector('[data-help-type="E4"]').textContent.includes('Retrieved context not recorded.'),'Retrieval evidence limitation');
+    assert(document.querySelector('[data-help-type="E4"] .comparison-note').textContent==='Compare: Question | Gold | Retrieved context | Selected context | Corpus','Retrieval hints distinguish the original retrieved pool from final selection');
+    const rerankHint=document.querySelector('[data-help-type="E7"]').textContent;assert(rerankHint.includes('Retrieved context')&&rerankHint.includes('Selected context'),'Reranking hints include both before and after selection');
+    assert(!document.querySelector('[data-help-type="E13"] .comparison-note').textContent.includes('Retrieved context'),'Generation-only comparisons do not imply original retrieval evidence exists');
+    const e4Hint=document.querySelector('[data-help-type="E4"]');assert(!e4Hint.hidden&&!e4Hint.querySelector('button,a,summary'),'Comparison hint is permanently visible plain text');
     assert(reviewed(D.rows[1]),'Incorrect and cause reviewed');
     choose('not_a_failure');
-    assert(!reviewed(D.rows[1]),'Conflicting failure category incomplete');
-    assert($('failureGuide').textContent.includes('conflicts'),'Conflict guidance');
+    assert(reviewed(D.rows[1]),'No failure can be annotated independently of the optional correctness check');
+    assert($('failureGuide').textContent.includes('judge result is unchanged'),'No failure does not rewrite the saved judge result');
     choose('E10');
     assert(document.querySelectorAll('.failure-choice-grid input[type="checkbox"]').length===16,'Sixteen visible checkbox choices replace the dropdown');
     click('[data-failure-type="E4"]');click('[data-failure-type="E12"]');
     assert(A['case#2'].failure_types.length===3&&A['case#2'].failure_type==='','Several causes selected without an implicit primary');
     assert($('failureCount').textContent==='3 selected','Selected cause count');
-    assert($('failureGuide').querySelectorAll('.failure-help').length===3,'Evidence guidance for every selected cause');
+    assert($('failureChoices').querySelectorAll('.failure-help:not([hidden])').length===16,'Evidence hints stay visible for all sixteen failure types');
     click('[data-failure-type="E4"]');assert(A['case#2'].failure_types.length===2&&!getFailureTypes(A['case#2']).includes('E4'),'Individual causes can be deselected');
     click('[data-failure-type="insufficient_evidence"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["insufficient_evidence"]','Unresolved outcome replaces confirmed causes');
     click('[data-failure-type="E10"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["E10"]','A confirmed cause replaces an alternative outcome');
@@ -141,7 +163,7 @@ BROWSER_CHECKS = r"""
     assert(!$('blind'),'Hide judge assessment removed');
     assert(!$('coverage')&&!document.querySelector('.queue a[href="#guidelines"]'),'Sidebar footer removed');
     click('#judgeGuideButton');assert($('judgeGuidelines').open&&$('judgeGuidelines').textContent.includes('0.8'),'Judge guideline opens from top left');$('judgeGuidelines').close();
-    click('#failureGuideButton');assert($('failureGuidelines').open&&$('failureGuideContent').children.length===16,'Failure guideline includes 16 errors');$('failureGuidelines').close();
+    click('#failureGuideButton');assert($('failureGuidelines').open&&$('failureGuideContent').children.length===16&&$('failureGuideContent').textContent.includes(D.failure_annotation_aids.E13.example),'Top-left guideline popup contains all sixteen types and detailed examples');$('failureGuidelines').close();
     if(window.innerWidth>950){const form=$('annotationPanel').getBoundingClientRect(),reading=document.querySelector('.reading').getBoundingClientRect();assert(form.left>=reading.right,'Annotation panel is on the right');assert(getComputedStyle($('annotationPanel')).position==='sticky','Right annotation bar stays visible');}
     click('[data-tab="compare"]');
     assert($('notes').value.includes('Wrong direction'),'Notes survive re-render');
@@ -179,11 +201,11 @@ BROWSER_CHECKS = r"""
     $('search').value='';$('search').dispatchEvent(new Event('input'));
     $('fFail').checked=false;$('fFail').dispatchEvent(new Event('change'));
     openTurn('case#2');await Promise.resolve();click('input[value="correct"]');await Promise.resolve();
-    assert(A['case#2'].failure_type==='not_a_failure'&&$('failureChoices').disabled,'Correct decision consistent');
+    assert(A['case#2'].failure_type==='not_a_failure'&&!$('failureChoices').disabled,'Optional Correct review still leaves failure annotation available');
     assert(A['case#2'].notes===second.notes&&A['case#2'].evidence.length===2,'Decision changes preserve notes and evidence');
     delete A['case#2'].failure_types;A['case#2'].failure_type='E4';renderReview();await Promise.resolve();
-    assert($('failureGuide').textContent.includes('conflict with Correct'),'Older conflicting label identified');
-    $('failureGuide').querySelector('button').click();await Promise.resolve();
+    assert(document.querySelector('[data-help-type="E4"]').textContent.includes('Compare:'),'Earlier optional correctness labels never hide failure guidance');
+    choose('not_a_failure');await Promise.resolve();
     assert(A['case#2'].failure_type==='not_a_failure','Older conflicting label can be corrected');
     document.querySelector('.work-heading .eyebrow').textContent='1534A095279F2CB888FB0BEA17BD70DA';
     document.querySelector('.case-id').textContent='1534A095279F2CB888FB0BEA17BD70DA';
@@ -235,7 +257,14 @@ LIVE_PROFILE_CHECKS = r"""
   async function saved(owner){return (await (await fetch(D.annotation_api+'/'+owner)).json()).annotations;}
   try{
     await annotationReady;await Promise.resolve();openTurn('case#2');await Promise.resolve();
-    label('incorrect');await Promise.resolve();document.querySelector('[data-failure-type="E10"]').click();document.querySelector('[data-failure-type="E4"]').click();note('PS server note');await flushProfile('PS');
+    const originalJudge=JSON.stringify(D.rows[1].judges);
+    assert(!A['case#2'].human_label&&!$('failureChoices').hidden,'A new turn starts with failure types ready and no correctness decision');
+    document.querySelector('[data-failure-type="E10"]').click();
+    assert(!A['case#2'].human_label&&!finishProblem(D.rows[1]),'A failure can be completed without an inferred correctness label');
+    await finishAndNext(D.rows[1]);
+    assert((await saved('PS'))['case#2'].review_complete===true&&!(await saved('PS'))['case#2'].human_label,'Save and next persists a failure-only review');
+    assert(JSON.stringify(D.rows[1].judges)===originalJudge,'Failure-only review never changes the saved judge assessment');
+    openTurn('case#2');await Promise.resolve();document.querySelector('[data-failure-type="E4"]').click();note('PS server note');await flushProfile('PS');
     assert((await saved('PS'))['case#2'].notes==='PS server note','PS saved to server');
     assert((await saved('PS'))['case#2'].failure_types.length===2&&(await saved('PS'))['case#2'].failure_type==='','Multiple failure causes saved to server');
     await switchAnnotator('KH');await Promise.resolve();
@@ -243,7 +272,7 @@ LIVE_PROFILE_CHECKS = r"""
     label('correct');await Promise.resolve();note('KH server note');await flushProfile('KH');
     await switchAnnotator('WN');await Promise.resolve();assert(!hasAnnotation(A['case#2']),'WN has independent record');
     label('correct');await Promise.resolve();note('WN server note');await flushProfile('WN');
-    await switchAnnotator('PS');await Promise.resolve();assert(A['case#2'].notes==='PS server note'&&A['case#2'].human_label==='incorrect','PS restored from server');
+    await switchAnnotator('PS');await Promise.resolve();assert(A['case#2'].notes==='PS server note'&&!A['case#2'].human_label,'Failure-only PS review restored from server without adding a correctness decision');
     assert((await saved('KH'))['case#2'].notes==='KH server note'&&(await saved('WN'))['case#2'].notes==='WN server note','Other annotator files preserved');
     await switchAnnotator('KH');profiles.delete('PS');localStorage.removeItem(profileKey('PS'));localStorage.removeItem(profileKey('PS')+':pending');
     await switchAnnotator('PS');await Promise.resolve();assert(A['case#2'].notes==='PS server note','Server restores work after browser cache removal');

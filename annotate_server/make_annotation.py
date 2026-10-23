@@ -3,7 +3,7 @@
 
     python annotate_server/make_annotation.py --work-dir judge_run/runs/pilot5
 
-Reads input.json and out.mtrag.json from the run folder. Existing result JSON is
+Reads input.json and published or recovery judge output from the run folder. Existing result JSON is
 never overwritten. The human binary label is stored separately from the
 judge's binary screening label and the paper's E1–E16 failure annotation.
 """
@@ -15,6 +15,7 @@ import html
 import json
 import math
 import pathlib
+import warnings
 
 from corpus_store import CORPUS_DIR, CorpusIndex, corpus_metadata
 from failure_taxonomy import TAXONOMY, EXTRA_TYPES, taxonomy_data
@@ -34,12 +35,56 @@ def rb_band(score):
     return "high"
 
 
+def output_paths(work_dir, name):
+    """Canonical output first, followed by recovery snapshots (read-only)."""
+    work_dir = pathlib.Path(work_dir)
+    canonical = work_dir / ("out.%s.json" % name)
+    return [canonical] + sorted(work_dir.glob("out.%s.recovery_*.json" % name))
+
+
+def load_output(work_dir, name):
+    """Prefer published output; otherwise use the most complete valid snapshot."""
+    paths = output_paths(work_dir, name)
+    inputs = load_input_records(pathlib.Path(work_dir))
+    best = None
+    for path in paths:
+        if not path.is_file():
+            continue
+        try:
+            records = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(records, list) or any(
+                    not isinstance(record, dict) or not isinstance(record.get("id"), str)
+                    or not isinstance(record.get("evaluation", {}).get("turn_evaluations", []), list)
+                    for record in records):
+                raise ValueError("Expected judge records with conversation IDs and turn evaluations")
+            indexed = {record["id"]: record for record in records}
+            if len(indexed) != len(records):
+                raise ValueError("Duplicate conversation IDs")
+            if path != paths[0] and inputs and any(
+                    record["id"] not in inputs or
+                    {key: value for key, value in record.get("input", inputs[record["id"]]).items() if key != "id"} !=
+                    {key: value for key, value in inputs[record["id"]].items() if key != "id"}
+                    for record in records):
+                raise ValueError("Recovery output does not match this run's input")
+        except (ValueError, OSError) as exc:
+            if path == paths[0]:
+                raise
+            warnings.warn("Skipping recovery output %s: %s" % (path.name, exc))
+            continue
+        if path == paths[0]:
+            return indexed, path.name
+        judged_turns = sum(turn.get("label") in ("correct", "incorrect")
+                           for record in records
+                           for turn in record.get("evaluation", {}).get("turn_evaluations", [])
+                           if isinstance(turn, dict))
+        rank = (judged_turns, len(indexed), path.name)
+        if best is None or rank > best[0]:
+            best = (rank, indexed, path.name)
+    return (best[1], best[2]) if best else (None, None)
+
+
 def load(work_dir, name):
-    path = work_dir / ("out.%s.json" % name)
-    if not path.is_file():
-        return None
-    with path.open(encoding="utf-8") as stream:
-        return {record["id"]: record for record in json.load(stream)}
+    return load_output(work_dir, name)[0]
 
 
 def turn_texts(conversation):
@@ -234,12 +279,49 @@ def load_passage_archive(folder):
     return conversation_passage_archive(snapshot)
 
 
+@functools.lru_cache(maxsize=2)
+def generation_traces(snapshot):
+    """Keep source passage IDs for the final context; a retrieval flag is not a pool."""
+    traces = {}
+    for filename, _mtime, _size in snapshot:
+        path = pathlib.Path(filename)
+        try:
+            export = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not isinstance(export, dict):
+            continue
+        for conversation in export.get("conversations", []):
+            for turn in conversation.get("turns", []):
+                key = (export.get("rag_name"), conversation.get("id"), str(turn.get("dataset_turn")))
+                traces.setdefault(key, []).append(turn)
+    return traces
+
+
+def generation_evidence(traces, rag, cid, turn_id, question, answer, selected):
+    """Attach original IDs only when the source question, answer, and context match."""
+    result = {"selected_passages": [
+        {"id": "", "title": "", "text": text} for text in selected or []],
+        "retrieved_flag": None, "retrieved_candidates": None, "reranking_trace": None}
+    for turn in traces.get((rag, cid, str(turn_id)), []):
+        passages = turn.get("passages", [])
+        if (turn.get("question") != question or turn.get("answer") != answer or
+                [item.get("text") for item in passages] != selected):
+            continue
+        result["selected_passages"] = [{key: item.get(key, "") for key in
+                                        ("id", "title", "text")} for item in passages]
+        flag = turn.get("retrieved")
+        result["retrieved_flag"] = flag if isinstance(flag, bool) else None
+        break
+    return result
+
+
 def build_data(work_dir, live=False):
     work_dir = pathlib.Path(work_dir)
     evidence_path = pathlib.Path(__file__).resolve().parent.parent / "judge_run" / "gold_support.json"
     evidence_index = json.loads(evidence_path.read_text(encoding="utf-8")) if evidence_path.is_file() else {}
     inputs = load_input_records(work_dir)
-    judged = load(work_dir, "mtrag")
+    judged, judged_source = load_output(work_dir, "mtrag")
     if not inputs and not judged:
         raise SystemExit("No input.json or out.mtrag.json found in %s" % work_dir)
     ids = list(inputs)
@@ -254,6 +336,10 @@ def build_data(work_dir, live=False):
     # Human screening always uses the requested 0.8 cutoff. Saved outputs are untouched.
     thresholds["mtrag"] = DEFAULT_THRESHOLDS["mtrag"]
     rows = []
+    conversation_folder = pathlib.Path(__file__).resolve().parent.parent / "conversation"
+    trace_snapshot = tuple((str(path), path.stat().st_mtime_ns, path.stat().st_size)
+                           for path in sorted(conversation_folder.glob("*.json")))
+    traces = generation_traces(trace_snapshot)
     for cid in ids:
         source = inputs.get(cid)
         if source is None:
@@ -286,12 +372,15 @@ def build_data(work_dir, live=False):
                                   if answerability and k - 1 < len(answerability) and answerability[k - 1]
                                   else "not recorded"),
                 "contexts": None if selected is None else list(selected),
+                **generation_evidence(traces, source.get("metadata", {}).get("rag"), cid,
+                                      turn_ids[k - 1] if k - 1 < len(turn_ids) else k,
+                                      question, answer, selected),
                 "judges": {"mtrag": view},
             })
     coverage = {"mtrag": {
         "records": len(judged or {}),
         "turns": sum(row["judges"]["mtrag"]["status"] == "judged" for row in rows),
-        "source": "out.mtrag.json" if judged is not None else None}}
+        "source": judged_source}}
     collections = sorted({row['corpus_collection'] for row in rows})
     official_stores = {collection: corpus_metadata(collection) for collection in collections}
     archive = (load_passage_archive(pathlib.Path(__file__).resolve().parent.parent / 'conversation')

@@ -38,9 +38,10 @@ so it works from any working directory. To use another run directory:
 python3 -B annotation_server.py --runs-dir /path/to/runs
 ```
 
-The server reads each run's current `out.mtrag.json`; recovery files are published
-there by the judge queue after full completion. Refresh the page to load new
-results. Human edits autosave under the selected run's `annotations/` directory.
+The server prefers each run's published `out.mtrag.json`. If it is missing,
+it reads the most complete valid `out.mtrag.recovery_*.json` snapshot without
+rewriting it. The source filename and partial coverage stay recorded. Refresh
+the page to load new results. Human edits autosave under the selected run's `annotations/` directory.
 No judge API key is needed. Restart the server after changing the Python or HTML
 UI files, then refresh the browser.
 
@@ -61,8 +62,10 @@ selecting a turn. All counters and filters still use the complete run.
 
 The server compresses responses for browsers that support gzip and caches the last
 four runs. Changes to judge inputs, results, gold evidence, or conversation archives
-invalidate the cache on the next request. When all required official corpus indexes
-are installed, building a run page skips the conversation-archive scan entirely.
+invalidate the cache on the next request. Original conversation exports are discovered recursively in flat or backend/domain
+folders. One cached reader supplies both passage-archive provenance and original
+generation passage IDs. Official corpus indexes replace the archive as the corpus
+search source; source exports still provide generator-context provenance.
 Human annotations load separately; autosave and exports include annotations for
 every turn, including unopened turns.
 Static HTML exports embed all conversations and a BM25 search snapshot of official
@@ -166,7 +169,7 @@ The sidebar tracks two independent measures for the selected reviewer:
   counter. Correct alone (including its automatic Not a failure value) does not
   count. Later incorrect turns do not add labels. Conversations
   with no judge-marked incorrect turns are excluded from this denominator.
-- **Review queue:** reviewed turns across the entire run. Use **Reviewed this turn**
+- **Review queue:** reviewed turns across the entire run. Use **Reviewed**
   to mark any turn, including a later or unlabelled turn. Every reviewed card shows
   **✓ Reviewed**. Checking review completion alone never creates a failure label.
 
@@ -212,7 +215,7 @@ question stays in its own panel above. The complete
 answer visible without an inner scroll box. Green highlights mark complete RAG-answer
 sentences likely to match sentences in selected chunks; hover for the original chunk numbers.
 
-The three evidence columns show **selected / retrieved chunks**, **gold answer +
+The three evidence columns show **selected context**, **gold answer +
 gold documents**, and **corpus evidence**. Selected chunks retain their recorded order, original chunk numbers and citation
 locators. No comparison panel reranks evidence using the RAG answer.
 Green highlights in selected passages, gold answers/documents, and corpus passages
@@ -238,7 +241,7 @@ collection; static pages contain a labelled top-10-per-turn search snapshot.
 Archive fallback and user-loaded files retain recorded order when filtered.
 
 Without an installed official index, the panel falls back to RAG conversation
-exports in `conversation/*.json`, separated by each export's conversation `domain`
+exports under `conversation/` (including backend/domain folders), separated by each export's conversation `domain`
 and the run's recorded collection/dataset. The archive retains document IDs, titles,
 source filenames, a recorded task ID, and file hashes. Exact ID/text duplicates
 are merged; different text under the same ID is retained. These are **recorded
@@ -267,10 +270,9 @@ EACL 2026](https://aclanthology.org/2026.eacl-long.147/):
 
 Names, codes, stage groups, and project evidence guides share one definition in
 [`failure_taxonomy.py`](failure_taxonomy.py). The paper's human protocol selects
-the earliest faulty stage, then one or more types within that stage. The guided
-form follows that sequence. It retains older selections across stages as saved
+the earliest faulty stage, then one or more types within that stage. The form groups these stages and allows optional stage filtering. It retains older selections across stages as saved
 history; it never clears labels when merely browsing a different stage. The
-**Save and next** action asks the reviewer to resolve cross-stage choices before
+**Save & next** action asks the reviewer to resolve cross-stage choices before
 completing the guided review. Independent per-turn review checkmarks remain
 available. The extra outcomes below are separate from the 16 errors.
 
@@ -280,29 +282,32 @@ E7/E8 require an actual reranker and its original trace. E9 means answering when
 abstention was needed, not an unnecessary refusal. E10 concerns invented content
 for an answerable query. Use the per-type evidence guide before selecting a cause.
 
-### Guided annotation
+### Failure annotation
 
-The annotation panel uses Thai explanations with the paper's English names and
-stable E1–E16 codes. It starts with the correctness decision, rather than showing
-all 16 types at once:
+All E1–E16 types appear immediately, grouped by the paper's four stages.
+Each type has short, permanent plain-text comparison hints. They do not toggle,
+open a popup, or change evidence. Stage filtering is optional. Detailed definitions,
+examples, and limitations remain in **Failure guideline** at the top left.
 
-1. **คำตอบนี้ถูกต้องไหม?** Choose correct, incorrect, or insufficient evidence to
-   decide correctness. Correct bypasses failure diagnosis. The third choice saves
-   `human_label: "uncertain"` with `failure_types: ["insufficient_evidence"]`;
-   it is distinct from an incorrect answer whose root cause is unresolved.
-2. **ข้อผิดพลาดเริ่มที่ขั้นตอนไหน?** For an incorrect answer, choose a stage to
-   reveal only its types. The stage itself is a view, not a failure prediction or
-   saved root-cause label. Evidence requirements and missing original traces are
-   shown for that stage. Generation has three smaller groups. Each type shows a
-   short Thai label and its English name/code; examples and detailed checks are
-   collapsed until opened. **ยังระบุสาเหตุไม่ได้** saves Insufficient evidence,
-   while **ข้อผิดพลาดไม่อยู่ใน 16 ประเภท** expands the Outside taxonomy option.
-3. **เหตุผลและหลักฐาน** Write a short explanation and optionally attach exact
-   quotations using Cite selection. Gold-answer assessment remains optional and
-   collapsed unless an assessment is already saved. **บันทึกและไป turn ถัดไป**
-   marks the turn reviewed, waits for server save, and opens the next unreviewed
-   turn in the current filters. If no turn remains, it stays on the completed
-   turn. A failed server save keeps the current turn and a retryable browser copy.
+1. Select one or more supported failure types, or **No failure** / **Cause not clear**.
+2. Add notes or citations if useful. Correct/Incorrect review is optional and starts
+   collapsed; saving a failure does not infer a human correctness label or change
+   the saved judge assessment.
+3. **Save & next** marks the turn reviewed, waits for the server save, and opens the
+   next unreviewed turn in the current filters. Offline changes remain retryable.
+
+Passages are separate bordered cards. **Used by generator** marks the recorded
+final context. **Gold document** identifies matching reference documents; **Gold
+supporting excerpt** highlights exact gold-passage text, ignoring whitespace.
+These text matches are evidence aids, not automatic correctness judgments.
+
+Retrieved context means the candidate list before final context selection.
+A boolean `retrieved` flag does not supply that list. The `candidates.jsonl` and
+`reranked.jsonl` files added in commit `93157a0` explicitly identify a
+`new_retrieval_experiment` with `answer_generation_performed: false`; they are
+preserved as separate experiment artifacts and are not substituted for the original
+trace of the saved RAG answer. This is why original retrieval remains marked
+unavailable in the annotation view.
 
 Changing the stage view never deletes existing selections, notes, or citations.
 Selected types appear as removable chips, including types outside the currently
@@ -352,7 +357,7 @@ annotator go to the selected profile. Unmatched turns or unknown annotator names
 are skipped and reported. Matching imports replace that profile's annotation for
 the imported turn.
 
-**Reviewed this turn** stores an independent boolean `review_complete` in autosave,
+**Reviewed** stores an independent boolean `review_complete` in autosave,
 JSON, and CSV. It can be checked or cleared without changing correctness or failure
 causes. For older annotations without this flag, a complete correctness/failure
 decision still counts as reviewed; an explicit checkbox choice overrides that

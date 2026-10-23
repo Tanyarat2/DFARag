@@ -836,7 +836,6 @@ function annotation(r){
   const draft=el('p','hint','Auto-saved');draft.id='finishHint';footer.append(status,finish,draft,reviewControl,button('Clear',()=>{delete a.human_label;delete a.failure_type;delete a.failure_types;failureStageViews.delete(stageViewKey(r));decisionEditors.delete(stageViewKey(r));stageEditors.delete(stageViewKey(r));save();queue();renderReview();},'text-button'));
   box.append(left,right,footer);queueMicrotask(()=>{if(activeKey!==r.key||!box.isConnected)return;refreshFailureChoices(r);renderCitations(r);updateSaveStatus();});return box;
 }
-let lastFailureHelp='';
 function failureChoices(r){
   const field=el('fieldset','step failure-choices');field.id='failureChoices';field.append(el('legend','step-title','Choose a failure · E1–E16'));
   const stageHint=el('p','hint','Choose a type. Comparison hints are shown below each one.');stageHint.id='stagePickerHint';field.append(stageHint);
@@ -846,7 +845,7 @@ function failureChoices(r){
   const more=el('details','other-outcomes');more.append(el('summary',null,'Error outside these 16 types'),failureOption(r,'outside_taxonomy','Outside taxonomy','A proven error that does not fit E1–E16'));
   const stageHelp=el('details','stage-evidence');stageHelp.id='stageEvidence';field.append(stageHelp);
   const selected=el('div','selected-causes');selected.id='selectedCauses';selected.setAttribute('aria-live','polite');field.append(selected);
-  const meta=el('div','failure-choice-meta'),count=el('span','badge');count.id='failureCount';const clear=button('Clear selected types',()=>{setFailureTypes(entry(r),[]);lastFailureHelp='';save();queue();refreshFailureChoices(r);},'text-button');clear.id='clearFailureChoices';meta.append(count,clear);field.append(meta);
+  const meta=el('div','failure-choice-meta'),count=el('span','badge');count.id='failureCount';const clear=button('Clear selected types',()=>{setFailureTypes(entry(r),[]);save();queue();refreshFailureChoices(r);},'text-button');clear.id='clearFailureChoices';meta.append(count,clear);field.append(meta);
   const hint=el('p','hint','You can choose more than one type within the same stage.');hint.id='failureChoiceHint';field.setAttribute('aria-describedby','failureChoiceHint');field.append(hint);
   D.failure_stages.forEach(stage=>{const group=el('section','failure-stage');group.dataset.stage=stage;group.hidden=true;group.append(el('h3','failure-stage-title',D.failure_stage_guides[stage].label+' · '+stage));
     const groups=stage==='Generation'?GENERATION_GROUPS:[['',D.failure_types.filter(type=>guides[type].stage===stage)]];
@@ -859,8 +858,8 @@ function failureOption(r,type,title,subtitle){
 }
 function toggleFailure(r,type,checked){
   const a=entry(r);let types=getFailureTypes(a);
-  if(checked){types=D.extra_types.includes(type)?[type]:types.filter(t=>!D.extra_types.includes(t)).concat(type);lastFailureHelp=type;}
-  else{types=types.filter(t=>t!==type);if(lastFailureHelp===type)lastFailureHelp='';}
+  if(checked){types=D.extra_types.includes(type)?[type]:types.filter(t=>!D.extra_types.includes(t)).concat(type);}
+  else{types=types.filter(t=>t!==type);}
   setFailureTypes(a,types);save();queue();refreshFailureChoices(r);
 }
 function refreshFailureChoices(r){
@@ -882,10 +881,6 @@ function refreshFailureChoices(r){
   const problem=finishProblem(r);$('finishHint').textContent=problem||'Ready.';$('finishReview').disabled=!!getProfile(currentAnnotator).loading;
   document.querySelectorAll('[data-review-step]').forEach(node=>node.dataset.active=String(node.dataset.reviewStep===(problem?'cause':'save')));
   renderGuide(r);
-}
-function jumpToEvidence(r,where){
-  if(['selected','gold','corpus','history'].includes(where)){activeTab=where==='history'?'history':'compare';evidenceQuery='';$('evidenceSearch').value='';renderEvidence(r);if(where==='gold'){const disclosure=$('goldDisclosure');if(disclosure)disclosure.open=true;}const target=where==='history'?$('evidence'):$('evidence-'+where);target?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});}
-  else{if(!$('answer')){activeTab='compare';renderEvidence(r);}$(where)?.scrollIntoView({behavior:'smooth',block:'center'});}
 }
 function renderGuide(r){
   const a=entry(r),root=$('failureGuide');if(!root)return;root.replaceChildren();const types=getFailureTypes(a),legacy=getLegacyFailureTypes(a);

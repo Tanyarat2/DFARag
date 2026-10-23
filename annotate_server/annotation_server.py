@@ -129,7 +129,8 @@ class RunPages:
         root = HERE.parent
         sources = [work_dir / "input.json", root / "judge_run" / "gold_support.json"]
         sources.extend(annotation.output_paths(work_dir, "mtrag"))
-        sources.extend(sorted((root / "conversation").glob("*.json")))
+        sources.extend(pathlib.Path(filename) for filename, _mtime, _size
+                       in annotation.conversation_snapshot(root / "conversation"))
         sources.extend(sorted(CORPUS_DIR.glob('*.sqlite3')))
         with self.lock:
             snapshot = []

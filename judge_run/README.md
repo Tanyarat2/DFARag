@@ -68,7 +68,7 @@ Judge an entire file from `conversation/` with one command (from `judge_run`):
 python -B run.py judge --src conversation_vector --fresh
 ```
 
-This reads `../conversation/conversation_vector.json`, prepares every turn, and
+This reads `../conversation/vector/conversation_vector.json`, prepares every turn, and
 judges it with `qwen/qwen3-32b` through OpenRouter. Only `OPENROUTER_API_KEY`
 needs to be set in this terminal. Defaults match the Qwen3 pilot: 4096 reasoning
 tokens, 8192 total completion tokens per request, and a correct/incorrect cutoff
@@ -98,6 +98,14 @@ Use `--model`, `--base-url`, and `--api-key-env` for another judge/API. These op
 belong to `judge`; the older prepared-input `mtrag` workflow below still uses
 `JUDGE_MODEL`, `JUDGE_BASE_URL`, and `JUDGE_API_KEY_ENV`.
 
+Source stems such as `conversation_vector` resolve uniquely across backend/domain
+subfolders. If more than one file has the same name, provide its relative path
+or an absolute path; the CLI rejects an ambiguous name.
+
+The detached recovery queue uses Linux process IDs, terminal controls, and file
+locking. Run that background queue on Linux/WSL. Windows supports the direct
+`run.py judge` command and the offline recovery-validation tests.
+
 ### Existing prepared-input workflow
 
 Create a new run name so previous outputs are not overwritten:
@@ -107,7 +115,7 @@ python run.py prepare --src conversation_vector --name conversation_new --limit 
 python run.py preview --name conversation_new
 ```
 
-`prepare --src conversation_vector` reads `../conversation/conversation_vector.json`
+`prepare --src conversation_vector` reads `../conversation/vector/conversation_vector.json`
 and writes `runs/conversation_new/input.json`. Always supply `--src`: the legacy
 default `../conversation.json` is not included in this checkout. The preparer
 preserves selected passages, reference answers, answerability and recorded history. `preview`

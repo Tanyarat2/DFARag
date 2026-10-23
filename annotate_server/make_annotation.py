@@ -83,10 +83,6 @@ def load_output(work_dir, name):
     return (best[1], best[2]) if best else (None, None)
 
 
-def load(work_dir, name):
-    return load_output(work_dir, name)[0]
-
-
 def turn_texts(conversation):
     result, questions = [], []
     for message in conversation:
@@ -235,10 +231,16 @@ def gold_evidence(index, task_id, question, gold):
             "message": "Original reference-task passages; relevance labels are from the dataset."}
 
 
+def conversation_snapshot(folder):
+    """Discover original exports in both flat and backend/domain layouts."""
+    return tuple((str(path.resolve()), path.stat().st_mtime_ns, path.stat().st_size)
+                 for path in sorted(pathlib.Path(folder).rglob("*.json")))
+
+
 @functools.lru_cache(maxsize=2)
-def conversation_passage_archive(snapshot):
-    """Index recorded passages by collection; never claim these are a full index."""
-    collections = {}
+def conversation_exports(snapshot):
+    """Read each source once for both the passage archive and generation IDs."""
+    exports = []
     for filename, _mtime, _size in snapshot:
         path = pathlib.Path(filename)
         try:
@@ -248,7 +250,20 @@ def conversation_passage_archive(snapshot):
             continue
         if not isinstance(export, dict) or not isinstance(export.get("conversations"), list):
             continue
-        provenance = {"file": path.name, "sha256": hashlib.sha256(raw).hexdigest()}
+        try:
+            name = path.relative_to(pathlib.Path(__file__).resolve().parent.parent / "conversation").as_posix()
+        except ValueError:
+            name = path.name
+        exports.append((name, hashlib.sha256(raw).hexdigest(), export))
+    return exports
+
+
+@functools.lru_cache(maxsize=2)
+def conversation_passage_archive(snapshot):
+    """Index recorded passages by collection; never claim these are a full index."""
+    collections = {}
+    for name, digest, export in conversation_exports(snapshot):
+        provenance = {"file": name, "sha256": digest}
         for conversation in export["conversations"]:
             collection = str(conversation.get("domain") or "unspecified")
             store = collections.setdefault(collection, {"documents": {}, "sources": []})
@@ -264,7 +279,7 @@ def conversation_passage_archive(snapshot):
                     if key not in store["documents"]:
                         store["documents"][key] = {
                             "id": doc_id, "title": str(passage.get("title") or "Untitled"),
-                            "text": text, "source_file": path.name,
+                            "text": text, "source_file": name,
                             "observed_task": str(turn.get("task_id") or ""),
                         }
     return {collection: {"kind": "conversation_passages", "documents": list(store["documents"].values()),
@@ -274,23 +289,14 @@ def conversation_passage_archive(snapshot):
 
 
 def load_passage_archive(folder):
-    snapshot = tuple((str(p.resolve()), p.stat().st_mtime_ns, p.stat().st_size)
-                     for p in sorted(pathlib.Path(folder).glob("*.json")))
-    return conversation_passage_archive(snapshot)
+    return conversation_passage_archive(conversation_snapshot(folder))
 
 
 @functools.lru_cache(maxsize=2)
 def generation_traces(snapshot):
     """Keep source passage IDs for the final context; a retrieval flag is not a pool."""
     traces = {}
-    for filename, _mtime, _size in snapshot:
-        path = pathlib.Path(filename)
-        try:
-            export = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            continue
-        if not isinstance(export, dict):
-            continue
+    for _name, _digest, export in conversation_exports(snapshot):
         for conversation in export.get("conversations", []):
             for turn in conversation.get("turns", []):
                 key = (export.get("rag_name"), conversation.get("id"), str(turn.get("dataset_turn")))
@@ -337,8 +343,7 @@ def build_data(work_dir, live=False):
     thresholds["mtrag"] = DEFAULT_THRESHOLDS["mtrag"]
     rows = []
     conversation_folder = pathlib.Path(__file__).resolve().parent.parent / "conversation"
-    trace_snapshot = tuple((str(path), path.stat().st_mtime_ns, path.stat().st_size)
-                           for path in sorted(conversation_folder.glob("*.json")))
+    trace_snapshot = conversation_snapshot(conversation_folder)
     traces = generation_traces(trace_snapshot)
     for cid in ids:
         source = inputs.get(cid)

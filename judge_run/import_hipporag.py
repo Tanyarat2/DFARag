@@ -17,6 +17,8 @@ def combine(source_dir, revision):
     conversations, sources, seen = [], [], set()
     for domain in DOMAINS:
         path = Path(source_dir) / ('hipporag2-' + domain) / 'conversation.json'
+        if not path.is_file():
+            path = Path(source_dir) / 'hippo' / domain / 'conversation.json'
         raw = path.read_bytes()
         export = json.loads(raw)
         if export.get('rag_name') != 'hipporag2':

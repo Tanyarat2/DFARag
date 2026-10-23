@@ -1,6 +1,7 @@
 # Conversation exports
 
-`conversation_vector.json`, `conversation_selfrag.json`, `conversation_raptor.json`,
+`vector/conversation_vector.json`, `selfrag/conversation_selfrag.json`,
+`raptor/conversation_raptor.json`,
 and `conversation_hipporag.json` use the same `conversations` / `turns` export schema.
 Keep IDs, answers, recorded history, selected passage text and passage order intact.
 The corrected Vector export now identifies its backend as `vector`. Before upstream
@@ -34,3 +35,11 @@ The importer validates task IDs, gold-question matches, answerability, selected
 context and turn counts before creating its output. Prepared judge data is at
 `judge_run/runs/convos_hipporag_q3_32b/input.json`. See the
 [judge guide](../judge_run/README.md) to start resumable judging.
+
+## Retrieval/reranking experiment artifacts
+
+Backend/domain folders contain `candidates.jsonl` and `reranked.jsonl` from
+`new_retrieval_experiment` (commit `93157a0`). These files record new retrieval and
+reranking results without answer generation. Keep them separate from the original
+generation contexts in the conversation exports; matching a task ID alone does
+not establish that the original saved answer used these new candidates.

@@ -70,6 +70,19 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(runner.resolve_source("sample.json"), self.source.resolve())
         self.assertEqual(runner.resolve_source(str(self.source)), self.source.resolve())
 
+    def test_nested_source_and_ambiguous_filename(self):
+        folder = self.root / 'conversation' / 'vector'
+        folder.mkdir()
+        nested = folder / self.source.name
+        self.source.rename(nested)
+        self.assertEqual(runner.resolve_source('sample'), nested.resolve())
+        self.assertEqual(runner.resolve_source('vector/sample.json'), nested.resolve())
+        other = self.root / 'conversation' / 'other'
+        other.mkdir()
+        (other / nested.name).write_text(nested.read_text(encoding='utf-8'), encoding='utf-8')
+        with self.assertRaisesRegex(SystemExit, 'Ambiguous conversation filename'):
+            runner.resolve_source('sample')
+
     def test_child_command_receives_model_and_budgets(self):
         with mock.patch.object(runner.subprocess, "run") as child:
             self.invoke("judge", "--src", "sample")

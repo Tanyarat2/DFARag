@@ -6,20 +6,18 @@ prompt. Credentials are passed only through the child environment, never files.
 """
 
 import argparse
-import fcntl
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
-import termios
 import time
-import tty
 from datetime import datetime
 
 import judge_mtrag
 from prepare_input import prepare_records, write_input
+from run import resolve_source
 
 
 HERE = Path(__file__).resolve().parent
@@ -34,6 +32,9 @@ def masked_api_key():
     """Read an ASCII API key with star feedback; always restore terminal settings."""
     if not sys.stdin.isatty() or not sys.stdout.isatty():
         raise ValueError("Run from your terminal to enter the API key securely.")
+    import termios
+    import tty
+
     fd = sys.stdin.fileno()
     previous = termios.tcgetattr(fd)
     key = bytearray()
@@ -148,7 +149,7 @@ def publish_recovery(folder, source):
 def complete_run(rag, ceiling, recovery_passes):
     name = "convos_%s_q3_32b" % rag
     folder = RUNS / name
-    expected = prepare_records(HERE.parent / "conversation" / ("conversation_%s.json" % rag))
+    expected = prepare_records(resolve_source("conversation_%s" % rag))
     input_path = folder / "input.json"
     if folder.exists():
         if not input_path.is_file() or json.loads(input_path.read_text(encoding="utf-8")) != expected:
@@ -227,6 +228,10 @@ def main():
     parser.add_argument("--watch", action="append", default=[], help=argparse.SUPPRESS)
     parser.add_argument("--lock-fd", type=int, help=argparse.SUPPRESS)
     args = parser.parse_args()
+    if os.name == "nt":
+        raise ValueError("The background queue requires Linux/WSL. Use run.py judge on Windows.")
+    import fcntl
+
     if args.rags and not args.complete_all:
         parser.error("--rags requires --complete-all")
     if args.adaptive_max_tokens < 8192 or args.recovery_passes < 1:

@@ -26,7 +26,7 @@ to local port **8765**. Select a run and your PS, KH, or WN profile. Judge asses
 and gold evidence start collapsed for each turn and reviewer. Live annotations
 save separately under `judge_run/runs/<name>/annotations/`.
 The sidebar separates failure-label progress (only each conversation's first
-judge-marked incorrect turn) from review progress (all turns). **Reviewed this turn**
+judge-marked incorrect turn) from review progress (all turns). **Reviewed**
 marks any turn independently; selecting one or more failure checkboxes on the
 first incorrect turn counts a conversation label and turns its header green.
 The compact sidebar gives conversations readable names from their first questions
@@ -37,7 +37,7 @@ alongside the original IDs. Search by name, conversation number, ID, or question
 Install Python 3.10 or newer and clone this branch in a local PowerShell window:
 
 ```powershell
-git clone --branch feat/annotation-guided-review https://github.com/Tanyarat2/DFARag.git
+git clone --branch main https://github.com/Tanyarat2/DFARag.git
 cd DFARag
 .\START_LOCAL.bat
 ```
@@ -255,7 +255,7 @@ refinement and verification of ambiguous labels are needed before final scoring.
 
 ## Current data and implementation limits
 
-The current `conversation/conversation_vector.json` is the corrected Vector export
+The current `conversation/vector/conversation_vector.json` is the corrected Vector export
 merged from upstream commit `df49376`; it identifies its backend as **`vector`**.
 The earlier export at commit `b0624c8` was identical to SelfRAG and labelled
 **`selfrag`**. The saved `judge_run/runs/convos_vector_q3_32b/input.json` and its

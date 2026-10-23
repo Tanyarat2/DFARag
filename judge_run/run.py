@@ -83,6 +83,13 @@ def resolve_source(value: str) -> pathlib.Path:
     candidate = ROOT / "conversation" / path
     if not candidate.suffix:
         candidate = candidate.with_suffix(".json")
+    if not candidate.is_file() and not path.is_absolute() and path.parent == pathlib.Path("."):
+        matches = sorted((ROOT / "conversation").rglob(candidate.name))
+        if len(matches) > 1:
+            raise SystemExit("Ambiguous conversation filename; give its backend/domain path: %s" %
+                             ", ".join(str(match.relative_to(ROOT / "conversation")) for match in matches))
+        if matches:
+            candidate = matches[0]
     require_file(candidate, "Give a JSON filename from conversation/ or a full file path.")
     return candidate.resolve()
 

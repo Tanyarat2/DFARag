@@ -90,6 +90,39 @@ class AnnotationStoreTests(unittest.TestCase):
                     store.patch('pilot', 'PS', {'case#1': {'review_complete': invalid}}, {'case#1'})
             self.assertEqual(store.path('pilot', 'PS').read_bytes(), before)
 
+    def test_review_flag_is_independent_persistent_and_boolean(self):
+        with tempfile.TemporaryDirectory() as folder:
+            make_run(folder)
+            store = AnnotationStore(folder)
+            store.patch('pilot', 'PS', {'case#1': {'flagged_for_review': True}}, {'case#1'})
+            flagged = AnnotationStore(folder).read('pilot', 'PS')['annotations']['case#1']
+            self.assertEqual(flagged, {'flagged_for_review': True})
+            self.assertFalse(store.read('pilot', 'KH')['annotations'])
+            before = store.path('pilot', 'PS').read_bytes()
+            for invalid in ('true', 1, None):
+                with self.assertRaises(ValueError):
+                    store.patch('pilot', 'PS', {'case#1': {'flagged_for_review': invalid}}, {'case#1'})
+                self.assertEqual(store.path('pilot', 'PS').read_bytes(), before)
+            store.patch('pilot', 'PS', {'case#1': {'flagged_for_review': False,
+                        'failure_type': 'E4', 'failure_types': ['E4']}}, {'case#1'})
+            saved = AnnotationStore(folder).read('pilot', 'PS')['annotations']['case#1']
+            self.assertIs(saved['flagged_for_review'], False)
+            self.assertEqual(saved['failure_types'], ['E4'])
+
+    def test_exclusion_is_separate_from_previous_unclear_labels(self):
+        with tempfile.TemporaryDirectory() as folder:
+            make_run(folder)
+            store = AnnotationStore(folder)
+            store.patch('pilot', 'PS', {'case#1': {'failure_types': ['insufficient_evidence'],
+                       'failure_type': 'insufficient_evidence'}}, {'case#1'})
+            before = store.path('pilot', 'PS').read_bytes()
+            store.patch('pilot', 'KH', {'case#1': {'failure_types': ['excluded'],
+                       'failure_type': 'excluded', 'review_complete': True}}, {'case#1'})
+            self.assertEqual(AnnotationStore(folder).read('pilot', 'KH')['annotations']['case#1']['failure_types'], ['excluded'])
+            self.assertEqual(store.path('pilot', 'PS').read_bytes(), before)
+            with self.assertRaises(ValueError):
+                store.patch('pilot', 'KH', {'case#1': {'failure_types': ['excluded', 'E4']}}, {'case#1'})
+
     def test_uncertain_correctness_saves_separately_from_incorrect(self):
         with tempfile.TemporaryDirectory() as folder:
             make_run(folder)

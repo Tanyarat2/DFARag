@@ -21,7 +21,7 @@ from corpus_store import CORPUS_DIR, CorpusIndex, corpus_metadata
 from failure_taxonomy import TAXONOMY, EXTRA_TYPES, taxonomy_data
 
 JUDGE_TITLES = {"mtrag": "mtRAG (RB_llm + RL_F + IDK)"}
-DEFAULT_THRESHOLDS = {"f": 1.0, "mtrag": 0.8, "rb_llm_min_rating": 6.0}
+DEFAULT_THRESHOLDS = {"f": 1.0, "mtrag": 0.7, "rb_llm_min_rating": 6.0}
 
 
 def rb_band(score):
@@ -371,7 +371,7 @@ def build_data(work_dir, live=False):
         thresholds.update({k: v for k, v in record.get("judge", {}).get("thresholds", {}).items()
                            if k in thresholds and v is not None})
         break
-    # Human screening always uses the requested 0.8 cutoff. Saved outputs are untouched.
+    # Human screening always uses the requested 0.7 cutoff. Saved outputs are untouched.
     thresholds["mtrag"] = DEFAULT_THRESHOLDS["mtrag"]
     rows = []
     conversation_folder = pathlib.Path(__file__).resolve().parent.parent / "conversation"

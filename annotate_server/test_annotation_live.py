@@ -87,8 +87,9 @@ class ProgressiveTests(unittest.TestCase):
                     self.assertEqual(data['corpus']['planets']['documents'], [])
                     self.assertEqual(data['corpus']['planets']['document_count'], 35)
                     self.assertEqual(data['rows'][-1]['judges']['mtrag']['conditioned_score'], .95)
-                    self.assertLess(len(body), 125_000)
-                    self.assertLess(len(gzip.compress(body)), 35_000)
+                    # Includes sidebar and review-flag controls; turn and corpus data stay lazy.
+                    self.assertLess(len(body), 132_000)
+                    self.assertLess(len(gzip.compress(body)), 37_000)
                     status, body = get('/api/conversation/pilot?id=other')
                     self.assertEqual(status, 200)
                     details = json.loads(body)['rows']
@@ -322,13 +323,13 @@ PROGRESSIVE_CHECKS = r"""
     assert(queueButtons.get('case#1').getBoundingClientRect().top>=queueList.querySelector('.queue-group[data-id="case"] > summary').getBoundingClientRect().bottom,'Navigating back keeps the first turn below its sticky conversation header');
     assert(document.getElementById('notes'),'Annotation form is available before corpus matches finish');
     assert(D.rows.filter(r=>r._summary).length===2,'Other conversation starts as summaries');
-    assert(document.querySelector('#evidence > #answer')&&document.getElementById('answer').nextElementSibling===document.getElementById('evidenceSearch'),'RAG answer appears directly above the Find text field');
+    assert(document.querySelector('#evidence > .answer-comparison > #answer')&&document.getElementById('reference').parentElement===document.getElementById('answer').parentElement,'Gold answer appears beside the RAG answer above Find text');
     assert(document.getElementById('answer').getBoundingClientRect().bottom<document.querySelector('.comparison-track').getBoundingClientRect().top,'RAG answer is above all comparison columns');
     assert(!document.querySelector('#evidence-selected #answer'),'Answer is not repeated inside a scrolling evidence column');
     assert(getComputedStyle(document.querySelector('#answer .prose')).maxHeight==='none','Top answer has no inner scrolling limit');
     assert(document.querySelector('#answer mark.answer-match').title.includes('selected chunk(s) 1'),'Answer highlights identify the original selected chunk');
     assert(document.querySelector('#evidence-selected mark.answer-match'),'Selected evidence highlights overlap with the RAG answer');
-    document.getElementById('goldDisclosure').querySelector('summary').click();
+    assert(!document.getElementById('goldDisclosure')&&document.querySelector('#evidence-gold .passage')&&!document.querySelector('#evidence-gold .passage').closest('details'),'Gold documents appear directly without a toggle');
     assert(document.querySelector('#reference mark.answer-match'),'Gold answer highlights overlap with the RAG answer');
     const numericHighlight=highlighted('The age is 1.5 billion years.','','The age is 4.5 billion years.');
     assert(!numericHighlight.querySelector('mark.answer-match'),'Sentences with conflicting decimal values are not marked as likely matches');
@@ -382,6 +383,18 @@ PROGRESSIVE_CHECKS = r"""
     openTurn('other#2');
     assert(document.getElementById('notes').value==='Earlier saved note','Previously saved notes load for a previously unopened turn');
     assert(loads===1,'Another turn in the loaded conversation needs no request');
+    const flagTarget=activeKey,flagTurn=D.rows.find(row=>row.key===flagTarget),flagOriginalTypes=JSON.stringify(getFailureTypes(A[flagTarget]));
+    document.getElementById('flagReview').click();await flushProfile('PS');
+    const savedFlag=await (await fetch('/api/annotations/pilot/PS')).json();
+    assert(savedFlag.annotations[flagTarget].flagged_for_review===true,'Flag saves through the real annotation HTTP API');
+    assert(JSON.stringify(getFailureTypes(A[flagTarget]))===flagOriginalTypes,'HTTP flag save keeps existing failure choices');
+    profiles.delete('PS');await switchAnnotator('PS');openTurn(flagTarget);
+    assert(document.getElementById('flagReview').getAttribute('aria-pressed')==='true'&&A[flagTarget].notes==='Earlier saved note','Flag reload preserves existing notes and the question-mark state');
+    await document.getElementById('imp').onchange({target:{files:[new File([JSON.stringify(rowsOut())],'flag-roundtrip.json')],value:''}});
+    assert(A[flagTarget].flagged_for_review===true,'Exported flag survives actual JSON import');
+    document.getElementById('flagReview').click();await flushProfile('PS');
+    assert((await (await fetch('/api/annotations/pilot/PS')).json()).annotations[flagTarget].flagged_for_review===false,'Flag removal saves through HTTP');
+
     document.querySelector('[data-tab="history"]').click();
     assert(document.getElementById('evidenceBody').textContent.includes('Second conversation private answer 1'),'Complete conversation history arrives together');
     openTurn('other#1');
@@ -418,8 +431,12 @@ PROGRESSIVE_CHECKS = r"""
     assert(document.getElementById('labelProgress').textContent==='1 / 1','Multiple checked causes still count the conversation once');
     document.querySelector('[data-failure-type="E10"]').click();document.querySelector('[data-failure-type="E4"]').click();
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Removing the last checked failure choice removes its count and mark');
-    document.querySelector('[data-failure-type="insufficient_evidence"]').click();
-    assert(document.getElementById('labelProgress').textContent==='1 / 1','Checked alternative outcomes also count as failure choices');
+    document.querySelector('[data-failure-type="excluded"]').click();
+    assert(document.getElementById('labelProgress').textContent==='0 / 0'&&document.getElementById('labelledCount').textContent.includes('1 excluded'),'Excluded first failure is removed from failure-label workload');
+    assert(!document.querySelector('.conversation-complete')&&document.querySelector('.conversation-label-state').textContent.includes('Excluded'),'Excluded turn is distinguished from labelled failure');
+    await flushProfile('PS');
+    const excludedSaved=await (await fetch('/api/annotations/pilot/PS')).json();
+    assert(excludedSaved.annotations['case#1'].failure_type==='excluded','Server roundtrip preserves explicit exclusion');
     document.querySelector('input[value="correct"]').click();
     assert(document.getElementById('labelProgress').textContent==='0 / 1'&&!document.querySelector('.queue-group[data-id="case"] .conversation-complete'),'Correct alone and its automatic Not a failure value do not count as a checked failure choice');
     A['case#1']={human_label:'incorrect',failure_types:['E10']};save();queue();

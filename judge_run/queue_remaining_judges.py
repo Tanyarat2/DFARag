@@ -85,6 +85,16 @@ def process_identity(pid):
         return None
 
 
+def saved_threshold_arguments(output):
+    """Resume old outputs with their recorded cutoff, not a changed CLI default."""
+    records = json.loads(Path(output).read_text(encoding="utf-8"))
+    thresholds = {r.get("judge", {}).get("thresholds", {}).get("mtrag") for r in records}
+    thresholds.discard(None)
+    if len(thresholds) > 1:
+        raise ValueError("Mixed screening thresholds in %s" % output)
+    return ["--mtrag-threshold", str(next(iter(thresholds)))] if thresholds else []
+
+
 def validate_completed(name):
     """Require all input records and turns under the same Qwen3 settings."""
     folder = RUNS / name
@@ -95,6 +105,7 @@ def validate_completed(name):
         "--input", str(folder / "input.json"), "--output", str(output),
         "--model", MODEL, "--base-url", BASE_URL,
         "--reasoning-max-tokens", "4096", "--max-tokens", "8192",
+        *saved_threshold_arguments(output),
     ])
     # Reuse the judge's strict resume validation without invoking the API or
     # writing anything. Set resume_from after parsing because output is read-only.
@@ -127,6 +138,7 @@ def recovery_state(folder, ceiling):
     candidates = ([canonical] if canonical.is_file() else []) + sorted(
         folder.glob("out.mtrag.recovery_*.json"))
     for candidate in candidates:
+        args = judge_mtrag.parse_args([*recovery_arguments(folder, ceiling), *saved_threshold_arguments(candidate)])
         args.resume_from = candidate
         completed = judge_mtrag.load_completed_for_resume(args, records)
         if best_path is None or len(completed) > best_count:
@@ -169,7 +181,7 @@ def complete_run(rag, ceiling, recovery_passes):
                    *recovery_arguments(folder, ceiling), "--output", str(output),
                    "--api-key-env", "OPENROUTER_API_KEY"]
         if source is not None:
-            command.extend(["--resume-from", str(source)])
+            command.extend(["--resume-from", str(source), *saved_threshold_arguments(source)])
         process = subprocess.run(command, cwd=HERE, check=False)
         if process.returncode not in (0, 1):
             raise ValueError("%s exited with code %d; queue stopped." % (name, process.returncode))

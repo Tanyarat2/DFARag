@@ -332,11 +332,31 @@ li{margin:6px 0}
 .failure-inline-help{margin:2px 0 6px;padding:0 9px 5px!important;border:0;background:transparent;color:var(--muted);font-size:10px;line-height:1.5}.failure-inline-help p{margin:0 0 2px!important}
 .annotation-footer{grid-template-columns:minmax(0,1fr) auto;gap:4px;margin-top:6px;padding:6px 0 8px;align-items:center}.annotation-footer .status,.annotation-footer .primary,.annotation-footer #finishHint{grid-column:1/-1}.annotation-footer .status,.annotation-footer #finishHint,.annotation-footer .review-toggle{font-size:10px;line-height:1.3}.annotation-footer #finishHint{margin:0}.annotation-footer .primary{padding:7px 8px;font-size:12px;line-height:1.2}.annotation-footer>.text-button{padding:3px 6px;font-size:10px}.annotation-footer .review-toggle{margin:0}
 .column-body .passage{border:1px solid var(--line);border-radius:8px;padding:12px;margin:10px 0;background:#fff}.column-body .passage:first-child{border-top:1px solid var(--line);padding-top:12px}.column-body .passage-heading{padding-bottom:7px;border-bottom:1px solid #edf1ef;margin-bottom:8px}
+
+.sidebar-toggle{font-size:12px;white-space:nowrap}
+.queue[hidden]{display:none}
+.sidebar-resizer{position:absolute;right:-7px;top:0;bottom:0;width:14px;z-index:5;touch-action:none;cursor:col-resize;outline-offset:-3px}
+.sidebar-resizer::after{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:transparent}
+.sidebar-resizer:hover::after,.sidebar-resizer:focus-visible::after,body.resizing-sidebar .sidebar-resizer::after{background:var(--accent)}
+body.resizing-sidebar{cursor:col-resize;user-select:none;-webkit-user-select:none}
+.layout.sidebar-collapsed{grid-template-columns:minmax(0,1fr)}
+@media(min-width:651px){.layout:not(.sidebar-collapsed){grid-template-columns:clamp(160px,var(--sidebar-width,240px),40vw) minmax(0,1fr)}}
+@media(max-width:650px){.sidebar-resizer{display:none}}
+
+.answer-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.answer-comparison .turn-answer{min-width:0;margin:0;padding:0;border:0}
+.answer-comparison>section+section{border-left:1px solid var(--line);padding-left:16px}
+@media(max-width:650px){.answer-comparison{grid-template-columns:1fr}.answer-comparison>section+section{border-left:0;border-top:1px solid var(--line);padding:16px 0 0}}
+
+.review-flag{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:5px 8px;white-space:nowrap}
+.question-flag{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1px solid #b48b39;border-radius:50%;background:#fff6d9;color:#705014;font-size:12px;font-weight:750;flex-shrink:0}
+.review-flag[aria-pressed=true]{background:#fff6d9;border-color:#b48b39;color:#705014}
+.queue-flag{font-size:10px;color:#705014;display:inline-flex;align-items:center;gap:4px}
 </style>
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><div class="brand-mark" aria-hidden="true">✓</div><div><h1>RAG review</h1><p class="muted" id="title"></p></div></div>
+  <div class="brand"><button id="sidebarToggle" class="sidebar-toggle" aria-controls="reviewSidebar" aria-expanded="true">Hide sidebar</button><div class="brand-mark" aria-hidden="true">✓</div><div><h1>RAG review</h1><p class="muted" id="title"></p></div></div>
   <div class="toolbar">
     <label for="annotator">Annotator</label><select id="annotator" aria-label="Annotator"><option>PS</option><option>KH</option><option>WN</option></select>
     <button id="expJson">Export JSON</button><button id="expCsv">CSV</button>
@@ -344,7 +364,7 @@ li{margin:6px 0}
   </div>
 </header>
 <div class="layout">
-  <aside class="queue" aria-label="Review queue">
+  <aside class="queue" id="reviewSidebar" aria-label="Review queue">
     <div class="guideline-links"><button id="judgeGuideButton">Judge guideline</button><button id="failureGuideButton">Failure guideline</button></div>
     <div><div class="queue-heading"><h2>Failure labels</h2><span id="labelProgress" class="muted" aria-live="polite"></span></div><div class="progress-track"><div class="progress-fill" id="labelProgressFill"></div></div><p class="hint" id="labelledCount"></p></div>
     <div><div class="queue-heading"><h2>Review queue</h2><span id="progress" class="muted" aria-live="polite"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><p class="hint" id="reviewedCount"></p></div>
@@ -352,9 +372,11 @@ li{margin:6px 0}
     <div class="filters">
       <label><input type="checkbox" id="fTodo"> Unreviewed only</label>
       <label id="failFilter"><input type="checkbox" id="fFail"> mtRAG says incorrect</label>
+      <label><input type="checkbox" id="fFlagged"> ? Flagged only</label>
     </div>
-    <div class="queue-legend judges"><span class="badge correct">Correct ≥ 0.8</span><span class="badge incorrect">Incorrect &lt; 0.8</span></div>
+    <div class="queue-legend judges"><span class="badge correct">Correct ≥ 0.7</span><span class="badge incorrect">Incorrect &lt; 0.7</span></div>
     <div class="queue-list" id="queue" aria-label="Turns"></div>
+    <div id="sidebarResizer" class="sidebar-resizer" role="separator" tabindex="0" aria-label="Resize sidebar" aria-orientation="vertical" aria-controls="reviewSidebar" aria-valuemin="160" aria-valuemax="420" aria-valuenow="240" title="Drag to resize. Use arrow keys to adjust."></div>
   </aside>
   <main class="workspace">
     <div id="review"></div>
@@ -363,11 +385,11 @@ li{margin:6px 0}
 </div>
 <dialog id="judgeGuidelines" aria-labelledby="judgeGuideTitle" class="guideline-dialog">
   <div class="dialog-heading"><h2 id="judgeGuideTitle">Judge guideline · mtRAG</h2><form method="dialog"><button aria-label="Close judge guideline">Close</button></form></div>
-  <div class="guide-body"><p class="notice"><b>Correct: conditioned score ≥ 0.8. Incorrect: conditioned score &lt; 0.8.</b> Exactly 0.8 is correct. Turns without a valid score are unscored.</p><p>Check the saved mtRAG explanation and statement checks against the evidence. Make your own annotation; a screening result alone does not establish a root cause.</p><div id="crit"></div></div>
+  <div class="guide-body"><p class="notice"><b>Correct: conditioned score ≥ 0.7. Incorrect: conditioned score &lt; 0.7.</b> Exactly 0.7 is correct. Turns without a valid score are unscored.</p><p>Check the saved mtRAG explanation and statement checks against the evidence. Make your own annotation; a screening result alone does not establish a root cause.</p><div id="crit"></div></div>
 </dialog>
 <dialog id="failureGuidelines" aria-labelledby="failureGuideTitle" class="guideline-dialog">
   <div class="dialog-heading"><h2 id="failureGuideTitle">Failure annotation guideline</h2><form method="dialog"><button aria-label="Close failure guideline">Close</button></form></div>
-  <div class="guide-body"><p>First establish an observable error in the RAG answer. Compare selected context, gold documents, conversation, and corpus evidence. Review the gold answer independently too.</p><p>The 16 error types follow <a href="https://aclanthology.org/2026.eacl-long.147/" target="_blank" rel="noopener">Leung et al., EACL 2026</a>. Choose the earliest stage where evidence shows an error. Then choose one or more failure types in that stage. Earlier labels from other stages stay saved until you review them.</p><p>Original pre-rerank candidates and indexed chunk boundaries are not supplied by these conversation exports. Fresh corpus search does not reconstruct the original trace. Select Insufficient evidence when required traces are missing.</p><div id="failureGuideContent"></div><p><b>Other outcomes:</b> use Not a failure for an acceptable answer, Outside taxonomy for an established error beyond the 16 error types, or Insufficient evidence when the cause remains unresolved. Outside taxonomy and Insufficient evidence are alternative outcomes, selected on their own.</p></div>
+  <div class="guide-body"><p>First establish an observable error in the RAG answer. Compare selected context, gold documents, conversation, and corpus evidence. Review the gold answer independently too.</p><p>The 16 error types follow <a href="https://aclanthology.org/2026.eacl-long.147/" target="_blank" rel="noopener">Leung et al., EACL 2026</a>. Choose the earliest stage where evidence shows an error. Then choose one or more failure types in that stage. Earlier labels from other stages stay saved until you review them.</p><p>Original pre-rerank candidates and indexed chunk boundaries are not supplied by these conversation exports. Fresh corpus search does not reconstruct the original trace. Use Exclude from annotation to skip a turn you cannot annotate.</p><div id="failureGuideContent"></div><p><b>Other outcomes:</b> use Not a failure for an acceptable answer, Outside taxonomy for an established error beyond the 16 error types, or Exclude from annotation to skip a turn. Earlier Insufficient evidence labels are preserved. Alternative outcomes are selected on their own.</p></div>
 </dialog>
 <div id="message" role="status" aria-live="polite"></div>
 <script id="data" type="application/json">__DATA__</script>
@@ -390,7 +412,7 @@ function legacyFailureType(a){const types=getFailureTypes(a);return types.length
 
 function normalizeEntry(o){
   if(!o||typeof o!=='object'||Array.isArray(o))return null;
-  const a={human_score_band:['low','mid','high','correct','incorrect'].includes(o.human_score_band)?o.human_score_band:'',human_label:['correct','incorrect','uncertain'].includes(o.human_label)?o.human_label:'',failure_type:D.failure_types.concat(D.extra_types).includes(o.failure_type)?o.failure_type:'',notes:typeof o.notes==='string'?o.notes:'',gold_assessment:['supported','questionable','incorrect'].includes(o.gold_assessment)?o.gold_assessment:'',gold_notes:typeof o.gold_notes==='string'?o.gold_notes:'',evidence:Array.isArray(o.evidence)?o.evidence.filter(e=>e&&['source','locator','quote'].every(k=>typeof e[k]==='string')).map(e=>({source:e.source,locator:e.locator,quote:e.quote})):[]};if(typeof o.review_complete==='boolean')a.review_complete=o.review_complete;migrateBinaryLabel(a);const types=getFailureTypes(o);if(types.length>1&&types.some(t=>D.extra_types.includes(t)))return null;a.legacy_failure_types=getLegacyFailureTypes(o);setFailureTypes(a,types);return a;
+  const a={human_score_band:['low','mid','high','correct','incorrect'].includes(o.human_score_band)?o.human_score_band:'',human_label:['correct','incorrect','uncertain'].includes(o.human_label)?o.human_label:'',failure_type:D.failure_types.concat(D.extra_types).includes(o.failure_type)?o.failure_type:'',notes:typeof o.notes==='string'?o.notes:'',gold_assessment:['supported','questionable','incorrect'].includes(o.gold_assessment)?o.gold_assessment:'',gold_notes:typeof o.gold_notes==='string'?o.gold_notes:'',evidence:Array.isArray(o.evidence)?o.evidence.filter(e=>e&&['source','locator','quote'].every(k=>typeof e[k]==='string')).map(e=>({source:e.source,locator:e.locator,quote:e.quote})):[]};if(typeof o.review_complete==='boolean')a.review_complete=o.review_complete;if(typeof o.flagged_for_review==='boolean')a.flagged_for_review=o.flagged_for_review;migrateBinaryLabel(a);const types=getFailureTypes(o);if(types.length>1&&types.some(t=>D.extra_types.includes(t)))return null;a.legacy_failure_types=getLegacyFailureTypes(o);setFailureTypes(a,types);return a;
 }
 const rowKeys=new Set(D.rows.map(r=>r.key)), rowByKey=new Map(D.rows.map(r=>[r.key,r])), profiles=new Map();
 function cleanAnnotations(data){const result={};if(data&&typeof data==='object'&&!Array.isArray(data))Object.entries(data).forEach(([key,value])=>{const a=normalizeEntry(value);if(rowKeys.has(key)&&a)result[key]=a;});return result;}
@@ -406,7 +428,7 @@ function getProfile(name){
   }
   return profiles.get(name);
 }
-function hasAnnotation(a){return !!(a&&(typeof a.review_complete==='boolean'||a.human_label||a.human_score_band||getFailureTypes(a).length||getLegacyFailureTypes(a).length||a.notes||a.gold_assessment||a.gold_notes||a.evidence?.length));}
+function hasAnnotation(a){return !!(a&&(typeof a.review_complete==='boolean'||a.flagged_for_review===true||a.human_label||a.human_score_band||getFailureTypes(a).length||getLegacyFailureTypes(a).length||a.notes||a.gold_assessment||a.gold_notes||a.evidence?.length));}
 function persistProfile(state){
   try{localStorage.setItem(profileKey(state.name),JSON.stringify(state.annotations));localStorage.setItem(profileKey(state.name)+':pending',JSON.stringify([...state.dirty]));state.storageOK=true;}
   catch{state.storageOK=false;notify('Browser backup could not be saved for '+state.name+'. Export JSON to keep a copy.');}
@@ -465,10 +487,11 @@ function copyLegacyAnnotations(){
 }
 function openGuideline(kind){$(kind==='judge'?'judgeGuidelines':'failureGuidelines').showModal();}
 let activeKey=D.rows[0]?.key, activeTab='compare', evidenceQuery='', storageOK=true;
-const goldVisibility=new Map(), judgeVisibility=new Map(), evidenceVisibility=new Map();
+const judgeVisibility=new Map(), evidenceVisibility=new Map();
 const guides={...D.failure_definitions,
   not_a_failure:{title:'Not a failure',short:'The answer is acceptable',check:'Use when your independent review finds the answer acceptable, including a justified refusal. Record why you disagree with any incorrect judge screening.',need:['The request, answer, and supporting evidence'],look:['question','answer','selected'],missing:''},
   outside_taxonomy:{title:'Outside taxonomy',short:'An observed error does not fit the 16 error types',check:'Describe the observable answer error and explain why none of the 16 paper categories fits the evidence.',need:['The exact error and evidence for it','Why the existing categories do not apply'],look:['answer','gold','selected','corpus'],missing:''},
+  excluded:{title:'Excluded from annotation',short:'Skip this turn',check:'This turn is excluded from failure annotation. It is saved as an exclusion, not as a failure type.',need:[],look:[],missing:''},
   insufficient_evidence:{title:'Insufficient evidence',short:'The cause cannot be established from this record',check:'Describe the observable issue, list the competing explanations, and name the missing original trace needed to distinguish them.',need:['The observed issue, if one is established','The missing evidence and unresolved explanations'],look:['answer','selected','gold'],missing:'Do not infer a root cause from the judge score, a missing selected passage, or a new retrieval result.'}
 };
 
@@ -484,7 +507,7 @@ function conversationInfo(id){
   }
   return conversationNames.get(id);
 }
-function mtLabel(r){const v=r.judges.mtrag;return v.status==='judged'&&typeof v.conditioned_score==='number'&&Number.isFinite(v.conditioned_score)?(v.conditioned_score>=0.8?'correct':'incorrect'):null;}
+function mtLabel(r){const v=r.judges.mtrag;return v.status==='judged'&&typeof v.conditioned_score==='number'&&Number.isFinite(v.conditioned_score)?(v.conditioned_score>=0.7?'correct':'incorrect'):null;}
 function scoreLabel(v){const n=v.conditioned_score;return typeof n==='number'&&Number.isFinite(n)?(Number(n.toFixed(3))===n?'':'≈')+n.toFixed(3):'No score';}
 function mtBadge(r){const label=mtLabel(r);return el('span','badge judges '+(label||''),'mtRAG · '+(label?label[0].toUpperCase()+label.slice(1)+' · '+scoreLabel(r.judges.mtrag):'Not scored'));}
 function collectionFor(r){return r.corpus_collection||'unspecified';}
@@ -493,12 +516,13 @@ function corpusFor(r){const name=collectionFor(r);return corpusOverrides[name]||
 function entry(r){return A[r.key]||(A[r.key]={});}
 function labelled(r){return ['correct','incorrect','uncertain'].includes(A[r.key]?.human_label);}
 function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return types.length>0||a?.human_label==='correct'||a?.human_label==='incorrect'&&getLegacyFailureTypes(a).length>0;}
-function failureLabelled(r){return getFailureTypes(A[r.key]).some(type=>type!=='not_a_failure');}
+function excludedFromAnnotation(r){return getFailureTypes(A[r.key]).includes('excluded');}
+function failureLabelled(r){return !excludedFromAnnotation(r)&&getFailureTypes(A[r.key]).some(type=>type!=='not_a_failure');}
 function reviewed(r){return typeof A[r.key]?.review_complete==='boolean'?A[r.key].review_complete:annotationComplete(r);}
 function firstIncorrectTurns(){const first=new Map();D.rows.forEach(r=>{if(mtLabel(r)==='incorrect'&&(!first.has(r.id)||r.turn<first.get(r.id).turn))first.set(r.id,r);});return first;}
 function save(){const state=getProfile(currentAnnotator);state.annotations=A;captureProfile(state);progress();updateSaveStatus();if(D.annotation_api&&state.dirty.size){clearTimeout(state.timer);state.timer=setTimeout(()=>flushProfile(state.name),350);}}
-function progress(){const n=D.rows.filter(reviewed).length,targets=[...firstIncorrectTurns().values()],labelledCount=targets.filter(failureLabelled).length;$('progress').textContent=n+' / '+D.rows.length;$('progressFill').style.width=(D.rows.length?n/D.rows.length*100:0)+'%';$('reviewedCount').textContent='Reviewed turns · all conversations';$('labelProgress').textContent=labelledCount+' / '+targets.length;$('labelProgressFill').style.width=(targets.length?labelledCount/targets.length*100:0)+'%';$('labelledCount').textContent='First incorrect · ≥1 failure choice';}
-function filtered(){const q=$('search').value.trim().toLowerCase();return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!q||(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q)));}
+function progress(){const n=D.rows.filter(reviewed).length,allTargets=[...firstIncorrectTurns().values()],targets=allTargets.filter(r=>!excludedFromAnnotation(r)),excludedCount=allTargets.length-targets.length,labelledCount=targets.filter(failureLabelled).length;$('progress').textContent=n+' / '+D.rows.length;$('progressFill').style.width=(D.rows.length?n/D.rows.length*100:0)+'%';$('reviewedCount').textContent='Reviewed turns · all conversations';$('labelProgress').textContent=labelledCount+' / '+targets.length;$('labelProgressFill').style.width=(targets.length?labelledCount/targets.length*100:0)+'%';$('labelledCount').textContent='First incorrect · ≥1 failure choice'+(excludedCount?' · '+excludedCount+' excluded':'');}
+function filtered(){const q=$('search').value.trim().toLowerCase();return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!$('fFlagged').checked||A[r.key]?.flagged_for_review===true)&&(!q||(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q)));}
 let queueEdgeObserver;
 function observeQueueEdges(){
   queueEdgeObserver?.disconnect();
@@ -524,17 +548,19 @@ function queue(){
     name.append(el('span',null,info.name));name.title=info.name;caseId.title='Conversation ID: '+id;
     ident.append(el('span','conversation-number',info.number),caseId);
     if(complete){const mark=el('span','conversation-complete','✓ Labelled');mark.title='First incorrect turn labelled · Turn '+target.turn;mark.setAttribute('aria-label',mark.title);ident.append(mark);}
+    const flagCount=allTurns.get(id).filter(row=>A[row.key]?.flagged_for_review===true).length;if(flagCount){const marker=el('span','queue-flag','? '+flagCount+' flagged');marker.title='Turns flagged for review';ident.append(marker);}
     summary.append(name,ident);
     const counts=el('div','queue-group-counts');counts.append(el('span',null,turns.length+' turns'));
     const failures=turns.filter(r=>mtLabel(r)==='incorrect').length;
-    counts.append(el('span','judges',failures+' incorrect'));summary.append(counts,el('span','conversation-label-state',target?(complete?'✓ Failure labelled':'Label first incorrect')+' · Turn '+target.turn:allCorrect?'All turns correct':'Not fully scored'));group.append(summary);
+    counts.append(el('span','judges',failures+' incorrect'));summary.append(counts,el('span','conversation-label-state',target?(excludedFromAnnotation(target)?'Excluded from annotation':complete?'✓ Failure labelled':'Label first incorrect')+' · Turn '+target.turn:allCorrect?'All turns correct':'Not fully scored'));group.append(summary);
     const list=el('div','queue-turns');
     function buildTurns(){
     if(list.childElementCount)return;
     turns.forEach(r=>{
-      const b=button('',()=>openTurn(r.key),'queue-item');b.dataset.key=r.key;queueButtons.set(r.key,b);b.dataset.judge=mtLabel(r)||'unscored';b.dataset.reviewed=String(reviewed(r));b.dataset.labelTarget=String(target?.key===r.key);b.dataset.labelled=String(target?.key===r.key&&complete);
+      const b=button('',()=>openTurn(r.key),'queue-item');b.dataset.key=r.key;queueButtons.set(r.key,b);b.dataset.judge=mtLabel(r)||'unscored';b.dataset.reviewed=String(reviewed(r));b.dataset.flagged=String(A[r.key]?.flagged_for_review===true);b.dataset.labelTarget=String(target?.key===r.key);b.dataset.labelled=String(target?.key===r.key&&complete);
       b.setAttribute('aria-current',String(r.key===activeKey));b.title=r.question;
       const m=el('div','queue-meta');m.append(el('b',null,'Turn '+r.turn),el('span','review-state',reviewed(r)?'✓ Reviewed':labelled(r)&&!annotationComplete(r)?'Needs cause':'To review'));
+      if(A[r.key]?.flagged_for_review===true){const marker=el('span','question-flag','?');marker.title='Flagged for review';marker.setAttribute('aria-label','Flagged for review');m.append(marker);}
       const status=el('div','turn-status judges'),judgeLabel=mtLabel(r)?mtLabel(r)[0].toUpperCase()+mtLabel(r).slice(1):'Not scored',failureDone=b.dataset.labelled==='true';
       status.title='mtRAG: '+judgeLabel+' · '+scoreLabel(r.judges.mtrag);status.setAttribute('aria-label',(failureDone?'Failure labelled. ':'')+status.title);
       status.append(el('span',null,judgeLabel),el('span',null,scoreLabel(r.judges.mtrag)));
@@ -600,6 +626,7 @@ function renderReview(){
   const qt=el('p','question',r.question);question.append(heading('01 / Understand the request',button('Cite selection',()=>cite(r,'Question','question',r.question,qt),'text-button')),qt);
   const meta=el('div','question-meta');meta.append(el('span','badge','Recorded answerability: '+r.answerability));question.append(meta);reading.append(question);
   const answer=textPanel(r,'RAG answer',r.answer,'answer',(r.contexts||[]).join('\n'));answer.classList.add('turn-answer');
+  const answerComparison=el('div','answer-comparison'),goldAnswer=textPanel(r,'Gold answer',r.gold,'reference',r.answer);goldAnswer.classList.add('turn-answer');answerComparison.append(answer,goldAnswer);
   const legend=el('p','overlap-legend');legend.append(el('span',null,'Likely sentence match'),document.createTextNode(' · Text overlap only; check meaning.'));answer.append(legend);
   const j=r.judges.mtrag,label=mtLabel(r);
   const judgeKey=currentAnnotator+':'+r.key,assessment=el('details','panel judges judge-overview'),judgeSummary=el('summary'),judgeContent=el('div','judge-content');
@@ -609,8 +636,8 @@ function renderReview(){
   assessment.append(judgeSummary,judgeContent);
   judgeContent.append(heading('mtRAG judge assessment',mtBadge(r)));
   if(j.status==='judged'){
-    judgeContent.append(el('p',null,j.screening_reason||(label?'Conditioned score '+j.conditioned_score+(label==='correct'?' ≥ ':' < ')+'0.8 → '+label+'.':'No valid conditioned score is saved.')));
-    judgeContent.append(el('p','hint','This is the mtRAG conditioned score, not the raw RB_llm rating. Exactly 0.8 is correct. Your annotation remains independent.'));
+    judgeContent.append(el('p',null,j.screening_reason||(label?'Conditioned score '+j.conditioned_score+(label==='correct'?' ≥ ':' < ')+'0.7 → '+label+'.':'No valid conditioned score is saved.')));
+    judgeContent.append(el('p','hint','This is the mtRAG conditioned score, not the raw RB_llm rating. Exactly 0.7 is correct. Your annotation remains independent.'));
   }
   renderJudge(r,judgeContent);reading.append(assessment);
   const evidence=el('section','panel');evidence.id='evidence';
@@ -619,7 +646,7 @@ function renderReview(){
   for(const [key,title] of Object.entries({compare:'Side-by-side comparison',history:'Conversation ('+(r.turn-1)+')'})){
     const b=button(title,()=>{activeTab=key;renderEvidence(r);});b.id='tab-'+key;b.dataset.tab=key;b.setAttribute('role','tab');b.setAttribute('aria-controls','evidenceBody');tabs.append(b);
   }
-  evidence.append(tabs,answer);const search=el('input','evidence-search');search.type='search';search.id='evidenceSearch';search.placeholder='Find text in the selected context and gold documents…';search.setAttribute('aria-label','Find text in evidence');search.value=evidenceQuery;search.oninput=()=>{evidenceQuery=search.value;renderEvidence(r);};evidence.append(search);
+  evidence.append(tabs,answerComparison);const search=el('input','evidence-search');search.type='search';search.id='evidenceSearch';search.placeholder='Find text in the selected context and gold documents…';search.setAttribute('aria-label','Find text in evidence');search.value=evidenceQuery;search.oninput=()=>{evidenceQuery=search.value;renderEvidence(r);};evidence.append(search);
   const body=el('div','evidence-scroll');body.id='evidenceBody';body.setAttribute('role','tabpanel');evidence.append(body);reading.append(evidence);
   grid.append(reading,annotation(r));root.append(grid);renderEvidence(r);fitAnnotationPanel();
 }
@@ -709,13 +736,8 @@ function renderComparison(r,root){
   passages.forEach(({text,i})=>{const original=r.selected_passages?.[i],doc=original&&original.text===text?original:{id:'',title:'',text};selected.body.append(passage(r,'Selected context','selected:'+(i+1),doc.id?'#'+(i+1)+' · '+doc.id:'Selected chunk '+(i+1),text,'Recorded position '+(i+1),r.answer,{id:doc.id,used:true}));});
   if(q&&!passages.length)selected.body.append(el('p','hint','No matching selected passages. Clear the search to see all.'));
   track.append(selected.column);
-  const gold=evidenceColumn('Gold answer + gold documents','Reference answer and evidence.','gold');
-  const goldKey=currentAnnotator+':'+r.key,disclosure=el('details','gold-disclosure'),summary=el('summary',null,'Show gold answer + gold documents'),goldContent=el('div','gold-content');
-  disclosure.id='goldDisclosure';disclosure.open=goldVisibility.get(goldKey)||false;
-  summary.textContent=disclosure.open?'Hide gold answer + gold documents':'Show gold answer + gold documents';
-  disclosure.ontoggle=()=>{if(!disclosure.isConnected)return;goldVisibility.set(goldKey,disclosure.open);summary.textContent=disclosure.open?'Hide gold answer + gold documents':'Show gold answer + gold documents';};
-  disclosure.append(summary,goldContent);gold.body.append(disclosure);
-  goldContent.append(textPanel(r,'Gold answer',r.gold,'reference',r.answer));
+  const gold=evidenceColumn('Gold documents','Reference evidence.','gold');
+  const goldContent=el('div','gold-content');gold.body.append(goldContent);
   const gs=r.gold_support,docs=(gs?.documents||[]).map((p,i)=>({p,i})).filter(({p})=>!q||(p.title+' '+p.text+' '+p.id).toLowerCase().includes(q));
   goldContent.append(el('div','column-divider','Gold supporting documents · '+(gs?.documents?.length||0)),el('p','notice',gs?.status==='available'?'Gold reference passages.':gs?.status==='mismatch'?'Gold evidence does not match this turn.':'Gold evidence unavailable.'));
   goldContent.append(el('p','hint','Check the gold answer against these passages.'));
@@ -834,7 +856,10 @@ async function finishAndNext(r){
   refreshFailureChoices(r);notify('Saved. No unreviewed turns remain in this list.');
 }
 function annotation(r){
-  const a=entry(r),box=el('section','panel annotation');box.id='annotationPanel';box.lang='en';box.inert=!!getProfile(currentAnnotator).loading;box.setAttribute('aria-label','Annotation controls');box.append(heading(currentAnnotator+' / Annotation'));
+  const a=entry(r),box=el('section','panel annotation');box.id='annotationPanel';box.lang='en';box.inert=!!getProfile(currentAnnotator).loading;box.setAttribute('aria-label','Annotation controls');const flagText=el('span'),flag=button('',()=>{a.flagged_for_review=!a.flagged_for_review;save();if($('fFlagged').checked)applyFilters();else queue();refreshFlag();},'review-flag');flag.id='flagReview';
+  const flagIcon=el('span','question-flag','?');flagIcon.setAttribute('aria-hidden','true');flag.append(flagIcon,flagText);
+  function refreshFlag(){const marked=a.flagged_for_review===true;flag.setAttribute('aria-pressed',String(marked));flagText.textContent=marked?'Flagged':'Flag for review';flag.title=marked?'Remove this review flag':'Not sure about this turn? Flag it to revisit.';}
+  refreshFlag();box.append(heading(currentAnnotator+' / Annotation',flag));
   const trail=el('ol','annotation-trail');[['Choose failure','cause'],['Add evidence','evidence'],['Save','save']].forEach(([label,key],i)=>{const item=el('li',null,(i+1)+' '+label);item.dataset.reviewStep=key;trail.append(item);});box.append(trail);
   const legacyCount=Object.entries(legacyAnnotations).filter(([key,value])=>hasAnnotation(value)&&!hasAnnotation(A[key])).length;
   if(legacyCount){const old=el('details','guide');old.append(el('summary',null,'Earlier labels without a reviewer: '+legacyCount+' turn'),button('Copy earlier labels to '+currentAnnotator,copyLegacyAnnotations,'text-button'));box.append(old);}
@@ -863,7 +888,8 @@ function failureChoices(r){
   const stageHint=el('p','hint','Choose a type. Comparison hints are shown below each one.');stageHint.id='stagePickerHint';field.append(stageHint);
   const stages=el('div','stage-picker');stages.setAttribute('aria-label','Failure stage');
   D.failure_stages.forEach((stage,i)=>{const g=D.failure_stage_guides[stage],pick=button('',()=>{failureStageViews.set(stageViewKey(r),stage);stageEditors.delete(stageViewKey(r));refreshFailureChoices(r);},'stage-pick');pick.dataset.failureStage=stage;pick.append(el('b',null,(i+1)+' · '+g.label),el('small',null,stage+' · '+g.short));stages.append(pick);});const stageSummary=el('div','chosen-stage');stageSummary.id='chosenStage';const stageName=el('b');stageName.id='chosenStageName';stageSummary.append(stageName,button('Change stage',()=>{stageEditors.add(stageViewKey(r));refreshFailureChoices(r);},'text-button'));stageSummary.append(button('Show all 16',()=>{failureStageViews.set(stageViewKey(r),'all');stageEditors.delete(stageViewKey(r));refreshFailureChoices(r);},'text-button'));const filter=el('details','stage-filter');filter.id='stageFilter';filter.append(el('summary',null,'Filter by stage (optional)'),stages);field.append(filter,stageSummary);
-  const unknown=el('div','failure-alternatives');unknown.append(failureOption(r,'not_a_failure','No failure','No error found in this answer'),failureOption(r,'insufficient_evidence','Cause not clear','The answer has an error, but the evidence does not show its cause'));field.append(unknown);
+  const unknown=el('div','failure-alternatives');unknown.append(failureOption(r,'not_a_failure','No failure','No error found in this answer'),failureOption(r,'excluded','Exclude from annotation','Skip this turn; not a failure label'));field.append(unknown);
+  if(getFailureTypes(entry(r)).includes('insufficient_evidence'))field.append(failureOption(r,'insufficient_evidence','Cause not clear (previous annotation)','Earlier label preserved; not converted to an exclusion'));
   const more=el('details','other-outcomes');more.append(el('summary',null,'Error outside these 16 types'),failureOption(r,'outside_taxonomy','Outside taxonomy','A proven error that does not fit E1–E16'));
   const stageHelp=el('details','stage-evidence');stageHelp.id='stageEvidence';field.append(stageHelp);
   const selected=el('div','selected-causes');selected.id='selectedCauses';selected.setAttribute('aria-live','polite');field.append(selected);
@@ -898,7 +924,7 @@ function refreshFailureChoices(r){
   const chosen=$('selectedCauses');chosen.replaceChildren();const causes=types.filter(t=>D.failure_types.includes(t));chosen.hidden=!causes.length;
   if(causes.length){chosen.append(el('p','hint','Selected types · Click × to remove'));causes.forEach(type=>{const chip=button(D.failure_annotation_aids[type].label+' · '+type+' ×',()=>toggleFailure(r,type,false),'cause-chip');chip.setAttribute('aria-label','Remove '+type);chosen.append(chip);});chosen.append(button('Add notes or evidence ↓',()=>$('reviewNotes').scrollIntoView({behavior:'smooth',block:'nearest'}),'text-button'));}
   if(stages.length>1)chosen.append(el('p','notice warn','Types from more than one stage are saved. Keep the earliest proven stage before finishing.'));
-  field.querySelector('.failure-choice-meta').hidden=!types.length;$('clearFailureChoices').disabled=field.disabled||!types.length;$('failureCount').textContent=types.includes('not_a_failure')?'No failure':types.length+' selected';
+  field.querySelector('.failure-choice-meta').hidden=!types.length;$('clearFailureChoices').disabled=field.disabled||!types.length;$('failureCount').textContent=types.includes('excluded')?'Excluded':types.includes('not_a_failure')?'No failure':types.length+' selected';
   $('reviewNotes').hidden=false;
   const problem=finishProblem(r);$('finishHint').textContent=problem||'Ready.';$('finishReview').disabled=!!getProfile(currentAnnotator).loading;
   document.querySelectorAll('[data-review-step]').forEach(node=>node.dataset.active=String(node.dataset.reviewStep===(problem?'cause':'save')));
@@ -907,6 +933,7 @@ function refreshFailureChoices(r){
 function renderGuide(r){
   const a=entry(r),root=$('failureGuide');if(!root)return;root.replaceChildren();const types=getFailureTypes(a),legacy=getLegacyFailureTypes(a);
   if(legacy.length){const old=el('details','guide legacy-failures');old.open=!types.length;old.append(el('summary',null,'Earlier labels preserved · '+legacy.map(t=>D.legacy_failure_labels[t]).join(', ')),el('p',null,'Earlier labels are kept. Review them before choosing E1–E16; no labels were converted automatically.'));root.append(old);}
+  if(types.includes('excluded')){root.append(el('p','notice','Excluded from failure annotation. This decision is saved separately from failure labels.'));return;}
   if(types.includes('not_a_failure')){root.append(el('p','notice','No failure selected. The judge result is unchanged.'));return;}
   if(!types.length||types[0]==='not_a_failure')return;
   if(r.contexts===null)root.append(el('p','hint','Missing for this turn: selected context.'));else if(!r.contexts.length)root.append(el('p','hint','Recorded for this turn: zero selected passages.'));
@@ -925,10 +952,10 @@ function renderInlineComparison(r,type,root){
   if(limits[g.stage])root.append(el('p','hint',limits[g.stage]));
 }
 function renderCitations(r){const root=$('citations');if(!root)return;root.replaceChildren();const items=entry(r).evidence||[];if(!items.length){root.append(el('p','hint','No evidence cited yet.'));return;}items.forEach((e,i)=>{const c=el('div','citation'),top=el('div','citation-top');const remove=button('×',()=>{entry(r).evidence.splice(i,1);save();renderCitations(r);},'text-button');remove.setAttribute('aria-label','Remove evidence '+(i+1));top.append(el('b',null,e.source+' · '+e.locator),remove);c.append(top,el('blockquote',null,e.quote));root.append(c);});}
-function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),failure_taxonomy:D.failure_taxonomy,legacy_failure_types:getLegacyFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
+function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),flagged_for_review:A[r.key].flagged_for_review===true,failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),failure_taxonomy:D.failure_taxonomy,legacy_failure_types:getLegacyFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
 function download(name,text,type){const a=el('a');const url=URL.createObjectURL(new Blob([text],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('expJson').onclick=()=>download('annotations_'+D.run+'_'+currentAnnotator+'.json',JSON.stringify(rowsOut(),null,2),'application/json');
-$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','failure_type','failure_types','failure_taxonomy','legacy_failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types','legacy_failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
+$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','flagged_for_review','failure_type','failure_types','failure_taxonomy','legacy_failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types','legacy_failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
 $('imp').onchange=async ev=>{
   const file=ev.target.files[0];if(!file)return;
   try{
@@ -941,7 +968,7 @@ $('imp').onchange=async ev=>{
   }catch(error){notify('Import failed: '+error.message);}finally{ev.target.value='';}
 };
 $('importLabel').onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();$('imp').click();}};
-['fTodo','fFail'].forEach(id=>$(id).onchange=applyFilters);$('search').oninput=applyFilters;
+['fTodo','fFail','fFlagged'].forEach(id=>$(id).onchange=applyFilters);$('search').oninput=applyFilters;
 $('annotator').onchange=()=>switchAnnotator($('annotator').value);
 $('judgeGuideButton').onclick=()=>openGuideline('judge');$('failureGuideButton').onclick=()=>openGuideline('failure');
 const conversationCount=D.total_records??new Set(D.rows.map(row=>row.id)).size;$('title').textContent=D.run+' · '+conversationCount+(conversationCount===1?' conversation':' conversations');$('crit').innerHTML=D.criteria_html;
@@ -951,7 +978,27 @@ function fitQueue(){document.querySelector('.queue').style.setProperty('--queue-
 let annotationFitFrame;
 function fitAnnotationPanel(){cancelAnimationFrame(annotationFitFrame);annotationFitFrame=requestAnimationFrame(()=>{const box=$('annotationPanel');if(!box)return;if(window.innerWidth<=950){box.style.removeProperty('max-height');return;}const top=Math.max(16,Math.ceil(box.getBoundingClientRect().top));box.style.maxHeight='calc(100dvh - '+top+'px - 16px)';});}
 window.addEventListener('scroll',fitAnnotationPanel,{passive:true});window.addEventListener('resize',fitAnnotationPanel);
-window.addEventListener('resize',fitQueue);fitQueue();
+const sidebarLayout=document.querySelector('.layout'),sidebar=$('reviewSidebar'),sidebarHandle=$('sidebarResizer');
+const sidebarSettings=readLocal('annot:sidebar-layout',{});
+let sidebarWidth=Number(sidebarSettings?.width)||240,sidebarClosed=sidebarSettings?.closed===true;
+function saveSidebar(){try{localStorage.setItem('annot:sidebar-layout',JSON.stringify({width:sidebarWidth,closed:sidebarClosed}));}catch{}}
+function fitSidebar(){
+  sidebarWidth=Math.max(160,Math.min(420,sidebarWidth));
+  sidebarLayout.style.setProperty('--sidebar-width',sidebarWidth+'px');
+  sidebarLayout.classList.toggle('sidebar-collapsed',sidebarClosed);sidebar.hidden=sidebarClosed;
+  $('sidebarToggle').textContent=sidebarClosed?'Show sidebar':'Hide sidebar';$('sidebarToggle').setAttribute('aria-expanded',String(!sidebarClosed));
+  sidebarHandle.setAttribute('aria-valuenow',String(Math.round(sidebar.getBoundingClientRect().width||sidebarWidth)));
+  sidebarHandle.setAttribute('aria-valuemax',String(Math.floor(Math.min(420,window.innerWidth*.4))));
+  fitQueue();fitAnnotationPanel();
+}
+$('sidebarToggle').onclick=()=>{sidebarClosed=!sidebarClosed;fitSidebar();saveSidebar();};
+let sidebarPointer=null;
+sidebarHandle.onpointerdown=event=>{if(event.button!==0)return;sidebarPointer=event.pointerId;sidebarHandle.setPointerCapture(event.pointerId);document.body.classList.add('resizing-sidebar');event.preventDefault();};
+sidebarHandle.onpointermove=event=>{if(event.pointerId!==sidebarPointer)return;sidebarWidth=Math.max(160,Math.min(420,window.innerWidth*.4,event.clientX-sidebarLayout.getBoundingClientRect().left));fitSidebar();};
+function finishSidebarResize(event){if(event.pointerId!==sidebarPointer)return;sidebarPointer=null;document.body.classList.remove('resizing-sidebar');saveSidebar();}
+sidebarHandle.onpointerup=finishSidebarResize;sidebarHandle.onpointercancel=finishSidebarResize;sidebarHandle.onlostpointercapture=finishSidebarResize;
+sidebarHandle.onkeydown=event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const current=sidebar.getBoundingClientRect().width;sidebarWidth=event.key==='Home'?160:event.key==='End'?Math.min(420,window.innerWidth*.4):current+(event.key==='ArrowLeft'?-20:20);fitSidebar();saveSidebar();};
+window.addEventListener('resize',fitSidebar);fitSidebar();
 const annotationReady=switchAnnotator(currentAnnotator);
 </script>
 </body>

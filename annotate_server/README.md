@@ -142,7 +142,7 @@ Names and numbers are navigation aids; annotation exports still use the original
 conversation ID and turn. Sticky headers keep the selected turn visible when navigating.
 
 The review queue groups turns under their conversation ID. Green turns have an
-mtRAG conditioned score **>= 0.8**; red turns have a score **< 0.8**. Exactly 0.8
+mtRAG conditioned score **>= 0.7**; red turns have a score **< 0.7**. Exactly 0.7
 passes, and turns without a valid score stay neutral. The displayed label follows
 this cutoff even when an older saved label used a different threshold. The result
 files are not rewritten. Every turn has a collapsed **Show mtRAG judge assessment**
@@ -163,7 +163,7 @@ stacks below the comparison on narrow displays.
 The sidebar tracks two independent measures for the selected reviewer:
 
 - **Failure labels:** one target per conversation, at its earliest turn whose mtRAG
-  conditioned score is below 0.8. Selecting at least one failure checkbox on that
+  conditioned score is below 0.7. Selecting at least one failure checkbox on that
   turn counts it once, including Outside taxonomy or Insufficient evidence.
   A Correct/Incorrect decision and the review checkbox are not required for this
   counter. Correct alone (including its automatic Not a failure value) does not
@@ -227,10 +227,7 @@ matches do not establish semantic support or actual model usage; paraphrases wit
 shared words may not be highlighted. Gold evidence keeps
 its original order. Each column scrolls independently. On a narrow display, scroll
 the comparison horizontally.
-Gold answers and supporting documents start collapsed for each turn and annotator.
-Use **Show gold answer + gold documents** to reveal them or click again to hide
-them. The toggle stays as you set it while working on that turn in this page;
-reloading the page hides the gold evidence again.
+The gold answer is shown beside the RAG answer. Gold supporting documents appear directly in their evidence column, without a show/hide toggle.
 Conversation history has a separate view; detailed mtRAG checks are inside the
 judge toggle.
 
@@ -289,7 +286,7 @@ Each type has short, permanent plain-text comparison hints. They do not toggle,
 open a popup, or change evidence. Stage filtering is optional. Detailed definitions,
 examples, and limitations remain in **Failure guideline** at the top left.
 
-1. Select one or more supported failure types, or **No failure** / **Cause not clear**.
+1. Select one or more supported failure types, or **No failure** / **Exclude from annotation**.
 2. Add notes or citations if useful. Correct/Incorrect review is optional and starts
    collapsed; saving a failure does not infer a human correctness label or change
    the saved judge assessment.
@@ -404,3 +401,7 @@ that delayed corpus results do not block annotation or saved reviewer data.
 They also check collapsed judge assessments across turns and reviewer profiles.
 If a proxy intercepts local HTTP requests, set `NO_PROXY=127.0.0.1,localhost` and
 `no_proxy=127.0.0.1,localhost` before running the checks.
+
+New exclusions are stored as `failure_types: ["excluded"]` and are omitted from the first-incorrect failure-label workload for that annotator. They remain saved and exported for auditing; exclude them from failure-type agreement calculations. Existing `insufficient_evidence` annotations retain their meaning and are not migrated.
+
+Use **? Flag for review** for a confusing turn. The per-annotator boolean `flagged_for_review` is saved independently of review completion, failure labels, and exclusion. Flag-only turns are saved and exported. Question-mark badges identify flagged turns in the queue, and **? Flagged only** filters them. Click **? Flagged** again to remove the flag. JSON import/export and CSV export retain it.

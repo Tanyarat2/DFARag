@@ -209,7 +209,7 @@ def main(argv: Optional[List[str]] = None, runs_dir: Optional[pathlib.Path] = No
             raise SystemExit("Run already exists: %s. Add --fresh to archive it, or choose another --name." % run_dir)
         base_url = args.base_url or "https://openrouter.ai/api/v1"
         key_env = args.api_key_env or "OPENROUTER_API_KEY"
-        print("Source: %s\nModel: %s\nRun: %s\nThreshold: 0.8\n"
+        print("Source: %s\nModel: %s\nRun: %s\nThreshold: 0.7\n"
               "Reasoning budget: %s; completion budget: %s" % (
                   source, model, run_dir, args.reasoning_max_tokens,
                   "provider default" if args.no_max_tokens else (args.max_tokens or 1024)), flush=True)

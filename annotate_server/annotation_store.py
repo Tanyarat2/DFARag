@@ -12,7 +12,7 @@ from failure_taxonomy import EXTRA_TYPES, LEGACY_TYPES, TAXONOMY, TAXONOMY_VERSI
 
 ANNOTATORS = ("PS", "KH", "WN")
 RUN_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z")
-FIELDS = {"human_label", "human_score_band", "failure_type", "failure_types", "legacy_failure_types", "failure_taxonomy", "notes", "review_complete",
+FIELDS = {"human_label", "human_score_band", "failure_type", "failure_types", "legacy_failure_types", "failure_taxonomy", "notes", "review_complete", "flagged_for_review",
           "gold_assessment", "gold_notes", "evidence"}
 CHOICES = {
     "human_label": {"", "correct", "incorrect", "uncertain"},
@@ -32,9 +32,9 @@ def validate_changes(changes, valid_keys):
         if not isinstance(entry, dict) or set(entry) - FIELDS:
             raise ValueError("Annotation fields are invalid.")
         for field, value in entry.items():
-            if field == "review_complete":
+            if field in {"review_complete", "flagged_for_review"}:
                 if not isinstance(value, bool):
-                    raise ValueError("review_complete must be true or false.")
+                    raise ValueError(field + " must be true or false.")
             elif field in {"failure_types", "legacy_failure_types"}:
                 allowed = set(LEGACY_TYPES) if field == "legacy_failure_types" else CHOICES["failure_type"] - {""}
                 if (not isinstance(value, list) or
@@ -43,7 +43,7 @@ def validate_changes(changes, valid_keys):
                     raise ValueError(field + " must be a list of distinct valid failure choices.")
                 if field == "legacy_failure_types":
                     continue
-                if len(value) > 1 and set(value) & {"not_a_failure", "outside_taxonomy", "insufficient_evidence"}:
+                if len(value) > 1 and set(value) & set(EXTRA_TYPES):
                     raise ValueError("Alternative outcomes must be selected on their own.")
                 legacy = value[0] if len(value) == 1 else ""
                 if "failure_type" in entry and entry["failure_type"] != legacy:

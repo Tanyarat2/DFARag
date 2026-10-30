@@ -49,7 +49,7 @@ Start the existing resumable judge queue for HippoRAG only, from the repository 
 python3 -B judge_run/queue_remaining_judges.py --complete-all --rags hipporag
 ```
 
-It uses `qwen/qwen3-32b`, threshold 0.8, per-turn checkpoints and the same adaptive
+It uses `qwen/qwen3-32b`, threshold 0.7, per-turn checkpoints and the same adaptive
 4096/8192 baseline budgets as the other completed runs (retry ceiling 32768).
 If `OPENROUTER_API_KEY` is unset, enter it at the masked terminal prompt. Never
 paste the key into chat or source files. The launcher detaches and logs to
@@ -72,7 +72,7 @@ This reads `../conversation/vector/conversation_vector.json`, prepares every tur
 judges it with `qwen/qwen3-32b` through OpenRouter. Only `OPENROUTER_API_KEY`
 needs to be set in this terminal. Defaults match the Qwen3 pilot: 4096 reasoning
 tokens, 8192 total completion tokens per request, and a correct/incorrect cutoff
-of 0.8. The default run name is `conversation_vector_q3_32b`.
+of 0.7. The default run name is `conversation_vector_q3_32b`.
 
 `--fresh` moves an existing run (including human annotation files) to a sibling
 `<name>_backup_<timestamp>` folder before preparing the new one. Omit it for a
@@ -260,8 +260,8 @@ judge scores, original context order, or saved human labels.
 | `conditioned_score` | If ANSWERABLE/PARTIAL and IDK=yes, 0; otherwise `phi`. If UNANSWERABLE/CONVERSATIONAL, 1 only for IDK=yes, otherwise 0. If answerability is missing, `phi`. | mtRAG conditions **each metric individually** for answerable/partial/unanswerable turns. Combining first and treating conversational/missing answerability as above are local adaptations. |
 
 The project's existing binary screening rule is `correct` iff
-`conditioned_score >= 0.8`; this cutoff is not claimed to be the paper's.
-Exactly 0.8 passes. To apply this cutoff to an existing all-turn run without
+`conditioned_score >= 0.7`; this cutoff is not claimed to be the paper's.
+Exactly 0.7 passes. To apply this cutoff to an existing all-turn run without
 calling the model again, run `python -B relabel_mtrag.py --input runs/<name>/out.mtrag.json`.
 This preserves the original bytes in `out.mtrag.before-threshold-0p8.json` and
 updates screening labels, conversation labels, first failed turns and threshold
@@ -340,3 +340,5 @@ python3 -B -m unittest discover -s judge_run -p 'test_*.py' -v
 Runner and recovery tests use temporary files and synthetic model responses;
 no judge API calls are made. If local HTTP checks are intercepted by a proxy, set
 `NO_PROXY=127.0.0.1,localhost` and `no_proxy=127.0.0.1,localhost`.
+
+New judging defaults to a 0.7 conditioned-score cutoff. The annotation UI applies this cutoff to saved scores without rewriting judge outputs. Recovery retains each previous output's recorded threshold so changing the new-run default does not invalidate prior results.

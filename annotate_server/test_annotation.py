@@ -68,6 +68,36 @@ BROWSER_CHECKS = r"""
     assert(!$('failureChoices').hidden&&!$('failureChoices').disabled,'Failure annotation is available immediately, including previously reviewed turns');
     assert(document.querySelectorAll('.failure-stage:not([hidden]) [data-failure-type]').length===16,'All sixteen paper failure types are shown by default');
     assert(!$('optionalCorrectness').open,'Correctness check is optional and collapsed');
+    const flagKey=activeKey,flagRow=D.rows.find(row=>row.key===flagKey),beforeFlag=JSON.parse(JSON.stringify(A[flagKey]||{}));
+    const beforeReviewed=reviewed(flagRow),beforeFailureTypes=JSON.stringify(getFailureTypes(A[flagKey])),beforeProgress=$('labelProgress').textContent;
+    click('#flagReview');
+    assert(A[flagKey].flagged_for_review===true&&$('flagReview').getAttribute('aria-pressed')==='true','Question-mark flag can be set');
+    assert(reviewed(flagRow)===beforeReviewed&&JSON.stringify(getFailureTypes(A[flagKey]))===beforeFailureTypes&&$('labelProgress').textContent===beforeProgress,'Flag does not change review completion or failure annotation');
+    assert(document.querySelector('.queue-item[data-key="'+flagKey+'"] .question-flag')&&document.querySelector('.queue-group[data-id="'+flagRow.id+'"] .queue-flag'),'Flag is visible on turn and conversation cards');
+    const flagExport=rowsOut().find(row=>row.id===flagRow.id&&row.turn===flagRow.turn);
+    assert(flagExport.flagged_for_review&&normalizeEntry(flagExport).flagged_for_review,'Flag survives JSON export and import normalization');
+    $('fFlagged').checked=true;$('fFlagged').dispatchEvent(new Event('change'));
+    assert(filtered().length===1&&filtered()[0].key===flagKey,'Flagged-only filter finds the marked turn');
+    $('fFlagged').checked=false;$('fFlagged').dispatchEvent(new Event('change'));
+    click('#flagReview');assert(!A[flagKey].flagged_for_review&&!document.querySelector('.queue-item[data-key="'+flagKey+'"] .question-flag'),'Question-mark flag can be removed');
+    A[flagKey]=beforeFlag;save();queue();renderReview();await Promise.resolve();
+
+    const sidebarTurn=activeKey,sidebarReview=$('review').innerHTML;
+    click('#sidebarToggle');
+    assert($('reviewSidebar').hidden&&$('sidebarToggle').getAttribute('aria-expanded')==='false','Sidebar can be hidden');
+    checkVisible();
+    assert(activeKey===sidebarTurn&&$('review').innerHTML===sidebarReview,'Hiding sidebar preserves active annotation');
+    click('#sidebarToggle');
+    assert(!$('reviewSidebar').hidden&&$('sidebarToggle').getAttribute('aria-expanded')==='true','Sidebar can be reopened');
+    if(window.innerWidth>650){
+      const handle=$('sidebarResizer');handle.dispatchEvent(new KeyboardEvent('keydown',{key:'Home',bubbles:true}));
+      assert(Math.round($('reviewSidebar').getBoundingClientRect().width)===160,'Sidebar shrinks to its minimum');
+      handle.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));
+      assert(Math.round($('reviewSidebar').getBoundingClientRect().width)===180,'Keyboard can widen sidebar');
+      assert(JSON.parse(localStorage.getItem('annot:sidebar-layout')).width===180,'Sidebar width is saved');
+      sidebarWidth=240;fitSidebar();saveSidebar();checkVisible();
+    }
+
     assert($('failureChoices').querySelectorAll('.failure-inline-help:not([hidden])').length===16,'All sixteen plain comparison hints are visible before selection');
     const originalHint=document.querySelector('[data-help-type="E13"]').textContent;document.querySelector('[data-failure-type="E13"]').click();document.querySelector('[data-failure-type="E13"]').click();assert(document.querySelector('[data-help-type="E13"]').textContent===originalHint&&!document.querySelector('[data-help-type="E13"]').hidden,'Selecting and clearing a failure does not toggle its hint');
     const evidenceRow={contexts:['Venus rotates westward.'],gold_support:{status:'available',documents:[{id:'gold-1',text:'Venus rotates westward.'}]}};
@@ -91,10 +121,16 @@ BROWSER_CHECKS = r"""
     const other={...D.rows[2],key:'other#1',id:'other',turn:1,n_turns:1};D.rows.push(other);queue();
     assert($('queue').querySelectorAll('.queue-group').length===2,'Separate IDs create separate groups');D.rows.pop();queue();
     assert($('review').querySelectorAll('#answer,#reference').length===2,'Answer comparison');
+    assert($('answer').parentElement===$('reference').parentElement&&$('answer').parentElement.classList.contains('answer-comparison'),'RAG and gold answers are adjacent in one comparison');
+    assert(!$('reference').closest('details'),'Gold answer is visible without opening documents');
+    const boundaryRow={judges:{mtrag:{status:'judged',conditioned_score:.7}}};assert(mtLabel(boundaryRow)==='correct','Exactly 0.7 passes in the browser');
+    boundaryRow.judges.mtrag.conditioned_score=.699999;assert(mtLabel(boundaryRow)==='incorrect','Below 0.7 fails in the browser');
+
     assert($('review').querySelectorAll('.evidence-column').length===3,'Three simultaneous evidence columns');
+    assert(!$('goldDisclosure')&&document.querySelector('#evidence-gold .passage')&&!document.querySelector('#evidence-gold .passage').closest('details'),'Gold passages are visible without a disclosure on every screen size');
     assert($('queue').querySelector('[data-judge=incorrect] .turn-status').textContent.includes('Incorrect'),'mtRAG turn status');
     assert(!$('judgeDisclosure').open,'Judge assessment starts collapsed');
-    assert($('judgeDisclosure').querySelector('.judge-content').textContent.includes('0.8'),'mtRAG cutoff retained inside disclosure');
+    assert($('judgeDisclosure').querySelector('.judge-content').textContent.includes('0.7'),'mtRAG cutoff retained inside disclosure');
     assert(!document.querySelector('#question .judges'),'Question does not repeat judge results');
     assert($('progress').textContent==='1 / 3','Initial reviewed progress');
     checkVisible();
@@ -123,7 +159,11 @@ BROWSER_CHECKS = r"""
     assert($('failureCount').textContent==='3 selected','Selected cause count');
     assert($('failureChoices').querySelectorAll('.failure-help:not([hidden])').length===16,'Evidence hints stay visible for all sixteen failure types');
     click('[data-failure-type="E4"]');assert(A['case#2'].failure_types.length===2&&!getFailureTypes(A['case#2']).includes('E4'),'Individual causes can be deselected');
-    click('[data-failure-type="insufficient_evidence"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["insufficient_evidence"]','Unresolved outcome replaces confirmed causes');
+    click('[data-failure-type="excluded"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["excluded"]','Exclusion replaces confirmed causes');
+    assert(excludedFromAnnotation(D.rows[1])&&!failureLabelled(D.rows[1]),'Excluded turn is not a failure label');
+    assert(rowsOut().find(row=>row.id==='case'&&row.turn===2).failure_type==='excluded','Exclusion remains explicit in exports');
+    setFailureTypes(A['case#2'],['insufficient_evidence']);renderReview();await Promise.resolve();
+    assert(getFailureTypes(A['case#2'])[0]==='insufficient_evidence'&&document.querySelector('[data-failure-type="insufficient_evidence"]'),'Previous unclear annotation stays preserved and visible');
     click('[data-failure-type="E10"]');assert(JSON.stringify(getFailureTypes(A['case#2']))==='["E10"]','A confirmed cause replaces an alternative outcome');
     click('#clearFailureChoices');assert(!reviewed(D.rows[1])&&!getFailureTypes(A['case#2']).length,'Clear choices resets completion');
     click('[data-failure-type="E10"]');click('[data-failure-type="E4"]');click('[data-failure-type="E12"]');
@@ -182,7 +222,7 @@ BROWSER_CHECKS = r"""
 
     assert(!$('blind'),'Hide judge assessment removed');
     assert(!$('coverage')&&!document.querySelector('.queue a[href="#guidelines"]'),'Sidebar footer removed');
-    click('#judgeGuideButton');assert($('judgeGuidelines').open&&$('judgeGuidelines').textContent.includes('0.8'),'Judge guideline opens from top left');$('judgeGuidelines').close();
+    click('#judgeGuideButton');assert($('judgeGuidelines').open&&$('judgeGuidelines').textContent.includes('0.7'),'Judge guideline opens from top left');$('judgeGuidelines').close();
     click('#failureGuideButton');assert($('failureGuidelines').open&&$('failureGuideContent').children.length===16&&$('failureGuideContent').textContent.includes(D.failure_annotation_aids.E13.example),'Top-left guideline popup contains all sixteen types and detailed examples');$('failureGuidelines').close();
     if(window.innerWidth>950){const form=$('annotationPanel').getBoundingClientRect(),reading=document.querySelector('.reading').getBoundingClientRect();assert(form.left>=reading.right,'Annotation panel is on the right');assert(getComputedStyle($('annotationPanel')).position==='sticky','Right annotation bar stays visible');}
     click('[data-tab="compare"]');
@@ -403,8 +443,8 @@ class AnnotationTests(unittest.TestCase):
                 thread.join(timeout=2)
 
     def test_screening_boundary_and_invalid_scores(self):
-        for score, label in [(0, 'incorrect'), (.799999, 'incorrect'), (.8, 'correct'),
-                             (.800001, 'correct'), (1, 'correct'), (None, None),
+        for score, label in [(0, 'incorrect'), (.699999, 'incorrect'), (.7, 'correct'),
+                             (.700001, 'correct'), (1, 'correct'), (None, None),
                              ('0.9', None), (True, None), (float('nan'), None), (float('inf'), None)]:
             with self.subTest(score=score):
                 turn = {'label': 'incorrect', 'scores': {'conditioned_score': score}}
@@ -427,7 +467,7 @@ class AnnotationTests(unittest.TestCase):
             output.write_text(json.dumps(saved), encoding='utf-8')
             before = output.read_bytes()
             data = annotation.build_data(path)
-            self.assertEqual(data['thresholds']['mtrag'], .8)
+            self.assertEqual(data['thresholds']['mtrag'], .7)
             self.assertEqual(data['rows'][0]['judges']['mtrag']['label'], 'correct')
             self.assertEqual(output.read_bytes(), before)
 
@@ -493,7 +533,7 @@ class AnnotationTests(unittest.TestCase):
             self.skipTest('No headless Chrome/Edge installed')
         with tempfile.TemporaryDirectory() as folder:
             base = pathlib.Path(folder)
-            for width in (1440, 390):
+            for width in (1440, 1024, 390):
                 page = annotation.render_page(fixture())
                 seed = '<script>localStorage.setItem("annot:annotation_ui_test:PS", JSON.stringify({"case#1":{"human_score_band":"correct"},"case#2":{"human_score_band":"mid"}}));localStorage.setItem("annot:annotation_ui_test",JSON.stringify({"case#3":{"human_label":"incorrect","notes":"Earlier shared work"}}));</script>'
                 # Windows Chrome can enforce a 500px minimum layout viewport even

@@ -68,7 +68,7 @@ def relabel(path, threshold):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", required=True, type=pathlib.Path)
-    parser.add_argument("--threshold", type=float, default=0.8)
+    parser.add_argument("--threshold", type=float, default=0.7)
     args = parser.parse_args()
     relabel(args.input, args.threshold)
 

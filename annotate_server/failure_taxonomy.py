@@ -12,7 +12,7 @@ LEGACY_TYPES = {
     "retrieval": "Retrieval", "context_selection": "Context selection",
     "grounding": "Grounding", "response_coverage": "Response coverage",
 }
-EXTRA_TYPES = ["not_a_failure", "outside_taxonomy", "insufficient_evidence"]
+EXTRA_TYPES = ["not_a_failure", "outside_taxonomy", "insufficient_evidence", "excluded"]
 
 
 def definition(code, name, stage, short, check, need, look, missing=""):

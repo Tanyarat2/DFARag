@@ -143,6 +143,17 @@ class RecoveryTests(unittest.TestCase):
         self.assertTrue(saved.is_set())
         self.assertEqual(json.loads(self.output.read_text()), [first])
 
+    def test_new_default_cutoff_preserves_old_recovery_threshold(self):
+        self.assertEqual(judge.parse_args(self.base).mtrag_threshold, .7)
+        old = self.evaluated(0)
+        old['judge']['thresholds']['mtrag'] = .8
+        self.output.write_text(json.dumps([old]))
+        before = self.output.read_bytes()
+        self.assertEqual(queue.saved_threshold_arguments(self.output), ['--mtrag-threshold', '0.8'])
+        source, completed, total = queue.recovery_state(self.folder, 32768)
+        self.assertEqual((source, completed, total), (self.output, 1, 3))
+        self.assertEqual(self.output.read_bytes(), before)
+
     def test_queue_recovers_only_missing_records_and_preserves_original(self):
         original = self.evaluated(0)
         self.output.write_text(json.dumps([original]))

@@ -1,0 +1,498 @@
+{
+  "version": 1,
+  "fingerprint": "2e249ff51799bd3a2b13db82622b7b491f63b9b6ad948fdd5838bf6bd58e567a",
+  "id": "94d04f2cd47fee9a0aaa13fa3ae1de53",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.70). RB_llm justification: The assistant's answer correctly defines both Market Cap and NAV, explaining their calculations and the key difference in their basis (future expectations vs. current asset values). It aligns with the document's explanation that Market Cap reflects market sentiment and future earnings potential, while NAV is a book value derived from tangible assets. The assistant's response is faithful to the doc",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "Market Cap is the total value of a company's outstanding shares, calculated by multiplying the share price by the number of shares.",
+            "verdict": "yes",
+            "reason": "The context explicitly defines market cap as 'share price multiplied by the number of shares.'"
+          },
+          {
+            "statement": "Market Cap reflects investors' expectations of the company's future earnings.",
+            "verdict": "yes",
+            "reason": "The context states that market cap includes 'investors' expectations looking into the future' and that it reflects 'the perceived present value of all future earnings.'"
+          },
+          {
+            "statement": "NAV (Net Asset Value) is the total value of a company's assets minus its liabilities, divided by the number of shares.",
+            "verdict": "yes",
+            "reason": "The context defines NAV as 'how much cash would we end up with if we sold everything the company owns, paid back all the debt, and closed down the business,' which aligns with assets minus liabilities divided by shares."
+          },
+          {
+            "statement": "NAV represents the book value of the company if it were liquidated immediately.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that NAV is 'what you would get if you liquidated the company instantaneously' and equates it to book value."
+          },
+          {
+            "statement": "Market Cap can be higher than NAV due to future growth expectations.",
+            "verdict": "yes",
+            "reason": "The context provides examples (e.g., Amazon's P/B ratio of 13) and explains that market cap includes 'the perceived present value of all future earnings,' which justifies higher valuations than NAV."
+          },
+          {
+            "statement": "NAV is based on current asset and liability values.",
+            "verdict": "yes",
+            "reason": "The context states that NAV is 'a book-keeping exercise' using 'current asset and liability values' and that it is 'the result of adding up things that are all known.'"
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.70). RB_llm justification: The assistant's answer addresses some key factors from the document, such as deal terms (assets/liabilities), financing options, and readiness (experience, capital, management ability). However, it omits critical elements from the reference answer, including clarifying goals, working with professionals, budgeting, handling surprises, and understanding financial metrics like P/E ratios. While the a",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Key factors to consider when purchasing a business include the terms of the deal, such as what assets or liabilities are included (e.g., location, inventory, customer list).",
+            "verdict": "yes",
+            "reason": "The context explicitly states that what is included in a business purchase (e.g., location, inventory, customer list) can be negotiated and may vary significantly, emphasizing the importance of defining terms of the deal."
+          },
+          {
+            "statement": "Financing options available for the purchase should be evaluated, including the need to bring cash to the table.",
+            "verdict": "yes",
+            "reason": "The context mentions that buyers must bring cash to the table while the parent company may loan the rest, highlighting the importance of evaluating financing options."
+          },
+          {
+            "statement": "Potential loans from the parent company may be an option if applicable.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that financing from the parent company is often provided when purchasing a franchise, making this a directly supported statement."
+          },
+          {
+            "statement": "Readiness for the business must be assessed, including the buyer's experience, capital availability, and ability to manage the business effectively.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the importance of experience (e.g., 'do you really want to be in the landlord business') and capital availability, aligning with the need to assess readiness."
+          },
+          {
+            "statement": "Resources like the Small Business Administration can provide guidance for the acquisition process.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the Small Business Administration and Small Business Development Centers as resources to help with starting a business, including guidance for acquisitions."
+          },
+          {
+            "statement": "The specific factors may vary depending on the type of acquisition, such as buying equity or assets.",
+            "verdict": "yes",
+            "reason": "The context discusses different acquisition types (e.g., buying equity vs. assets) and their implications, directly supporting this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.70). RB_llm justification: The assistant's answer is largely faithful to the documents and reference answer, accurately conveying that stock ownership grants partial ownership but not automatic control. It correctly identifies the need for a majority of voting shares (50% or more) and acknowledges complicating factors like share classes, bylaws, and jurisdictional rules (e.g., the 20% takeover bid requirement in some region",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Purchasing stocks gives you ownership of a portion of the company.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that buying stock grants ownership of a part of the company."
+          },
+          {
+            "statement": "Purchasing stocks does not necessarily grant you control.",
+            "verdict": "yes",
+            "reason": "The context explains that control depends on factors like voting rights and company structure, not just ownership."
+          },
+          {
+            "statement": "To have control, you typically need to own a majority of the voting shares, often 50% or more.",
+            "verdict": "yes",
+            "reason": "The context states that owning more than 50% of voting shares typically grants control over directors."
+          },
+          {
+            "statement": "Company bylaws can complicate control through stock ownership.",
+            "verdict": "yes",
+            "reason": "The context mentions bylaws that restrict replacing directors in stages, complicating control."
+          },
+          {
+            "statement": "Different classes of shares with varying voting rights can affect control.",
+            "verdict": "yes",
+            "reason": "The context provides an example of 'A' and 'B' shares with differing voting rights impacting control."
+          },
+          {
+            "statement": "Jurisdiction-specific rules may influence control through stock ownership.",
+            "verdict": "yes",
+            "reason": "The context notes jurisdictional rules (e.g., Australia's 20% takeover bid requirement) affecting control."
+          },
+          {
+            "statement": "Owning 20% or more of a company may require a formal takeover bid in some cases.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this for Australia."
+          },
+          {
+            "statement": "Purchasing stocks may not directly give you control unless specific conditions are met.",
+            "verdict": "yes",
+            "reason": "The context outlines conditions like voting rights, bylaws, and jurisdictional rules that affect control."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.70). RB_llm justification: The assistant's answer is **faithful** to the document, as it accurately reflects the practical aspects of business valuation discussed, such as assets, liabilities, profitability, risk, and future earnings. It uses the example from the document (e.g., $50k profit with a 20% return leading to a $250k valuation) and aligns with the emphasis on risk-adjusted returns. However, it does not address the",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The value of a business depends on factors such as its assets, profitability, risk, and growth potential.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that business valuation considers assets, profits, risk, and future sales/earnings potential (e.g., 5-year sales projections)."
+          },
+          {
+            "statement": "Business value is typically calculated based on the company's assets, liabilities, risk level, and profit margins.",
+            "verdict": "yes",
+            "reason": "The context directly mentions assets, liabilities, risk, and profit as core factors in valuation."
+          },
+          {
+            "statement": "A business with consistent profits may be valued based on the owner's expected return on investment.",
+            "verdict": "yes",
+            "reason": "The context provides an example of valuing a $100/year profit business based on desired ROI (10% vs. 20%)."
+          },
+          {
+            "statement": "For example, a $50,000 annual profit with a 20% expected return would result in a $250,000 business valuation.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this calculation for a rental business with $50k profit and 20% return."
+          },
+          {
+            "statement": "Real estate ownership can influence a business's overall value.",
+            "verdict": "yes",
+            "reason": "The context adds real estate value ($600k) and business value ($250k) to determine a total fair price of $850k."
+          },
+          {
+            "statement": "Future earnings potential is a key factor in determining business value.",
+            "verdict": "yes",
+            "reason": "The context emphasizes estimating future sales over 5 years and discounting them to current valuation."
+          },
+          {
+            "statement": "Risk assessment directly impacts how a business is valued.",
+            "verdict": "yes",
+            "reason": "The context explains that higher risk (e.g., 20% return requirement) reduces valuation compared to lower-risk scenarios."
+          },
+          {
+            "statement": "Business value is a combination of multiple factors and varies depending on the buyer or seller's perspective.",
+            "verdict": "yes",
+            "reason": "The context states there is no universal answer and that valuation depends on risk tolerance, contributions, and negotiated agreement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.70). RB_llm justification: The assistant's answer addresses several factors for making good decisions, such as evaluating one's situation, understanding goals, assessing risk tolerance, and maintaining adaptability. These points align with the document's emphasis on goals, risk tolerance, strategy, and record-keeping. However, the assistant's response lacks the reference answer's focus on the profit-driven nature of busines",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Making good decisions involves considering several key factors.",
+            "verdict": "yes",
+            "reason": "The context lists multiple factors (goals, risk tolerance, strategy, record-keeping) and emphasizes evaluating one's situation, directly supporting this statement."
+          },
+          {
+            "statement": "Evaluating your exact situation is a key factor in making good decisions.",
+            "verdict": "yes",
+            "reason": "The context explicitly states, 'You need to evaluate your exact situation and do what is best for you,' directly supporting this statement."
+          },
+          {
+            "statement": "Understanding your goals is essential for making good decisions.",
+            "verdict": "yes",
+            "reason": "The context includes a detailed discussion of 'Goal' as a critical component of decision-making, directly supporting this statement."
+          },
+          {
+            "statement": "Assessing risk tolerance is a critical component of decision-making.",
+            "verdict": "yes",
+            "reason": "The context explicitly addresses 'Risk tolerance' as a key factor in the decision-making process, directly supporting this statement."
+          },
+          {
+            "statement": "Defining a clear strategy is important when making decisions.",
+            "verdict": "yes",
+            "reason": "The context asks about 'buy and sell conditions' and 'models you are following,' which relate to strategy, directly supporting this statement."
+          },
+          {
+            "statement": "Maintaining proper record-keeping supports effective decision-making.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions 'Record keeping' as a necessary component for tax purposes, directly supporting this statement."
+          },
+          {
+            "statement": "The ability to adapt and adjust decisions when things don't go as planned is necessary.",
+            "verdict": "yes",
+            "reason": "The context states that successful people 'abandon bad decisions quickly and adjust their execution when things don't work as planned,' directly supporting this statement."
+          },
+          {
+            "statement": "Successful decision-making often involves learning from mistakes.",
+            "verdict": "yes",
+            "reason": "The context implies learning from mistakes through the idea of adjusting execution when things fail, which inherently involves learning from errors."
+          },
+          {
+            "statement": "Avoiding fear-driven inaction is a key aspect of good decision-making.",
+            "verdict": "yes",
+            "reason": "The context criticizes 'bad leaders... who avoid decisions because of fear of making bad decisions,' directly supporting this statement."
+          },
+          {
+            "statement": "Ensuring thorough planning and execution is vital for successful decisions.",
+            "verdict": "yes",
+            "reason": "The context states that 'the worst leaders... do not do basic checks and plans before making decisions,' emphasizing the importance of thorough planning and execution."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.70). RB_llm justification: The assistant's answer addresses the importance of employees in contributing to business success and touches on aspects like work environment, compensation, and value alignment. However, it lacks the detailed explanation of \"employee layers\" and the emphasis on fostering a family-like dynamic present in the reference answer. The document also highlights challenges like payroll management and hirin",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Employees play a crucial role in the success of a business, as they contribute to productivity, innovation, and customer satisfaction.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that 'good employees who are happy will make good products that you can sell to customers who are happy with your company,' directly linking employee contributions to business success and customer satisfaction."
+          },
+          {
+            "statement": "Their well-being and engagement can significantly impact the company's performance.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that taking care of employees builds loyalty, reduces turnover, and that 'happy employees produce good products,' indicating a direct link between employee well-being and company performance."
+          },
+          {
+            "statement": "Employers often focus on creating a positive work environment to retain and motivate employees, as happy and loyal staff tend to produce better results.",
+            "verdict": "yes",
+            "reason": "The context highlights that 'the best bosses... worry about maintaining an environment that is good for the product' and that total rewards (including benefits) are necessary to attract and retain employees, aligning with the statement."
+          },
+          {
+            "statement": "Managing employees involves various responsibilities, such as handling payroll, taxes, and ensuring fair compensation.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists 'government forms, legal protection, insurance, taxes, payroll, accounting' as part of the employer's responsibilities, directly supporting this statement."
+          },
+          {
+            "statement": "Aligning employees' values with the company's mission can foster a stronger team dynamic and improve overall outcomes.",
+            "verdict": "yes",
+            "reason": "The context discusses hiring employees with similar values ('philosophically similar to me') and notes that 'if the chemistry is better, more productive work gets done,' directly supporting the idea of value alignment improving outcomes."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.70). RB_llm justification: The assistant's answer addresses key reasons for selling an investment, such as misalignment with strategy, loss of confidence, and financial needs (e.g., rebalancing, debt, diversification). It aligns with the document's emphasis on personal financial goals and the reference's mention of strategy and principal extraction. However, it omits the reference's point about high industry demand and the ",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "When the stock no longer aligns with your strategy",
+            "verdict": "yes",
+            "reason": "The context explicitly states that selling occurs when the stock no longer fits your strategy."
+          },
+          {
+            "statement": "When you've lost confidence in the company",
+            "verdict": "yes",
+            "reason": "The context mentions that selling can happen if you've lost faith in the company, which is equivalent to losing confidence."
+          },
+          {
+            "statement": "When you need the funds for other purposes like rebalancing your portfolio, paying debts, or diversifying",
+            "verdict": "yes",
+            "reason": "The context lists rebalancing, paying debts, and diversifying as reasons for selling."
+          },
+          {
+            "statement": "Selling may be necessary to access cash quickly",
+            "verdict": "yes",
+            "reason": "The context notes that selling a small amount might be due to needing cash in a hurry."
+          },
+          {
+            "statement": "Selling may be necessary to realize gains after taxes",
+            "verdict": "yes",
+            "reason": "The context describes a strategy to sell after getting the principal out, which includes taxes and dividends, implying realizing gains after taxes."
+          },
+          {
+            "statement": "Selling should be considered carefully",
+            "verdict": "yes",
+            "reason": "The context advises against selling unless there is a clear reason, such as speculation or fundamental changes, emphasizing careful consideration."
+          },
+          {
+            "statement": "It may indicate a shift in your investment goals or a change in the company's fundamentals",
+            "verdict": "yes",
+            "reason": "The context states that selling should be considered if something fundamental has changed, and strategy shifts (e.g., needing cash) imply a shift in investment goals."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=0.909, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.851 (threshold 0.70). RB_llm justification: The assistant's answer is **faithful** to the document, as it incorporates key points such as researching via business brokers, negotiating deal terms, considering franchise financing, utilizing SBA resources, and emphasizing legal/financial due diligence. These elements are explicitly mentioned in the document. However, the reference answer shifts focus to hiring financial advisors, which is not ",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 0.9090909090909091,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.851063829787234,
+        "conditioned_score": 0.851063829787234,
+        "statements": [
+          {
+            "statement": "When purchasing a business, research business broker websites to understand costs.",
+            "verdict": "yes",
+            "reason": "The context explicitly states to look for business broker websites to understand costs."
+          },
+          {
+            "statement": "When purchasing a business, find a mentor or work as a manager to gain experience.",
+            "verdict": "yes",
+            "reason": "The context recommends finding a mentor or working as a manager for experience."
+          },
+          {
+            "statement": "When purchasing a business, negotiate terms to clarify what assets or liabilities are included (e.g., location, inventory, customer list).",
+            "verdict": "yes",
+            "reason": "The context explains that terms can be negotiated, including examples like location, inventory, and customer lists."
+          },
+          {
+            "statement": "When purchasing a business, decide how much you want to be involved in day-to-day operations.",
+            "verdict": "yes",
+            "reason": "The context explicitly advises deciding involvement in day-to-day operations."
+          },
+          {
+            "statement": "When purchasing a business, ensure you understand the industry before proceeding.",
+            "verdict": "yes",
+            "reason": "The context emphasizes knowing the industry to evaluate investments."
+          },
+          {
+            "statement": "When purchasing a business, explore financing options like loans or franchise financing.",
+            "verdict": "yes",
+            "reason": "The context mentions franchise financing and the SBA as resources for financing."
+          },
+          {
+            "statement": "When purchasing a business, be prepared to bring cash to the table.",
+            "verdict": "yes",
+            "reason": "The context states that cash is required upfront for purchases."
+          },
+          {
+            "statement": "When purchasing a business, utilize resources like the Small Business Administration (SBA) and Small Business Development Centers (SBDC) for guidance.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions the SBA and SBDC as resources."
+          },
+          {
+            "statement": "When purchasing a business, be aware that most businesses fail and assess the business's sales, growth potential, and management team.",
+            "verdict": "yes",
+            "reason": "The context notes that most businesses fail and advises looking for companies with proven sales and growth potential."
+          },
+          {
+            "statement": "When purchasing a business, aim for a young, growing company with proven sales and potential for expansion.",
+            "verdict": "yes",
+            "reason": "The context recommends targeting young companies with proven sales and growth potential."
+          },
+          {
+            "statement": "When purchasing a business, ensure all legal and financial aspects are thoroughly reviewed before finalizing the purchase.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention reviewing legal and financial aspects."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 26967,
+    "completion_tokens": 19985,
+    "total_tokens": 46952,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 32,
+    "reasoning_tokens": 17553,
+    "reasoning_budget_verified_calls": 32
+  },
+  "elapsed_seconds": 538.828
+}

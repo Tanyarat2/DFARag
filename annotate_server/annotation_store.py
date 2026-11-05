@@ -12,7 +12,7 @@ from failure_taxonomy import EXTRA_TYPES, LEGACY_TYPES, TAXONOMY, TAXONOMY_VERSI
 
 ANNOTATORS = ("PS", "KH", "WN")
 RUN_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z")
-FIELDS = {"human_label", "human_score_band", "failure_type", "failure_types", "legacy_failure_types", "failure_taxonomy", "notes", "review_complete", "flagged_for_review",
+FIELDS = {"conversation_number", "human_label", "human_score_band", "failure_type", "failure_types", "legacy_failure_types", "failure_taxonomy", "notes", "review_complete", "flagged_for_review",
           "gold_assessment", "gold_notes", "evidence"}
 CHOICES = {
     "human_label": {"", "correct", "incorrect", "uncertain"},
@@ -32,7 +32,10 @@ def validate_changes(changes, valid_keys):
         if not isinstance(entry, dict) or set(entry) - FIELDS:
             raise ValueError("Annotation fields are invalid.")
         for field, value in entry.items():
-            if field in {"review_complete", "flagged_for_review"}:
+            if field == 'conversation_number':
+                if not isinstance(value, str) or not re.fullmatch(r'C[0-9]{2,}', value):
+                    raise ValueError('conversation_number must be a C-number such as C01.')
+            elif field in {"review_complete", "flagged_for_review"}:
                 if not isinstance(value, bool):
                     raise ValueError(field + " must be true or false.")
             elif field in {"failure_types", "legacy_failure_types"}:
@@ -89,8 +92,11 @@ class AnnotationStore:
                 raise RuntimeError("Saved annotation ownership is invalid; the file was left unchanged.")
             return data
 
-    def patch(self, run, annotator, changes, valid_keys):
+    def patch(self, run, annotator, changes, valid_keys, conversation_numbers=None):
         validate_changes(changes, valid_keys)
+        if conversation_numbers is not None:
+            changes = {key: dict(entry, conversation_number=conversation_numbers[key])
+                       for key, entry in changes.items()}
         with self.lock:
             data = self.read(run, annotator)
             if not changes:

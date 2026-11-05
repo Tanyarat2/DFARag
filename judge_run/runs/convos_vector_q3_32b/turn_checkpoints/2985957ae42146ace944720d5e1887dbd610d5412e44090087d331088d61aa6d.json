@@ -1,0 +1,356 @@
+{
+  "version": 1,
+  "fingerprint": "2985957ae42146ace944720d5e1887dbd610d5412e44090087d331088d61aa6d",
+  "id": "41a4006bfa6841516188c1695ebaf16c",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.70). RB_llm justification: The assistant's answer is faithful to the documents, as it correctly identifies 9 November 1989 as the date the Berlin Wall began to fall and includes the official dismantling process starting in June 1990 and concluding in November 1991, all of which are explicitly stated in the documents. The answer is appropriate because it addresses both the initial event (the fall) and the subsequent official",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "The Berlin Wall fell on 9 November 1989 when East Germany announced that all citizens could visit West Germany and West Berlin.",
+            "verdict": "yes",
+            "reason": "The context states that on 9 November 1989, the East German government announced this policy, marking the beginning of the Wall's fall."
+          },
+          {
+            "statement": "This announcement led to crowds crossing and dismantling parts of the Wall.",
+            "verdict": "yes",
+            "reason": "The context describes crowds crossing and chipping away parts of the Wall after the announcement, confirming the statement."
+          },
+          {
+            "statement": "The official dismantling of the Berlin Wall began on 13 June 1990.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that the East German military officially began dismantling the Wall on 13 June 1990."
+          },
+          {
+            "statement": "The Wall was largely removed by December 1990.",
+            "verdict": "yes",
+            "reason": "The context notes that demolition continued through December 1990, with most of the Wall removed by then, including the reopening of roads by August 1990."
+          },
+          {
+            "statement": "The last sections of the Berlin Wall were dismantled by November 1991.",
+            "verdict": "yes",
+            "reason": "The context states that the Berlin/Brandenburg border wall was completed in November 1991, confirming the final dismantling."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.70). RB_llm justification: The assistant's answer correctly identifies the date of Germany's official reunification as 3 October 1990, aligning precisely with the reference answer and the document. The response is **faithful** to the document, as the text explicitly states this date as the formal unification. It is **appropriate** because the answer directly addresses the user's question without introducing extraneous detai",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "The official reunification of Germany took place on 3 October 1990.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that formal political union occurred on 3 October 1990, with the dissolution of the GDR and the official reunification of Germany along the West German Basic Law."
+          },
+          {
+            "statement": "Germany was officially reunified on 3 October 1990.",
+            "verdict": "yes",
+            "reason": "The context confirms that the reunification concluded on 3 October 1990, marking the formal end of the division between East and West Germany."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=1.0, answerability=ANSWERABLE -> conditioned score 0.000 (threshold 0.70). RB_llm justification: The assistant's answer accurately reflects the disputed nature of the death toll, citing the ZZF's confirmed 140 deaths and the estimated range of 136–200. It also incorporates Alexandra Hildebrandt's higher claim, which is explicitly mentioned in the document. The answer remains focused on the question, avoids irrelevant details, and acknowledges the uncertainty in the exact number. While the ref",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 1.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.0,
+        "statements": [
+          {
+            "statement": "The number of people who died trying to cross the Berlin Wall is disputed.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that the death toll has been disputed, with varying claims from different sources."
+          },
+          {
+            "statement": "Estimates range from 136 to more than 200, with some sources suggesting a higher toll.",
+            "verdict": "yes",
+            "reason": "The context provides a range of 136 to over 200 and mentions Alexandra Hildebrandt's claim of a toll 'well above 200'."
+          },
+          {
+            "statement": "At least 140 deaths have been confirmed by a research group.",
+            "verdict": "yes",
+            "reason": "The Center for Contemporary Historical Research (ZZF) in Potsdam confirmed at least 140 deaths, as stated in the context."
+          },
+          {
+            "statement": "Alexandra Hildebrandt claims the death toll was well above 200.",
+            "verdict": "yes",
+            "reason": "The context directly quotes Alexandra Hildebrandt as stating the death toll was 'well above 200'."
+          },
+          {
+            "statement": "The exact number remains uncertain due to varying accounts and historical records.",
+            "verdict": "yes",
+            "reason": "The context highlights discrepancies between official figures (98), ZZF's 140, and Hildebrandt's higher estimate, indicating uncertainty."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "incorrect",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=10/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 1.000 (threshold 0.70). RB_llm justification: The assistant's answer effectively addresses the user's question about the methods people used to escape from East Germany during the Berlin Wall era. It lists a variety of escape techniques, including digging tunnels, using hot air balloons, sliding along aerial wires, flying ultralights, driving modified sports cars, and utilizing the sewer system with the help of Unternehmen Reisebüro. These me",
+      "scores": {
+        "RB_llm": 10.0,
+        "RB_llm_norm": 1.0,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 1.0,
+        "conditioned_score": 1.0,
+        "statements": [
+          {
+            "statement": "People tried to escape from East Germany during the Berlin Wall era through various methods.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists multiple escape methods (tunnels, hot air balloons, aerial wires, ultralights, sports cars, sewers)."
+          },
+          {
+            "statement": "They dug tunnels under the Wall.",
+            "verdict": "yes",
+            "reason": "The context states 'digging long tunnels under the Wall' as a method of defection."
+          },
+          {
+            "statement": "They used hot air balloons.",
+            "verdict": "yes",
+            "reason": "The context mentions 'waiting for favorable winds and taking a hot air balloon' as an escape method."
+          },
+          {
+            "statement": "They slid along aerial wires.",
+            "verdict": "yes",
+            "reason": "The context explicitly states 'sliding along aerial wires' as a method of defection."
+          },
+          {
+            "statement": "They flew ultralights.",
+            "verdict": "yes",
+            "reason": "The context includes 'flying ultralights' as one of the escape methods."
+          },
+          {
+            "statement": "They drove sports cars at high speeds through checkpoints.",
+            "verdict": "yes",
+            "reason": "The context describes a specific instance of driving a modified sports car at full speed through checkpoints to evade barriers."
+          },
+          {
+            "statement": "Some individuals escaped through the sewer system.",
+            "verdict": "yes",
+            "reason": "The context states 'some people escaped through the sewers' as an escape method."
+          },
+          {
+            "statement": "The sewer system escapes often had assistance from the Unternehmen Reisebüro.",
+            "verdict": "yes",
+            "reason": "The context specifies 'in a number of cases with assistance from the Unternehmen Reisebüro' for sewer escapes."
+          },
+          {
+            "statement": "Initially, people jumped over the barbed wire.",
+            "verdict": "yes",
+            "reason": "The context mentions 'jumping the initial barbed wire' as an early escape method."
+          },
+          {
+            "statement": "Initially, people leapt from windows.",
+            "verdict": "yes",
+            "reason": "The context states 'leaping out of apartment windows along the line' as an early escape method."
+          },
+          {
+            "statement": "These methods became less effective as the Wall was fortified.",
+            "verdict": "yes",
+            "reason": "The context explicitly notes that early escapes ended as the Wall was fortified, and authorities restricted access to buildings near the Wall."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.70). RB_llm justification: The assistant's answer is largely faithful to the documents and reference answer, correctly stating that not all government agencies moved to Berlin and that the process was gradual, culminating in 1999. It mentions the continued presence of departments in Bonn as of 2008, aligning with the document's timeline. The answer is appropriate, directly addressing the question without extraneous details.",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Not all government agencies moved to Berlin.",
+            "verdict": "yes",
+            "reason": "The context states that many government departments still maintained significant presences in Bonn as of 2008."
+          },
+          {
+            "statement": "Berlin became the formal capital of Germany in 1999.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that Berlin became the formal seat of the federal government in 1999, aligning with the statement's claim about its formal capital status."
+          },
+          {
+            "statement": "Many government departments still maintained significant presences in Bonn as of 2008.",
+            "verdict": "yes",
+            "reason": "The context directly states this, confirming the statement's accuracy."
+          },
+          {
+            "statement": "The process of moving government institutions to Berlin was gradual.",
+            "verdict": "yes",
+            "reason": "The context describes the move as a process that took until 1999 to complete, indicating a gradual transition."
+          },
+          {
+            "statement": "The Bundestag held its first session at the reconstructed Reichstag building in 1999.",
+            "verdict": "yes",
+            "reason": "The context explicitly states this, confirming the statement's accuracy."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=0.667, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.766 (threshold 0.70). RB_llm justification: The assistant's answer correctly identifies Erich Honecker as the leader of East Germany when the Berlin Wall fell and notes his resignation on 18 October 1989, followed by Egon Krenz's replacement. This aligns with the documents, which confirm Honecker's resignation date and Krenz's succession. The reference answer adds the detail that Honecker was the General Secretary of the Socialist Unity Par",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 0.6666666666666666,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7659574468085106,
+        "conditioned_score": 0.7659574468085106,
+        "statements": [
+          {
+            "statement": "Erich Honecker was the leader of East Germany when the Berlin Wall came down.",
+            "verdict": "no",
+            "reason": "Erich Honecker resigned on 18 October 1989, and Egon Krenz took over. The Berlin Wall fell on 9 November 1989, so Krenz was the leader at that time."
+          },
+          {
+            "statement": "Erich Honecker resigned on 18 October 1989.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that Erich Honecker resigned on 18 October 1989."
+          },
+          {
+            "statement": "Egon Krenz replaced Erich Honecker as the leader of East Germany on 18 October 1989.",
+            "verdict": "yes",
+            "reason": "The context confirms that Egon Krenz replaced Honecker on the same day, 18 October 1989."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=9/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.947 (threshold 0.70). RB_llm justification: The assistant's answer is highly faithful to the documents, accurately reflecting Willy Brandt's role as Chancellor of West Germany, his Ostpolitik, the specific treaties (Moscow, Warsaw, Basic Treaty), the Warschauer Kniefall, the Nobel Peace Prize, and his resignation due to the spy scandal. It avoids contradictions with the reference answer and documents. The answer is appropriate, directly add",
+      "scores": {
+        "RB_llm": 9.0,
+        "RB_llm_norm": 0.9,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.9473684210526315,
+        "conditioned_score": 0.9473684210526315,
+        "statements": [
+          {
+            "statement": "Willy Brandt was a German politician who served as the Chancellor of West Germany from 1969 to 1974.",
+            "verdict": "yes",
+            "reason": "The context states that Brandt formed a coalition government in 1969 and resigned in May 1974, confirming his chancellorship during this period."
+          },
+          {
+            "statement": "He is known for his Ostpolitik, a policy of improving relations with East Germany and other Eastern Bloc countries.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions Brandt's Ostpolitik aimed at improving relations with East Germany and Eastern Bloc nations, including opposition from the CDU."
+          },
+          {
+            "statement": "This included negotiating agreements such as the Moscow Agreement (1970), the Warsaw Agreement (1970), and the Basic Treaty (1972), which helped normalize relations between East and West Germany.",
+            "verdict": "yes",
+            "reason": "The context lists the Moscow and Warsaw Agreements (1970), the Basic Treaty (1972), and their role in normalizing relations between East and West Germany."
+          },
+          {
+            "statement": "Brandt also made the Warschauer Kniefall, a symbolic gesture of humility by kneeling before a monument in Warsaw, acknowledging the suffering of Jews during the Holocaust.",
+            "verdict": "yes",
+            "reason": "The context describes Brandt's Warschauer Kniefall in 1970 at a monument to victims of the Warsaw Ghetto Uprising, a Holocaust-related event."
+          },
+          {
+            "statement": "His efforts earned him the Nobel Peace Prize in 1971.",
+            "verdict": "yes",
+            "reason": "The context directly states that Brandt won the Nobel Peace Prize for 1971 due to his contributions to world peace."
+          },
+          {
+            "statement": "He resigned in 1974 due to a spy scandal involving a member of his staff.",
+            "verdict": "yes",
+            "reason": "The context confirms Brandt's resignation in May 1974 after Günter Guillaume, a staff member, was revealed as a Stasi spy."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 21895,
+    "completion_tokens": 18757,
+    "total_tokens": 40652,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 28,
+    "reasoning_tokens": 16861,
+    "reasoning_budget_verified_calls": 28
+  },
+  "elapsed_seconds": 446.765
+}

@@ -12,6 +12,7 @@ Only the Python standard library is required.
 from __future__ import annotations
 
 import argparse
+from email.utils import parsedate_to_datetime
 import hashlib
 import json
 import os
@@ -22,6 +23,7 @@ import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from urllib.parse import urlparse
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 DEFAULT_BASE_URL = "http://127.0.0.1:8080/v1"
@@ -129,6 +131,8 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     p.add_argument("--api-key-env", default=None, metavar="ENVVAR",
                    help="name of an env var holding a bearer key (e.g. OPENAI_API_KEY when --base-url is "
                         "https://api.openai.com/v1); the key itself is never taken on the command line")
+    p.add_argument("--recover-responses", action="store_true",
+                   help="retry rejected protocol responses within the same token budgets; require supported OpenRouter parameters")
     p.add_argument("--workers", type=int, default=1)
     p.add_argument("--max-tokens", type=int, default=1024)
     p.add_argument("--no-max-tokens", action="store_true",
@@ -307,27 +311,40 @@ def _add_usage(acc: Dict[str, int], body: Dict[str, Any]) -> None:
 def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usage: Dict[str, int],
         schema: Optional[Dict[str, Any]] = None, max_tokens: Optional[int] = None,
         step: str = "LLM call") -> Any:
-    """One chat call; retried (token budget doubled) on transport/format/parse errors."""
+    """Retry calls, preserving token budgets when the provider rejects HTTP requests."""
     last: Optional[Exception] = None
     last_response_usage: Dict[str, Any] = {}
     base = max_tokens or args.max_tokens
     no_max_tokens = getattr(args, "no_max_tokens", False)
     reasoning_max_tokens = getattr(args, "reasoning_max_tokens", None)
     adaptive_max_tokens = getattr(args, "adaptive_max_tokens", None)
+    recover_responses = getattr(args, "recover_responses", False)
+    format_feedback = None
+    http_retries = 0
     for attempt in range(1, args.retries + 1):
+        budget_attempt = attempt - 1 - http_retries
         completion_ceiling = args.max_tokens
         reasoning_ceiling = reasoning_max_tokens
         if adaptive_max_tokens is not None:
-            completion_ceiling = min(args.max_tokens * 2 ** (attempt - 1), adaptive_max_tokens)
-            reasoning_ceiling = min(reasoning_max_tokens * 2 ** (attempt - 1),
+            completion_ceiling = min(args.max_tokens * 2 ** budget_attempt, adaptive_max_tokens)
+            reasoning_ceiling = min(reasoning_max_tokens * 2 ** budget_attempt,
                                     completion_ceiling - 1)
         payload: Dict[str, Any] = {"model": args.model, "temperature": 0, "seed": 0,
                                    "messages": [{"role": "user", "content": prompt}]}
+        if recover_responses:
+            if urlparse(args.base_url).hostname == "openrouter.ai":
+                payload["provider"] = {"require_parameters": True}
+            if format_feedback and schema:
+                payload["messages"].append({"role": "user", "content":
+                    "The previous response did not satisfy the requested JSON format: " +
+                    format_feedback + ". Return only the requested JSON. Keep every input "
+                    "statement separate and in the original order; do not omit or merge "
+                    "statements. Use brief reasons. Do not change the evaluation criteria."})
         if not no_max_tokens:
             # Fixed budgets remain the default. Explicit adaptive mode increases
             # both budgets only on retries, never above its requested ceiling.
             payload["max_tokens"] = (completion_ceiling if reasoning_max_tokens is not None
-                                     else base * (2 ** (attempt - 1)))
+                                     else base * (2 ** budget_attempt))
         if reasoning_max_tokens is not None:
             payload["reasoning"] = {"max_tokens": reasoning_ceiling}
         if adaptive_max_tokens is not None:
@@ -338,7 +355,10 @@ def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usag
         if schema:
             payload["response_format"] = {"type": "json_schema", "json_schema": {
                 "name": "out", "strict": True, "schema": schema}}
+        parsing_response = False
         try:
+            if recover_responses:
+                usage["response_recovery_calls"] = usage.get("response_recovery_calls", 0) + 1
             body = _post(args.base_url.rstrip("/") + "/chat/completions", payload, args.timeout, args.api_key)
             _add_usage(usage, body)
             last_response_usage = body.get("usage") or {}
@@ -361,7 +381,7 @@ def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usag
                         "reasoning_budget_unverified_calls", 0) + 1
                 if (isinstance(reported_completion, int) and not isinstance(reported_completion, bool) and
                         reported_completion > completion_ceiling):
-                    error = ValueError if adaptive_max_tokens is not None else RuntimeError
+                    error = ValueError if adaptive_max_tokens is not None or recover_responses else RuntimeError
                     raise error(
                         "%s provider exceeded requested completion ceiling %d: reported %d; "
                         "last_response_usage=%s" %
@@ -369,7 +389,7 @@ def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usag
                          json.dumps(last_response_usage)))
             if (reasoning_max_tokens is not None and isinstance(reported_reasoning, int) and
                     reported_reasoning > reasoning_ceiling):
-                error = ValueError if adaptive_max_tokens is not None else RuntimeError
+                error = ValueError if adaptive_max_tokens is not None or recover_responses else RuntimeError
                 raise error(
                     "%s provider exceeded requested reasoning budget %d: reported %d; "
                     "last_response_usage=%s" %
@@ -378,7 +398,7 @@ def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usag
             choice = body["choices"][0]
             if choice.get("finish_reason") != "stop":
                 if (no_max_tokens or reasoning_max_tokens is not None) and choice.get("finish_reason") == "length":
-                    error = ValueError if adaptive_max_tokens is not None else RuntimeError
+                    error = ValueError if adaptive_max_tokens is not None or recover_responses else RuntimeError
                     raise error(
                         "%s reached the provider/model output limit%s; last_response_usage=%s" %
                         (step, " with max_tokens omitted" if no_max_tokens else
@@ -386,10 +406,44 @@ def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usag
                          json.dumps(last_response_usage)))
                 raise ValueError("generation did not stop cleanly: %s" % choice.get("finish_reason"))
             text = re.sub(r"<think>.*?</think>", "", choice["message"]["content"], flags=re.S).strip()
+            parsing_response = True
             return parse(text)
+        except urllib.error.HTTPError as exc:
+            # Read the provider's explanation; HTTPError.__str__ hides its body.
+            detail = exc.read(8192).decode("utf-8", errors="replace")
+            if args.api_key:
+                detail = detail.replace(args.api_key, "[REDACTED]")
+            last = RuntimeError("HTTP %d: %s" % (exc.code, detail or exc.reason))
+            http_retries += 1
+            if exc.code not in (429, 500, 502, 503, 504) or attempt == args.retries:
+                break
+            delay = min(30 * 2 ** (attempt - 1), 120) if exc.code == 429 else min(2 ** attempt, 8)
+            retry_after = exc.headers.get("Retry-After") if exc.headers else None
+            if retry_after:
+                try:
+                    delay = max(delay, float(retry_after))
+                except ValueError:
+                    try:
+                        delay = max(delay, parsedate_to_datetime(retry_after).timestamp() - time.time())
+                    except (ValueError, TypeError, OverflowError):
+                        pass
+            print("%s: attempt %d/%d rejected (%s); retrying in %.0fs with unchanged token budgets." %
+                  (step, attempt, args.retries, last, delay), file=sys.stderr, flush=True)
+            # Keep each wait short even when the provider requests a long delay.
+            while delay > 0:
+                interval = min(delay, 30)
+                time.sleep(interval)
+                delay -= interval
         except (OSError, ValueError, KeyError, TypeError, urllib.error.URLError) as exc:
             last = exc
+            if recover_responses:
+                usage["response_recovery_rejected_calls"] = usage.get("response_recovery_rejected_calls", 0) + 1
+                if parsing_response and schema:
+                    format_feedback = str(exc)[:400]
             if attempt < args.retries:
+                if recover_responses and adaptive_max_tokens is None:
+                    print("%s: rejected response (%s); retrying within unchanged token budgets." %
+                          (step, type(exc).__name__), file=sys.stderr, flush=True)
                 if adaptive_max_tokens is not None:
                     print("%s: attempt %d/%d failed (%s); retrying with budgets up to %d tokens." % (
                         step, attempt, args.retries, type(exc).__name__,
@@ -398,9 +452,9 @@ def ask(args: argparse.Namespace, prompt: str, parse: Callable[[str], Any], usag
     raise RuntimeError(
         "%s failed after %d attempts: %s; last_requested_max_tokens=%s; "
         "last_response_usage=%s" %
-        (step, args.retries, last,
+        (step, attempt, last,
          "provider_default" if no_max_tokens else
-         completion_ceiling if reasoning_max_tokens is not None else base * (2 ** (args.retries - 1)),
+         completion_ceiling if reasoning_max_tokens is not None else payload.get("max_tokens"),
          json.dumps(last_response_usage))
     ) from last
 
@@ -412,13 +466,17 @@ def _statements_schema() -> Dict[str, Any]:
             "required": ["statements"], "additionalProperties": False}
 
 
-def _verdicts_schema(n: int) -> Dict[str, Any]:
+def _verdicts_schema(n: int, recover_responses: bool = False) -> Dict[str, Any]:
     item = {"type": "object", "properties": {
         "statement": {"type": "string"}, "reason": {"type": "string"},
         "verdict": {"type": "string", "enum": ["yes", "no"]}},
         "required": ["statement", "reason", "verdict"], "additionalProperties": False}
     # no minItems/maxItems: OpenAI strict json_schema may reject them; the count is checked in parse_verdicts
-    return {"type": "object", "properties": {"verdicts": {"type": "array", "items": item}},
+    verdicts = {"type": "array", "items": item}
+    if recover_responses:
+        verdicts["description"] = ("Return exactly %d verdict objects, one per input statement "
+                                   "in the same order. Do not omit or merge statements." % n)
+    return {"type": "object", "properties": {"verdicts": verdicts},
             "required": ["verdicts"], "additionalProperties": False}
 
 
@@ -434,12 +492,16 @@ def faithfulness(args, question: str, answer: str, contexts: List[str], usage) -
 
     def parse_verdicts(t: str) -> List[Dict[str, str]]:
         v = json.loads(t)["verdicts"]
-        if len(v) != len(stmts) or any(x.get("verdict") not in ("yes", "no") for x in v):
-            raise ValueError("verdicts do not match statements")
+        if not isinstance(v, list) or len(v) != len(stmts):
+            raise ValueError("verdicts do not match statements: expected %d verdicts, got %s" %
+                             (len(stmts), len(v) if isinstance(v, list) else "a non-list value"))
+        if any(not isinstance(x, dict) or x.get("verdict") not in ("yes", "no") or
+               not isinstance(x.get("statement"), str) or not isinstance(x.get("reason"), str) for x in v):
+            raise ValueError("verdicts do not match statements: each item needs a statement, reason, and yes/no verdict")
         return v
     numbered = "\n".join("statement: %s" % s for s in stmts)
     verdicts = ask(args, RAGAS_VERIFY.format(context="\n\n".join(contexts), statements=numbered),
-                   parse_verdicts, usage, _verdicts_schema(len(stmts)),
+                   parse_verdicts, usage, _verdicts_schema(len(stmts), getattr(args, "recover_responses", False)),
                    max_tokens=args.max_tokens * 2, step="RAGAS support verification")
     yes = sum(v["verdict"] == "yes" for v in verdicts)
     return {"score": yes / len(stmts),
@@ -638,6 +700,8 @@ def evaluate_one(index: int, rec: Dict[str, Any], args) -> Tuple[int, Dict[str, 
         judge_info["reasoning_max_tokens"] = args.reasoning_max_tokens
     if getattr(args, "adaptive_max_tokens", None) is not None:
         judge_info["adaptive_max_tokens"] = args.adaptive_max_tokens
+    if getattr(args, "recover_responses", False):
+        judge_info["response_recovery"] = "same-budget-format-and-provider-v1"
     if getattr(args, "stop_at_first_failure", False):
         judge_info["turn_rule"] = "stop_at_first_failure"
     return index, {

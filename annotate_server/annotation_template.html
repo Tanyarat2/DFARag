@@ -366,7 +366,7 @@ body.resizing-sidebar{cursor:col-resize;user-select:none;-webkit-user-select:non
 <div class="layout">
   <aside class="queue" id="reviewSidebar" aria-label="Review queue">
     <div class="guideline-links"><button id="judgeGuideButton">Judge guideline</button><button id="failureGuideButton">Failure guideline</button></div>
-    <div><div class="queue-heading"><h2>Failure labels</h2><span id="labelProgress" class="muted" aria-live="polite"></span></div><div class="progress-track"><div class="progress-fill" id="labelProgressFill"></div></div><p class="hint" id="labelledCount"></p></div>
+    <div><div class="queue-heading"><h2>First incorrect</h2><span id="labelProgress" class="muted" aria-live="polite"></span></div><div class="progress-track"><div class="progress-fill" id="labelProgressFill"></div></div><p class="hint" id="labelledCount"></p></div>
     <div><div class="queue-heading"><h2>Review queue</h2><span id="progress" class="muted" aria-live="polite"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><p class="hint" id="reviewedCount"></p></div>
     <input type="search" id="search" placeholder="Find name, ID or question" aria-label="Search conversation names, IDs or questions">
     <div class="filters">
@@ -502,7 +502,7 @@ function conversationInfo(id){
     const turns=D.rows.filter(r=>r.id===id),first=turns.reduce((a,b)=>a.turn<=b.turn?a:b,turns[0]);
     const question=String(first?.question||'Conversation').replace(/\s+/g,' ').trim();
     const topic=question.replace(/^(?:what|where|when|why|how|which|who)\s+(?:(?:is|are|was|were|do|does|did|can|could|should|would)\s+)?/i,'').replace(/[?!.]+$/,'')||question;
-    const name=topic.charAt(0).toUpperCase()+topic.slice(1),number='C'+String([...new Set(D.rows.map(r=>r.id))].indexOf(id)+1).padStart(2,'0');
+    const name=topic.charAt(0).toUpperCase()+topic.slice(1),number=first?.conversation_number||'C'+String([...new Set(D.rows.map(r=>r.id))].indexOf(id)+1).padStart(2,'0');
     conversationNames.set(id,{name,number});
   }
   return conversationNames.get(id);
@@ -515,14 +515,15 @@ function corpusFor(r){const name=collectionFor(r);return corpusOverrides[name]||
 
 function entry(r){return A[r.key]||(A[r.key]={});}
 function labelled(r){return ['correct','incorrect','uncertain'].includes(A[r.key]?.human_label);}
-function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return types.length>0||a?.human_label==='correct'||a?.human_label==='incorrect'&&getLegacyFailureTypes(a).length>0;}
+function annotationComplete(r){const a=A[r.key],types=getFailureTypes(a);return types.length>0||a?.gold_assessment==='incorrect'||a?.human_label==='correct'||a?.human_label==='incorrect'&&getLegacyFailureTypes(a).length>0;}
 function excludedFromAnnotation(r){return getFailureTypes(A[r.key]).includes('excluded');}
 function failureLabelled(r){return !excludedFromAnnotation(r)&&getFailureTypes(A[r.key]).some(type=>type!=='not_a_failure');}
+function annotationOutcome(r){const a=A[r.key],types=getFailureTypes(a);if(types.includes('excluded'))return 'Excluded from annotation';if(a?.gold_assessment==='incorrect')return 'Gold answer may be wrong';if(types.includes('not_a_failure')||a?.human_label==='correct')return 'No failure';if(types.includes('insufficient_evidence'))return 'Cause not clear';if(types.includes('outside_taxonomy'))return 'Outside taxonomy';return failureLabelled(r)?'Failure labelled':'Decision recorded';}
 function reviewed(r){return typeof A[r.key]?.review_complete==='boolean'?A[r.key].review_complete:annotationComplete(r);}
 function firstIncorrectTurns(){const first=new Map();D.rows.forEach(r=>{if(mtLabel(r)==='incorrect'&&(!first.has(r.id)||r.turn<first.get(r.id).turn))first.set(r.id,r);});return first;}
 function save(){const state=getProfile(currentAnnotator);state.annotations=A;captureProfile(state);progress();updateSaveStatus();if(D.annotation_api&&state.dirty.size){clearTimeout(state.timer);state.timer=setTimeout(()=>flushProfile(state.name),350);}}
-function progress(){const n=D.rows.filter(reviewed).length,allTargets=[...firstIncorrectTurns().values()],targets=allTargets.filter(r=>!excludedFromAnnotation(r)),excludedCount=allTargets.length-targets.length,labelledCount=targets.filter(failureLabelled).length;$('progress').textContent=n+' / '+D.rows.length;$('progressFill').style.width=(D.rows.length?n/D.rows.length*100:0)+'%';$('reviewedCount').textContent='Reviewed turns · all conversations';$('labelProgress').textContent=labelledCount+' / '+targets.length;$('labelProgressFill').style.width=(targets.length?labelledCount/targets.length*100:0)+'%';$('labelledCount').textContent='First incorrect · ≥1 failure choice'+(excludedCount?' · '+excludedCount+' excluded':'');}
-function filtered(){const q=$('search').value.trim().toLowerCase();return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!$('fFlagged').checked||A[r.key]?.flagged_for_review===true)&&(!q||(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q)));}
+function progress(){const n=D.rows.filter(reviewed).length,targets=[...firstIncorrectTurns().values()],completed=targets.filter(annotationComplete).length;$('progress').textContent=n+' / '+D.rows.length;$('progressFill').style.width=(D.rows.length?n/D.rows.length*100:0)+'%';$('reviewedCount').textContent='Reviewed turns · all conversations';$('labelProgress').textContent=completed+' / '+targets.length;$('labelProgressFill').style.width=(targets.length?completed/targets.length*100:0)+'%';$('labelledCount').textContent='Failure labels and other decisions';}
+function filtered(){const q=$('search').value.trim().toLowerCase(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null;return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!$('fFlagged').checked||A[r.key]?.flagged_for_review===true)&&(!q||(numberQuery?conversationInfo(r.id).number===numberQuery:(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q))));}
 let queueEdgeObserver;
 function observeQueueEdges(){
   queueEdgeObserver?.disconnect();
@@ -541,18 +542,18 @@ function queue(){
   D.rows.forEach(r=>{if(!allTurns.has(r.id))allTurns.set(r.id,[]);allTurns.get(r.id).push(r);});
   rows.forEach(r=>{if(!groups.has(r.id))groups.set(r.id,[]);groups.get(r.id).push(r);});
   for(const [id,turns] of groups){
-    const target=targets.get(id),complete=target?failureLabelled(target):false,allCorrect=allTurns.get(id).every(r=>mtLabel(r)==='correct');
+    const target=targets.get(id),complete=target?annotationComplete(target):false,allCorrect=allTurns.get(id).every(r=>mtLabel(r)==='correct');
     const group=el('details','queue-group');group.dataset.id=id;group.dataset.labelled=String(complete);group.dataset.allCorrect=String(allCorrect);
     group.open=turns.some(r=>r.key===activeKey)||queueOpen.get(id)===true;
     const summary=el('summary'),info=conversationInfo(id),name=el('strong','conversation-name'),ident=el('div','conversation-ident'),caseId=el('span','case-id',id);
     name.append(el('span',null,info.name));name.title=info.name;caseId.title='Conversation ID: '+id;
     ident.append(el('span','conversation-number',info.number),caseId);
-    if(complete){const mark=el('span','conversation-complete','✓ Labelled');mark.title='First incorrect turn labelled · Turn '+target.turn;mark.setAttribute('aria-label',mark.title);ident.append(mark);}
+    if(complete){const mark=el('span','conversation-complete','✓ Done');mark.title='First incorrect decision recorded · Turn '+target.turn;mark.setAttribute('aria-label',mark.title);ident.append(mark);}
     const flagCount=allTurns.get(id).filter(row=>A[row.key]?.flagged_for_review===true).length;if(flagCount){const marker=el('span','queue-flag','? '+flagCount+' flagged');marker.title='Turns flagged for review';ident.append(marker);}
     summary.append(name,ident);
     const counts=el('div','queue-group-counts');counts.append(el('span',null,turns.length+' turns'));
     const failures=turns.filter(r=>mtLabel(r)==='incorrect').length;
-    counts.append(el('span','judges',failures+' incorrect'));summary.append(counts,el('span','conversation-label-state',target?(excludedFromAnnotation(target)?'Excluded from annotation':complete?'✓ Failure labelled':'Label first incorrect')+' · Turn '+target.turn:allCorrect?'All turns correct':'Not fully scored'));group.append(summary);
+    counts.append(el('span','judges',failures+' incorrect'));summary.append(counts,el('span','conversation-label-state',target?(complete?'✓ '+annotationOutcome(target):'Review first incorrect')+' · Turn '+target.turn:allCorrect?'All turns correct':'Not fully scored'));group.append(summary);
     const list=el('div','queue-turns');
     function buildTurns(){
     if(list.childElementCount)return;
@@ -562,7 +563,7 @@ function queue(){
       const m=el('div','queue-meta');m.append(el('b',null,'Turn '+r.turn),el('span','review-state',reviewed(r)?'✓ Reviewed':labelled(r)&&!annotationComplete(r)?'Needs cause':'To review'));
       if(A[r.key]?.flagged_for_review===true){const marker=el('span','question-flag','?');marker.title='Flagged for review';marker.setAttribute('aria-label','Flagged for review');m.append(marker);}
       const status=el('div','turn-status judges'),judgeLabel=mtLabel(r)?mtLabel(r)[0].toUpperCase()+mtLabel(r).slice(1):'Not scored',failureDone=b.dataset.labelled==='true';
-      status.title='mtRAG: '+judgeLabel+' · '+scoreLabel(r.judges.mtrag);status.setAttribute('aria-label',(failureDone?'Failure labelled. ':'')+status.title);
+      status.title='mtRAG: '+judgeLabel+' · '+scoreLabel(r.judges.mtrag);status.setAttribute('aria-label',(failureDone?'Decision recorded. ':'')+status.title);
       status.append(el('span',null,judgeLabel),el('span',null,scoreLabel(r.judges.mtrag)));
       b.append(m);if(target?.key===r.key)b.append(el('span','badge first-failure','First incorrect'));b.append(el('div','queue-question',r.question||'(No question)'),status);list.append(b);
     });
@@ -839,7 +840,7 @@ function selectedFailureStages(a){return [...new Set(getFailureTypes(a).filter(t
 function visibleFailureStage(r){return failureStageViews.get(stageViewKey(r))||'all';}
 function finishProblem(r){
   const a=entry(r),types=getFailureTypes(a);
-  if(!types.length&&a.human_label!=='correct')return 'Choose a label.';
+  if(!annotationComplete(r))return 'Choose a decision.';
   if(selectedFailureStages(a).length>1)return 'Keep types from the earliest proven stage and remove types from other stages';
   return '';
 }
@@ -876,7 +877,7 @@ function annotation(r){
   const citations=el('div','step citation-step');citations.append(el('div','hint','Select text in the answer or a document, then click Cite selection.'));const list=el('div','citations');list.id='citations';citations.append(list);right.append(citations);
   const goldDetails=el('details','guide gold-review');goldDetails.id='goldReviewDetails';goldDetails.open=!!(a.gold_assessment||a.gold_notes);goldDetails.append(el('summary',null,'Check the gold answer (optional)'));
   const goldLabel=el('label','hint','Gold answer check');goldLabel.htmlFor='goldAssessment';const goldSelect=el('select');goldSelect.id='goldAssessment';[['','Not checked'],['supported','Supported'],['questionable','Not sure'],['incorrect','Gold answer may be wrong']].forEach(([v,t])=>goldSelect.append(new Option(t,v)));goldSelect.value=a.gold_assessment||'';
-  const goldNotes=el('textarea');goldNotes.id='goldNotes';goldNotes.setAttribute('aria-label','Gold answer review explanation');goldNotes.placeholder='Explain the gold answer problem and cite evidence';goldNotes.value=a.gold_notes||'';goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;goldSelect.onchange=()=>{a.gold_assessment=goldSelect.value;goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;save();};goldNotes.oninput=()=>{a.gold_notes=goldNotes.value;save();};goldDetails.append(goldLabel,goldSelect,goldNotes,el('p','hint','Saved separately from your RAG answer decision'));right.append(goldDetails);
+  const goldNotes=el('textarea');goldNotes.id='goldNotes';goldNotes.setAttribute('aria-label','Gold answer review explanation');goldNotes.placeholder='Explain the gold answer problem and cite evidence';goldNotes.value=a.gold_notes||'';goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;goldSelect.onchange=()=>{a.gold_assessment=goldSelect.value;goldNotes.hidden=!['questionable','incorrect'].includes(goldSelect.value)&&!goldNotes.value;save();queue();refreshFailureChoices(r);};goldNotes.oninput=()=>{a.gold_notes=goldNotes.value;save();};goldDetails.append(goldLabel,goldSelect,goldNotes,el('p','hint','Saved separately from your RAG answer decision'));right.append(goldDetails);
   if(['low','mid','high'].includes(a.human_score_band))left.append(el('p','hint','Earlier three-level rating: '+a.human_score_band));
   const reviewControl=el('label','review-toggle'),reviewCheck=el('input');reviewCheck.type='checkbox';reviewCheck.id='reviewComplete';reviewCheck.checked=reviewed(r);reviewCheck.onchange=()=>{a.review_complete=reviewCheck.checked;save();queue();};reviewControl.append(reviewCheck,document.createTextNode('Reviewed'));
   const footer=el('div','annotation-footer'),status=el('span','status');status.id='saveStatus';status.setAttribute('role','status');const finish=button('Save & next →',()=>finishAndNext(r),'primary');finish.id='finishReview';
@@ -952,10 +953,10 @@ function renderInlineComparison(r,type,root){
   if(limits[g.stage])root.append(el('p','hint',limits[g.stage]));
 }
 function renderCitations(r){const root=$('citations');if(!root)return;root.replaceChildren();const items=entry(r).evidence||[];if(!items.length){root.append(el('p','hint','No evidence cited yet.'));return;}items.forEach((e,i)=>{const c=el('div','citation'),top=el('div','citation-top');const remove=button('×',()=>{entry(r).evidence.splice(i,1);save();renderCitations(r);},'text-button');remove.setAttribute('aria-label','Remove evidence '+(i+1));top.append(el('b',null,e.source+' · '+e.locator),remove);c.append(top,el('blockquote',null,e.quote));root.append(c);});}
-function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),flagged_for_review:A[r.key].flagged_for_review===true,failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),failure_taxonomy:D.failure_taxonomy,legacy_failure_types:getLegacyFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
+function rowsOut(){return D.rows.filter(r=>hasAnnotation(A[r.key])).map(r=>({id:r.id,conversation_number:conversationInfo(r.id).number,turn:r.turn,human_score_band:A[r.key].human_score_band||'',human_label:A[r.key].human_label||'',review_complete:reviewed(r),flagged_for_review:A[r.key].flagged_for_review===true,failure_type:legacyFailureType(A[r.key]),failure_types:getFailureTypes(A[r.key]),failure_taxonomy:D.failure_taxonomy,legacy_failure_types:getLegacyFailureTypes(A[r.key]),notes:A[r.key].notes||'',gold_assessment:A[r.key].gold_assessment||'',gold_notes:A[r.key].gold_notes||'',evidence:A[r.key].evidence||[],annotator:currentAnnotator}));}
 function download(name,text,type){const a=el('a');const url=URL.createObjectURL(new Blob([text],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('expJson').onclick=()=>download('annotations_'+D.run+'_'+currentAnnotator+'.json',JSON.stringify(rowsOut(),null,2),'application/json');
-$('expCsv').onclick=()=>{const cols=['id','turn','human_score_band','human_label','review_complete','flagged_for_review','failure_type','failure_types','failure_taxonomy','legacy_failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types','legacy_failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
+$('expCsv').onclick=()=>{const cols=['id','conversation_number','turn','human_score_band','human_label','review_complete','flagged_for_review','failure_type','failure_types','failure_taxonomy','legacy_failure_types','notes','gold_assessment','gold_notes','evidence','annotator'];const q=s=>'"'+String(s).replace(/"/g,'""')+'"';download('annotations_'+D.run+'_'+currentAnnotator+'.csv',[cols.join(',')].concat(rowsOut().map(o=>cols.map(c=>q(['evidence','failure_types','legacy_failure_types'].includes(c)?JSON.stringify(o[c]):o[c])).join(','))).join('\n'),'text/csv');};
 $('imp').onchange=async ev=>{
   const file=ev.target.files[0];if(!file)return;
   try{

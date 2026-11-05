@@ -286,5 +286,80 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(resumed["evaluation"], first["evaluation"])
 
 
+    def response_recovery_args(self, remote=True):
+        args = self.args(adaptive=False)
+        args.recover_responses = True
+        if remote:
+            args.base_url = "https://openrouter.ai/api/v1"
+        return args
+
+    @classmethod
+    def json_response(cls, value):
+        response = cls.response()
+        response["choices"][0]["message"]["content"] = json.dumps(value)
+        return response
+
+    def test_response_recovery_repairs_count_with_feedback_without_changing_score(self):
+        statements = ["First fact", "Second fact"]
+        verdicts = [{"statement": s, "reason": "Evidence checked", "verdict": v}
+                    for s, v in zip(statements, ["yes", "no"])]
+        responses = [self.json_response({"statements": statements}),
+                     self.json_response({"verdicts": verdicts[:1]}),
+                     self.json_response({"verdicts": verdicts})]
+        usage = {}
+        with mock.patch.object(judge, "_post", side_effect=responses) as post, mock.patch.object(judge.time, "sleep"):
+            result = judge.faithfulness(self.response_recovery_args(), "Question", "Answer", ["Evidence"], usage)
+        self.assertEqual(result["score"], .5)
+        self.assertEqual([v["statement"] for v in result["statements"]], statements)
+        payloads = [c.args[1] for c in post.call_args_list]
+        self.assertTrue(all(p["provider"] == {"require_parameters": True} for p in payloads))
+        self.assertTrue(all(p["max_tokens"] == 8192 and p["reasoning"]["max_tokens"] == 4096 for p in payloads))
+        self.assertEqual(payloads[1]["messages"][0], payloads[2]["messages"][0])
+        self.assertIn("expected 2 verdicts, got 1", payloads[2]["messages"][1]["content"])
+        self.assertIn("exactly 2", payloads[2]["response_format"]["json_schema"]["schema"]["properties"]["verdicts"]["description"])
+        self.assertEqual(usage["response_recovery_rejected_calls"], 1)
+
+    def test_response_recovery_rejects_budget_overrun_then_retries_same_limits(self):
+        usage = {}
+        with mock.patch.object(judge, "_post", side_effect=[self.response(reasoning=8870), self.response()]) as post, mock.patch.object(judge.time, "sleep"):
+            self.assertEqual(judge.ask(self.response_recovery_args(), "Prompt", str, usage), "OK")
+        payloads = [c.args[1] for c in post.call_args_list]
+        self.assertEqual([p["max_tokens"] for p in payloads], [8192, 8192])
+        self.assertEqual([p["reasoning"]["max_tokens"] for p in payloads], [4096, 4096])
+        self.assertEqual(usage["response_recovery_rejected_calls"], 1)
+        self.assertEqual(usage["response_recovery_calls"], 2)
+        self.assertEqual(usage["completion_tokens"], 400)
+
+    def test_response_recovery_never_fabricates_verdict_for_repeated_mismatch(self):
+        responses = [self.json_response({"statements": ["Fact"]})] + [self.json_response({"verdicts": []})] * 3
+        with mock.patch.object(judge, "_post", side_effect=responses) as post, mock.patch.object(judge.time, "sleep"):
+            with self.assertRaisesRegex(RuntimeError, "expected 1 verdicts, got 0"):
+                judge.faithfulness(self.response_recovery_args(), "Question", "Answer", ["Evidence"], {})
+        self.assertEqual(post.call_count, 4)
+
+    def test_response_recovery_does_not_send_openrouter_options_to_local_endpoint(self):
+        with mock.patch.object(judge, "_post", return_value=self.response()) as post:
+            judge.ask(self.response_recovery_args(remote=False), "Prompt", str, {})
+        self.assertNotIn("provider", post.call_args.args[1])
+
+    def test_response_recovery_reuses_existing_checkpoints_and_marks_provenance(self):
+        args, record = self.checkpoint_record()
+        args.adaptive_max_tokens = None
+        with mock.patch.object(judge, "judge_turn_mtrag", return_value={
+                "label": "correct", "reasoning": "Supported", "scores": {}}):
+            _, original = judge.evaluate_one(0, record, args)
+        args.recover_responses = True
+        with mock.patch.object(judge, "judge_turn_mtrag") as call:
+            _, recovered = judge.evaluate_one(0, record, args)
+        call.assert_not_called()
+        self.assertEqual(recovered["evaluation"], original["evaluation"])
+        self.assertEqual(recovered["judge"]["response_recovery"], "same-budget-format-and-provider-v1")
+        self.output.write_text(json.dumps([recovered]))
+        args.recover_responses = False
+        args.resume_from = self.output
+        loaded = judge.load_completed_for_resume(args, [record])
+        self.assertEqual(loaded["0"], recovered)
+
+
 if __name__ == "__main__":
     unittest.main()

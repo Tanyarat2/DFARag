@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Annotation review</title>
+<style>
+:root{color-scheme:light;--ink:#203335;--muted:#667779;--line:#d9e3e1;--green:#216859;--paper:#fff;--bg:#f3f6f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.6 system-ui,sans-serif}button,input,select{font:inherit;color:inherit}button,select{cursor:pointer}button,input,select{border:1px solid var(--line);background:white;border-radius:8px;padding:8px 12px}button:hover{background:#eaf2ee}button:disabled{opacity:.4;cursor:default}:focus-visible{outline:3px solid #388674;outline-offset:3px}h1,h2,h3,p{margin:0}h1{font-size:19px;letter-spacing:-.5px}h2{font-size:16px}h3{font-size:14px}.muted{font-size:12px;color:var(--muted)}header{background:white;border-bottom:1px solid var(--line);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:12px}.mark{background:var(--green);color:white;border-radius:10px;padding:5px 11px;font-weight:700;font-size:20px}main{max-width:1500px;margin:auto;padding:22px 28px 50px}.filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px}.filters label{display:flex;gap:8px;align-items:center;font-size:12px}.filters input{width:240px}.filters select{max-width:100%}.navigation{margin-left:auto;display:flex;align-items:center;gap:8px}kbd{border:1px solid var(--line);border-bottom-width:2px;padding:1px 6px;border-radius:4px;background:white}.progress{height:3px;background:#e0e9e5;border-radius:8px;margin-bottom:20px}.progress div{height:100%;background:var(--green);transition:width .15s}.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.pill{font-size:11px;padding:3px 9px;background:#e6efeb;color:var(--green);border-radius:5px}.incorrect{background:#faeae7;color:#9b493d}.id{font:11px ui-monospace,monospace;color:var(--muted);overflow-wrap:anywhere}.question{border-left:3px solid var(--green);padding:4px 0 5px 17px;margin-bottom:22px}.eyebrow{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:6px}.question h2{font-size:22px;line-height:1.5;font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere}.annotators{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:10px 0 24px}.annotator{aspect-ratio:1;min-height:0;overflow:auto;padding:20px;background:white;border:1px solid var(--line);border-top:3px solid #76998d;border-radius:10px}.annotator:nth-child(2){border-top-color:#969ac4}.annotator:nth-child(3){border-top-color:#c4a16b}.card-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:14px}.avatar{font-size:17px;font-weight:700}.labels{display:flex;flex-wrap:wrap;gap:6px}.label{background:#f1f4f3;border:1px solid #e2e8e5;border-radius:6px;padding:5px 9px;font-size:12px}.label b{color:var(--green);margin-right:5px}.notes{font-size:13px;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}.annotation-details{margin-top:10px}.reading{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}.answer{grid-column:1/-1}.prose{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75}.answer .prose{max-height:310px;overflow:auto;margin-top:12px}.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.evidence{grid-column:1/-1}.evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}.evidence-grid .panel{padding:18px}.document-list{max-height:550px;overflow:auto;padding-right:6px}details{border-top:1px solid var(--line);padding:10px 0}details:first-child{border-top:0}summary{cursor:pointer;font-size:12px;overflow-wrap:anywhere}details .prose{font-size:13px;margin-top:10px}.doc-title{font-weight:600}.doc-id{display:block;font-size:11px;color:var(--muted);margin-top:3px}.empty{padding:60px 20px;text-align:center;background:white;border:1px solid var(--line);border-radius:10px}.empty p{margin-top:8px}.source-note{margin-top:24px;font-size:12px;color:var(--muted)}.source-note summary{font-size:12px}.warning{color:#8b5d22}.sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0)}
+.annotators{gap:10px;margin:6px 0 16px}.annotator{aspect-ratio:auto;height:128px;padding:10px 12px}.card-head{margin-bottom:6px}.avatar{font-size:15px}.label{padding:3px 6px}.notes{margin-top:6px;font-size:12px}.answer{grid-column:auto}.reading{align-items:stretch}
+.passage{border-top:1px solid var(--line);padding:14px 0}.passage:first-child{border-top:0}.passage-heading{display:flex;align-items:start;justify-content:space-between;gap:8px;flex-wrap:wrap}.passage .doc-title{font-size:12px;overflow-wrap:anywhere}.passage .prose{font-size:13px;margin-top:10px}.passage.gold-match{background:#fff5d6;border:1px solid #e6c76e;border-left:3px solid #c49a30;border-radius:7px;padding:12px;margin:8px 0}.gold-badge{background:#f5e3a3;color:#654c0e;font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px}.retrieval-source{border-top:1px solid var(--line);padding-top:10px;margin-top:10px;overflow-wrap:anywhere}
+@media(max-width:950px){.evidence-grid{grid-template-columns:1fr}.document-list{max-height:380px}.annotator{padding:14px}.filters input{width:190px}.question h2{font-size:19px}}
+.passage .doc-title{margin:0}
+.passage.gold-excerpt{border-left:3px solid #c49a30;padding-left:12px}mark.gold-text{background:#ffdf70;color:#3b310e;box-decoration-break:clone;-webkit-box-decoration-break:clone}.gold-match-count{color:#806015;margin:0 0 8px;font-size:11px}
+@media(max-width:620px){header{padding:16px}header>.muted{display:none}main{padding:18px 14px}.annotators{gap:8px}.annotator{padding:10px}.card-head{align-items:start;flex-direction:column;gap:3px}.avatar{font-size:14px}.label{font-size:11px;padding:3px}.label b{margin-right:3px}.notes{font-size:12px}.navigation{margin-left:0;width:100%;justify-content:space-between}.filters label{flex:1}.filters input{width:100%}.filters label:last-of-type{flex-basis:100%}.reading{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1>Annotation review</h1><p class="muted">Incorrect turns, side by side</p></div></div><p class="muted">Navigate <kbd>←</kbd> <kbd>→</kbd></p></header>
+<main>
+<div class="filters">
+<label>Method <select id="method"><option value="">All methods</option><option>Vector</option><option>HippoRag</option><option>Raptor</option></select></label>
+<label>Labels <select id="coverage"><option value="any">Any annotator</option><option value="all">All 3 annotators</option></select></label>
+<label><span class="sr">Search conversations</span><input id="search" type="search" placeholder="Find question or conversation"></label>
+<nav class="navigation" aria-label="Turn navigation"><button id="prev" aria-label="Previous incorrect turn">← Previous</button><span id="position" class="muted" aria-live="polite"></span><button id="next" aria-label="Next incorrect turn">Next →</button></nav>
+</div>
+<div class="progress" aria-hidden="true"><div id="progress"></div></div>
+<div id="content"></div>
+<footer class="source-note"><details><summary id="source-summary">Source details</summary><div id="sources"></div></details></footer>
+</main>
+<script id="review-data" type="application/json">__REVIEW_DATA__</script>
+<script>
+'use strict';
+const D=JSON.parse(document.getElementById('review-data').textContent);
+const $=id=>document.getElementById(id);
+// Punctuation is normalized for display only. Saved source files stay intact.
+const clean=s=>String(s??'').replace(/\u2014/g,', ').replace(/\u00b7/g,',');
+function el(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=clean(text);return node;}
+const names={not_a_failure:'Not a failure',outside_taxonomy:'Outside taxonomy',insufficient_evidence:'Insufficient evidence',excluded:'Excluded'};
+let filtered=[],index=0;
+function isLabelled(a){return !!(a.human_label||a.failure_type||a.failure_types?.length);}
+function applyFilters(){const key=filtered[index]?.key,q=$('search').value.toLowerCase().trim(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null;filtered=D.rows.filter(r=>(!$('method').value||r.method===$('method').value)&&($('coverage').value==='any'||r.labelled_count===D.annotators.length)&&(!q||(numberQuery?r.conversation_number===numberQuery:[r.question,r.id,r.conversation_number,r.corpus_collection].join(' ').toLowerCase().includes(q))));index=Math.max(0,filtered.findIndex(r=>r.key===key));render();}
+function move(delta){index=Math.max(0,Math.min(filtered.length-1,index+delta));render();}
+function annotator(name,a){const card=el('section','annotator');card.setAttribute('aria-label',name+' decision');const head=el('div','card-head');head.append(el('h3','avatar',name),el('span','muted',isLabelled(a)?'Labelled':'No label'));card.append(head);
+if(a.human_label)card.append(el('p','pill',a.human_label));
+const codes=a.failure_types?.length?a.failure_types:a.failure_type?[a.failure_type]:[];
+const labels=el('div','labels');for(const code of codes){const tag=el('span','label');if(D.labels[code])tag.append(el('b','',code),document.createTextNode(clean(D.labels[code])));else tag.textContent=clean(names[code]||code);labels.append(tag);}card.append(labels);
+if(a.flagged_for_review)card.append(el('p','notes muted','Flagged for review'));
+if(a.notes)card.append(el('p','notes',a.notes));
+if(a.gold_assessment)card.append(el('p','notes','Gold: '+a.gold_assessment));
+if(a.gold_notes)card.append(el('p','notes',a.gold_notes));
+if(a.evidence?.length){const details=el('details','annotation-details');details.append(el('summary','',a.evidence.length+' citations'));for(const cite of a.evidence){details.append(el('p','muted',cite.source+(cite.locator?' / '+cite.locator:'')),el('blockquote','prose',cite.quote));}card.append(details);}
+if(a.legacy_failure_types?.length)card.append(el('p','notes muted','Earlier: '+a.legacy_failure_types.join(', ')));
+return card;}
+const passageText=doc=>String(doc.text||doc.content||doc.passage||'');
+const normalizedText=text=>String(text??'').replace(/\s+/g,' ').trim();
+function matchesGold(doc,goldDocs){const id=String(doc.id||doc.document_id||'').trim(),text=normalizedText(passageText(doc));return goldDocs.some(gold=>(id&&id===String(gold.id||gold.document_id||'').trim())||(text&&text===normalizedText(passageText(gold))));}
+function goldTextRanges(text,goldDocs){
+ const chars=[],offsets=[];
+ for(let i=0;i<text.length;i++){
+  if(/\s/.test(text[i])){if(chars.length&&chars[chars.length-1]!==' '){chars.push(' ');offsets.push(i);}}
+  else{chars.push(text[i]);offsets.push(i);}
+ }
+ if(chars[chars.length-1]===' '){chars.pop();offsets.pop();}
+ const normalized=chars.join(''),ranges=[];
+ if(!normalized)return ranges;
+ const add=needle=>{let at=0;while((at=normalized.indexOf(needle,at))!==-1){ranges.push({start:offsets[at],end:offsets[at+needle.length-1]+1});at+=needle.length;}};
+ for(const doc of goldDocs){
+  const reference=normalizedText(passageText(doc));if(!reference)continue;
+  if(reference===normalized){add(normalized);continue;}
+  if(reference.includes(normalized)&&normalized.length>=32&&normalized.split(' ').length>=6){add(normalized);continue;}
+  if(normalized.includes(reference)&&reference.length>=32&&reference.split(' ').length>=6){add(reference);continue;}
+  for(const sentence of passageText(doc).split(/(?<=[.!?])\s+|\n+/)){
+   const excerpt=normalizedText(sentence);
+   if(excerpt.length>=32&&excerpt.split(' ').length>=6)add(excerpt);
+  }
+ }
+ ranges.sort((a,b)=>a.start-b.start||a.end-b.end);
+ const merged=[];for(const range of ranges){const last=merged[merged.length-1];if(last&&range.start<=last.end)last.end=Math.max(last.end,range.end);else merged.push({...range});}
+ return merged;
+}
+function highlightedPassage(text,ranges){
+ const prose=el('div','prose');let at=0;
+ for(const range of ranges){prose.append(document.createTextNode(clean(text.slice(at,range.start))));const mark=el('mark','gold-text',text.slice(range.start,range.end));mark.title='Exact text from a gold document';prose.append(mark);at=range.end;}
+ prose.append(document.createTextNode(clean(text.slice(at))));return prose;
+}
+function documentPanel(title,docs,message,goldDocs=[],highlightText=true){
+ const panel=el('section','panel'),head=el('div','section-title');
+ head.append(el('h3','',title),el('span','muted',docs===null?'Unavailable':String(docs.length)));panel.append(head);
+ if(message)panel.append(el('p','muted',message));
+ const list=el('div','document-list');let goldCount=0;
+ for(const [i,item] of (docs||[]).entries()){
+  const doc=typeof item==='string'?{text:item}:item,matched=matchesGold(doc,goldDocs),text=passageText(doc),ranges=highlightText?goldTextRanges(text,goldDocs):[];
+  const passage=el('article','passage'+(matched?' gold-match':ranges.length?' gold-excerpt':'')),heading=el('div','passage-heading');
+  heading.append(el('h4','doc-title',(doc.retrieval_rank??i+1)+'. '+(doc.title||'Passage')));
+  if(matched||ranges.length){heading.append(el('span','gold-badge',matched?'Gold document':'Gold excerpt'));goldCount++;}
+  passage.append(heading);
+  if(doc.id||doc.document_id)passage.append(el('span','doc-id',doc.id||doc.document_id));
+  passage.append(highlightedPassage(text||'No passage text recorded.',ranges));list.append(passage);
+ }
+ if(docs?.length===0)list.append(el('p','muted','No passages recorded.'));
+ if(highlightText&&goldDocs.length&&docs?.length)panel.append(el('p','gold-match-count',goldCount?goldCount+' gold '+(goldCount===1?'match':'matches'):'No gold match in these passages.'));
+ panel.append(list);return panel;
+}
+function render(){const root=$('content');root.replaceChildren();$('position').textContent=filtered.length?(index+1)+' / '+filtered.length:'0 / 0';$('prev').disabled=!filtered.length||index===0;$('next').disabled=!filtered.length||index===filtered.length-1;$('progress').style.width=filtered.length?((index+1)/filtered.length*100)+'%':'0%';
+if(!filtered.length){const empty=el('div','empty');empty.append(el('h2','','No matching turns'),el('p','muted','Try Any annotator, another method, or clear your search.'));root.append(empty);return;}
+const r=filtered[index];const meta=el('div','meta');meta.append(el('span','pill',r.method),el('span','pill conversation-number',r.conversation_number),el('span','pill incorrect','Incorrect'),el('span','muted','Turn '+r.turn),el('span','muted',r.corpus_collection),el('span','id',r.id));
+root.append(meta,el('p','eyebrow','Annotator decisions'));
+const cards=el('div','annotators');for(const name of D.annotators)cards.append(annotator(name,r.annotations[name]));root.append(cards);
+const question=el('section','question');question.append(el('p','eyebrow','Question'),el('h2','',r.question));root.append(question);
+const reading=el('div','reading'),answer=el('section','panel answer');answer.append(el('h2','','RAG Answer'),el('div','prose',r.answer));
+const reference=el('section','panel answer gold-answer');reference.append(el('h2','','Gold Answer'),el('div','prose',r.gold||'Gold answer not recorded.'));reading.append(answer,reference);
+const evidence=el('div','evidence evidence-grid');
+const goldDocs=r.gold_support?.status==='available'?r.gold_support.documents:[];
+const retrievalSource=r.retrieval_context?.source;
+const retrievalNote=!r.retrieval_context?'Original retrieval not recorded.':retrievalSource?.inference_stage==='new_retrieval_experiment'?'Retrieval experiment, separate from the saved answer.':'Recorded candidate pool.';
+const retrievedPanel=documentPanel('Retrieved Passages',r.retrieval_context?.documents??null,retrievalNote,goldDocs);
+if(retrievalSource){const provenance=el('div','retrieval-source');provenance.append(el('p','muted','Source: '+retrievalSource.file));if(retrievalSource.rewritten_query)provenance.append(el('p','muted','Query: '+retrievalSource.rewritten_query));retrievedPanel.append(provenance);}evidence.append(retrievedPanel);
+evidence.append(documentPanel('Selected Context',r.contexts===null?null:r.selected_passages,r.contexts===null?'Selected context not recorded.':'',goldDocs));
+const gold= documentPanel('Gold Documents',r.gold_support?.status==='available'?goldDocs:null,r.gold_support?.status==='mismatch'?'Reference does not match this turn.':r.gold_support?.status!=='available'?'Verified gold documents unavailable.':'',goldDocs,false);
+evidence.append(gold);reading.append(evidence);root.append(reading);
+}
+$('method').addEventListener('change',applyFilters);$('coverage').addEventListener('change',applyFilters);$('search').addEventListener('input',applyFilters);$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
+document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||event.target.closest('input,textarea,select,[contenteditable="true"]'))return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();move(event.key==='ArrowLeft'?-1:1);}});
+$('source-summary').textContent=D.warnings.length?'Source details ('+D.warnings.length+' warnings)':'Source details';
+$('sources').append(el('p','','Read-only snapshot from Annotate_result. Incorrect means mtRAG score below 0.7. A saved correctness decision or failure label counts as labelled; a review mark alone does not.'));
+for(const source of D.sources)$('sources').append(el('p','',source.method+': '+source.judge));for(const warning of D.warnings)$('sources').append(el('p','warning',warning));applyFilters();
+</script>
+</body>
+</html>

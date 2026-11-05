@@ -19,6 +19,7 @@ import warnings
 
 from corpus_store import CORPUS_DIR, CorpusIndex, corpus_metadata
 from failure_taxonomy import TAXONOMY, EXTRA_TYPES, taxonomy_data
+from conversation_numbers import numbers_for
 
 JUDGE_TITLES = {"mtrag": "mtRAG (RB_llm + RL_F + IDK)"}
 DEFAULT_THRESHOLDS = {"f": 1.0, "mtrag": 0.7, "rb_llm_min_rating": 6.0}
@@ -366,6 +367,7 @@ def build_data(work_dir, live=False):
     for cid in judged or {}:
         if cid not in ids:
             ids.append(cid)
+    conversation_numbers = numbers_for(ids)
     thresholds = dict(DEFAULT_THRESHOLDS)
     for record in (judged or {}).values():
         thresholds.update({k: v for k, v in record.get("judge", {}).get("thresholds", {}).items()
@@ -400,7 +402,8 @@ def build_data(work_dir, live=False):
             turn_ids = source.get("metadata", {}).get("turn_ids") or []
             task_id = "%s<::>%s" % (cid, turn_ids[k - 1] if k - 1 < len(turn_ids) else k)
             rows.append({
-                "key": "%s#%d" % (cid, k), "id": cid, "turn": k, "n_turns": len(texts),
+                "key": "%s#%d" % (cid, k), "id": cid,
+                "conversation_number": conversation_numbers[cid], "turn": k, "n_turns": len(texts),
                 "question": question, "answer": answer,
                 "gold": gold,
                 "corpus_collection": str(source.get("metadata", {}).get("collection") or

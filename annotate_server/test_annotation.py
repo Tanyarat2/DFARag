@@ -64,6 +64,7 @@ BROWSER_CHECKS = r"""
 
   function checkVisible(){assert(document.body.scrollWidth<=document.body.clientWidth,'Horizontal layout overflow');}
   try{
+    await annotationReady;assert(currentAnnotator==='KH','KH is the default annotator');await switchAnnotator('PS');
     await Promise.resolve();
     assert(!$('failureChoices').hidden&&!$('failureChoices').disabled,'Failure annotation is available immediately, including previously reviewed turns');
     assert(document.querySelectorAll('.failure-stage:not([hidden]) [data-failure-type]').length===16,'All sixteen paper failure types are shown by default');
@@ -111,6 +112,11 @@ BROWSER_CHECKS = r"""
     const badgeCard=passage(evidenceRow,'Selected context','selected:1','Chunk','Venus rotates westward.','','',{id:'gold-1',used:true});
     assert(badgeCard.querySelectorAll('.evidence-badge').length===3&&badgeCard.querySelector('mark.gold-excerpt'),'Badges and exact gold highlight are rendered');
     assert(!badgeCard.textContent.includes('Retrieved'),'Final context alone never creates a Retrieved badge');
+    const retrievedGold={...evidenceRow,retrieval_context:{documents:[{id:'gold-1',text:'Venus rotates westward.'}]}};
+    assert(passageFacts(retrievedGold,{id:'gold-1',text:'Venus rotates westward.'}).retrieved,'Gold passage matches retrieved candidates');
+    assert(!passageFacts(retrievedGold,{id:'other',text:'Unrelated text.'}).retrieved,'Unmatched gold passage is not labelled retrieved');
+    assert(passage(retrievedGold,'Reference document','gold:1','Gold','Venus rotates westward.','','',{id:'gold-1',gold:true}).querySelector('.retrieved').textContent==='Retrieved','Gold card renders Retrieved badge');
+
     assert(badgeCard.querySelector('.prose').textContent==='Venus rotates westward.','Highlighting preserves original evidence text for citations');
     assert(A['case#1'].human_label==='correct','Legacy binary label migration');
     assert(!A['case#1'].human_score_band,'Migrated binary field removed');
@@ -125,6 +131,14 @@ BROWSER_CHECKS = r"""
     assert(!$('reference').closest('details'),'Gold answer is visible without opening documents');
     const boundaryRow={judges:{mtrag:{status:'judged',conditioned_score:.7}}};assert(mtLabel(boundaryRow)==='correct','Exactly 0.7 passes in the browser');
     boundaryRow.judges.mtrag.conditioned_score=.699999;assert(mtLabel(boundaryRow)==='incorrect','Below 0.7 fails in the browser');
+    assert($('review').querySelectorAll('.answer-comparison #answer,.answer-comparison #reference').length===2,'Answers shown side by side');
+    assert($('evidence').nextElementSibling===$('judgeDisclosure'),'Judge assessment follows evidence');
+    assert($('evidenceBody').querySelector('.evidence-column').id==='evidence-selected','Retrieved evidence appears on the left');
+    const goldDoc=D.rows[0].gold_support.documents[0];goldDoc.full_document={id:'source-venus',collection:'planets',text:'Full original Venus document with additional details.'};renderEvidence(D.rows[0]);
+    const goldPicker=document.querySelector('.gold-document-card select');goldPicker.value='full';goldPicker.dispatchEvent(new Event('change'));
+    assert(document.querySelector('.gold-document-card').textContent.includes('additional details'),'Gold dropdown shows full source text');
+    goldPicker.value='chunk';goldPicker.dispatchEvent(new Event('change'));
+    assert(!document.querySelector('.gold-document-card').textContent.includes('additional details'),'Gold dropdown returns to supporting chunk');
 
     assert($('review').querySelectorAll('.evidence-column').length===3,'Three simultaneous evidence columns');
     assert(!$('goldDisclosure')&&document.querySelector('#evidence-gold .passage')&&!document.querySelector('#evidence-gold .passage').closest('details'),'Gold passages are visible without a disclosure on every screen size');
@@ -191,17 +205,17 @@ BROWSER_CHECKS = r"""
     assert(!$('corpusDisclosure').open,'Corpus starts collapsed');
     click('#corpusDisclosure > summary');
     assert($('corpusDisclosure').open,'Corpus opens with its search controls');
-    assert(!$('retrievedDisclosure').open,'Retrieved toggle starts closed');
+    assert($('documentView').value==='selected','Selected context is the default document view');
     const row=D.rows[1];
     row.retrieval_context={documents:[{id:'retrieved-venus',title:'Venus',text:'Venus rotates westward.',retrieval_rank:1},{id:'retrieved-earth',title:'Earth',text:'Earth rotates eastward.',retrieval_rank:2}],source:{file:'test/candidates.jsonl',inference_stage:'new_retrieval_experiment'}};
-    renderEvidence(row);click('#retrievedDisclosure > summary');
-    assert($('retrievedDisclosure').open,'Retrieved context opens independently');
-    assert($('retrievedDisclosure').querySelectorAll('.passage').length===2,'Retrieved chunks shown as separate cards');
-    assert(!$('retrievedDisclosure').querySelector('.evidence-badge.used'),'Candidate matching selected text does not claim original generator use');
-    assert($('retrievedDisclosure').textContent.includes('Before rerank'),'Retrieved context identifies its pipeline stage');
+    renderEvidence(row);$('documentView').value='retrieved';$('documentView').dispatchEvent(new Event('change'));
+    assert($('documentView').value==='retrieved','Dropdown switches to retrieved documents');
+    assert($('evidence-selected').querySelectorAll('.passage').length===2,'Retrieved chunks shown as separate cards');
+    assert(!$('evidence-selected').querySelector('.evidence-badge.used'),'Candidate matching selected text does not claim original generator use');
+    assert($('evidence-selected').textContent.includes('Before rerank'),'Retrieved context identifies its pipeline stage');
     const hint=document.createElement('div');renderInlineComparison(row,'E4',hint);
     assert(!hint.textContent.includes('not recorded'),'Available retrieval is reflected in failure hints');
-    delete row.retrieval_context;renderEvidence(row);
+    delete row.retrieval_context;evidenceVisibility.delete('document-view:'+row.key);renderEvidence(row);
     click('#corpusDisclosure > summary');
     if(!$('corpusDisclosure').open)click('#corpusDisclosure > summary');
 
@@ -316,7 +330,7 @@ LIVE_PROFILE_CHECKS = r"""
   function note(text){$('notes').value=text;$('notes').dispatchEvent(new Event('input'));}
   async function saved(owner){return (await (await fetch(D.annotation_api+'/'+owner)).json()).annotations;}
   try{
-    await annotationReady;await Promise.resolve();openTurn('case#2');await Promise.resolve();
+    await annotationReady;await switchAnnotator('PS');await Promise.resolve();openTurn('case#2');await Promise.resolve();
     const originalJudge=JSON.stringify(D.rows[1].judges);
     assert(!A['case#2'].human_label&&!$('failureChoices').hidden,'A new turn starts with failure types ready and no correctness decision');
     document.querySelector('[data-failure-type="E10"]').click();
@@ -381,7 +395,8 @@ class AnnotationTests(unittest.TestCase):
             payload = page.split('<script id="data" type="application/json">', 1)[1].split('</script>', 1)[0]
             evidence = json.loads(payload)['rows'][0]['gold_support']
             self.assertEqual(evidence['status'], 'available')
-            self.assertEqual(evidence['documents'], task['documents'])
+            self.assertEqual([{k: v for k, v in doc.items() if k != 'full_document'}
+                              for doc in evidence['documents']], task['documents'])
             saved_page = output.read_bytes()
             repeated = subprocess.run(command, cwd=work, capture_output=True, text=True, timeout=15)
             self.assertNotEqual(repeated.returncode, 0)

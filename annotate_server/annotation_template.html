@@ -352,13 +352,15 @@ body.resizing-sidebar{cursor:col-resize;user-select:none;-webkit-user-select:non
 .question-flag{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1px solid #b48b39;border-radius:50%;background:#fff6d9;color:#705014;font-size:12px;font-weight:750;flex-shrink:0}
 .review-flag[aria-pressed=true]{background:#fff6d9;border-color:#b48b39;color:#705014}
 .queue-flag{font-size:10px;color:#705014;display:inline-flex;align-items:center;gap:4px}
+.answer-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}.answer-comparison>section{min-width:0;border-top:1px solid var(--line);padding-top:16px;margin-top:0}.column-heading select{width:100%;margin-top:8px}@media(max-width:650px){.answer-comparison{grid-template-columns:1fr}}
+.comparison-track{grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;gap:20px}.column-heading{background:white;padding:22px 24px}.column-heading h3{font-size:18px}.column-body{padding:20px 24px}.column-body .passage,.gold-document-card{border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;background:#fafbfd}.column-body .passage h3{font-size:15px}.document-picker{display:flex;align-items:center;gap:8px;margin:12px 0}.document-picker select{width:auto;max-width:100%;margin:0}.gold-document-card details{margin-top:14px}#evidence-corpus{grid-column:1/-1;height:auto;min-height:180px}#evidence-corpus .column-body{overflow:visible}@media(max-width:650px){.comparison-track{grid-template-columns:1fr}.column-heading,.column-body{padding:16px}}
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="brand"><button id="sidebarToggle" class="sidebar-toggle" aria-controls="reviewSidebar" aria-expanded="true">Hide sidebar</button><div class="brand-mark" aria-hidden="true">✓</div><div><h1>RAG review</h1><p class="muted" id="title"></p></div></div>
   <div class="toolbar">
-    <label for="annotator">Annotator</label><select id="annotator" aria-label="Annotator"><option>PS</option><option>KH</option><option>WN</option></select>
+    <label for="annotator">Annotator</label><select id="annotator" aria-label="Annotator"><option>PS</option><option selected>KH</option><option>WN</option></select>
     <button id="expJson">Export JSON</button><button id="expCsv">CSV</button>
     <label class="file-button" for="imp" tabindex="0" role="button" id="importLabel">Import<input type="file" id="imp" accept=".json,application/json"></label>
   </div>
@@ -395,7 +397,7 @@ body.resizing-sidebar{cursor:col-resize;user-select:none;-webkit-user-select:non
 <script id="data" type="application/json">__DATA__</script>
 <script>
 'use strict';
-const D=JSON.parse(document.getElementById('data').textContent), BASE_KEY='annot:'+D.run;
+const D=JSON.parse(document.getElementById('data').textContent), BASE_KEY='annot:'+D.run+(D.annotation_revision?':'+D.annotation_revision:'');
 const ANNOTATORS=['PS','KH','WN'];
 const $=id=>document.getElementById(id);
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
@@ -417,8 +419,8 @@ function normalizeEntry(o){
 const rowKeys=new Set(D.rows.map(r=>r.key)), rowByKey=new Map(D.rows.map(r=>[r.key,r])), profiles=new Map();
 function cleanAnnotations(data){const result={};if(data&&typeof data==='object'&&!Array.isArray(data))Object.entries(data).forEach(([key,value])=>{const a=normalizeEntry(value);if(rowKeys.has(key)&&a)result[key]=a;});return result;}
 const legacyAnnotations=cleanAnnotations(readLocal(BASE_KEY,{}));
-const rememberedAnnotator=readLocal(BASE_KEY+':active-annotator','PS');
-let currentAnnotator=ANNOTATORS.includes(rememberedAnnotator)?rememberedAnnotator:'PS', KEY=BASE_KEY+':'+currentAnnotator, A={};
+// Start each page with KH, including browsers that previously selected PS.
+let currentAnnotator='KH', KEY=BASE_KEY+':'+currentAnnotator, A={};
 function profileKey(name){return BASE_KEY+':'+name;}
 function getProfile(name){
   if(!ANNOTATORS.includes(name))throw Error('Choose PS, KH, or WN.');
@@ -639,7 +641,7 @@ function renderReview(){
     judgeContent.append(el('p',null,j.screening_reason||(label?'Conditioned score '+j.conditioned_score+(label==='correct'?' ≥ ':' < ')+'0.7 → '+label+'.':'No valid conditioned score is saved.')));
     judgeContent.append(el('p','hint','This is the mtRAG conditioned score, not the raw RB_llm rating. Exactly 0.7 is correct. Your annotation remains independent.'));
   }
-  renderJudge(r,judgeContent);reading.append(assessment);
+  renderJudge(r,judgeContent);
   const evidence=el('section','panel');evidence.id='evidence';
   evidence.append(heading('02 / Compare evidence',button('Annotate this turn ↓',()=>$('annotationPanel').scrollIntoView({behavior:'smooth',block:'start'}),'text-button')),el('p','hint','Green: likely answer match. Amber: gold excerpt. Matches do not prove support. Select text to cite.'));
   const tabs=el('div','tabbar');tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Evidence views');
@@ -647,7 +649,7 @@ function renderReview(){
     const b=button(title,()=>{activeTab=key;renderEvidence(r);});b.id='tab-'+key;b.dataset.tab=key;b.setAttribute('role','tab');b.setAttribute('aria-controls','evidenceBody');tabs.append(b);
   }
   evidence.append(tabs,answerComparison);const search=el('input','evidence-search');search.type='search';search.id='evidenceSearch';search.placeholder='Find text in the selected context and gold documents…';search.setAttribute('aria-label','Find text in evidence');search.value=evidenceQuery;search.oninput=()=>{evidenceQuery=search.value;renderEvidence(r);};evidence.append(search);
-  const body=el('div','evidence-scroll');body.id='evidenceBody';body.setAttribute('role','tabpanel');evidence.append(body);reading.append(evidence);
+  const body=el('div','evidence-scroll');body.id='evidenceBody';body.setAttribute('role','tabpanel');evidence.append(body);reading.append(evidence,assessment);
   grid.append(reading,annotation(r));root.append(grid);renderEvidence(r);fitAnnotationPanel();
 }
 function contentWords(text){return [...new Set((String(text||'').toLowerCase().match(/\p{N}+(?:\.\p{N}+)?|[\p{L}_][\p{L}\p{N}_]*/gu)||[]).filter(t=>!corpusStopWords.has(t)&&(t.length>2||/^\d+(?:\.\d+)?$/.test(t))))];}
@@ -695,12 +697,14 @@ function passageFacts(r,doc,options={}){
   const text=evidenceText(doc.text),gold=r.gold_support?.status==='available'?(r.gold_support.documents||[]):[];
   const goldDocument=!!options.gold||gold.some(item=>(doc.id&&item.id===doc.id)||(text&&evidenceText(item.text)===text));
   const used=!!options.used||!!text&&(r.contexts||[]).some(item=>evidenceText(item)===text);
-  return {goldDocument,used,goldRanges:goldExcerptRanges(r,doc.text)};
+  const retrieved=(r.retrieval_context?.documents||[]).some(item=>(doc.id&&item.id===doc.id)||(text&&evidenceText(item.text)===text));
+  return {goldDocument,used,retrieved,goldRanges:goldExcerptRanges(r,doc.text)};
 }
 function passage(r,source,locator,title,text,meta,reference='',options={}){
   const box=el('article','passage'),head=el('div','passage-heading');head.append(el('h3',null,title));
   const facts=('id' in options||options.used||options.gold)?passageFacts(r,{id:options.id||'',text},options):{used:false,goldDocument:false,goldRanges:[]},badges=el('div','passage-badges');
-  if(options.retrieved)badges.append(el('span','evidence-badge','Retrieved'));
+  if(options.retrieved){badges.append(el('span','evidence-badge','Retrieved'));badges.append(el('span','evidence-badge',facts.used?'Matches generation context':'Not in generation context'));}
+  if(facts.retrieved&&!options.retrieved){const badge=el('span','evidence-badge retrieved','Retrieved');badge.title='Matching passage ID or exact passage text in the recorded retrieval candidates.';badges.append(badge);}
   if(facts.used&&!options.retrieved)badges.append(el('span','evidence-badge used','Used by generator'));
   if(facts.goldDocument)badges.append(el('span','evidence-badge gold-document','Gold document'));
   if(facts.goldRanges.length){const badge=el('span','evidence-badge gold-excerpt','Gold supporting excerpt');badge.title='Contains exact text from a gold supporting passage for this turn.';badges.append(badge);}
@@ -727,7 +731,11 @@ function evidenceDisclosure(r,key,title){
 }
 function renderComparison(r,root){
   const track=el('div','comparison-track');root.append(track);const q=evidenceQuery.trim().toLowerCase();
-  const selected=evidenceColumn('Selected context','Final passages used to answer.','selected');
+  const selected=evidenceColumn('Retrieved evidence','Used by generator identifies passages retained in the original generation context.','selected');
+  const viewKey='document-view:'+r.key,view=evidenceVisibility.get(viewKey)||'selected';
+  const picker=el('select');picker.id='documentView';picker.setAttribute('aria-label','RAG document view');
+  for(const [value,title] of [['selected','Selected context'],['retrieved','Retrieved candidates']]){const option=el('option',null,title);option.value=value;picker.append(option);}
+  picker.value=view;picker.onchange=()=>{evidenceVisibility.set(viewKey,picker.value);renderEvidence(r);};const pickerLabel=el('label','document-picker','Show ');pickerLabel.htmlFor='documentView';pickerLabel.append(picker);selected.head.append(pickerLabel);
   if(!r.retrieval_context)selected.head.append(el('p','hint','Retrieved context not recorded.'));
   selected.body.append(el('div','column-divider','Selected context · '+(r.contexts?.length??'not recorded')+' passages'));
   if(r.contexts===null)selected.body.append(el('p','notice warn','Selected context not recorded.'));
@@ -736,18 +744,34 @@ function renderComparison(r,root){
   passages.forEach(({text,i})=>{const original=r.selected_passages?.[i],doc=original&&original.text===text?original:{id:'',title:'',text};selected.body.append(passage(r,'Selected context','selected:'+(i+1),doc.id?'#'+(i+1)+' · '+doc.id:'Selected chunk '+(i+1),text,'Recorded position '+(i+1),r.answer,{id:doc.id,used:true}));});
   if(q&&!passages.length)selected.body.append(el('p','hint','No matching selected passages. Clear the search to see all.'));
   track.append(selected.column);
-  const gold=evidenceColumn('Gold documents','Reference evidence.','gold');
-  const goldContent=el('div','gold-content');gold.body.append(goldContent);
+  const gold=evidenceColumn('Gold documents','Evaluator references. Gold documents were not necessarily available to the generator.','gold');
+  const goldContent=gold.body;
   const gs=r.gold_support,docs=(gs?.documents||[]).map((p,i)=>({p,i})).filter(({p})=>!q||(p.title+' '+p.text+' '+p.id).toLowerCase().includes(q));
   goldContent.append(el('div','column-divider','Gold supporting documents · '+(gs?.documents?.length||0)),el('p','notice',gs?.status==='available'?'Gold reference passages.':gs?.status==='mismatch'?'Gold evidence does not match this turn.':'Gold evidence unavailable.'));
   goldContent.append(el('p','hint','Check the gold answer against these passages.'));
-  docs.forEach(({p,i})=>goldContent.append(passage(r,'Reference document','gold:'+(i+1)+' / '+p.id,'['+(i+1)+'] '+(p.title||'Untitled'),p.text,'ID: '+p.id+' · Dataset relevance: '+((p.relevance||[]).join(', ')||'not recorded'),r.answer,{id:p.id,gold:gs?.status==='available'})));
+  docs.forEach(({p,i})=>{
+    const card=el('article','gold-document-card');card.append(el('h3',null,p.title||'Gold document '+p.id));
+    const status=passageFacts(r,p,{gold:gs?.status==='available'}),statusBadges=el('div','passage-badges');
+    if(status.retrieved)statusBadges.append(el('span','evidence-badge retrieved','Retrieved'));
+    if(status.used)statusBadges.append(el('span','evidence-badge used','Used by generator'));
+    if(status.goldDocument)statusBadges.append(el('span','evidence-badge gold-document','Gold document'));
+    if(status.goldRanges.length)statusBadges.append(el('span','evidence-badge gold-excerpt','Gold supporting excerpt'));
+    card.append(statusBadges);
+    const viewKey='gold-document-view:'+r.key+':'+i,picker=el('select');picker.setAttribute('aria-label','View gold document '+p.id);
+    for(const [value,title] of [['chunk','Supporting chunk'],['full','Full document']]){const option=el('option',null,title);option.value=value;picker.append(option);}
+    picker.value=evidenceVisibility.get(viewKey)||'chunk';const label=el('label','document-picker','Show ');label.append(picker);card.append(label);
+    const content=el('div');card.append(content);
+    const draw=()=>{content.replaceChildren();if(picker.value==='chunk')content.append(passage(r,'Reference document','gold:'+(i+1)+' / '+p.id,p.id,p.text,'Recorded supporting passage ? Dataset relevance: '+((p.relevance||[]).join(', ')||'not recorded'),r.answer,{id:p.id,gold:gs?.status==='available'}));
+      else if(p.full_document){const full=p.full_document;content.append(passage(r,'Full source document','source-document:'+full.collection+':'+full.id,full.title||'Source document '+full.id,full.text,'Document-level corpus ? '+full.id,r.answer,{id:full.id}));}
+      else content.append(el('p','notice','Full source document unavailable for this passage. The supporting chunk is still available.'));};
+    picker.onchange=()=>{evidenceVisibility.set(viewKey,picker.value);draw();};draw();goldContent.append(card);
+  });
   if(!docs.length)goldContent.append(el('p','hint',q?'No matching gold documents.':gs?.status==='available'?'The reference task records no supporting passages.':'No verified reference documents are attached.'));
   if(gs?.source){const provenance=el('details');provenance.append(el('summary',null,'Gold-document provenance'),el('p','hint','File: '+gs.source.file+' · SHA-256: '+gs.source.sha256));if(/^https?:\/\//.test(gs.source.dataset_url||'')){const link=el('a',null,'Reference dataset');link.href=gs.source.dataset_url;link.target='_blank';link.rel='noopener noreferrer';provenance.append(link);}goldContent.append(provenance);}
   track.append(gold.column);
-  const corpus=evidenceColumn('Retrieved context + Corpus','Collection: '+collectionFor(r),'corpus');
-  const retrieved=evidenceDisclosure(r,'retrieved','Retrieved context'),retrievedContent=retrieved.content;
-  corpus.body.append(retrieved.disclosure);
+  const corpus=evidenceColumn('Corpus','Collection: '+collectionFor(r),'corpus');
+  const retrievedContent=el('div');
+  if(view==='retrieved')selected.body.replaceChildren(retrievedContent);
   const retrieval=r.retrieval_context;
   if(!retrieval)retrievedContent.append(el('p','hint','Retrieved context not recorded.'));
   else{

@@ -87,9 +87,9 @@ class ProgressiveTests(unittest.TestCase):
                     self.assertEqual(data['corpus']['planets']['documents'], [])
                     self.assertEqual(data['corpus']['planets']['document_count'], 35)
                     self.assertEqual(data['rows'][-1]['judges']['mtrag']['conditioned_score'], .95)
-                    # Includes sidebar and review-flag controls; turn and corpus data stay lazy.
-                    self.assertLess(len(body), 132_000)
-                    self.assertLess(len(gzip.compress(body)), 37_000)
+                    # Combined source viewer and review controls remain lazy.
+                    self.assertLess(len(body), 140_000)
+                    self.assertLess(len(gzip.compress(body)), 40_000)
                     status, body = get('/api/conversation/pilot?id=other')
                     self.assertEqual(status, 200)
                     details = json.loads(body)['rows']
@@ -284,7 +284,7 @@ PROGRESSIVE_CHECKS = r"""
     assert(!entry(D.rows[1]).evidence?.length,'Citation edits wait for the saved annotation profile');
     openTurn('case#1');
     await fetch('/test/unblock-profile',{method:'POST'});
-    await annotationReady;
+    await annotationReady;await switchAnnotator('PS');
     assert(!document.getElementById('annotationPanel').inert&&!document.getElementById('expJson').disabled,'Editing and exports become available after loading saved labels');
     const visible=node=>!!node&&node.getClientRects().length>0;
     assert(document.querySelectorAll('input[name="humanLabel"]').length===3,'Correctness has correct, incorrect, and explicit uncertainty decisions');
@@ -560,7 +560,7 @@ LAYOUT_CHECKS = r"""
   const assert=(ok,message)=>{if(!ok)throw Error(message);};
   const frames=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   try{
-    await annotationReady;openTurn('case#2');await Promise.resolve();
+    await annotationReady;await switchAnnotator('PS');openTurn('case#2');await Promise.resolve();
     document.querySelector('input[value="incorrect"]').click();await Promise.resolve();
     document.querySelector('[data-failure-stage="Generation"]').click();await frames();
     const panel=document.getElementById('annotationPanel'),finish=document.getElementById('finishReview');

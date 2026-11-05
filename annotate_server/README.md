@@ -405,3 +405,13 @@ If a proxy intercepts local HTTP requests, set `NO_PROXY=127.0.0.1,localhost` an
 New exclusions are stored as `failure_types: ["excluded"]` and are omitted from the first-incorrect failure-label workload for that annotator. They remain saved and exported for auditing; exclude them from failure-type agreement calculations. Existing `insufficient_evidence` annotations retain their meaning and are not migrated.
 
 Use **? Flag for review** for a confusing turn. The per-annotator boolean `flagged_for_review` is saved independently of review completion, failure labels, and exclusion. Flag-only turns are saved and exported. Question-mark badges identify flagged turns in the queue, and **? Flagged only** filters them. Click **? Flagged** again to remove the flag. JSON import/export and CSV export retain it.
+Gold document cards offer a Supporting chunk / Full document dropdown. Install the
+separate pinned IBM document-level source index with:
+
+```bash
+python annotate_server/source_documents.py --download
+```
+
+Source records are matched by exact document ID or passage-offset ID prefixes,
+never by title. Missing source documents are explicitly marked unavailable.
+This viewer does not alter annotation JSON exports or the saved gold chunks.

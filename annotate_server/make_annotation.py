@@ -18,6 +18,7 @@ import pathlib
 import warnings
 
 from corpus_store import CORPUS_DIR, CorpusIndex, corpus_metadata
+from source_documents import source_document
 from failure_taxonomy import TAXONOMY, EXTRA_TYPES, taxonomy_data
 
 JUDGE_TITLES = {"mtrag": "mtRAG (RB_llm + RL_F + IDK)"}
@@ -227,7 +228,8 @@ def gold_evidence(index, task_id, question, gold):
         return {"status": "mismatch", "task_id": task_id, "documents": [],
                 "message": "Reference question or gold answer differs from this run; evidence was not attached."}
     return {"status": "available", "task_id": task_id,
-            "documents": task["documents"], "source": index.get("source", {}),
+            "documents": [dict(doc, full_document=source_document(doc.get("id", "")))
+                          for doc in task["documents"]], "source": index.get("source", {}),
             "message": "Original reference-task passages; relevance labels are from the dataset."}
 
 
@@ -456,6 +458,7 @@ def build_data(work_dir, live=False):
                                'search covers this embedded subset. The live server searches the full collection. '
                                'Matches retain BM25 search order without answer-based reranking.')
     return {"run": work_dir.name, "rows": rows, "judge_titles": JUDGE_TITLES,
+            "annotation_revision": "corrected-aba97d1" if work_dir.name == "convos_vector_q3_32b" else "",
             "corpus": corpus,
             **taxonomy_data(), "thresholds": thresholds,
             "coverage": coverage, "total_records": len(ids),

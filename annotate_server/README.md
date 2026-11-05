@@ -1,5 +1,42 @@
 # Annotation server
 
+## Edit decisions during review
+
+From the project folder:
+
+```powershell
+python -B annotate_server/annotation_server.py --port 8766
+```
+
+Open <http://127.0.0.1:8766/review>. Choose a method and turn, click **Edit** on
+PS, KH, or WN, revise the labels or notes, then click **Save decision**. This
+writes directly to that person's matching JSON file in `Annotate_result`.
+Other turns, citations, historical labels, and unedited fields are preserved.
+Missing reviewer records can be added through their own card.
+
+Before replacing an existing file, the server saves its previous complete contents
+under `Annotate_result/.review_backups/<method>/`. These local recovery copies are
+ignored by Git. Saves use atomic file replacement. If the decision changed since
+you opened it, your draft stays open: click **Load latest decision**, review it,
+and save again. A failed save leaves the draft available for retry.
+
+The review rereads exported decisions every three seconds, including files
+replaced with the same name. Polling waits while the edit dialog is open. New
+labelled turns load their evidence when they appear. The agreement page at
+<http://127.0.0.1:8766/results> updates automatically using **Exported results**.
+
+Recommended workflow: collect each annotator's initial export, then make review
+corrections on `/review` and use notes to record the reason. Keep these reviewed
+exports as the current results. You do not need to delete files or repeatedly
+export and replace JSON. The original `/run/...` annotation workspace keeps its
+separate autosaves; exporting an older workspace over a reviewed result would
+replace those review corrections.
+
+The generated `Annotate_result/review.html` remains an offline snapshot. Its Edit
+buttons are disabled and its link opens the editable server page. Regenerate that
+snapshot when you need an updated offline copy. Restart an already running server
+after installing these code changes to enable `/review`.
+
 ## Live agreement results
 
 Start the annotation server and open <http://127.0.0.1:8765/results>, or click

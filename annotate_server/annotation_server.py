@@ -27,6 +27,8 @@ from annotation_store import AnnotationStore  # noqa: E402
 from corpus_store import CORPUS_DIR, CorpusIndex, CorpusSearch  # noqa: E402
 from conversation_numbers import REGISTRY_PATH  # noqa: E402
 from agreement_results import build_results, results_page  # noqa: E402
+from make_result_review import RUNS, annotation_snapshot, annotation_version, build_review, render as render_review  # noqa: E402
+from result_store import ResultStore, ReviewConflict  # noqa: E402
 
 NAME_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z")
 JUDGES = ("mtrag",)
@@ -100,7 +102,7 @@ code{background:#e9ebee;padding:2px 4px}
 .actions{display:flex;gap:12px;align-items:center;margin-top:20px}button{padding:8px 12px;border:1px solid #b9c0c8;border-radius:4px;background:white;cursor:pointer}
 </style></head><body><main><h1>RAG judge runs</h1>
 <p class='muted'>Local run folders; no database or browser API key. The list refreshes automatically while this page is open. Select a run to annotate the judge outputs currently available.</p>
-<div class='actions'><a href='/results'>Live agreement results</a><button onclick='location.reload()'>Refresh list</button><span class='muted'>This page checks for new runs every 10 seconds.</span></div>
+<div class='actions'><a href='/review'>Editable annotation review</a><a href='/results'>Live agreement results</a><button onclick='location.reload()'>Refresh list</button><span class='muted'>This page checks for new runs every 10 seconds.</span></div>
 <section class='runs'>%s</section>
 </main><script>setTimeout(()=>location.reload(),10000)</script></body></html>""" % listing
 
@@ -170,6 +172,7 @@ class RunPages:
                       "keys": frozenset(row["key"] for row in data["rows"]),
                       "rows": {row["key"]: row for row in data["rows"]},
                       "conversations": conversations, "corpus": data.get("corpus", {}),
+                      "coverage": data.get("coverage", {}),
                       "search_indexes": {}, "search_lock": threading.RLock()}
 
             self.pages[work_dir] = (snapshot, result)
@@ -183,11 +186,36 @@ def make_handler(runs_dir, results_dir=None):
     runs_dir = pathlib.Path(runs_dir)
     results_dir = pathlib.Path(results_dir) if results_dir is not None else HERE.parent / 'Annotate_result'
     store = AnnotationStore(runs_dir)
+    result_store = ResultStore(results_dir)
     pages = RunPages()
+
+    def review_data():
+        def load_data(work_dir):
+            cached = pages.get(work_dir)
+            return {'rows': list(cached['rows'].values()), 'coverage': cached['coverage']}
+        return build_review(results_dir, runs_dir, load_data)
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             path = unquote(urlparse(self.path).path)
+            if path in ('/review', '/api/review/annotations', '/api/review/turn'):
+                try:
+                    data = review_data()
+                    if path == '/review':
+                        data['review_api'] = '/api/review'
+                        data['review_version'] = annotation_snapshot(data)['version']
+                        payload = render_review(data).encode('utf-8')
+                        self.respond(200, payload, compressed=gzip.compress(payload, compresslevel=3, mtime=0))
+                    elif path == '/api/review/annotations':
+                        self.respond_json(200, annotation_snapshot(data))
+                    else:
+                        query = parse_qs(urlparse(self.path).query)
+                        key = query.get('method', [''])[0] + ':' + query.get('id', [''])[0] + '#' + query.get('turn', [''])[0]
+                        row = next((row for row in data['rows'] if row['key'] == key), None)
+                        self.respond_json(200, {'row': row}) if row else self.respond_json(404, {'error': 'Turn not found.'})
+                except (OSError, ValueError, RuntimeError, SystemExit) as exc:
+                    self.respond_json(500, {'error': 'Could not load annotation review: ' + str(exc)})
+                return
             if path == '/results':
                 self.respond(200, results_page())
                 return
@@ -280,7 +308,8 @@ def make_handler(runs_dir, results_dir=None):
         def do_POST(self):
             path = unquote(urlparse(self.path).path)
             match = re.fullmatch(r"/api/annotations/([^/]+)/([^/]+)", path)
-            if not match:
+            review_match = re.fullmatch(r'/api/review/([^/]+)/([^/]+)', path)
+            if not match and not review_match:
                 self.respond_json(404, {"error": "Not found."})
                 return
             origin = self.headers.get("Origin")
@@ -297,14 +326,31 @@ def make_handler(runs_dir, results_dir=None):
                     self.respond_json(413, {"error": "Annotation request must be between 1 byte and 4 MiB."})
                     return
                 payload = json.loads(self.rfile.read(length))
-                if not isinstance(payload, dict) or set(payload) != {"changes"}:
-                    raise ValueError("Send a changes object.")
-                run, annotator_name = match.groups()
-                # Validate the destination before reading inputs or creating files.
-                store.path(run, annotator_name)
-                cached = pages.get(runs_dir / run)
-                numbers = {key: row['conversation_number'] for key, row in cached['rows'].items()}
-                store.patch(run, annotator_name, payload["changes"], cached["keys"], numbers)
+                if review_match:
+                    if not isinstance(payload, dict) or set(payload) != {'id', 'turn', 'changes', 'expected_version'}:
+                        raise ValueError('Send a turn, changes, and the saved decision version.')
+                    if not isinstance(payload['id'], str) or type(payload['turn']) is not int or payload['turn'] < 1:
+                        raise ValueError('Choose a valid conversation ID and turn.')
+                    method, annotator_name = review_match.groups()
+                    result_store.path(method, annotator_name)
+                    cached = pages.get(runs_dir / RUNS[method])
+                    row = cached['rows'].get(payload['id'] + '#' + str(payload['turn']))
+                    if row is None or row['judges']['mtrag'].get('label') != 'incorrect':
+                        raise FileNotFoundError('Incorrect turn not found.')
+                    saved_review = result_store.save(method, annotator_name, row,
+                                                     payload['changes'], payload['expected_version'])
+                else:
+                    if not isinstance(payload, dict) or set(payload) != {"changes"}:
+                        raise ValueError("Send a changes object.")
+                    run, annotator_name = match.groups()
+                    # Validate the destination before reading inputs or creating files.
+                    store.path(run, annotator_name)
+                    cached = pages.get(runs_dir / run)
+                    numbers = {key: row['conversation_number'] for key, row in cached['rows'].items()}
+                    store.patch(run, annotator_name, payload["changes"], cached["keys"], numbers)
+            except ReviewConflict as exc:
+                self.respond_json(409, {'error': str(exc), 'record': exc.record,
+                                        'version': annotation_version(exc.record)})
             except FileNotFoundError:
                 self.respond_json(404, {"error": "Run not found."})
             except (ValueError, UnicodeError) as exc:
@@ -312,7 +358,8 @@ def make_handler(runs_dir, results_dir=None):
             except (OSError, RuntimeError, SystemExit) as exc:
                 self.respond_json(500, {"error": str(exc)})
             else:
-                self.respond_json(200, {"saved": True, "annotator": annotator_name})
+                self.respond_json(200, dict(saved=True, annotator=annotator_name, **saved_review)
+                                  if review_match else {"saved": True, "annotator": annotator_name})
 
         def respond_json(self, status, data):
             payload = json.dumps(data, ensure_ascii=False).encode("utf-8")

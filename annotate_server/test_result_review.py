@@ -21,6 +21,7 @@ try{
  assert(filtered.length>0 && filtered.every(row=>row.conversation_number===searchNumber),'Search by conversation number');
  $('search').value='';$('search').dispatchEvent(new Event('input'));
  assert(document.querySelectorAll('.annotator').length===3,'Three decision cards');
+ assert([...document.querySelectorAll('.edit-decision')].every(button=>button.disabled),'Offline snapshot cannot write source files');
  assert(document.querySelectorAll('.evidence-grid .panel').length===3,'Three evidence sections');
  assert(!document.querySelector('.evidence-grid details'),'Passages and sources have no toggles');
  assert([...document.querySelectorAll('.passage .prose')].every(node=>node.getBoundingClientRect().height>0),'Passage text expanded');

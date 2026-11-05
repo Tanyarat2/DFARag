@@ -12,12 +12,15 @@
 @media(max-width:950px){.evidence-grid{grid-template-columns:1fr}.document-list{max-height:380px}.annotator{padding:14px}.filters input{width:190px}.question h2{font-size:19px}}
 .passage .doc-title{margin:0}
 .passage.gold-excerpt{border-left:3px solid #c49a30;padding-left:12px}mark.gold-text{background:#ffdf70;color:#3b310e;box-decoration-break:clone;-webkit-box-decoration-break:clone}.gold-match-count{color:#806015;margin:0 0 8px;font-size:11px}
+.review-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;font-size:12px}.review-status{color:var(--green)}.review-status.error,.edit-error{color:#a13d35}.edit-decision{padding:2px 8px;font-size:11px}.card-head{flex-wrap:wrap}.editor{width:min(760px,calc(100% - 24px));max-height:90dvh;border:1px solid var(--line);border-radius:12px;padding:22px;color:var(--ink);background:white}.editor::backdrop{background:#1b302d66}.editor form{display:grid;gap:14px}.editor header{padding:0;border:0;align-items:start}.editor h2{font-size:20px}.editor label{font-size:12px}.edit-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.edit-field{display:grid;gap:5px}.edit-field textarea{font:inherit;min-height:76px;width:100%;resize:vertical;border:1px solid var(--line);border-radius:7px;padding:8px}.error-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.error-option{display:flex;align-items:start;gap:6px;padding:8px;border:1px solid var(--line);border-radius:7px;font-size:12px;cursor:pointer}.error-option:has(input:checked){background:#e6f1eb;border-color:#729d8b}.error-option input{accent-color:var(--green);margin-top:3px}.editor fieldset{border:0;padding:0;margin:0;min-width:0}.editor legend{font-weight:600;font-size:12px;margin-bottom:8px}.edit-flags{display:flex;gap:18px;flex-wrap:wrap}.edit-flags label{display:flex;gap:6px;align-items:center}.edit-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.edit-actions .primary{background:var(--green);color:white;border-color:var(--green)}.editor [hidden]{display:none!important}.edit-feedback{font-size:12px;min-height:18px}.edit-path{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 @media(max-width:620px){header{padding:16px}header>.muted{display:none}main{padding:18px 14px}.annotators{gap:8px}.annotator{padding:10px}.card-head{align-items:start;flex-direction:column;gap:3px}.avatar{font-size:14px}.label{font-size:11px;padding:3px}.label b{margin-right:3px}.notes{font-size:12px}.navigation{margin-left:0;width:100%;justify-content:space-between}.filters label{flex:1}.filters input{width:100%}.filters label:last-of-type{flex-basis:100%}.reading{grid-template-columns:1fr}}
+@media(max-width:620px){.editor{padding:16px}.error-options{grid-template-columns:1fr 1fr}.edit-fields{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1>Annotation review</h1><p class="muted">Incorrect turns, side by side</p></div></div><p class="muted">Navigate <kbd>←</kbd> <kbd>→</kbd></p></header>
 <main>
+<div class="review-bar"><span id="review-status" class="review-status" role="status" aria-live="polite"></span><a id="review-link"></a></div>
 <div class="filters">
 <label>Method <select id="method"><option value="">All methods</option><option>Vector</option><option>HippoRag</option><option>Raptor</option></select></label>
 <label>Labels <select id="coverage"><option value="any">Any annotator</option><option value="all">All 3 annotators</option></select></label>
@@ -28,6 +31,19 @@
 <div id="content"></div>
 <footer class="source-note"><details><summary id="source-summary">Source details</summary><div id="sources"></div></details></footer>
 </main>
+<dialog id="decision-editor" class="editor" aria-labelledby="edit-title">
+<form id="decision-form">
+<header><div><h2 id="edit-title">Edit decision</h2><p id="edit-context" class="muted"></p></div><button id="edit-cancel" type="button">Cancel</button></header>
+<label class="edit-field">Outcome<select id="edit-outcome"><option value="errors">Error labels</option><option value="not_a_failure">Not a failure</option><option value="outside_taxonomy">Outside taxonomy</option><option value="insufficient_evidence">Insufficient evidence</option><option value="excluded">Excluded</option><option value="clear">Clear failure labels</option></select></label>
+<fieldset id="edit-errors"><legend>Failure labels</legend><div id="error-options" class="error-options"></div></fieldset>
+<div class="edit-fields"><label class="edit-field">Correctness<select id="edit-correctness"><option value="">Not specified</option><option value="correct">Correct</option><option value="incorrect">Incorrect</option><option value="uncertain">Uncertain</option></select></label><label class="edit-field">Gold answer check<select id="edit-gold"><option value="">Not checked</option><option value="supported">Supported</option><option value="questionable">Questionable</option><option value="incorrect">Incorrect</option></select></label></div>
+<label class="edit-field">Notes<textarea id="edit-notes" rows="3"></textarea></label>
+<label class="edit-field">Gold notes<textarea id="edit-gold-notes" rows="2"></textarea></label>
+<div class="edit-flags"><label><input type="checkbox" id="edit-reviewed">Reviewed</label><label><input type="checkbox" id="edit-flagged">Flag for review</label></div>
+<p id="edit-path" class="edit-path"></p><p id="edit-feedback" class="edit-feedback" role="status" aria-live="polite"></p>
+<div class="edit-actions"><button id="edit-reload" type="button" hidden>Load latest decision</button><button id="edit-save" type="submit" class="primary">Save decision</button></div>
+</form>
+</dialog>
 <script id="review-data" type="application/json">__REVIEW_DATA__</script>
 <script>
 'use strict';
@@ -38,10 +54,11 @@ const clean=s=>String(s??'').replace(/\u2014/g,', ').replace(/\u00b7/g,',');
 function el(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=clean(text);return node;}
 const names={not_a_failure:'Not a failure',outside_taxonomy:'Outside taxonomy',insufficient_evidence:'Insufficient evidence',excluded:'Excluded'};
 let filtered=[],index=0;
+let editState=null,saving=false,dirty=false,polling=false,reviewVersion=D.review_version||'';
 function isLabelled(a){return !!(a.human_label||a.failure_type||a.failure_types?.length);}
 function applyFilters(){const key=filtered[index]?.key,q=$('search').value.toLowerCase().trim(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null;filtered=D.rows.filter(r=>(!$('method').value||r.method===$('method').value)&&($('coverage').value==='any'||r.labelled_count===D.annotators.length)&&(!q||(numberQuery?r.conversation_number===numberQuery:[r.question,r.id,r.conversation_number,r.corpus_collection].join(' ').toLowerCase().includes(q))));index=Math.max(0,filtered.findIndex(r=>r.key===key));render();}
 function move(delta){index=Math.max(0,Math.min(filtered.length-1,index+delta));render();}
-function annotator(name,a){const card=el('section','annotator');card.setAttribute('aria-label',name+' decision');const head=el('div','card-head');head.append(el('h3','avatar',name),el('span','muted',isLabelled(a)?'Labelled':'No label'));card.append(head);
+function annotator(name,a,r){const card=el('section','annotator');card.setAttribute('aria-label',name+' decision');const head=el('div','card-head');head.append(el('h3','avatar',name),el('span','muted',isLabelled(a)?'Labelled':'No label'));const edit=el('button','edit-decision','Edit');edit.type='button';edit.dataset.annotator=name;edit.disabled=!D.review_api;edit.title=D.review_api?'Edit '+name+' decision':'Open the server review page to edit';edit.onclick=()=>openEditor(r,name);head.append(edit);card.append(head);
 if(a.human_label)card.append(el('p','pill',a.human_label));
 const codes=a.failure_types?.length?a.failure_types:a.failure_type?[a.failure_type]:[];
 const labels=el('div','labels');for(const code of codes){const tag=el('span','label');if(D.labels[code])tag.append(el('b','',code),document.createTextNode(clean(D.labels[code])));else tag.textContent=clean(names[code]||code);labels.append(tag);}card.append(labels);
@@ -106,7 +123,7 @@ function render(){const root=$('content');root.replaceChildren();$('position').t
 if(!filtered.length){const empty=el('div','empty');empty.append(el('h2','','No matching turns'),el('p','muted','Try Any annotator, another method, or clear your search.'));root.append(empty);return;}
 const r=filtered[index];const meta=el('div','meta');meta.append(el('span','pill',r.method),el('span','pill conversation-number',r.conversation_number),el('span','pill incorrect','Incorrect'),el('span','muted','Turn '+r.turn),el('span','muted',r.corpus_collection),el('span','id',r.id));
 root.append(meta,el('p','eyebrow','Annotator decisions'));
-const cards=el('div','annotators');for(const name of D.annotators)cards.append(annotator(name,r.annotations[name]));root.append(cards);
+const cards=el('div','annotators');for(const name of D.annotators)cards.append(annotator(name,r.annotations[name],r));root.append(cards);
 const question=el('section','question');question.append(el('p','eyebrow','Question'),el('h2','',r.question));root.append(question);
 const reading=el('div','reading'),answer=el('section','panel answer');answer.append(el('h2','','RAG Answer'),el('div','prose',r.answer));
 const reference=el('section','panel answer gold-answer');reference.append(el('h2','','Gold Answer'),el('div','prose',r.gold||'Gold answer not recorded.'));reading.append(answer,reference);
@@ -121,10 +138,66 @@ const gold= documentPanel('Gold Documents',r.gold_support?.status==='available'?
 evidence.append(gold);reading.append(evidence);root.append(reading);
 }
 $('method').addEventListener('change',applyFilters);$('coverage').addEventListener('change',applyFilters);$('search').addEventListener('input',applyFilters);$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
-document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||event.target.closest('input,textarea,select,[contenteditable="true"]'))return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();move(event.key==='ArrowLeft'?-1:1);}});
-$('source-summary').textContent=D.warnings.length?'Source details ('+D.warnings.length+' warnings)':'Source details';
-$('sources').append(el('p','','Read-only snapshot from Annotate_result. Incorrect means mtRAG score below 0.7. A saved correctness decision or failure label counts as labelled; a review mark alone does not.'));
-for(const source of D.sources)$('sources').append(el('p','',source.method+': '+source.judge));for(const warning of D.warnings)$('sources').append(el('p','warning',warning));applyFilters();
+document.addEventListener('keydown',event=>{if($('decision-editor').open||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||event.target.closest('input,textarea,select,[contenteditable="true"]'))return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();move(event.key==='ArrowLeft'?-1:1);}});
+function status(text,error=false){$('review-status').textContent=clean(text);$('review-status').className='review-status'+(error?' error':'');}
+function renderSources(){
+ $('source-summary').textContent=D.warnings.length?'Source details ('+D.warnings.length+' warnings)':'Source details';$('sources').replaceChildren();
+ $('sources').append(el('p','',D.review_api?'Review edits save directly to Annotate_result and update Exported results. Original annotation-run saves remain separate.':'Read-only snapshot from Annotate_result. Open the server review page to edit.'));
+ $('sources').append(el('p','','Incorrect means mtRAG score below 0.7. A saved correctness decision or failure label counts as labelled; a review mark alone does not.'));
+ for(const source of D.sources)$('sources').append(el('p','',source.method+': '+source.judge));for(const warning of D.warnings)$('sources').append(el('p','warning',warning));
+}
+function fillEditor(record,version){
+ const a=record||{};editState.record=record;editState.version=version;editState.conflict=null;
+ const selected=a.failure_types?.length?a.failure_types:a.failure_type?[a.failure_type]:[],options=$('error-options');options.replaceChildren();
+ for(const [code,name] of Object.entries(D.labels)){const label=el('label','error-option'),input=el('input');input.type='checkbox';input.value=code;input.name='error';input.checked=selected.includes(code);label.append(input,el('span','',code+' '+name));options.append(label);}
+ $('edit-outcome').value=selected.find(code=>Object.hasOwn(names,code))||'errors';$('edit-errors').hidden=$('edit-outcome').value!=='errors';
+ $('edit-correctness').value=a.human_label||'';$('edit-gold').value=a.gold_assessment||'';$('edit-notes').value=a.notes||'';$('edit-gold-notes').value=a.gold_notes||'';
+ $('edit-reviewed').checked=typeof a.review_complete==='boolean'?a.review_complete:isLabelled(a);$('edit-flagged').checked=a.flagged_for_review===true;
+ $('edit-feedback').textContent='';$('edit-feedback').className='edit-feedback';$('edit-reload').hidden=true;$('edit-save').disabled=false;dirty=false;
+}
+function openEditor(row,name){
+ if(!D.review_api||saving)return;editState={row,annotator:name};
+ $('edit-title').textContent='Edit '+name+' decision';$('edit-context').textContent=row.method+' / '+row.conversation_number+' / Turn '+row.turn;
+ $('edit-path').textContent='Saves to Annotate_result / '+row.method+' / '+name+'. Previous file backed up automatically.';
+ fillEditor(Object.keys(row.annotations[name]).length?row.annotations[name]:null,row.annotation_versions[name]);$('decision-editor').showModal();
+}
+$('edit-outcome').onchange=()=>{$('edit-errors').hidden=$('edit-outcome').value!=='errors';};
+$('decision-form').addEventListener('input',()=>{dirty=true;});$('decision-form').addEventListener('change',()=>{dirty=true;});
+$('edit-cancel').onclick=()=>{if(!saving)$('decision-editor').close();};
+$('decision-editor').addEventListener('cancel',event=>{if(saving)event.preventDefault();});
+$('decision-editor').addEventListener('close',()=>{if($('decision-editor').open)return;editState=null;dirty=false;refreshReview();});
+$('edit-reload').onclick=()=>{if(editState?.conflict)fillEditor(editState.conflict.record,editState.conflict.version);};
+$('decision-form').onsubmit=async event=>{
+ event.preventDefault();if(!editState||saving||editState.conflict)return;
+ const state=editState,outcome=$('edit-outcome').value,types=outcome==='errors'?[...document.querySelectorAll('#error-options input:checked')].map(i=>i.value):outcome==='clear'?[]:[outcome];
+ const changes={failure_types:types,failure_type:types.length===1?types[0]:'',human_label:$('edit-correctness').value,notes:$('edit-notes').value,gold_assessment:$('edit-gold').value,gold_notes:$('edit-gold-notes').value,review_complete:$('edit-reviewed').checked,flagged_for_review:$('edit-flagged').checked};
+ saving=true;for(const input of $('decision-form').elements)input.disabled=true;$('edit-feedback').textContent='Saving...';$('edit-feedback').className='edit-feedback';
+ try{
+  const response=await fetch(D.review_api+'/'+state.row.method+'/'+state.annotator,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:state.row.id,turn:state.row.turn,changes,expected_version:state.version}),signal:AbortSignal.timeout(15000)}),result=await response.json();
+  if(!response.ok){if(response.status===409){state.conflict=result;$('edit-reload').hidden=false;}throw Error(result.error||'Could not save decision.');}
+  state.row.annotations[state.annotator]=result.record;state.row.annotation_versions[state.annotator]=result.version;state.row.labelled_count=D.annotators.filter(name=>isLabelled(state.row.annotations[name])).length;
+  dirty=false;$('decision-editor').close();applyFilters();status('Saved '+state.row.method+' / '+state.annotator+'.'+(result.backup?' Previous file backed up.':''));
+ }catch(error){$('edit-feedback').textContent=error.message;$('edit-feedback').className='edit-feedback edit-error';}
+ finally{saving=false;for(const input of $('decision-form').elements)input.disabled=false;if(state.conflict)$('edit-save').disabled=true;refreshReview();}
+};
+window.addEventListener('beforeunload',event=>{if(dirty||saving){event.preventDefault();event.returnValue='';}});
+async function refreshReview(){
+ if(!D.review_api||polling||editState||saving)return;polling=true;
+ try{
+  const response=await fetch(D.review_api+'/annotations',{cache:'no-store',signal:AbortSignal.timeout(15000)}),snapshot=await response.json();if(!response.ok)throw Error(snapshot.error||'Review update failed.');
+  if(editState||saving||snapshot.version===reviewVersion)return;
+  const byKey=new Map(D.rows.map(row=>[row.key,row]));
+  const rows=await Promise.all(snapshot.rows.map(async meta=>{if(byKey.has(meta.key))return {...byKey.get(meta.key),...meta};const params=new URLSearchParams({method:meta.method,id:meta.id,turn:String(meta.turn)}),detail=await fetch(D.review_api+'/turn?'+params,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!detail.ok)throw Error('New turn could not be loaded. Retrying...');return (await detail.json()).row;}));
+  if(editState||saving)return;
+  const oldKey=filtered[index]?.key,scrolls=[...document.querySelectorAll('.document-list')].map(node=>node.scrollTop);
+  D.rows=rows;D.warnings=snapshot.warnings;D.sources=snapshot.sources;reviewVersion=snapshot.version;renderSources();applyFilters();
+  if(filtered[index]?.key===oldKey)document.querySelectorAll('.document-list').forEach((node,i)=>{node.scrollTop=scrolls[i]||0;});
+  status('Live review. Saves go directly to Annotate_result.');
+ }catch(error){status('Refresh failed. Keeping the current review. '+error.message,true);}
+ finally{polling=false;}
+}
+$('review-link').href=D.review_api?'/results':'http://127.0.0.1:8766/review';$('review-link').textContent=D.review_api?'Live agreement results':'Open editable review';
+status(D.review_api?'Live review. Saves go directly to Annotate_result.':'Offline snapshot. Open editable review to save changes.');renderSources();applyFilters();if(D.review_api)setInterval(refreshReview,3000);
 </script>
 </body>
 </html>

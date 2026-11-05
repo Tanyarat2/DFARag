@@ -1,5 +1,6 @@
 """Build an offline, read-only comparison of exported annotator results."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -17,6 +18,10 @@ def labelled(record):
     # Review completion and flags are independent of a saved decision.
     return bool(record.get("failure_types") or record.get("failure_type") or
                 record.get("human_label"))
+
+
+def annotation_version(record):
+    return hashlib.sha256(json.dumps(record, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
 
 
 def read_annotations(folder, run):
@@ -39,12 +44,12 @@ def read_annotations(folder, run):
     return profiles, warnings
 
 
-def build_review(results, runs):
+def build_review(results, runs, load_data=None):
     rows, warnings, sources = [], [], []
     for method, run in RUNS.items():
         profiles, messages = read_annotations(results / method, run)
         warnings.extend(messages)
-        data = build_data(runs / run, live=True)
+        data = load_data(runs / run) if load_data else build_data(runs / run, live=True)
         sources.append({"method": method, "judge": data["coverage"]["mtrag"]["source"]})
         for row in data["rows"]:
             if row["judges"]["mtrag"]["label"] != "incorrect":
@@ -57,10 +62,21 @@ def build_review(results, runs):
                 "id", "conversation_number", "turn", "question", "answer", "gold", "gold_support",
                 "retrieval_context", "selected_passages", "contexts", "corpus_collection")},
                 "key": method + ":" + row["key"], "method": method,
-                "annotations": annotations, "labelled_count": count})
+                "annotations": annotations, "labelled_count": count,
+                "annotation_versions": {name: annotation_version(annotations[name] or None)
+                                        for name in ANNOTATORS}})
     return {"rows": rows, "warnings": warnings, "sources": sources,
             "annotators": ANNOTATORS,
             "labels": {code: value["name"] for code, value in DEFINITIONS.items()}}
+
+
+def annotation_snapshot(data):
+    snapshot = {"rows": [{key: row[key] for key in (
+        'key', 'id', 'turn', 'method', 'conversation_number', 'annotations',
+        'annotation_versions', 'labelled_count')} for row in data['rows']],
+        "warnings": data['warnings'], "sources": data['sources']}
+    snapshot['version'] = annotation_version(snapshot)
+    return snapshot
 
 
 def render(data):

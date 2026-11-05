@@ -1,0 +1,307 @@
+{
+  "version": 1,
+  "fingerprint": "80e12e07b9189a4acad7621011900da04257852f1a33aefdea789b2ce12f1b00",
+  "id": "dcc0215a118ac833dfe054350df2afaa",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.833, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.761 (threshold 0.70). RB_llm justification: The assistant's answer provides a clear explanation of bond yield components but has notable deviations from the reference and document. **Faithfulness**: The assistant misinterprets \"Time\" as the period for yield calculation (e.g., time to maturity) rather than the document's and reference's definition of the quote's generation time. This is a key inaccuracy. The coupon and price explanations ali",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.8333333333333334,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7608695652173914,
+        "conditioned_score": 0.7608695652173914,
+        "statements": [
+          {
+            "statement": "Time refers to the period over which the yield is calculated, typically the time to maturity or holding period.",
+            "verdict": "yes",
+            "reason": "The context explains that yield is typically annualized and depends on the holding period (e.g., T-Bill example) or time to maturity."
+          },
+          {
+            "statement": "The coupon is the fixed interest payment made by the bond issuer, typically expressed as a percentage of the bond's face value.",
+            "verdict": "yes",
+            "reason": "The context defines coupon as the fixed interest payment and mentions it is a percentage of the bond's face value."
+          },
+          {
+            "statement": "The price represents the current market price of the bond, which can be at a discount, par, or premium compared to its face value.",
+            "verdict": "yes",
+            "reason": "The context states that price is the normalized market price and notes bonds can trade at a discount, par, or premium."
+          },
+          {
+            "statement": "Yield is the annualized return an investor would receive if the bond is held to maturity, calculated using the bond's price, coupon payments, and time to maturity.",
+            "verdict": "yes",
+            "reason": "The context defines yield as the annualized return based on price, coupon, and time to maturity, with examples like T-Bills and Dell's bond."
+          },
+          {
+            "statement": "Time also refers to the duration of the bond or the period for which the yield is quoted.",
+            "verdict": "no",
+            "reason": "The context does not mention duration as a concept; it refers to time as the holding period or time to maturity, not duration."
+          },
+          {
+            "statement": "The terms are interconnected, with yield being influenced by the bond's price, coupon, and time to maturity.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that yield depends on price, coupon, and time, and provides examples of their interplay."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.70). RB_llm justification: The assistant's answer correctly identifies government bonds (U.S., Canadian) and high-rated corporate bonds as safe options, aligning with the document's emphasis on government securities and credit ratings. It also mentions diversification and non-tradable savings bonds, which are present in the document. However, the reference answer provides more specific recommendations (e.g., U.S. Treasury f",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "The safest type of bond to invest in is typically a government bond.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that government bonds (e.g., US or Canadian savings bonds) are considered the most secure for preservation of principal, emphasizing their safety compared to other bond types."
+          },
+          {
+            "statement": "Government bonds issued by the U.S. or Canadian government are considered highly secure.",
+            "verdict": "yes",
+            "reason": "The context directly references US and Canadian savings bonds as the most secure from a preservation of principal perspective, confirming their high security."
+          },
+          {
+            "statement": "Government bonds have a low risk of default.",
+            "verdict": "yes",
+            "reason": "The context notes that government bonds are considered safe, with default risk tied to the issuer's bankruptcy, which is rare for governments like the US."
+          },
+          {
+            "statement": "Bonds issued by companies with a strong financial track record and high credit ratings are also relatively safe.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions that bonds from companies with a safe track record and high ratings are considered relatively safe, though less secure than government bonds."
+          },
+          {
+            "statement": "Investors should consider factors such as interest rate risk, liquidity, and overall investment goals.",
+            "verdict": "yes",
+            "reason": "The context discusses interest rate risk, liquidity (e.g., selling bonds before maturity), and aligning investments with goals like time horizon and risk tolerance."
+          },
+          {
+            "statement": "Non-tradable government bonds like savings bonds are often recommended for maximum safety.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that non-tradable, general obligation government bonds (e.g., US or Canadian savings bonds) are the most secure for preserving principal."
+          },
+          {
+            "statement": "Savings bonds may offer lower returns compared to other bond types.",
+            "verdict": "yes",
+            "reason": "The context acknowledges that savings bonds have lower returns, stating their rates are not as good as other investments."
+          },
+          {
+            "statement": "Diversification is crucial when investing in bonds.",
+            "verdict": "yes",
+            "reason": "The context recommends diversifying risks by investing in a bond fund rather than a single issuer to reduce catastrophic loss risk."
+          },
+          {
+            "statement": "Careful evaluation of a bond's terms and the issuer's financial health is essential for safety.",
+            "verdict": "yes",
+            "reason": "The context advises checking the issuer's financial track record, ratings, and bond terms (e.g., callability, default order) to ensure safety."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.70). RB_llm justification: The assistant's answer effectively addresses the user's question about investing in foreign bonds by highlighting key risks (country-specific, currency, and diversification) and fees, while also suggesting scenarios where international diversification is beneficial. It aligns with the reference answer and documents by emphasizing the controversial nature of foreign bonds, the potential for unrewar",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Investing in foreign bonds introduces additional risks such as country-specific, currency, and diversification risks.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions adding country-specific risk, currency risk, and diversifying individual company risk when investing in international bonds."
+          },
+          {
+            "statement": "These risks may not always be rewarded, and international bond ETFs often come with higher fees compared to domestic ones.",
+            "verdict": "yes",
+            "reason": "The context states that risks like developed currency risk may not be rewarded and that international bond ETFs add 30-100bps of fees over domestic versions."
+          },
+          {
+            "statement": "If your home country lacks a deep bond market or bonds dominate your portfolio, diversifying internationally could be beneficial.",
+            "verdict": "yes",
+            "reason": "The context advises diversifying internationally if the home currency lacks a deep bond market or bonds make up most of the portfolio."
+          },
+          {
+            "statement": "For safer options, consider overseas government-backed bonds (gilts) through mutual funds, which offer lower risk.",
+            "verdict": "yes",
+            "reason": "The context recommends overseas gilts (government-backed) as very low risk and suggests using mutual funds for this purpose."
+          },
+          {
+            "statement": "Currency volatility can be managed by selecting funds that handle this risk.",
+            "verdict": "yes",
+            "reason": "The context mentions that good fund houses manage currency volatility when investing in overseas gilts."
+          },
+          {
+            "statement": "Foreign bonds may provide diversification benefits but require careful consideration of fees and risks.",
+            "verdict": "yes",
+            "reason": "The context acknowledges diversification benefits of foreign bonds while emphasizing the need to weigh higher fees and risks."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.724 (threshold 0.70). RB_llm justification: The assistant's answer correctly identifies the primary reason municipalities issue bonds (to fund public projects and services) and aligns with the reference answer. It also incorporates relevant details from the document, such as bonds being backed by municipal revenue or taxes. However, the inclusion of risks (e.g., municipalities struggling to meet obligations) introduces information not prese",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7241379310344828,
+        "conditioned_score": 0.7241379310344828,
+        "statements": [
+          {
+            "statement": "Municipalities issue bonds to raise capital for public projects and services.",
+            "verdict": "yes",
+            "reason": "The context discusses revenue bonds backed by specific projects and general obligation bonds, implying use for public projects. The example of Chicago's spending on day-to-day expenses also relates to public services."
+          },
+          {
+            "statement": "The bonds are typically backed by the municipality's ability to generate revenue or taxes, or by specific projects.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions general obligation bonds (backed by political will to raise taxes) and revenue bonds (backed by project-specific cash flows like tolls)."
+          },
+          {
+            "statement": "Bonds allow municipalities to spread the cost of large projects over time, aiding budget management.",
+            "verdict": "no",
+            "reason": "The context does not explicitly mention spreading costs or budget management. While implied by the example of future residents paying for past projects, the direct connection to budget management is not made."
+          },
+          {
+            "statement": "Issuing bonds carries risks, as municipalities may struggle to meet obligations if revenues decline or economic conditions worsen.",
+            "verdict": "yes",
+            "reason": "The context highlights risks like municipal bankruptcies, reliance on project revenues, and potential defaults, especially if projects underperform or interest rates rise."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.70). RB_llm justification: The assistant's answer effectively contrasts bonds and stocks by highlighting their fundamental differences in ownership vs. debt, risk/return profiles, and market behavior. It aligns with the document's core points, such as stocks representing ownership with voting rights and potential dividends, while bonds function as loans with fixed interest payments. The assistant also correctly notes that s",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Bonds and stocks are distinct financial instruments.",
+            "verdict": "yes",
+            "reason": "The context clearly differentiates between stocks (ownership) and bonds (debt), stating they are fundamentally different."
+          },
+          {
+            "statement": "Stocks represent ownership in a company, granting shareholders a share of its profits and voting rights.",
+            "verdict": "yes",
+            "reason": "The context explains that stocks are equity, granting ownership, profit-sharing via dividends, and voting rights (common stock)."
+          },
+          {
+            "statement": "Bonds are loans to a company, offering fixed interest payments and repayment of principal.",
+            "verdict": "yes",
+            "reason": "The context describes bonds as corporate debt with fixed interest payments and principal repayment at maturity."
+          },
+          {
+            "statement": "Stocks carry higher risk but potential for higher returns.",
+            "verdict": "yes",
+            "reason": "The context highlights that stocks are riskier (value tied to company performance) but historically offer higher long-term returns."
+          },
+          {
+            "statement": "Bonds are generally safer with lower returns.",
+            "verdict": "yes",
+            "reason": "The context states bonds are safer investments with lower potential returns compared to stocks."
+          },
+          {
+            "statement": "Stocks are bought through brokers.",
+            "verdict": "yes",
+            "reason": "The context specifies stocks are typically purchased via brokers on exchanges, with exceptions like Employee Stock Purchase Plans."
+          },
+          {
+            "statement": "Bonds can be traded on secondary markets.",
+            "verdict": "yes",
+            "reason": "The context mentions bonds are negotiable and liquid on secondary markets, with medallion stamps for transferability."
+          },
+          {
+            "statement": "The value of stocks fluctuates with company performance.",
+            "verdict": "yes",
+            "reason": "The context explains stock prices vary based on company success and market demand."
+          },
+          {
+            "statement": "Bond values change with interest rates.",
+            "verdict": "yes",
+            "reason": "The context details how bond prices inversely correlate with interest rate changes."
+          },
+          {
+            "statement": "Bonds are typically considered safer than stocks.",
+            "verdict": "yes",
+            "reason": "The context explicitly states bonds are safer investments compared to stocks."
+          },
+          {
+            "statement": "Both bonds and stocks carry risks depending on market conditions.",
+            "verdict": "yes",
+            "reason": "The context notes risks for both: stocks depend on company performance, and bonds are affected by interest rate fluctuations."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 26495,
+    "completion_tokens": 14471,
+    "total_tokens": 40966,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 22,
+    "reasoning_tokens": 13052,
+    "reasoning_budget_verified_calls": 22
+  },
+  "elapsed_seconds": 244.594
+}

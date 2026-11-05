@@ -1,0 +1,466 @@
+{
+  "version": 1,
+  "fingerprint": "efc472800973bf464457b3bee3c21306ca5c26840cb17919290e55fdcc527d12",
+  "id": "f1121a39d8a9e36eaef4c2367bd43532",
+  "turn_evaluations": [
+    {
+      "turn": 1,
+      "label": "incorrect",
+      "reasoning": "mtRAG: RB_llm=4/10, RL_F=0.714, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.513 (threshold 0.70). RB_llm justification: The assistant's answer addresses some aspects of pricing strategies for small businesses, such as underpricing for market share, negotiating with payment processors, and assessing local rent. However, it fails to capture the key valuation methods outlined in the reference answer and document, such as liquidation value, discounted cash flow analysis, EBITDA multipliers, and the rule of thumb (2x ne",
+      "scores": {
+        "RB_llm": 4.0,
+        "RB_llm_norm": 0.4,
+        "RL_F": 0.7142857142857143,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.5128205128205129,
+        "conditioned_score": 0.5128205128205129,
+        "statements": [
+          {
+            "statement": "There are several approaches for pricing a small business, including underpricing to gain market share.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that businesses underprice to gain market share and provides an example of the author's own experience with this strategy."
+          },
+          {
+            "statement": "Negotiating competitive rates with payment processors like Square or PayPal is an approach for pricing a small business.",
+            "verdict": "no",
+            "reason": "The context discusses Square and PayPal as cost-effective payment processors for small businesses but does not frame this as a pricing strategy for the business itself."
+          },
+          {
+            "statement": "Assessing local rent levels to determine cost-based pricing is a method for small business pricing.",
+            "verdict": "yes",
+            "reason": "The context advises assessing local rent levels and calculating costs to determine pricing, aligning with cost-based pricing methods."
+          },
+          {
+            "statement": "Small businesses may need to charge higher margins due to operational costs and lack of scale.",
+            "verdict": "yes",
+            "reason": "The context explains that small businesses face higher proportional operational costs and lack volume discounts, necessitating higher margins to achieve equivalent profits."
+          },
+          {
+            "statement": "Focusing on design, quality, or premium markets helps justify higher pricing margins for small businesses.",
+            "verdict": "yes",
+            "reason": "The context highlights Apple's strategy of focusing on design and premium markets to justify higher margins and advises small businesses to adopt similar approaches."
+          },
+          {
+            "statement": "Seeking mentorship or guidance from experienced business brokers is advisable for small business pricing.",
+            "verdict": "no",
+            "reason": "The context suggests finding a mentor or working as a manager for a couple of years but does not explicitly link this to pricing strategies or business brokers."
+          },
+          {
+            "statement": "Documenting pricing decisions thoroughly ensures compliance and clarity for small businesses.",
+            "verdict": "yes",
+            "reason": "The context emphasizes documenting cost calculations and decision-making processes to prepare for potential IRS scrutiny, supporting the importance of documentation."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "incorrect",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "incorrect"
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.70). RB_llm justification: The assistant's answer addresses several key factors contributing to small business failure, such as lack of planning, poor decision-making, and financial mismanagement. These points align with the document's emphasis on the importance of planning and understanding the business. However, the assistant's response omits critical elements from the reference answer and document, including the role of ",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "A lack of planning is a primary reason for small business failure.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that failing to plan is planning to fail and emphasizes the importance of having a plan to understand potential points of failure."
+          },
+          {
+            "statement": "Insufficient understanding of the business is a primary reason for small business failure.",
+            "verdict": "yes",
+            "reason": "The context highlights that understanding the business is crucial to recognizing problems and making informed decisions, and lacking this increases failure risks."
+          },
+          {
+            "statement": "Poor decision-making is a primary reason for small business failure.",
+            "verdict": "yes",
+            "reason": "The context links snap decisions (a form of poor decision-making) to increased failure risks when there is no plan or understanding of the business."
+          },
+          {
+            "statement": "A lack of clear planning leads to snap decisions, increasing the risk of business failure.",
+            "verdict": "yes",
+            "reason": "The context directly states that without a plan, individuals must react with snap decisions, which raises the likelihood of bad decisions and failure."
+          },
+          {
+            "statement": "An inability to recognize and address problems early on leads to costly consequences and business failure.",
+            "verdict": "yes",
+            "reason": "The context explains that not understanding the business delays problem recognition, making issues more costly and increasing failure risks."
+          },
+          {
+            "statement": "Lack of experience and knowledge in managing a business hinders growth and profitability, contributing to failure.",
+            "verdict": "yes",
+            "reason": "The context notes that inexperience delays problem recognition and emphasizes the value of partnering with someone who understands the business, implying experience is critical."
+          },
+          {
+            "statement": "A lack of solid business model or competitive advantage makes it difficult to sustain operations, leading to failure.",
+            "verdict": "yes",
+            "reason": "The context mentions that many startups have no viable way to make money and highlights the importance of a unique idea or competitive advantage for success."
+          },
+          {
+            "statement": "Financial mismanagement, such as excessive debt or inefficient spending, contributes to business failure.",
+            "verdict": "yes",
+            "reason": "The context discusses debt issues, cash-only strategies, and financial inefficiencies as common problems that can lead to business failure."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=6/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.750 (threshold 0.70). RB_llm justification: The assistant's answer addresses several key factors for a business to move forward, such as growth strategies, debt management, customer service, and personality traits. It aligns with the document's emphasis on managing debt conservatively, addressing inefficiencies, and the importance of marketing and customer focus. However, it omits critical elements from the reference answer and document, su",
+      "scores": {
+        "RB_llm": 6.0,
+        "RB_llm_norm": 0.6,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7499999999999999,
+        "conditioned_score": 0.7499999999999999,
+        "statements": [
+          {
+            "statement": "Understanding growth strategies contributes to a business's continued growth and success.",
+            "verdict": "yes",
+            "reason": "The context highlights that companies often misunderstand growth and need creative solutions, implying that proper understanding of growth strategies is critical."
+          },
+          {
+            "statement": "Managing debt conservatively is a factor in a business's continued growth and success.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that a gradual and conservative approach to debt management helps businesses in the long run."
+          },
+          {
+            "statement": "Addressing inefficiencies is a factor in a business's continued growth and success.",
+            "verdict": "yes",
+            "reason": "The context mentions inefficiencies in finances and support groups that can be easily remedied, directly linking their resolution to success."
+          },
+          {
+            "statement": "Providing quality customer service is a factor in a business's continued growth and success.",
+            "verdict": "yes",
+            "reason": "The context identifies poor customer service as a major problem in small businesses, implying its improvement is crucial for success."
+          },
+          {
+            "statement": "Having motivation as a personality trait is crucial for a business to move forward.",
+            "verdict": "yes",
+            "reason": "The context lists motivation as one of the essential personality traits for business owners."
+          },
+          {
+            "statement": "Having passion as a personality trait is crucial for a business to move forward.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that passion is a required trait for business owners."
+          },
+          {
+            "statement": "The ability to sell as a personality trait is crucial for a business to move forward.",
+            "verdict": "yes",
+            "reason": "The context emphasizes the need to sell passion to investors and customers, highlighting the importance of this skill."
+          },
+          {
+            "statement": "A well-designed business model plays a significant role in a business's success.",
+            "verdict": "yes",
+            "reason": "The context discusses the need for a solid business plan, which includes a well-designed business model."
+          },
+          {
+            "statement": "Effective marketing plays a significant role in a business's success.",
+            "verdict": "yes",
+            "reason": "The context stresses the importance of marketing and sales, including linking with customers, as critical to success."
+          },
+          {
+            "statement": "Focusing on customer needs plays a significant role in a business's success.",
+            "verdict": "yes",
+            "reason": "The context references the principle of looking at the business from the customer's perspective, emphasizing customer focus."
+          },
+          {
+            "statement": "Continuous evaluation of the business environment is essential for long-term success.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that decision makers must constantly re-evaluate the current and future business climate."
+          },
+          {
+            "statement": "Making informed decisions is essential for long-term success.",
+            "verdict": "yes",
+            "reason": "The context discusses the need to weigh incentives and make decisions based on reality, underscoring the importance of informed decision-making."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.70). RB_llm justification: The assistant's answer captures several key elements from the reference and document, such as empathy, trust, empowering employees, understanding individual strengths, and leading by example. It aligns with the document's emphasis on systems, managing by exception, and the importance of leadership over mere authority. However, the assistant's response is more concise and omits specific details fro",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A good manager fosters a supportive environment by setting up systems.",
+            "verdict": "yes",
+            "reason": "The context states that a good manager sets up systems so you hardly have to direct anything yourself, which aligns with fostering a supportive environment through systems."
+          },
+          {
+            "statement": "A good manager fosters a supportive environment by trusting employees.",
+            "verdict": "yes",
+            "reason": "The context explicitly mentions trusting employees and asking them how to improve processes, which supports this statement."
+          },
+          {
+            "statement": "A good manager fosters a supportive environment by empowering employees to improve processes.",
+            "verdict": "yes",
+            "reason": "The context states that employees should be allowed to implement improvements if they are good, which directly supports this statement."
+          },
+          {
+            "statement": "A good manager should understand individual strengths and delegate tasks effectively.",
+            "verdict": "yes",
+            "reason": "The context emphasizes finding employees' real skills and designing roles around them, which aligns with understanding strengths and delegating effectively."
+          },
+          {
+            "statement": "A good manager should avoid strict role definitions.",
+            "verdict": "yes",
+            "reason": "The context criticizes forcing people into strictly defined roles and highlights the importance of designing roles around employees' skills, supporting this statement."
+          },
+          {
+            "statement": "Empathy is crucial for a good manager.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that empathy is highly important in management and that managers must feel what employees feel."
+          },
+          {
+            "statement": "Empathy helps a good manager gain respect.",
+            "verdict": "yes",
+            "reason": "The context mentions that respect is gradually gained by being good at the job and making employees' jobs feel better, which ties to empathy."
+          },
+          {
+            "statement": "Empathy helps a good manager maintain morale.",
+            "verdict": "yes",
+            "reason": "The context emphasizes avoiding disgruntled employees and ensuring employees feel supported, which is linked to empathy maintaining morale."
+          },
+          {
+            "statement": "A good manager should lead by example.",
+            "verdict": "yes",
+            "reason": "The context states that respect is gained through work ethic rather than job titles, and that leading as a leader (not a boss) involves showing belief in the team, which aligns with leading by example."
+          },
+          {
+            "statement": "A good manager should show belief in their team's capabilities.",
+            "verdict": "yes",
+            "reason": "The context advises showing employees you believe they can meet expectations, which directly supports this statement."
+          },
+          {
+            "statement": "A good manager should help their team achieve goals.",
+            "verdict": "yes",
+            "reason": "The context emphasizes helping employees achieve goals by showing what is expected and providing support, which aligns with this statement."
+          },
+          {
+            "statement": "A good manager should not simply command.",
+            "verdict": "yes",
+            "reason": "The context criticizes commanding as a boss and instead advocates leading by example and showing belief in the team, supporting this statement."
+          },
+          {
+            "statement": "A good manager should focus on how all team members contribute to the whole.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that managers are focused on how individual contributors work together, which aligns with this statement."
+          },
+          {
+            "statement": "A good manager should not focus just on individual performance.",
+            "verdict": "yes",
+            "reason": "The context contrasts individual contributors (focused on their part) with managers (focused on the whole), supporting this statement."
+          },
+          {
+            "statement": "A good manager should be aware of company politics.",
+            "verdict": "yes",
+            "reason": "The context states that managers should understand how each person contributes to the whole and who to talk to about what, which includes awareness of company politics."
+          },
+          {
+            "statement": "A good manager should be aware of the broader context of their role.",
+            "verdict": "yes",
+            "reason": "The context emphasizes understanding how individual roles fit into the whole and managing beyond just tasks, which supports this statement."
+          },
+          {
+            "statement": "A good manager should not just focus on quantifiable metrics.",
+            "verdict": "yes",
+            "reason": "The context criticizes managers who only deal in numbers and highlights the importance of managing intangibles, directly supporting this statement."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=8/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.889 (threshold 0.70). RB_llm justification: The assistant's answer effectively addresses the user's question about how companies hire employees by highlighting key methods such as networking, headhunters, and recruitment platforms. It aligns with the document's emphasis on bypassing HR processes, the inefficiencies of HR departments, and the importance of direct networking to reach hiring managers. The assistant also captures the document's",
+      "scores": {
+        "RB_llm": 8.0,
+        "RB_llm_norm": 0.8,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8888888888888888,
+        "conditioned_score": 0.8888888888888888,
+        "statements": [
+          {
+            "statement": "Companies hire employees through various methods, including networking, using headhunters, and leveraging recruitment platforms.",
+            "verdict": "yes",
+            "reason": "The context discusses using headhunters, networking, and platforms like LinkedIn as methods for hiring."
+          },
+          {
+            "statement": "Networking is often emphasized as a key strategy for bypassing HR processes and directly reaching hiring managers.",
+            "verdict": "yes",
+            "reason": "The context highlights the importance of networking to bypass HR and get resumes to the right people before HR is involved."
+          },
+          {
+            "statement": "Some companies use open positions and let them float, while others rely on headhunters to find candidates.",
+            "verdict": "yes",
+            "reason": "The context mentions companies letting positions float and outsourcing recruiting to headhunters."
+          },
+          {
+            "statement": "Individuals may post their information to let recruiters reach out to them.",
+            "verdict": "yes",
+            "reason": "The context states that the author prefers posting their info to let recruiters call them."
+          },
+          {
+            "statement": "The hiring process can be inefficient due to HR departments lacking domain knowledge and focusing on generic requirements.",
+            "verdict": "yes",
+            "reason": "The context criticizes HR for lacking domain knowledge and creating generic job specs that filter out qualified candidates."
+          },
+          {
+            "statement": "Inefficient hiring processes often lead to suboptimal hiring outcomes.",
+            "verdict": "yes",
+            "reason": "The context describes how HR processes result in minimal results and discard potentially excellent candidates."
+          },
+          {
+            "statement": "Smart individuals bypass traditional hiring processes by networking and targeting specific companies they are interested in.",
+            "verdict": "yes",
+            "reason": "The context emphasizes that smart people use networking to bypass HR and target companies proactively."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=0.750, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.724 (threshold 0.70). RB_llm justification: The assistant's answer is mostly faithful to the document and reference answer, as it correctly identifies key non-salary benefits such as health/dental insurance, retirement plans (401k), vacation time, paid sick leave, stock options, and flexible spending accounts. It also notes the role of these benefits in attracting employees and mentions imputed income taxation. However, it omits critical de",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 0.75,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.7241379310344828,
+        "conditioned_score": 0.7241379310344828,
+        "statements": [
+          {
+            "statement": "The basic benefits a company provides to its employees besides salary include health insurance, dental insurance, retirement plans like 401(k) or 403(b), vacation time, paid sick leave, and stock options.",
+            "verdict": "no",
+            "reason": "The context mentions health insurance, dental, retirement plans, vacation, and stock options, but does not explicitly mention 'paid sick leave'."
+          },
+          {
+            "statement": "These benefits are part of the total compensation package and can attract higher quality employees.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that benefits are part of the total compensation and that they help attract higher quality employees."
+          },
+          {
+            "statement": "Some companies offer flexible spending accounts, dependent care accounts, and cafeteria plans.",
+            "verdict": "yes",
+            "reason": "The context directly mentions cafeteria plans, which include flexible spending and dependent care accounts."
+          },
+          {
+            "statement": "These benefits are often taxed as imputed income, and they can significantly impact an employee's overall compensation.",
+            "verdict": "yes",
+            "reason": "The context discusses imputed income for many benefits and notes that taxes can be significant, especially for domestic partner health coverage."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "incorrect",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "label": "correct",
+      "reasoning": "mtRAG: RB_llm=7/10, RL_F=1.000, IDK=0.0, answerability=ANSWERABLE -> conditioned score 0.824 (threshold 0.70). RB_llm justification: The assistant's answer correctly identifies the three main categories of employee-related expenses beyond remuneration: **taxes**, **benefits**, and **capital costs**. It aligns with the reference answer and document by listing key examples such as social security, unemployment, and workers' compensation taxes; health, dental, and retirement benefits; and equipment/furniture. However, the assistan",
+      "scores": {
+        "RB_llm": 7.0,
+        "RB_llm_norm": 0.7,
+        "RL_F": 1.0,
+        "idk": 0.0,
+        "answerability": "ANSWERABLE",
+        "phi": 0.8235294117647058,
+        "conditioned_score": 0.8235294117647058,
+        "statements": [
+          {
+            "statement": "A company incurs expenses such as taxes including social security, unemployment insurance, and workers' compensation taxes.",
+            "verdict": "yes",
+            "reason": "The context explicitly lists social security taxes, unemployment insurance tax, and workers compensation tax as employer-paid taxes."
+          },
+          {
+            "statement": "A company incurs expenses such as benefits like health, dental, life, and disability insurance, retirement plans, and paid time off.",
+            "verdict": "yes",
+            "reason": "The context mentions medical insurance, dental, life, disability, retirement plans, and paid vacation/holidays/sick days as employer-provided benefits."
+          },
+          {
+            "statement": "A company incurs expenses such as capital costs including equipment, furniture, and workspace.",
+            "verdict": "yes",
+            "reason": "The context states companies provide equipment (e.g., computers) and furniture (e.g., chairs, desks) as part of capital costs."
+          },
+          {
+            "statement": "These expenses are part of the total cost of employing an individual.",
+            "verdict": "yes",
+            "reason": "The context explicitly states that salary, taxes, benefits, and capital are all part of the total cost of employing someone."
+          }
+        ],
+        "metric_verdicts": {
+          "RB_llm": "correct",
+          "RL_F": "correct",
+          "IDK": "correct",
+          "conditioned": "correct"
+        }
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 28070,
+    "completion_tokens": 17564,
+    "total_tokens": 45634,
+    "is_byok": 0,
+    "completion_budget_verified_calls": 28,
+    "reasoning_tokens": 15528,
+    "reasoning_budget_verified_calls": 28
+  },
+  "elapsed_seconds": 439.047
+}

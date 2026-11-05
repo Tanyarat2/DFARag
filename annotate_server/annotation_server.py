@@ -25,6 +25,8 @@ sys.path.insert(0, str(HERE))
 import make_annotation as annotation  # noqa: E402
 from annotation_store import AnnotationStore  # noqa: E402
 from corpus_store import CORPUS_DIR, CorpusIndex, CorpusSearch  # noqa: E402
+from conversation_numbers import REGISTRY_PATH  # noqa: E402
+from agreement_results import build_results, results_page  # noqa: E402
 
 NAME_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z")
 JUDGES = ("mtrag",)
@@ -42,6 +44,8 @@ def initial_data(data):
         view = row['judges']['mtrag']
         summary = {key: row[key] for key in
                    ('key', 'id', 'turn', 'n_turns', 'question', 'corpus_collection')}
+        if 'conversation_number' in row:
+            summary['conversation_number'] = row['conversation_number']
         summary['_summary'] = True
         summary['judges'] = {'mtrag': {key: view.get(key) for key in
                                      ('status', 'label', 'conditioned_score')}}
@@ -96,7 +100,7 @@ code{background:#e9ebee;padding:2px 4px}
 .actions{display:flex;gap:12px;align-items:center;margin-top:20px}button{padding:8px 12px;border:1px solid #b9c0c8;border-radius:4px;background:white;cursor:pointer}
 </style></head><body><main><h1>RAG judge runs</h1>
 <p class='muted'>Local run folders; no database or browser API key. The list refreshes automatically while this page is open. Select a run to annotate the judge outputs currently available.</p>
-<div class='actions'><button onclick='location.reload()'>Refresh list</button><span class='muted'>This page checks for new runs every 10 seconds.</span></div>
+<div class='actions'><a href='/results'>Live agreement results</a><button onclick='location.reload()'>Refresh list</button><span class='muted'>This page checks for new runs every 10 seconds.</span></div>
 <section class='runs'>%s</section>
 </main><script>setTimeout(()=>location.reload(),10000)</script></body></html>""" % listing
 
@@ -127,7 +131,7 @@ class RunPages:
     def get(self, work_dir):
         work_dir = pathlib.Path(work_dir).resolve()
         root = HERE.parent
-        sources = [work_dir / "input.json", root / "judge_run" / "gold_support.json"]
+        sources = [work_dir / "input.json", root / "judge_run" / "gold_support.json", REGISTRY_PATH]
         sources.extend(annotation.output_paths(work_dir, "mtrag"))
         sources.extend(pathlib.Path(filename) for filename, _mtime, _size
                        in annotation.conversation_snapshot(root / "conversation"))
@@ -155,7 +159,7 @@ class RunPages:
             page = annotation.render_page(live)
             nav = ("<nav aria-label='Run navigation' style='padding:8px 24px;"
                    "background:#fff;border-bottom:1px solid #dce3e1;font:12px system-ui'>"
-                   "<a href='/'>All runs</a> &nbsp; / &nbsp; "
+                   "<a href='/'>All runs</a> &nbsp; / &nbsp; <a href='/results'>Live agreement results</a> &nbsp; / &nbsp; "
                    "<a href='/run/%s'>Refresh latest judge outputs</a></nav>" %
                    html.escape(work_dir.name, quote=True))
             payload = page.replace("<body>", "<body>" + nav, 1).encode("utf-8")
@@ -175,14 +179,31 @@ class RunPages:
             return result
 
 
-def make_handler(runs_dir):
+def make_handler(runs_dir, results_dir=None):
     runs_dir = pathlib.Path(runs_dir)
+    results_dir = pathlib.Path(results_dir) if results_dir is not None else HERE.parent / 'Annotate_result'
     store = AnnotationStore(runs_dir)
     pages = RunPages()
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             path = unquote(urlparse(self.path).path)
+            if path == '/results':
+                self.respond(200, results_page())
+                return
+            if path == '/api/results':
+                query = parse_qs(urlparse(self.path).query)
+                source, cohort = query.get('source', ['exports'])[0], query.get('cohort', ['wn'])[0]
+                if source not in ('exports', 'live') or cohort not in ('wn', 'union'):
+                    self.respond_json(400, {'error': 'Choose a valid source and cohort.'})
+                    return
+                try:
+                    result = build_results(results_dir, runs_dir, source, cohort)
+                except (OSError, ValueError, KeyError, TypeError, RuntimeError) as exc:
+                    self.respond_json(500, {'error': 'Could not read annotation results: ' + str(exc)})
+                else:
+                    self.respond_json(200, result)
+                return
             api_match = re.fullmatch(r"/api/annotations/([^/]+)/([^/]+)", path)
             if api_match:
                 try:
@@ -281,8 +302,9 @@ def make_handler(runs_dir):
                 run, annotator_name = match.groups()
                 # Validate the destination before reading inputs or creating files.
                 store.path(run, annotator_name)
-                valid_keys = pages.get(runs_dir / run)["keys"]
-                store.patch(run, annotator_name, payload["changes"], valid_keys)
+                cached = pages.get(runs_dir / run)
+                numbers = {key: row['conversation_number'] for key, row in cached['rows'].items()}
+                store.patch(run, annotator_name, payload["changes"], cached["keys"], numbers)
             except FileNotFoundError:
                 self.respond_json(404, {"error": "Run not found."})
             except (ValueError, UnicodeError) as exc:
@@ -341,10 +363,11 @@ def create_servers(host, port, handler):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--runs-dir", type=pathlib.Path, default=HERE.parent / "judge_run" / "runs")
+    parser.add_argument("--results-dir", type=pathlib.Path, default=HERE.parent / "Annotate_result")
     parser.add_argument("--host", default="localhost", help="default: IPv4 and IPv6 loopback only")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args(argv)
-    servers = create_servers(args.host, args.port, make_handler(args.runs_dir.resolve()))
+    servers = create_servers(args.host, args.port, make_handler(args.runs_dir.resolve(), args.results_dir.resolve()))
     server = servers[0]
     display_host = '127.0.0.1' if args.host == 'localhost' else ('[' + args.host + ']' if ':' in args.host else args.host)
     url = "http://%s:%d/" % (display_host, server.server_port)

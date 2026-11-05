@@ -30,7 +30,7 @@ def fixture():
                                    "verdict": "no", "reason": "The passage says westward."}]}})
     rows = []
     for i in range(1, 4):
-        rows.append({"key": "case#%s" % i, "id": "case", "turn": i, "n_turns": 3,
+        rows.append({"key": "case#%s" % i, "id": "case", "conversation_number": "C42", "turn": i, "n_turns": 3,
                      "question": "Which direction does Venus rotate?" if i < 3 else "What about Earth?",
                      "corpus_collection": "planets",
                      "answer": "Venus rotates eastward.", "gold": "Venus rotates westward.",
@@ -147,6 +147,26 @@ BROWSER_CHECKS = r"""
     assert($('judgeDisclosure').querySelector('.judge-content').textContent.includes('0.7'),'mtRAG cutoff retained inside disclosure');
     assert(!document.querySelector('#question .judges'),'Question does not repeat judge results');
     assert($('progress').textContent==='1 / 3','Initial reviewed progress');
+
+    const firstTarget=firstIncorrectTurns().get('case'),firstSaved=JSON.parse(JSON.stringify(A[firstTarget.key])),firstActive=activeKey;
+    for(const decision of [{failure_types:['E13']},{failure_types:['excluded']},{failure_types:['not_a_failure']},{failure_types:['outside_taxonomy']},{failure_types:['insufficient_evidence']},{gold_assessment:'incorrect'},{human_label:'correct'}]){
+      A[firstTarget.key]=decision;progress();queue();
+      assert($('labelProgress').textContent==='1 / 1','Every explicit first-incorrect decision counts, including exclusions and gold issues');
+      assert($('queue').querySelector('.queue-group').dataset.labelled==='true'&&!finishProblem(firstTarget),'Alternative outcomes mark the conversation done and allow Save & next');
+    }
+    for(const draft of [{},{flagged_for_review:true},{notes:'Still checking'},{gold_assessment:'questionable'},{gold_assessment:'supported'},{human_label:'incorrect'}]){
+      A[firstTarget.key]=draft;progress();
+      assert($('labelProgress').textContent==='0 / 1','Flags, notes, and unresolved checks do not complete first-incorrect progress');
+    }
+    A[firstTarget.key]={};openTurn(firstTarget.key);await Promise.resolve();
+    $('goldAssessment').value='incorrect';$('goldAssessment').dispatchEvent(new Event('change'));
+    assert($('labelProgress').textContent==='1 / 1'&&$('queue').textContent.includes('Gold answer may be wrong'),'Gold review immediately updates first-incorrect progress and queue');
+    assert(!getFailureTypes(A[firstTarget.key]).length&&!A[firstTarget.key].human_label,'Gold-only completion does not invent a failure or correctness label');
+    await finishAndNext(firstTarget);
+    assert(A[firstTarget.key].review_complete===true&&A[firstTarget.key].gold_assessment==='incorrect','Save & next accepts a gold-only decision');
+    A[firstTarget.key]=firstSaved;save();queue();openTurn(firstActive);await Promise.resolve();
+    assert($('progress').textContent==='1 / 3','Focused decision checks restore the original review fixture');
+
     checkVisible();
 
     const queueNode=$('queue').querySelector('.queue-item'),groupNode=$('queue').querySelector('.queue-group');
@@ -247,12 +267,14 @@ BROWSER_CHECKS = r"""
     download=(name,text,type)=>exported={name,text,type};
     click('#expJson');const out=JSON.parse(exported.text);
     const second=out.find(o=>o.turn===2);
+    assert(second.conversation_number==='C42'&&conversationInfo('case').number==='C42','JSON exports use the shared conversation number');
     assert(second.evidence[0].quote==='Venus'&&second.notes.includes('Wrong direction'),'JSON evidence export');
     assert(second.human_score_band==='mid','Historical band export');
     assert(second.failure_types.length===3&&second.failure_types.includes('E10')&&second.failure_types.includes('E4')&&second.failure_types.includes('E12')&&second.failure_type==='','JSON exports all causes without a primary label');
     assert(exported.name.endsWith('_PS.json')&&out.every(o=>o.annotator==='PS'),'Exports identify PS');
     assert(second.gold_assessment==='incorrect'&&second.gold_notes.includes('contradicts'),'Gold review exported');
     click('#expCsv');assert(exported.text.includes('evidence')&&exported.text.includes('westward'),'CSV evidence export');
+    assert(exported.text.includes('conversation_number')&&exported.text.includes('C42'),'CSV includes the shared conversation number');
     assert(exported.text.includes('failure_types')&&exported.text.includes('""E4""')&&exported.text.includes('""E12""'),'CSV exports multiple causes as an array');
     await $('imp').onchange({target:{files:[new File([JSON.stringify(out)],'roundtrip.json')],value:''}});
     await Promise.resolve();assert(A['case#2'].evidence.length===2,'JSON import roundtrip');

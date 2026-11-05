@@ -1,5 +1,86 @@
 # Annotation server
 
+## Live agreement results
+
+Start the annotation server and open <http://127.0.0.1:8765/results>, or click
+**Live agreement results** from the run picker or an annotation page.
+The page rereads annotation files every three seconds without restarting the server.
+Choose HippoRAG, Vector, or Raptor and either exported files from `Annotate_result`
+or live saves from each run's `annotations` folder. Sources remain separate.
+Use `--results-dir /path/to/Annotate_result` to read exports from another folder.
+
+The default sample follows WN's record keys and order, matching the supplied
+70-turn HippoRAG report. **All annotators' records** uses the union of matched
+conversation ID and turn keys. Shared C-numbers stay fixed across methods.
+Comparison-row search and **Differences only** affect the row table, not the statistics.
+
+For each E1 through E16, the page reports pairwise yes/no agreement and Cohen's
+kappa, labels below 0.700, and frequency-weighted means. Only explicit E-label
+sets and No failure count as scored decisions. Excluded, Insufficient evidence,
+Outside taxonomy, missing, conflicting, and unsupported labels are omitted from
+the affected pair. No failure is an all-zero E-label decision. Constant agreeing
+decisions have undefined kappa and display N/A. Weighting uses the number of
+turns where either annotator selected the E, excluding undefined kappas.
+
+Three-person counts include exact sets, shared E tags, no common label, special
+statuses, and missing decisions across the whole selected sample. Missing Raptor
+profiles remain missing. File-read failures retain the last successful display
+with an error indicator while polling retries. No result or annotation files are
+changed by this page.
+
+## Compare exported results
+
+Conversation numbers are shared across methods. The fixed mapping in
+`conversation_numbers.json` preserves the 110 Vector conversation numbers;
+HippoRAG and Raptor use those same numbers for matching original IDs. Filtering,
+review coverage, and method changes do not renumber conversations. The review
+page shows and searches these numbers. A copy of the ID-to-number mapping is
+generated at `Annotate_result/conversation_numbers.json`.
+
+Annotation-server JSON/CSV exports and future autosaves include
+`conversation_number` alongside the original ID. Existing exports in
+`Annotate_result` have also been numbered. IDs and turn numbers remain the keys
+used to match annotations. Restart the server and refresh the page to use the
+new numbering; regenerate older static annotation pages as needed.
+
+Open [../Annotate_result/review.html](../Annotate_result/review.html) directly in a browser.
+This read-only, offline page compares PS, KH, and WN in short cards above the question and shows the
+question, RAG and gold answers side by side, retrieved passages, selected context,
+and gold documents. Decision cards stay side by side, with scrolling for long notes.
+All passage text is expanded. Retrieved and selected passages matching a verified
+gold document have an amber background and a **Gold document** badge. Matches use
+the document ID or identical passage text ignoring whitespace, never title alone.
+Exact gold text is also highlighted in yellow inside retrieved and selected
+passages. Longer passages containing a gold excerpt receive a **Gold excerpt**
+badge. Each column shows its gold-match count or states that no match was found.
+Left and right arrow keys move between incorrect turns. Keys remain available
+for typing and selecting options inside the filters.
+
+The default **Any annotator** queue includes all incorrect turns with at least
+one saved label. Select **All 3 annotators** to require a label from everyone.
+Missing decisions remain visible in their own cards. A review checkbox or flag alone
+does not count as a label. Missing evidence is identified explicitly, and
+retrieval experiments are distinguished from the saved answer's context.
+
+Regenerate after changing result exports:
+
+```bash
+python -B annotate_server/make_result_review.py
+```
+
+The builder reads annotations from `Annotate_result` and matches run, conversation
+ID, and turn against `judge_run/runs`. Files whose run name differs from their
+folder are skipped with a source warning. Use the actual exports for each method
+and annotator so that comparisons include the correct decisions.
+The generated HTML embeds its data and needs no server or network connection.
+Regeneration replaces `Annotate_result/review.html`, leaving source exports intact.
+
+Check this page with:
+
+```bash
+python -B -m unittest discover -s annotate_server -p test_result_review.py -v
+```
+
 This folder contains the live annotation server, HTML generator/template, annotation
 storage, and their tests. Judging and recovery commands live in
 [../judge_run](../judge_run/README.md).
@@ -130,7 +211,7 @@ For agreement analysis, keep the run, page snapshot, and reviewed turn set fixed
 Match exports by conversation ID and turn; compare only pairs with both labels.
 Use pairwise Cohen's kappa for Correct/Incorrect. Multiple failure causes require
 separate comparisons per cause. Preserve independent exports before adjudication.
-The current app exports the required fields but does not calculate kappa yet.
+The live agreement page calculates binary per-E kappas and weighted means.
 
 ## Annotation workspace
 

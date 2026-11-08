@@ -1,0 +1,18 @@
+# Paths are relative to this YAML file. CLI options override these values.
+error_classification:
+  model_name: "gpt-4o-mini"
+  max_failures: 16       # 1 = primary only; 2–16 = up to this many supported labels.
+  max_passes: 2          # Attribution passes: 1 initial, or 2 with selective review.
+                        # The answerability-first request runs separately.
+  method: "b0"          # b1/b2 require their diagnostic evidence in prepared inputs.
+
+  input_file: "../../dataset/singleturn/annotations_with_passages.jsonl"
+  output_dir: "../../result/failure_classification/answerability_first_run"
+  limit: 10             # null = all cases.
+  case_ids: null        # Example: ["2160", "2182", "2207"].
+  workers: 4
+  reuse_cache_from: null  # Optional previous run directory; exact-hash matches only.
+
+  api_base_url: null    # null uses OPENAI_BASE_URL, or the client's default.
+  api_key_env: "OPENAI_API_KEY"  # Environment variable name; never put a key here.
+  token_limit_parameter: "max_completion_tokens"

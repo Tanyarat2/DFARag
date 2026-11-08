@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-failure-classification"
+version = "0.1.0"
+description = "Evidence-first RAG failure classification with answerability-first E9 attribution"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["openai", "python-dotenv", "PyYAML", "pydantic>=2"]
+
+[tool.setuptools]
+packages = [
+  "failure_classification",
+  "failure_classification.errorclassification",
+  "failure_classification.errorclassification.answerability",
+  "failure_classification.errorclassification.api",
+  "failure_classification.errorclassification.configuration",
+  "failure_classification.errorclassification.data",
+  "failure_classification.errorclassification.evidence",
+  "failure_classification.errorclassification.pipeline",
+  "failure_classification.errorclassification.prompts",
+  "failure_classification.errorclassification.reporting",
+  "failure_classification.errorclassification.review",
+  "failure_classification.errorclassification.taxonomy",
+  "failure_classification.errorclassification.validation",
+  "failure_classification.evidence",
+  "failure_classification.experiments",
+  "failure_classification.questiongeneration",
+  "failure_classification.rag",
+  "failure_classification.tests",
+]
+package-dir = {"failure_classification" = "."}
+
+[tool.setuptools.package-data]
+failure_classification = ["conf/*.yaml", "errorclassification/*/README.md", "questiongeneration/*.md", "rag/*.md", "evidence/*.md"]
+
+[project.optional-dependencies]
+excel = ["pandas", "openpyxl"]

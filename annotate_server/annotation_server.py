@@ -221,7 +221,7 @@ def make_handler(runs_dir, results_dir=None):
                 return
             if path == '/api/results':
                 query = parse_qs(urlparse(self.path).query)
-                source, cohort = query.get('source', ['exports'])[0], query.get('cohort', ['wn'])[0]
+                source, cohort = query.get('source', ['exports'])[0], query.get('cohort', ['union'])[0]
                 if source not in ('exports', 'live') or cohort not in ('wn', 'union'):
                     self.respond_json(400, {'error': 'Choose a valid source and cohort.'})
                     return
@@ -335,8 +335,8 @@ def make_handler(runs_dir, results_dir=None):
                     result_store.path(method, annotator_name)
                     cached = pages.get(runs_dir / RUNS[method])
                     row = cached['rows'].get(payload['id'] + '#' + str(payload['turn']))
-                    if row is None or row['judges']['mtrag'].get('label') != 'incorrect':
-                        raise FileNotFoundError('Incorrect turn not found.')
+                    if row is None:
+                        raise FileNotFoundError('Turn not found.')
                     saved_review = result_store.save(method, annotator_name, row,
                                                      payload['changes'], payload['expected_version'])
                 else:

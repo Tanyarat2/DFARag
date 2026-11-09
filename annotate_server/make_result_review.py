@@ -10,7 +10,7 @@ from conversation_numbers import registry
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNS = {"Vector": "convos_vector_q3_32b", "HippoRag": "convos_hipporag_q3_32b",
-        "Raptor": "convos_raptor_q3_32b"}
+        "Raptor": "convos_raptor_q3_32b", "SelfRAG": "convos_selfrag_q3_32b"}
 ANNOTATORS = ("PS", "KH", "WN")
 
 
@@ -18,6 +18,11 @@ def labelled(record):
     # Review completion and flags are independent of a saved decision.
     return bool(record.get("failure_types") or record.get("failure_type") or
                 record.get("human_label"))
+
+
+def skip_incorrect(record):
+    types = record.get('failure_types') or [record.get('failure_type')]
+    return len(types) == 1 and types[0] in ('not_a_failure', 'excluded')
 
 
 def annotation_version(record):
@@ -51,17 +56,30 @@ def build_review(results, runs, load_data=None):
         warnings.extend(messages)
         data = load_data(runs / run) if load_data else build_data(runs / run, live=True)
         sources.append({"method": method, "judge": data["coverage"]["mtrag"]["source"]})
-        for row in data["rows"]:
-            if row["judges"]["mtrag"]["label"] != "incorrect":
-                continue
+        first_incorrect = {}
+        targets = {name: {} for name in ANNOTATORS}
+        for row in sorted(data['rows'], key=lambda row: row['turn']):
+            if row['judges']['mtrag']['label'] == 'incorrect':
+                first_incorrect[row['id']] = min(first_incorrect.get(row['id'], row['turn']), row['turn'])
+                for name in ANNOTATORS:
+                    if not skip_incorrect(profiles[name].get(row['key'], {})):
+                        targets[name].setdefault(row['id'], row['turn'])
+        for row in sorted(data["rows"], key=lambda row: (
+                int(row["conversation_number"][1:]), row["turn"])):
             annotations = {name: profiles[name].get(row["key"], {}) for name in ANNOTATORS}
             count = sum(labelled(record) for record in annotations.values())
-            if not count:
+            is_first = first_incorrect.get(row['id']) == row['turn']
+            queue_annotators = [name for name in ANNOTATORS
+                                if targets[name].get(row['id']) == row['turn']]
+            if not count and not queue_annotators:
                 continue
             rows.append({**{k: row[k] for k in (
                 "id", "conversation_number", "turn", "question", "answer", "gold", "gold_support",
                 "retrieval_context", "selected_passages", "contexts", "corpus_collection")},
                 "key": method + ":" + row["key"], "method": method,
+                "judge_label": row["judges"]["mtrag"]["label"],
+                "first_incorrect": is_first,
+                "queue_annotators": queue_annotators,
                 "annotations": annotations, "labelled_count": count,
                 "annotation_versions": {name: annotation_version(annotations[name] or None)
                                         for name in ANNOTATORS}})
@@ -73,7 +91,7 @@ def build_review(results, runs, load_data=None):
 def annotation_snapshot(data):
     snapshot = {"rows": [{key: row[key] for key in (
         'key', 'id', 'turn', 'method', 'conversation_number', 'annotations',
-        'annotation_versions', 'labelled_count')} for row in data['rows']],
+        'annotation_versions', 'labelled_count', 'judge_label', 'first_incorrect', 'queue_annotators')} for row in data['rows']],
         "warnings": data['warnings'], "sources": data['sources']}
     snapshot['version'] = annotation_version(snapshot)
     return snapshot
@@ -99,7 +117,8 @@ def main():
     print(f"Created {args.output}")
     for method in RUNS:
         rows = [r for r in data["rows"] if r["method"] == method]
-        print(f"{method}: {sum(r['labelled_count'] == 3 for r in rows)} fully labelled, {len(rows)} with labels")
+        print(f"{method}: {sum(r['first_incorrect'] for r in rows)} first incorrect, "
+              f"{sum(r['labelled_count'] > 0 for r in rows)} annotated, {len(rows)} review turns")
     for warning in data["warnings"]:
         print(warning)
 

@@ -15,20 +15,29 @@
 .review-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;font-size:12px}.review-status{color:var(--green)}.review-status.error,.edit-error{color:#a13d35}.edit-decision{padding:2px 8px;font-size:11px}.card-head{flex-wrap:wrap}.editor{width:min(760px,calc(100% - 24px));max-height:90dvh;border:1px solid var(--line);border-radius:12px;padding:22px;color:var(--ink);background:white}.editor::backdrop{background:#1b302d66}.editor form{display:grid;gap:14px}.editor header{padding:0;border:0;align-items:start}.editor h2{font-size:20px}.editor label{font-size:12px}.edit-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.edit-field{display:grid;gap:5px}.edit-field textarea{font:inherit;min-height:76px;width:100%;resize:vertical;border:1px solid var(--line);border-radius:7px;padding:8px}.error-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.error-option{display:flex;align-items:start;gap:6px;padding:8px;border:1px solid var(--line);border-radius:7px;font-size:12px;cursor:pointer}.error-option:has(input:checked){background:#e6f1eb;border-color:#729d8b}.error-option input{accent-color:var(--green);margin-top:3px}.editor fieldset{border:0;padding:0;margin:0;min-width:0}.editor legend{font-weight:600;font-size:12px;margin-bottom:8px}.edit-flags{display:flex;gap:18px;flex-wrap:wrap}.edit-flags label{display:flex;gap:6px;align-items:center}.edit-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}.edit-actions .primary{background:var(--green);color:white;border-color:var(--green)}.editor [hidden]{display:none!important}.edit-feedback{font-size:12px;min-height:18px}.edit-path{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 @media(max-width:620px){header{padding:16px}header>.muted{display:none}main{padding:18px 14px}.annotators{gap:8px}.annotator{padding:10px}.card-head{align-items:start;flex-direction:column;gap:3px}.avatar{font-size:14px}.label{font-size:11px;padding:3px}.label b{margin-right:3px}.notes{font-size:12px}.navigation{margin-left:0;width:100%;justify-content:space-between}.filters label{flex:1}.filters input{width:100%}.filters label:last-of-type{flex-basis:100%}.reading{grid-template-columns:1fr}}
 @media(max-width:620px){.editor{padding:16px}.error-options{grid-template-columns:1fr 1fr}.edit-fields{grid-template-columns:1fr}}
+.annotator:has(.inline-editor){height:auto;max-height:470px}.inline-editor{display:grid;gap:8px;margin-top:10px}.inline-editor select,.inline-editor textarea{width:100%;min-width:0;padding:5px 7px}.inline-labels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.inline-labels label{display:flex;gap:4px;align-items:center;border:1px solid var(--line);border-radius:5px;padding:4px;font-size:12px}.inline-labels label:has(:checked){background:#e6f1eb;border-color:#729d8b}.inline-labels input{margin:0}.inline-feedback{font-size:11px;min-height:18px}.inline-feedback.error{color:#a33e32}.inline-editor [hidden]{display:none}.inline-editor textarea{resize:vertical}.inline-actions{display:flex;gap:6px;flex-wrap:wrap}.inline-actions button{font-size:11px;padding:4px 6px}@media(max-width:620px){.inline-labels{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Review studio */
+:root{--ink:#1f2937;--muted:#728078;--line:#dfe6e0;--green:#286047;--bg:#f5f6f2}body{font-family:Inter,"Segoe UI",sans-serif;background:var(--bg)}button,input,select,textarea{transition:border-color .15s,background .15s;accent-color:var(--green)}button:hover{border-color:#adc4b4;background:#f1f6ef}a{color:var(--green)}.app-header{padding:20px 32px;background:#fcfdf9}.brand{gap:14px}.mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#244d3b;font:700 25px Georgia,serif;box-shadow:0 3px 8px #244d3b15}.brand h1{font-size:20px;letter-spacing:-.6px}.brand .muted{margin-top:2px}.live-indicator{font-size:12px;color:#386a4b;background:#edf4e8;border:1px solid #dce8d4;padding:7px 12px;border-radius:30px}main{max-width:1800px;padding:22px 28px 48px}.review-bar{margin-bottom:18px}.filters{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 2px 3px #1f293703;gap:14px}.filters label{display:grid;gap:5px;color:var(--muted);font-size:10px;letter-spacing:.4px;font-weight:600}.filters label select,.filters label input{font-size:12px;color:var(--ink);letter-spacing:0;font-weight:500;padding:8px 10px;background:#fafbf8}.filters input{width:215px}.navigation{align-self:end}.navigation button{font-size:12px;padding:8px 10px}.navigation #position{font-variant-numeric:tabular-nums;min-width:58px;text-align:center}.progress{height:3px;margin:0 0 22px;background:#e5e9e0}.progress div{background:#83a77c}.workspace-grid{display:grid;grid-template-columns:206px minmax(0,1fr);gap:26px;align-items:start}.review-workspace{min-width:0}.conversation-rail{position:sticky;top:18px;min-width:0;border:1px solid var(--line);border-radius:14px;background:#fbfcf9;overflow:hidden}.rail-heading{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 3px}.rail-heading .eyebrow{font-weight:650;margin:0;font-size:10px}.rail-heading #queue-count{color:var(--green);font-size:11px;background:#e8efe3;padding:1px 7px;border-radius:20px}.rail-hint{font-size:10px;color:var(--muted);padding:0 16px 12px}#conversation-queue{max-height:calc(100dvh - 190px);overflow:auto;padding:0 8px 10px}.queue-item{display:block;text-align:left;width:100%;border:1px solid transparent;background:transparent;padding:10px;border-radius:8px;margin:3px 0}.queue-item:hover{background:#f0f4ea}.queue-item[aria-current=true]{border-color:#c3d5ba;background:#eaf1e2;box-shadow:inset 3px 0 #55804f}.queue-item strong{font-size:12px;font-weight:650}.queue-item .queue-method{font-size:10px;color:var(--muted);margin-left:7px}.queue-item small{display:block;font-size:10px;color:var(--muted);margin-top:3px}.queue-item .queue-dot{float:right;color:#56814c}.queue-summary{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 16px;color:var(--muted);font-size:12px}.queue-summary strong{font-size:13px;color:var(--ink);font-weight:600}.queue-summary .summary-separator{width:3px;height:3px;border-radius:50%;background:#acb8a8}.meta{gap:7px;margin-bottom:16px}.meta .id{margin-left:auto;color:#9aa49e;font-size:10px}.pill{border-radius:6px;font-weight:550;font-size:10px;padding:4px 8px;background:#eaf0e5;color:#436347}.pill.incorrect{background:#f8ece7;color:#a0654f}.conversation-number{font-size:12px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line)}.question{background:#fff;border:1px solid var(--line);border-left:3px solid #779568;border-radius:12px;padding:22px 24px;margin:0 0 22px;box-shadow:0 3px 12px #273a2403}.question .eyebrow{font-size:10px;color:#839078;font-weight:650}.question h2{font-size:21px;line-height:1.55;font-weight:550;letter-spacing:-.4px}.annotators{gap:12px;margin:10px 0 24px}.annotator{border-radius:12px;box-shadow:0 3px 8px #273a2403;border-top:3px solid #87a97f;padding:16px;height:auto;max-height:440px;min-width:0}.annotator:nth-child(2){border-top-color:#9b9bb5}.annotator:nth-child(3){border-top-color:#c4a56d}.annotator:has(.inline-editor){max-height:490px}.card-head{gap:8px;margin-bottom:10px}.avatar{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#edf2e9;font-size:12px;color:#527349}.annotator:nth-child(2) .avatar{background:#f0eef5;color:#77708f}.annotator:nth-child(3) .avatar{background:#f7f0e3;color:#9c7e4c}.card-head .muted{margin-right:auto;font-size:10px}.edit-decision{border:0;background:transparent;color:var(--muted);font-size:10px;padding:4px}.inline-editor{gap:10px}.inline-editor select{font-size:12px;padding:8px 9px;background:#f9faf7;border-radius:7px}.inline-labels{gap:5px}.inline-labels label{justify-content:center;padding:6px 3px;border-radius:6px;cursor:pointer;color:#7c867c;font-size:11px;transition:all .15s}.inline-labels label:has(:checked){color:#365d36;border-color:#a4bf94;background:#edf4e5;font-weight:650}.inline-labels input{width:11px;height:11px}.inline-editor textarea{font:12px/1.5 "Segoe UI",sans-serif;padding:10px;border:1px solid var(--line);border-radius:7px;background:#fcfdfb;color:var(--ink)}.inline-feedback{color:#80907a;font-size:10px}.inline-feedback.error{color:#a33e32}.panel{border-radius:12px;padding:22px;border-color:var(--line);box-shadow:0 3px 10px #273a2403}.panel h2,.panel>.section-title h3{font-size:13px;font-weight:650;letter-spacing:-.1px}.answer .prose{font-size:13px;line-height:1.85;margin-top:16px;max-height:320px}.gold-answer{background:#fcfdf8;border-top:3px solid #c7cfac}.reading{gap:16px}.evidence-grid{gap:12px;margin-top:8px}.evidence-grid .panel{padding:18px 16px}.document-list{margin-top:14px;max-height:620px;scrollbar-width:thin;scrollbar-color:#d3ddce transparent}.passage .prose{font-size:12px;line-height:1.8}.passage .doc-title{font-size:11px}.doc-id{font-size:10px;color:#929d94}.gold-match-count{font-size:10px;background:#faf5df;padding:5px 8px;border-radius:5px}.source-note{padding-left:232px}.empty{border-radius:12px}.editor{box-shadow:0 20px 80px #1a322033}.editor::backdrop{backdrop-filter:blur(3px);background:#1b302d55}
+@media(max-width:1200px){.filters input{width:190px}.workspace-grid{grid-template-columns:172px minmax(0,1fr);gap:18px}.annotator{padding:12px}.source-note{padding-left:190px}.navigation{margin-left:0}.evidence-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:950px){main{padding:18px 16px}.workspace-grid{grid-template-columns:150px minmax(0,1fr);gap:14px}.annotators{gap:8px}.inline-labels{grid-template-columns:repeat(2,minmax(0,1fr))}.evidence-grid{grid-template-columns:1fr}.source-note{padding-left:164px}.question{padding:18px}.question h2{font-size:19px}.meta .id{width:100%;margin-left:0}.app-header{padding:18px 20px}}
+@media(max-width:650px){.app-header{padding:16px}.brand h1{font-size:18px}.brand .muted{font-size:10px}.live-indicator{display:none}main{padding:14px 12px}.workspace-grid{display:block}.conversation-rail{position:static;margin-bottom:18px}.rail-heading{padding:12px 14px 6px}.rail-hint{display:none}#conversation-queue{display:flex;gap:6px;max-height:100px;overflow-x:auto;padding:0 8px 8px}.queue-item{flex:0 0 136px;margin:0}.filters{padding:12px;gap:10px}.filters label{min-width:0;flex:1 1 44%}.filters label:last-of-type{flex-basis:100%}.filters input{width:100%}.filters select{width:100%;min-width:0}.navigation{width:100%;justify-content:space-between}.annotators{grid-template-columns:1fr}.annotator:has(.inline-editor){max-height:none;padding:16px}.card-head{flex-direction:row;align-items:center}.inline-labels{grid-template-columns:repeat(8,minmax(0,1fr))}.inline-labels label{gap:3px;font-size:10px}.inline-labels input{width:10px;height:10px}.question h2{font-size:18px}.question{padding:18px}.reading{grid-template-columns:1fr}.source-note{padding-left:0}.queue-summary{font-size:11px}.panel{padding:18px}.evidence-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.question-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.question-heading .eyebrow{margin:0}.copy-turn{font-size:11px;padding:6px 10px;white-space:nowrap;color:var(--green);background:#f4f7ef;border-color:#dce6d4}.copy-turn:disabled{opacity:.65}
 </style>
 </head>
 <body>
-<header><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1>Annotation review</h1><p class="muted">Incorrect turns, side by side</p></div></div><p class="muted">Navigate <kbd>←</kbd> <kbd>→</kbd></p></header>
+<header class="app-header"><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1>RAG review studio</h1><p class="muted">Evidence, decisions, and a clearer view of every conversation.</p></div></div><span class="live-indicator">● Autosave enabled</span></header>
 <main>
 <div class="review-bar"><span id="review-status" class="review-status" role="status" aria-live="polite"></span><a id="review-link"></a></div>
 <div class="filters">
-<label>Method <select id="method"><option value="">All methods</option><option>Vector</option><option>HippoRag</option><option>Raptor</option></select></label>
-<label>Labels <select id="coverage"><option value="any">Any annotator</option><option value="all">All 3 annotators</option></select></label>
+<label>Method <select id="method"><option value="">All methods</option><option>Vector</option><option>HippoRag</option><option>Raptor</option><option>SelfRAG</option></select></label>
+<label>Queue <select id="scope"><option value="first">Next incorrect per conversation</option><option value="annotated">All annotated turns</option><option value="everything">Review targets + annotated turns</option></select></label>
+<label>Decisions <select id="coverage"><option value="any">Any coverage</option><option value="none">No decisions yet</option><option value="partial">Needs more reviewers</option><option value="all">All 3 annotators</option></select></label>
 <label><span class="sr">Search conversations</span><input id="search" type="search" placeholder="Find question or conversation"></label>
 <nav class="navigation" aria-label="Turn navigation"><button id="prev" aria-label="Previous incorrect turn">← Previous</button><span id="position" class="muted" aria-live="polite"></span><button id="next" aria-label="Next incorrect turn">Next →</button></nav>
 </div>
 <div class="progress" aria-hidden="true"><div id="progress"></div></div>
-<div id="content"></div>
+<div class="workspace-grid"><aside class="conversation-rail" aria-label="Conversation queue"><div class="rail-heading"><span class="eyebrow">Conversations</span><span id="queue-count"></span></div><p class="rail-hint">Ordered by conversation, then turn</p><div id="conversation-queue"></div></aside><div class="review-workspace"><div id="queue-summary" class="queue-summary"></div><div id="content"></div></div></div>
 <footer class="source-note"><details><summary id="source-summary">Source details</summary><div id="sources"></div></details></footer>
 </main>
 <dialog id="decision-editor" class="editor" aria-labelledby="edit-title">
@@ -54,21 +63,78 @@ const clean=s=>String(s??'').replace(/\u2014/g,', ').replace(/\u00b7/g,',');
 function el(tag,cls,text){const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=clean(text);return node;}
 const names={not_a_failure:'Not a failure',outside_taxonomy:'Outside taxonomy',insufficient_evidence:'Insufficient evidence',excluded:'Excluded'};
 let filtered=[],index=0;
+let pendingAdvance=null;
+function requestAdvance(row,name,changes){if(changes.failure_types?.length===1&&['not_a_failure','excluded'].includes(changes.failure_types[0])&&filtered[index]?.key===row.key)pendingAdvance={key:row.key,method:row.method,id:row.id,name,turn:row.turn,version:row.annotation_versions[name]};}
 let editState=null,saving=false,dirty=false,polling=false,reviewVersion=D.review_version||'';
 function isLabelled(a){return !!(a.human_label||a.failure_type||a.failure_types?.length);}
-function applyFilters(){const key=filtered[index]?.key,q=$('search').value.toLowerCase().trim(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null;filtered=D.rows.filter(r=>(!$('method').value||r.method===$('method').value)&&($('coverage').value==='any'||r.labelled_count===D.annotators.length)&&(!q||(numberQuery?r.conversation_number===numberQuery:[r.question,r.id,r.conversation_number,r.corpus_collection].join(' ').toLowerCase().includes(q))));index=Math.max(0,filtered.findIndex(r=>r.key===key));render();}
+function applyFilters(){
+ const key=filtered[index]?.key,q=$('search').value.toLowerCase().trim(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null,coverage=$('coverage').value,scope=$('scope').value;
+ filtered=D.rows.filter(r=>(!$('method').value||r.method===$('method').value)&&(scope==='everything'||(scope==='first'?r.queue_annotators?.length:r.labelled_count>0))&&(coverage==='any'||(coverage==='none'?r.labelled_count===0:coverage==='partial'?r.labelled_count<D.annotators.length:r.labelled_count===D.annotators.length))&&(!q||(numberQuery?r.conversation_number===numberQuery:[r.question,r.id,r.conversation_number,r.corpus_collection].join(' ').toLowerCase().includes(q))));
+ index=Math.max(0,filtered.findIndex(r=>r.key===key));render();
+}
+function renderQueue(){
+ const root=$('conversation-queue');root.replaceChildren();$('queue-count').textContent=new Set(filtered.map(r=>r.method+':'+r.id)).size;
+ filtered.forEach((r,i)=>{const item=el('button','queue-item');item.type='button';item.setAttribute('aria-current',String(i===index));const decided=D.annotators.filter(name=>isLabelled(r.annotations[name]));item.append(el('strong','',r.conversation_number),el('span','queue-method',r.method),el('span','queue-dot',r.labelled_count===D.annotators.length?'✓':'○'),el('small','','Turn '+r.turn+' · '+(decided.length?decided.join(', '):'No decisions yet')));item.onclick=()=>{index=i;render();};root.append(item);});
+ const summary=$('queue-summary'),complete=filtered.filter(r=>r.labelled_count===D.annotators.length).length;summary.replaceChildren(el('strong','',filtered.length+' turns in this queue'),el('span','summary-separator'),el('span','',complete+' fully reviewed'),el('span','summary-separator'),el('span','',filtered.filter(r=>!r.labelled_count).length+' awaiting decisions'));
+}
 function move(delta){index=Math.max(0,Math.min(filtered.length-1,index+delta));render();}
 function annotator(name,a,r){const card=el('section','annotator');card.setAttribute('aria-label',name+' decision');const head=el('div','card-head');head.append(el('h3','avatar',name),el('span','muted',isLabelled(a)?'Labelled':'No label'));const edit=el('button','edit-decision','Edit');edit.type='button';edit.dataset.annotator=name;edit.disabled=!D.review_api;edit.title=D.review_api?'Edit '+name+' decision':'Open the server review page to edit';edit.onclick=()=>openEditor(r,name);head.append(edit);card.append(head);
+if(D.review_api)card.append(inlineEditor(r,name));
 if(a.human_label)card.append(el('p','pill',a.human_label));
 const codes=a.failure_types?.length?a.failure_types:a.failure_type?[a.failure_type]:[];
-const labels=el('div','labels');for(const code of codes){const tag=el('span','label');if(D.labels[code])tag.append(el('b','',code),document.createTextNode(clean(D.labels[code])));else tag.textContent=clean(names[code]||code);labels.append(tag);}card.append(labels);
+const labels=el('div','labels');for(const code of codes){const tag=el('span','label');if(D.labels[code])tag.append(el('b','',code),document.createTextNode(clean(D.labels[code])));else tag.textContent=clean(names[code]||code);labels.append(tag);}if(!D.review_api)card.append(labels);
 if(a.flagged_for_review)card.append(el('p','notes muted','Flagged for review'));
-if(a.notes)card.append(el('p','notes',a.notes));
+if(a.notes&&!D.review_api)card.append(el('p','notes',a.notes));
 if(a.gold_assessment)card.append(el('p','notes','Gold: '+a.gold_assessment));
 if(a.gold_notes)card.append(el('p','notes',a.gold_notes));
 if(a.evidence?.length){const details=el('details','annotation-details');details.append(el('summary','',a.evidence.length+' citations'));for(const cite of a.evidence){details.append(el('p','muted',cite.source+(cite.locator?' / '+cite.locator:'')),el('blockquote','prose',cite.quote));}card.append(details);}
 if(a.legacy_failure_types?.length)card.append(el('p','notes muted','Earlier: '+a.legacy_failure_types.join(', ')));
 return card;}
+const inlineDrafts=new Map();
+function inlinePending(){return [...inlineDrafts.values()].some(s=>s.busy||Object.keys(s.changes).length);}
+function inlineEditor(row,name){
+ const key=row.key+':'+name;
+ let state=inlineDrafts.get(key);
+ if(!state||(!state.busy&&!Object.keys(state.changes).length)){
+  state={row,name,version:row.annotation_versions[name],changes:{},busy:false,timer:null,error:null};inlineDrafts.set(key,state);
+ }
+ const a={...row.annotations[name],...state.inflight,...state.changes},root=el('div','inline-editor');root.dataset.annotator=name;
+ const outcome=el('select');outcome.setAttribute('aria-label',name+' outcome');
+ for(const [value,title] of [['errors','Error labels'],...Object.entries(names),['clear','No failure labels']]){const option=el('option','',title);option.value=value;outcome.append(option);}
+ const selected=a.failure_types?.length?a.failure_types:a.failure_type?[a.failure_type]:[];
+ outcome.value=selected.find(code=>Object.hasOwn(names,code))||(selected.length?'errors':'clear');
+ const errors=el('div','inline-labels');errors.hidden=outcome.value!=='errors';
+ const updateTypes=()=>{const types=outcome.value==='errors'?[...errors.querySelectorAll('input:checked')].map(i=>i.value):outcome.value==='clear'?[]:[outcome.value];queueInline(state,{failure_types:types,failure_type:types.length===1?types[0]:''});};
+ for(const [code,title] of Object.entries(D.labels)){const label=el('label'),input=el('input');input.type='checkbox';input.value=code;input.checked=selected.includes(code);input.setAttribute('aria-label',name+' '+code+' '+title);label.title=code+' '+title;input.onchange=updateTypes;label.append(input,document.createTextNode(code));errors.append(label);}
+ outcome.onchange=()=>{errors.hidden=outcome.value!=='errors';updateTypes();};
+ const notes=el('textarea');notes.rows=2;notes.placeholder='Notes';notes.setAttribute('aria-label',name+' notes');notes.value=a.notes||'';notes.oninput=()=>queueInline(state,{notes:notes.value},500);notes.onblur=()=>{clearTimeout(state.timer);saveInline(state);};
+ const feedback=el('p','inline-feedback');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
+ const actions=el('div','inline-actions'),retry=el('button','','Retry save'),reload=el('button','','Load latest decision');retry.type=reload.type='button';
+ retry.onclick=()=>{state.error=null;saveInline(state);};
+ reload.onclick=()=>{if(!state.conflict)return;state.row.annotations[name]=state.conflict.record||{};state.row.annotation_versions[name]=state.conflict.version;state.changes={};state.busy=false;inlineDrafts.delete(key);render();};
+ actions.append(retry,reload);root.append(outcome,errors,notes,feedback,actions);
+ state.feedback=feedback;state.retry=retry;state.reload=reload;paintInline(state);return root;
+}
+function paintInline(state){
+ if(!state.feedback)return;
+ state.feedback.textContent=state.error||(state.busy?'Saving…':Object.keys(state.changes).length?'Waiting to save…':state.saved?'Saved':'Changes save automatically');
+ state.feedback.className='inline-feedback'+(state.error?' error':'');state.retry.hidden=!state.error||!!state.conflict;state.reload.hidden=!state.conflict;
+}
+function queueInline(state,changes,delay=150){
+ state.changes={...state.changes,...changes};clearTimeout(state.timer);if(!state.conflict)state.error=null;paintInline(state);
+ state.timer=setTimeout(()=>saveInline(state),delay);
+}
+async function saveInline(state){
+ if(state.busy||state.conflict||!Object.keys(state.changes).length)return;
+ const changes=state.changes;state.changes={};state.inflight=changes;state.busy=true;paintInline(state);
+ try{
+  const response=await fetch(D.review_api+'/'+state.row.method+'/'+state.name,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:state.row.id,turn:state.row.turn,changes,expected_version:state.version}),signal:AbortSignal.timeout(15000)}),result=await response.json();
+  if(!response.ok){if(response.status===409)state.conflict=result;throw Error(result.error||'Could not save.');}
+  state.row.annotations[state.name]=result.record;state.row.annotation_versions[state.name]=result.version;state.version=result.version;
+  state.row.labelled_count=D.annotators.filter(name=>isLabelled(state.row.annotations[name])).length;state.saved=true;state.error=null;requestAdvance(state.row,state.name,changes);renderQueue();
+ }catch(error){state.changes={...changes,...state.changes};state.error=error.message;status('Unsaved changes for '+state.row.method+' / '+state.name+'. Return to this turn to retry.',true);}
+ finally{state.busy=false;state.inflight=null;paintInline(state);if(!state.error&&Object.keys(state.changes).length)saveInline(state);else if(pendingAdvance)refreshReview();}
+}
 const passageText=doc=>String(doc.text||doc.content||doc.passage||'');
 const normalizedText=text=>String(text??'').replace(/\s+/g,' ').trim();
 function matchesGold(doc,goldDocs){const id=String(doc.id||doc.document_id||'').trim(),text=normalizedText(passageText(doc));return goldDocs.some(gold=>(id&&id===String(gold.id||gold.document_id||'').trim())||(text&&text===normalizedText(passageText(gold))));}
@@ -119,12 +185,32 @@ function documentPanel(title,docs,message,goldDocs=[],highlightText=true){
  if(highlightText&&goldDocs.length&&docs?.length)panel.append(el('p','gold-match-count',goldCount?goldCount+' gold '+(goldCount===1?'match':'matches'):'No gold match in these passages.'));
  panel.append(list);return panel;
 }
-function render(){const root=$('content');root.replaceChildren();$('position').textContent=filtered.length?(index+1)+' / '+filtered.length:'0 / 0';$('prev').disabled=!filtered.length||index===0;$('next').disabled=!filtered.length||index===filtered.length-1;$('progress').style.width=filtered.length?((index+1)/filtered.length*100)+'%':'0%';
+function turnCopyText(row){
+ const contexts=row.contexts===null?'Selected context not recorded.':row.contexts?.length?row.contexts.map((text,i)=>'Passage '+(i+1)+'\n'+text).join('\n\n'):'No selected passages recorded.';
+ return ['Question\n'+(row.question||'Question not recorded.'),'RAG Answer\n'+(row.answer||'RAG answer not recorded.'),'Gold Answer\n'+(row.gold||'Gold answer not recorded.'),'Selected Context\n'+contexts].join('\n\n');
+}
+async function copyTurn(row,button){
+ const text=turnCopyText(row);button.disabled=true;
+ try{
+  try{if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');await navigator.clipboard.writeText(text);}
+  catch(error){
+   const previous=document.activeElement,area=el('textarea');area.value=text;area.style.cssText='position:fixed;left:-9999px;top:0';document.body.append(area);
+   try{area.select();if(!document.execCommand('copy'))throw error;}finally{area.remove();previous?.focus({preventScroll:true});}
+  }
+  button.textContent='Copied ✓';status('Copied question, RAG answer, gold answer, and all selected context.');
+  setTimeout(()=>{button.textContent='Copy all';},2000);
+ }catch(error){button.textContent='Retry copy';status('Could not copy. Please try the Copy all button again.',true);}
+ finally{button.disabled=false;}
+}
+function render(){renderQueue();const root=$('content');root.replaceChildren();$('position').textContent=filtered.length?(index+1)+' / '+filtered.length:'0 / 0';$('prev').disabled=!filtered.length||index===0;$('next').disabled=!filtered.length||index===filtered.length-1;$('progress').style.width=filtered.length?((index+1)/filtered.length*100)+'%':'0%';
 if(!filtered.length){const empty=el('div','empty');empty.append(el('h2','','No matching turns'),el('p','muted','Try Any annotator, another method, or clear your search.'));root.append(empty);return;}
-const r=filtered[index];const meta=el('div','meta');meta.append(el('span','pill',r.method),el('span','pill conversation-number',r.conversation_number),el('span','pill incorrect','Incorrect'),el('span','muted','Turn '+r.turn),el('span','muted',r.corpus_collection),el('span','id',r.id));
-root.append(meta,el('p','eyebrow','Annotator decisions'));
+const r=filtered[index];const meta=el('div','meta');meta.append(el('span','pill',r.method),el('span','pill conversation-number',r.conversation_number),el('span','pill'+(r.judge_label==='incorrect'?' incorrect':''),'Judge: '+(r.judge_label||'unknown')),el('span','muted','Turn '+r.turn),el('span','muted',r.corpus_collection),el('span','id',r.id));
+if(r.first_incorrect)meta.append(el('span','pill','First incorrect turn'));
+if(r.queue_annotators?.length)meta.append(el('span','pill','Review target: '+r.queue_annotators.join(', ')));
+root.append(meta);
+const question=el('section','question'),questionHead=el('div','question-heading'),copy=el('button','copy-turn','Copy all');copy.type='button';copy.id='copy-turn';copy.setAttribute('aria-label','Copy question, RAG answer, gold answer, and selected context');copy.onclick=()=>copyTurn(r,copy);questionHead.append(el('p','eyebrow','Question · Turn '+r.turn),copy);question.append(questionHead,el('h2','',r.question));root.append(el('p','eyebrow','Annotator decisions · changes save automatically'));
 const cards=el('div','annotators');for(const name of D.annotators)cards.append(annotator(name,r.annotations[name],r));root.append(cards);
-const question=el('section','question');question.append(el('p','eyebrow','Question'),el('h2','',r.question));root.append(question);
+root.append(question);
 const reading=el('div','reading'),answer=el('section','panel answer');answer.append(el('h2','','RAG Answer'),el('div','prose',r.answer));
 const reference=el('section','panel answer gold-answer');reference.append(el('h2','','Gold Answer'),el('div','prose',r.gold||'Gold answer not recorded.'));reading.append(answer,reference);
 const evidence=el('div','evidence evidence-grid');
@@ -132,18 +218,19 @@ const goldDocs=r.gold_support?.status==='available'?r.gold_support.documents:[];
 const retrievalSource=r.retrieval_context?.source;
 const retrievalNote=!r.retrieval_context?'Original retrieval not recorded.':retrievalSource?.inference_stage==='new_retrieval_experiment'?'Retrieval experiment, separate from the saved answer.':'Recorded candidate pool.';
 const retrievedPanel=documentPanel('Retrieved Passages',r.retrieval_context?.documents??null,retrievalNote,goldDocs);
-if(retrievalSource){const provenance=el('div','retrieval-source');provenance.append(el('p','muted','Source: '+retrievalSource.file));if(retrievalSource.rewritten_query)provenance.append(el('p','muted','Query: '+retrievalSource.rewritten_query));retrievedPanel.append(provenance);}evidence.append(retrievedPanel);
+if(retrievalSource){const provenance=el('div','retrieval-source');provenance.append(el('p','muted','Source: '+retrievalSource.file));if(retrievalSource.rewritten_query)provenance.append(el('p','muted','Query: '+retrievalSource.rewritten_query));retrievedPanel.append(provenance);}
 evidence.append(documentPanel('Selected Context',r.contexts===null?null:r.selected_passages,r.contexts===null?'Selected context not recorded.':'',goldDocs));
+evidence.append(retrievedPanel);
 const gold= documentPanel('Gold Documents',r.gold_support?.status==='available'?goldDocs:null,r.gold_support?.status==='mismatch'?'Reference does not match this turn.':r.gold_support?.status!=='available'?'Verified gold documents unavailable.':'',goldDocs,false);
 evidence.append(gold);reading.append(evidence);root.append(reading);
 }
-$('method').addEventListener('change',applyFilters);$('coverage').addEventListener('change',applyFilters);$('search').addEventListener('input',applyFilters);$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
+$('method').addEventListener('change',applyFilters);$('scope').addEventListener('change',applyFilters);$('coverage').addEventListener('change',applyFilters);$('search').addEventListener('input',applyFilters);$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
 document.addEventListener('keydown',event=>{if($('decision-editor').open||event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||event.shiftKey||event.target.closest('input,textarea,select,[contenteditable="true"]'))return;if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();move(event.key==='ArrowLeft'?-1:1);}});
 function status(text,error=false){$('review-status').textContent=clean(text);$('review-status').className='review-status'+(error?' error':'');}
 function renderSources(){
  $('source-summary').textContent=D.warnings.length?'Source details ('+D.warnings.length+' warnings)':'Source details';$('sources').replaceChildren();
  $('sources').append(el('p','',D.review_api?'Review edits save directly to Annotate_result and update Exported results. Original annotation-run saves remain separate.':'Read-only snapshot from Annotate_result. Open the server review page to edit.'));
- $('sources').append(el('p','','Incorrect means mtRAG score below 0.7. A saved correctness decision or failure label counts as labelled; a review mark alone does not.'));
+ $('sources').append(el('p','','The default queue follows each annotator to the earliest judge-incorrect turn not marked Not a failure or Excluded. These outcomes advance to the next incorrect turn in the same conversation. Other reviewers keep their own targets. All saved decisions remain available in All annotated turns. Incorrect means mtRAG score below 0.7.'));
  for(const source of D.sources)$('sources').append(el('p','',source.method+': '+source.judge));for(const warning of D.warnings)$('sources').append(el('p','warning',warning));
 }
 function fillEditor(record,version){
@@ -156,7 +243,7 @@ function fillEditor(record,version){
  $('edit-feedback').textContent='';$('edit-feedback').className='edit-feedback';$('edit-reload').hidden=true;$('edit-save').disabled=false;dirty=false;
 }
 function openEditor(row,name){
- if(!D.review_api||saving)return;editState={row,annotator:name};
+ if(!D.review_api||saving)return;if(inlinePending()){status('Wait for automatic saves to finish before opening detailed editing.',true);return;}editState={row,annotator:name};
  $('edit-title').textContent='Edit '+name+' decision';$('edit-context').textContent=row.method+' / '+row.conversation_number+' / Turn '+row.turn;
  $('edit-path').textContent='Saves to Annotate_result / '+row.method+' / '+name+'. Previous file backed up automatically.';
  fillEditor(Object.keys(row.annotations[name]).length?row.annotations[name]:null,row.annotation_versions[name]);$('decision-editor').showModal();
@@ -176,23 +263,33 @@ $('decision-form').onsubmit=async event=>{
   const response=await fetch(D.review_api+'/'+state.row.method+'/'+state.annotator,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:state.row.id,turn:state.row.turn,changes,expected_version:state.version}),signal:AbortSignal.timeout(15000)}),result=await response.json();
   if(!response.ok){if(response.status===409){state.conflict=result;$('edit-reload').hidden=false;}throw Error(result.error||'Could not save decision.');}
   state.row.annotations[state.annotator]=result.record;state.row.annotation_versions[state.annotator]=result.version;state.row.labelled_count=D.annotators.filter(name=>isLabelled(state.row.annotations[name])).length;
+  requestAdvance(state.row,state.annotator,changes);
   dirty=false;$('decision-editor').close();applyFilters();status('Saved '+state.row.method+' / '+state.annotator+'.'+(result.backup?' Previous file backed up.':''));
  }catch(error){$('edit-feedback').textContent=error.message;$('edit-feedback').className='edit-feedback edit-error';}
  finally{saving=false;for(const input of $('decision-form').elements)input.disabled=false;if(state.conflict)$('edit-save').disabled=true;refreshReview();}
 };
-window.addEventListener('beforeunload',event=>{if(dirty||saving){event.preventDefault();event.returnValue='';}});
+window.addEventListener('beforeunload',event=>{if(dirty||saving||inlinePending()){event.preventDefault();event.returnValue='';}});
 async function refreshReview(){
- if(!D.review_api||polling||editState||saving)return;polling=true;
+ if(!D.review_api||polling||editState||saving||inlinePending()||(!pendingAdvance&&document.activeElement?.closest('.inline-editor')))return;polling=true;
  try{
   const response=await fetch(D.review_api+'/annotations',{cache:'no-store',signal:AbortSignal.timeout(15000)}),snapshot=await response.json();if(!response.ok)throw Error(snapshot.error||'Review update failed.');
-  if(editState||saving||snapshot.version===reviewVersion)return;
+  if(pendingAdvance&&snapshot.rows.find(row=>row.key===pendingAdvance.key)?.annotation_versions[pendingAdvance.name]!==pendingAdvance.version)return;
+  if(editState||saving||inlinePending()||(!pendingAdvance&&snapshot.version===reviewVersion))return;
   const byKey=new Map(D.rows.map(row=>[row.key,row]));
   const rows=await Promise.all(snapshot.rows.map(async meta=>{if(byKey.has(meta.key))return {...byKey.get(meta.key),...meta};const params=new URLSearchParams({method:meta.method,id:meta.id,turn:String(meta.turn)}),detail=await fetch(D.review_api+'/turn?'+params,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!detail.ok)throw Error('New turn could not be loaded. Retrying...');return (await detail.json()).row;}));
-  if(editState||saving)return;
+  if(editState||saving||inlinePending()||(!pendingAdvance&&document.activeElement?.closest('.inline-editor')))return;
   const oldKey=filtered[index]?.key,scrolls=[...document.querySelectorAll('.document-list')].map(node=>node.scrollTop);
   D.rows=rows;D.warnings=snapshot.warnings;D.sources=snapshot.sources;reviewVersion=snapshot.version;renderSources();applyFilters();
   if(filtered[index]?.key===oldKey)document.querySelectorAll('.document-list').forEach((node,i)=>{node.scrollTop=scrolls[i]||0;});
-  status('Live review. Saves go directly to Annotate_result.');
+  if(pendingAdvance){
+   const advance=pendingAdvance;pendingAdvance=null;
+   const target=D.rows.find(row=>row.method===advance.method&&row.id===advance.id&&row.turn>advance.turn&&row.queue_annotators.includes(advance.name));
+   if(target){
+    if(!filtered.some(row=>row.key===target.key)){$('scope').value='first';$('coverage').value='any';$('search').value='';applyFilters();}
+    if(oldKey===advance.key){index=filtered.findIndex(row=>row.key===target.key);render();}
+    status('Saved. Next incorrect turn for '+advance.name+': '+target.conversation_number+' / Turn '+target.turn+'.');
+   }else status('Saved. No more incorrect turns in this conversation for '+advance.name+'.');
+  }else status('Live review. Saves go directly to Annotate_result.');
  }catch(error){status('Refresh failed. Keeping the current review. '+error.message,true);}
  finally{polling=false;}
 }

@@ -97,7 +97,7 @@ def compare(profiles, cohort='wn'):
             'below_all': [e for e in ERRORS if all(e in pair['below'] for pair in pairs)]}
 
 
-def build_results(results_dir, runs_dir, source='exports', cohort='wn'):
+def build_results(results_dir, runs_dir, source='exports', cohort='union'):
     if source not in ('exports', 'live') or cohort not in ('wn', 'union'):
         raise ValueError('Choose a valid source and cohort.')
     methods, warnings = {}, []

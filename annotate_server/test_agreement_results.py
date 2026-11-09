@@ -41,6 +41,7 @@ CHECKS = r"""<pre id="test-result"></pre><script>
  const waitFor=async predicate=>{for(let i=0;i<100;i++){if(predicate())return;await new Promise(resolve=>setTimeout(resolve,100));}throw Error('Timed out waiting for live update');};
  try{
   await waitFor(()=>data&&document.querySelector('.comparison tbody tr'));
+  assert($('cohort').value==='union','All annotators are included by default');
   assert(data.methods.HippoRag.total===3,'Initial sample');
   assert(document.querySelector('#report>.panel tbody').children.length===16,'All sixteen E rows');
   assert(document.querySelectorAll('.comparison tbody tr').length===3,'Comparison records');
@@ -148,6 +149,15 @@ class AgreementTests(unittest.TestCase):
                 live = json.loads(get('/api/results?source=live'))
                 self.assertEqual(live['methods']['Vector']['total'], 1)
                 self.assertEqual(live['methods']['Vector']['rows'][0]['id'], 'live')
+                (results / 'SelfRAG' / f'annotations_{RUNS["SelfRAG"]}_WN.json').unlink()
+                selfrag = json.loads(get('/api/results'))
+                self.assertEqual(selfrag['cohort'], 'union')
+                self.assertEqual(selfrag['methods']['SelfRAG']['total'], 3)
+                self.assertEqual(selfrag['methods']['SelfRAG']['profile_counts']['WN'], 0)
+                pair = selfrag['methods']['SelfRAG']['pairs'][0]
+                self.assertEqual((pair['left'], pair['right'], pair['n']), ('PS', 'KH', 3))
+                wn_only = json.loads(get('/api/results?cohort=wn'))
+                self.assertEqual(wn_only['methods']['SelfRAG']['total'], 0)
                 with self.assertRaises(urllib.error.HTTPError) as invalid:
                     get('/api/results?source=unknown')
                 self.assertEqual(invalid.exception.code, 400)

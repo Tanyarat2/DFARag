@@ -353,7 +353,7 @@ body.resizing-sidebar{cursor:col-resize;user-select:none;-webkit-user-select:non
 .review-flag[aria-pressed=true]{background:#fff6d9;border-color:#b48b39;color:#705014}
 .queue-flag{font-size:10px;color:#705014;display:inline-flex;align-items:center;gap:4px}
 .answer-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}.answer-comparison>section{min-width:0;border-top:1px solid var(--line);padding-top:16px;margin-top:0}.column-heading select{width:100%;margin-top:8px}@media(max-width:650px){.answer-comparison{grid-template-columns:1fr}}
-.comparison-track{grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;gap:20px}.column-heading{background:white;padding:22px 24px}.column-heading h3{font-size:18px}.column-body{padding:20px 24px}.column-body .passage,.gold-document-card{border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;background:#fafbfd}.column-body .passage h3{font-size:15px}.document-picker{display:flex;align-items:center;gap:8px;margin:12px 0}.document-picker select{width:auto;max-width:100%;margin:0}.gold-document-card details{margin-top:14px}#evidence-corpus{grid-column:1/-1;height:auto;min-height:180px}#evidence-corpus .column-body{overflow:visible}@media(max-width:650px){.comparison-track{grid-template-columns:1fr}.column-heading,.column-body{padding:16px}}
+.comparison-track{grid-template-columns:repeat(3,minmax(240px,1fr));overflow-x:auto;gap:16px}.column-heading{background:white;padding:22px 24px}.column-heading h3{font-size:18px}.column-body{padding:20px 24px}.column-body .passage,.gold-document-card{border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px;background:#fafbfd}.column-body .passage h3{font-size:15px}.document-picker{display:flex;align-items:center;gap:8px;margin:12px 0}.document-picker select{width:auto;max-width:100%;margin:0}.gold-document-card details{margin-top:14px}#evidence-corpus{grid-column:1/-1;height:auto;min-height:180px}#evidence-corpus .column-body{overflow:visible}@media(max-width:650px){.comparison-track{grid-template-columns:repeat(3,280px)}.column-heading,.column-body{padding:16px}}
 </style>
 </head>
 <body>
@@ -525,7 +525,7 @@ function reviewed(r){return typeof A[r.key]?.review_complete==='boolean'?A[r.key
 function firstIncorrectTurns(){const first=new Map();D.rows.forEach(r=>{if(mtLabel(r)==='incorrect'&&(!first.has(r.id)||r.turn<first.get(r.id).turn))first.set(r.id,r);});return first;}
 function save(){const state=getProfile(currentAnnotator);state.annotations=A;captureProfile(state);progress();updateSaveStatus();if(D.annotation_api&&state.dirty.size){clearTimeout(state.timer);state.timer=setTimeout(()=>flushProfile(state.name),350);}}
 function progress(){const n=D.rows.filter(reviewed).length,targets=[...firstIncorrectTurns().values()],completed=targets.filter(annotationComplete).length;$('progress').textContent=n+' / '+D.rows.length;$('progressFill').style.width=(D.rows.length?n/D.rows.length*100:0)+'%';$('reviewedCount').textContent='Reviewed turns · all conversations';$('labelProgress').textContent=completed+' / '+targets.length;$('labelProgressFill').style.width=(targets.length?completed/targets.length*100:0)+'%';$('labelledCount').textContent='Failure labels and other decisions';}
-function filtered(){const q=$('search').value.trim().toLowerCase(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null;return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!$('fFlagged').checked||A[r.key]?.flagged_for_review===true)&&(!q||(numberQuery?conversationInfo(r.id).number===numberQuery:(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q))));}
+function filtered(){const q=$('search').value.trim().toLowerCase(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null;return D.rows.filter(r=>(!$('fTodo').checked||!reviewed(r))&&(!$('fFail').checked||mtLabel(r)==='incorrect')&&(!$('fFlagged').checked||A[r.key]?.flagged_for_review===true)&&(!q||(numberQuery?conversationInfo(r.id).number===numberQuery:(r.id+' '+r.question+' '+conversationInfo(r.id).name+' '+conversationInfo(r.id).number).toLowerCase().includes(q)))).sort((a,b)=>Number(conversationInfo(a.id).number.slice(1))-Number(conversationInfo(b.id).number.slice(1))||a.turn-b.turn);}
 let queueEdgeObserver;
 function observeQueueEdges(){
   queueEdgeObserver?.disconnect();
@@ -732,12 +732,7 @@ function evidenceDisclosure(r,key,title){
 }
 function renderComparison(r,root){
   const track=el('div','comparison-track');root.append(track);const q=evidenceQuery.trim().toLowerCase();
-  const selected=evidenceColumn('Retrieved evidence','Used by generator identifies passages retained in the original generation context.','selected');
-  const viewKey='document-view:'+r.key,view=evidenceVisibility.get(viewKey)||'selected';
-  const picker=el('select');picker.id='documentView';picker.setAttribute('aria-label','RAG document view');
-  for(const [value,title] of [['selected','Selected context'],['retrieved','Retrieved candidates']]){const option=el('option',null,title);option.value=value;picker.append(option);}
-  picker.value=view;picker.onchange=()=>{evidenceVisibility.set(viewKey,picker.value);renderEvidence(r);};const pickerLabel=el('label','document-picker','Show ');pickerLabel.htmlFor='documentView';pickerLabel.append(picker);selected.head.append(pickerLabel);
-  if(!r.retrieval_context)selected.head.append(el('p','hint','Retrieved context not recorded.'));
+  const selected=evidenceColumn('Selected context','Passages retained in the original generation context.','selected');
   selected.body.append(el('div','column-divider','Selected context · '+(r.contexts?.length??'not recorded')+' passages'));
   if(r.contexts===null)selected.body.append(el('p','notice warn','Selected context not recorded.'));
   else if(!r.contexts.length)selected.body.append(el('p','notice','No selected passages recorded.'));
@@ -770,9 +765,8 @@ function renderComparison(r,root){
   if(!docs.length)goldContent.append(el('p','hint',q?'No matching gold documents.':gs?.status==='available'?'The reference task records no supporting passages.':'No verified reference documents are attached.'));
   if(gs?.source){const provenance=el('details');provenance.append(el('summary',null,'Gold-document provenance'),el('p','hint','File: '+gs.source.file+' · SHA-256: '+gs.source.sha256));if(/^https?:\/\//.test(gs.source.dataset_url||'')){const link=el('a',null,'Reference dataset');link.href=gs.source.dataset_url;link.target='_blank';link.rel='noopener noreferrer';provenance.append(link);}goldContent.append(provenance);}
   track.append(gold.column);
-  const corpus=evidenceColumn('Corpus','Collection: '+collectionFor(r),'corpus');
-  const retrievedContent=el('div');
-  if(view==='retrieved')selected.body.replaceChildren(retrievedContent);
+  const retrieved=evidenceColumn('Retrieved context','Recorded retrieval candidates before reranking.','retrieved');
+  const retrievedContent=retrieved.body;
   const retrieval=r.retrieval_context;
   if(!retrieval)retrievedContent.append(el('p','hint','Retrieved context not recorded.'));
   else{
@@ -783,6 +777,8 @@ function renderComparison(r,root){
     const provenance=el('details');provenance.append(el('summary',null,'Source'),el('pre','hint',JSON.stringify(retrieval.source,null,2)));retrievedContent.append(provenance);
   }
 
+  track.append(retrieved.column);
+  const corpus=evidenceColumn('Corpus','Collection: '+collectionFor(r),'corpus');
   const corpusView=evidenceDisclosure(r,'corpus','Corpus'),corpusContent=corpusView.content;
   corpusView.disclosure.classList.add('corpus-disclosure');corpus.body.append(corpusView.disclosure);
   const corpusResults=el('div','corpus-results');

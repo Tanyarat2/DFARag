@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
 
 import make_result_review as review
 
@@ -14,7 +15,9 @@ const report=document.createElement('pre');report.id='test-result';
 try{
  const assert=(value,message)=>{if(!value)throw Error(message);};
  assert($('coverage').value==='any','Partial reviews visible by default');
- assert(filtered.length===D.rows.length && filtered.length>0,'Every annotated incorrect turn visible');
+ assert($('scope').value==='first'&&filtered.every(row=>row.queue_annotators.length),'Default queue shows each annotator current incorrect target');
+ $('scope').value='everything';$('scope').dispatchEvent(new Event('change'));
+ assert(filtered.length===D.rows.length && filtered.length>0,'Every imported review turn is available');
  const numbersById=new Map();for(const row of D.rows){assert(/^C\d{2,}$/.test(row.conversation_number),'Every turn has a conversation number');assert(!numbersById.has(row.id)||numbersById.get(row.id)===row.conversation_number,'Same ID has the same number across methods');numbersById.set(row.id,row.conversation_number);}
  assert(document.querySelector('.conversation-number').textContent===filtered[index].conversation_number,'Conversation number visible');
  const searchNumber=filtered[index].conversation_number;$('search').value=searchNumber;$('search').dispatchEvent(new Event('input'));
@@ -77,15 +80,15 @@ try{
  $('coverage').value='all';$('coverage').dispatchEvent(new Event('change'));
  move(99999);assert($('next').disabled,'End boundary');move(-99999);
  const rects=[...document.querySelectorAll('.annotator')].map(c=>c.getBoundingClientRect());
- assert(rects.every(r=>r.height<=130),'Short decision cards');
- assert(document.querySelector('.annotators').getBoundingClientRect().bottom<=document.querySelector('.question').getBoundingClientRect().top,'Annotators above question');
- assert(rects[0].left<rects[1].left && rects[1].left<rects[2].left,'Side by side');
+ assert(document.querySelector('.annotators').getBoundingClientRect().bottom<=document.querySelector('.question').getBoundingClientRect().top,'Question follows annotator decisions');
+ if(window.innerWidth>650)assert(rects[0].left<rects[1].left && rects[1].left<rects[2].left,'Side by side');
  assert(document.documentElement.scrollWidth<=window.innerWidth,'No horizontal page overflow');
  $('coverage').value='any';$('coverage').dispatchEvent(new Event('change'));
  const hasBothMatches=r=>r.gold_support?.status==='available' && r.retrieval_context?.documents.some(doc=>matchesGold(doc,r.gold_support.documents)) && r.selected_passages.some(doc=>matchesGold(doc,r.gold_support.documents));
  index=filtered.findIndex(hasBothMatches);assert(index>=0,'Real turn has gold matches in retrieved and selected');render();
  const row=filtered[index],goldDocs=row.gold_support.documents,panels=document.querySelectorAll('.evidence-grid>.panel');
- for(const [panelIndex,docs] of [[0,row.retrieval_context.documents],[1,row.selected_passages],[2,goldDocs]]){
+ assert([...panels].map(panel=>panel.querySelector('h3').textContent).join(',')==='Selected Context,Retrieved Passages,Gold Documents','Selected context precedes retrieved passages');
+ for(const [panelIndex,docs] of [[0,row.selected_passages],[1,row.retrieval_context.documents],[2,goldDocs]]){
   const passages=[...panels[panelIndex].querySelectorAll('.passage')];
   assert(passages.length===docs.length,'All passages rendered');
   for(const [i,passage] of passages.entries()){
@@ -106,6 +109,64 @@ document.body.append(report);
 
 
 class ResultReviewTests(unittest.TestCase):
+    def test_no_failure_and_excluded_advance_each_annotator_independently(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            target = root / 'SelfRAG'
+            target.mkdir()
+            run = review.RUNS['SelfRAG']
+            profiles = {'PS': [(1, 'not_a_failure'), (3, 'excluded')],
+                        'KH': [(1, 'E12')], 'WN': [(1, 'not_a_failure')]}
+            for name, decisions in profiles.items():
+                (target / f'annotations_{run}_{name}.json').write_text(json.dumps([
+                    {'id': 'case', 'turn': turn, 'annotator': name, 'failure_types': [code]}
+                    for turn, code in decisions]))
+            rows = []
+            for turn in (4, 3, 2, 1):
+                row = dict.fromkeys(('question', 'answer', 'gold', 'gold_support',
+                    'retrieval_context', 'selected_passages', 'contexts', 'corpus_collection'))
+                row.update(id='case', key=f'case#{turn}', turn=turn, conversation_number='C01',
+                           judges={'mtrag': {'label': 'correct' if turn == 2 else 'incorrect'}})
+                rows.append(row)
+            with mock.patch.dict(review.RUNS, {'SelfRAG': run}, clear=True):
+                data = review.build_review(root, root, lambda _: {
+                    'rows': rows, 'coverage': {'mtrag': {'source': 'out.mtrag.json'}}})
+            self.assertEqual([(r['turn'], r['queue_annotators']) for r in data['rows']],
+                             [(1, ['KH']), (3, ['WN']), (4, ['PS'])])
+            self.assertEqual(data['rows'][0]['annotations']['PS']['failure_types'], ['not_a_failure'])
+            self.assertEqual(data['rows'][2]['labelled_count'], 0)
+
+    def test_selfrag_keeps_all_saved_decisions_regardless_of_judge_status(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            target = root / 'SelfRAG'
+            target.mkdir()
+            run = review.RUNS['SelfRAG']
+            records = [{'id': 'case', 'turn': turn, 'annotator': 'KH',
+                        'failure_types': ['E12']} for turn in (1, 2)]
+            (target / f'annotations_{run}_KH.json').write_text(json.dumps(records))
+            rows = []
+            for turn, label in ((1, 'incorrect'), (2, 'correct'), (3, 'incorrect')):
+                row = dict.fromkeys(('question', 'answer', 'gold', 'gold_support',
+                    'retrieval_context', 'selected_passages', 'contexts', 'corpus_collection'))
+                row.update(id='case', key=f'case#{turn}', turn=turn,
+                           conversation_number='C01', judges={'mtrag': {'label': label}})
+                rows.append(row)
+            # An unannotated conversation still contributes its earliest incorrect turn.
+            for turn, label in ((1, 'correct'), (3, 'incorrect'), (2, 'incorrect')):
+                rows.append(dict(rows[0], id='unannotated', key=f'unannotated#{turn}',
+                                 conversation_number='C10', turn=turn,
+                                 judges={'mtrag': {'label': label}}))
+            with mock.patch.dict(review.RUNS, {'SelfRAG': run}, clear=True):
+                data = review.build_review(root, root, lambda _: {
+                    'rows': list(reversed(rows)), 'coverage': {'mtrag': {'source': 'out.mtrag.json'}}})
+            self.assertEqual([(r['conversation_number'],r['turn']) for r in data['rows']], [('C01',1),('C01',2),('C10',2)])
+            self.assertEqual([r['judge_label'] for r in data['rows']], ['incorrect', 'correct', 'incorrect'])
+            self.assertEqual([r['first_incorrect'] for r in data['rows']], [True, False, True])
+            self.assertEqual(data['rows'][2]['labelled_count'], 0)
+            self.assertEqual(data['rows'][1]['annotations']['WN'], {})
+            self.assertEqual(review.annotation_snapshot(data)['rows'][1]['judge_label'], 'correct')
+
     def test_review_mark_is_not_a_decision(self):
         self.assertFalse(review.labelled({'review_complete': True}))
         self.assertFalse(review.labelled({'flagged_for_review': True}))

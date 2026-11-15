@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from make_annotation import build_data
-from failure_taxonomy import DEFINITIONS
+from failure_taxonomy import DEFINITIONS, EXTRA_TYPES
 from conversation_numbers import registry
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,9 +51,39 @@ def read_annotations(folder, run):
 
 def build_review(results, runs, load_data=None):
     rows, warnings, sources = [], [], []
+    overview = {"annotators": {name: {"total": 0, "by_method": {}, "error_turns": 0,
+                "label_counts": dict.fromkeys(DEFINITIONS, 0),
+                "outcomes": dict.fromkeys([*EXTRA_TYPES, 'correctness_only', 'other_labels'], 0)}
+                for name in ANNOTATORS},
+                "cohort": "all_annotators", "total_annotations": 0,
+                "annotated_turns": 0, "all_annotators": 0}
     for method, run in RUNS.items():
         profiles, messages = read_annotations(results / method, run)
         warnings.extend(messages)
+        decided = {name: {key for key, record in profiles[name].items() if labelled(record)}
+                   for name in ANNOTATORS}
+        shared_keys = set.intersection(*decided.values())
+        shared_count = len(shared_keys)
+        for name in ANNOTATORS:
+            person = overview['annotators'][name]
+            person['by_method'][method] = shared_count
+            person['total'] += shared_count
+            for key in shared_keys:
+                record = profiles[name][key]
+                codes = set(record.get('failure_types') or
+                            ([record['failure_type']] if record.get('failure_type') else []))
+                person['error_turns'] += bool(codes.intersection(DEFINITIONS))
+                for code in codes.intersection(DEFINITIONS):
+                    person['label_counts'][code] += 1
+                for code in codes.intersection(EXTRA_TYPES):
+                    person['outcomes'][code] += 1
+                if not codes:
+                    person['outcomes']['correctness_only'] += 1
+                elif not codes.intersection([*DEFINITIONS, *EXTRA_TYPES]):
+                    person['outcomes']['other_labels'] += 1
+        overview['total_annotations'] += shared_count * len(ANNOTATORS)
+        overview['annotated_turns'] += shared_count
+        overview['all_annotators'] += shared_count
         data = load_data(runs / run) if load_data else build_data(runs / run, live=True)
         sources.append({"method": method, "judge": data["coverage"]["mtrag"]["source"]})
         first_incorrect = {}
@@ -84,6 +114,7 @@ def build_review(results, runs, load_data=None):
                 "annotation_versions": {name: annotation_version(annotations[name] or None)
                                         for name in ANNOTATORS}})
     return {"rows": rows, "warnings": warnings, "sources": sources,
+            "overview": overview,
             "annotators": ANNOTATORS,
             "labels": {code: value["name"] for code, value in DEFINITIONS.items()}}
 
@@ -92,7 +123,7 @@ def annotation_snapshot(data):
     snapshot = {"rows": [{key: row[key] for key in (
         'key', 'id', 'turn', 'method', 'conversation_number', 'annotations',
         'annotation_versions', 'labelled_count', 'judge_label', 'first_incorrect', 'queue_annotators')} for row in data['rows']],
-        "warnings": data['warnings'], "sources": data['sources']}
+        "warnings": data['warnings'], "sources": data['sources'], "overview": data['overview']}
     snapshot['version'] = annotation_version(snapshot)
     return snapshot
 

@@ -1,6 +1,51 @@
 # Annotation server
 
+## Annotator overview
+
+Open `/review` to see three English dashboard panels for PS, KH and WN.
+All three panels are visible immediately, side by side on desktop and stacked
+on mobile. Each value counts turns, not saves or clicks. The shared cohort is
+counted once per person, so everyone has the same total, while label counts can
+differ.
+Each panel has a **Download PNG** button that saves that person's complete
+dashboard, including totals, methods, E-label charts and outcome breakdown, as
+a high-resolution image. Export uses the current saved dashboard values and
+works on the live server and offline snapshot without network dependencies.
+Each panel shows shared annotated turns, turns with E labels, and all remaining
+turns under the retained title **No failure or excluded**. This total includes
+Outside taxonomy, Insufficient evidence and other decisions without E labels,
+counting each turn once. Individual outcomes remain separate in the breakdown.
+Each panel also shows
+counts by method, an E1–E16 frequency chart and special outcomes. Label percentages use
+shared turns as the denominator; multiple labels on one turn count separately
+in the chart. All three people's turn totals match because the cohort is shared,
+while their label distributions can differ. The dashboard
+stays above the decisions and evidence on the same page. Queue filters do not
+change these totals. Successful saves update counts immediately; external export
+changes arrive through the existing three-second refresh.
+
+If an already-running server supplies an older dashboard data format, the page
+rebuilds these summaries from the saved per-turn decisions in that same response.
+This keeps updated templates compatible until the Python server is restarted.
+
+Counts use only turns in `Annotate_result` with a saved decision from all three
+annotators for the same method, conversation ID and turn. If anyone has not
+annotated a turn, it is excluded from everyone's total. Labels need not agree.
+Labels, special outcomes and correctness decisions count; multiple labels still
+count once. Notes, flags and review marks alone do not count. The summary shows
+shared turns and their three individual decisions. Missing profiles make that
+method's shared count zero for everyone. The review queue defaults to all
+annotated turns with **All 3 annotators** coverage; other queues remain available
+for finishing incomplete work, without changing the shared overview totals.
+Live run autosaves remain a separate source. Regenerating `review.html` includes
+the same overview as an offline snapshot.
+
 ## Edit decisions during review
+
+Open a specific turn with `/review?method=HippoRag&conversation=C58&turn=5`.
+Direct links select the method and conversation, show any decision coverage,
+and scroll to the requested turn, including review targets with cleared labels.
+Opening a link does not restore or change saved decisions.
 
 From the project folder:
 

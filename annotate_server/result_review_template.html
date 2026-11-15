@@ -23,16 +23,25 @@
 @media(max-width:650px){.app-header{padding:16px}.brand h1{font-size:18px}.brand .muted{font-size:10px}.live-indicator{display:none}main{padding:14px 12px}.workspace-grid{display:block}.conversation-rail{position:static;margin-bottom:18px}.rail-heading{padding:12px 14px 6px}.rail-hint{display:none}#conversation-queue{display:flex;gap:6px;max-height:100px;overflow-x:auto;padding:0 8px 8px}.queue-item{flex:0 0 136px;margin:0}.filters{padding:12px;gap:10px}.filters label{min-width:0;flex:1 1 44%}.filters label:last-of-type{flex-basis:100%}.filters input{width:100%}.filters select{width:100%;min-width:0}.navigation{width:100%;justify-content:space-between}.annotators{grid-template-columns:1fr}.annotator:has(.inline-editor){max-height:none;padding:16px}.card-head{flex-direction:row;align-items:center}.inline-labels{grid-template-columns:repeat(8,minmax(0,1fr))}.inline-labels label{gap:3px;font-size:10px}.inline-labels input{width:10px;height:10px}.question h2{font-size:18px}.question{padding:18px}.reading{grid-template-columns:1fr}.source-note{padding-left:0}.queue-summary{font-size:11px}.panel{padding:18px}.evidence-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .question-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.question-heading .eyebrow{margin:0}.copy-turn{font-size:11px;padding:6px 10px;white-space:nowrap;color:var(--green);background:#f4f7ef;border-color:#dce6d4}.copy-turn:disabled{opacity:.65}
+.overview{margin-bottom:24px}.overview-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}.overview-heading h2{font-size:19px;letter-spacing:-.4px}.overview-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.overview-card{background:#fff;border:1px solid var(--line);border-top:3px solid #87a97f;border-radius:12px;padding:16px 20px;min-width:0}.overview-card:nth-child(2){border-top-color:#9b9bb5}.overview-card:nth-child(3){border-top-color:#c4a56d}.overview-person{display:flex;align-items:center;justify-content:space-between;gap:12px}.overview-person h3{font-size:14px}.overview-number{font-size:32px;font-weight:650;line-height:1.2;letter-spacing:-1px;font-variant-numeric:tabular-nums}.overview-label{font-size:11px;color:var(--muted);margin-top:6px}.overview-breakdown{margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow-x:auto;background:#fff}.overview-breakdown table{width:100%;border-collapse:collapse;text-align:left;font-size:12px;font-variant-numeric:tabular-nums}.overview-breakdown caption{text-align:left;padding:12px 16px;color:var(--muted);font-size:11px}.overview-breakdown th,.overview-breakdown td{padding:9px 16px;border-top:1px solid var(--line)}.overview-breakdown thead{background:#f8faf5}.overview-breakdown th:not(:first-child),.overview-breakdown td{text-align:right}.overview-breakdown tfoot{background:#f0f5ec;font-weight:650}.overview-note{font-size:11px;color:var(--muted);margin-top:9px;max-width:950px}@media(max-width:650px){.overview-cards{gap:7px}.overview-card{padding:12px 10px}.overview-person{display:block}.overview-person h3{margin-bottom:6px}.overview-number{font-size:27px}.overview-breakdown th,.overview-breakdown td{padding:9px 12px}.overview-heading h2{font-size:17px}}
+.overview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}.overview-toolbar label{display:flex;gap:8px;align-items:center;font-size:12px}.overview-toolbar select{padding:6px 10px}.overview-cards.is-focused{grid-template-columns:minmax(0,900px);justify-content:center}.overview-card{--person-accent:#60845b;padding:20px}.overview-card:nth-child(2){--person-accent:#8783a5}.overview-card:nth-child(3){--person-accent:#ad8b50}.overview-card[hidden]{display:none}.overview-person h3{font-size:19px}.overview-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin:16px 0}.overview-metric strong{display:block;font-size:22px;font-variant-numeric:tabular-nums}.overview-metric span{font-size:11px;color:var(--muted)}.person-methods{display:grid;gap:6px;margin:10px 0 18px}.person-method{display:flex;justify-content:space-between;gap:12px;font-size:12px}.person-method span{color:var(--muted)}.person-method strong{font-variant-numeric:tabular-nums}.distribution-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.distribution-heading h4{font-size:13px;margin:0}.distribution-heading span{font-size:10px;color:var(--muted)}.distribution-row{display:grid;grid-template-columns:25px minmax(0,1fr) auto;gap:3px 7px;margin:0 0 9px;align-items:baseline}.distribution-code{font-size:10px;color:var(--person-accent);font-weight:700}.distribution-name{font-size:11px;overflow-wrap:anywhere}.distribution-value{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}.distribution-track{grid-column:1/-1;height:4px;border-radius:4px;background:#edf1e9;overflow:hidden}.distribution-fill{height:100%;background:var(--person-accent);border-radius:4px}.person-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.person-outcome{font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:8px;background:#f8faf5;padding:6px 8px;border-radius:5px}.person-outcome strong{color:var(--ink);font-size:12px}@media(max-width:950px){.overview-card{padding:14px}.distribution-name{font-size:10px}.person-outcomes{grid-template-columns:1fr}}@media(max-width:650px){.overview-cards{grid-template-columns:1fr;gap:14px}.overview-card{padding:20px}.overview-person{display:flex}.distribution-name{font-size:12px}.distribution-code,.distribution-value{font-size:11px}.person-outcomes{grid-template-columns:1fr 1fr}.overview-toolbar{align-items:start}}
+.overview-export-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0 0}.overview-export-row .overview-label{margin:0}.download-dashboard{font-size:11px;padding:5px 9px;color:var(--green);white-space:nowrap}.download-dashboard:disabled{opacity:.6}.download-dashboard.export-error{color:#a13d35}
 </style>
 </head>
 <body>
 <header class="app-header"><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1>RAG review studio</h1><p class="muted">Evidence, decisions, and a clearer view of every conversation.</p></div></div><span class="live-indicator">● Autosave enabled</span></header>
 <main>
 <div class="review-bar"><span id="review-status" class="review-status" role="status" aria-live="polite"></span><a id="review-link"></a></div>
+<section class="overview" aria-labelledby="overview-title">
+<div class="overview-heading"><h2 id="overview-title">Annotator dashboard</h2><p id="overview-summary" class="muted"></p></div>
+<p class="muted" style="margin-bottom:16px">Each annotator's totals and labels on the same set of turns completed by PS, KH and WN.</p>
+<div id="overview-cards" class="overview-cards"></div>
+<p class="overview-note">A turn is included only when all three annotators have a saved decision for the same method, conversation and turn. Their labels may differ. Each label counts once per turn; turns with multiple labels contribute to multiple bars. Notes and review marks alone do not count.</p>
+</section>
 <div class="filters">
 <label>Method <select id="method"><option value="">All methods</option><option>Vector</option><option>HippoRag</option><option>Raptor</option><option>SelfRAG</option></select></label>
-<label>Queue <select id="scope"><option value="first">Next incorrect per conversation</option><option value="annotated">All annotated turns</option><option value="everything">Review targets + annotated turns</option></select></label>
-<label>Decisions <select id="coverage"><option value="any">Any coverage</option><option value="none">No decisions yet</option><option value="partial">Needs more reviewers</option><option value="all">All 3 annotators</option></select></label>
+<label>Queue <select id="scope"><option value="first">Next incorrect per conversation</option><option value="annotated" selected>All annotated turns</option><option value="everything">Review targets + annotated turns</option></select></label>
+<label>Decisions <select id="coverage"><option value="any">Any coverage</option><option value="none">No decisions yet</option><option value="partial">Needs more reviewers</option><option value="all" selected>All 3 annotators</option></select></label>
 <label><span class="sr">Search conversations</span><input id="search" type="search" placeholder="Find question or conversation"></label>
 <nav class="navigation" aria-label="Turn navigation"><button id="prev" aria-label="Previous incorrect turn">← Previous</button><span id="position" class="muted" aria-live="polite"></span><button id="next" aria-label="Next incorrect turn">Next →</button></nav>
 </div>
@@ -67,10 +76,91 @@ let pendingAdvance=null;
 function requestAdvance(row,name,changes){if(changes.failure_types?.length===1&&['not_a_failure','excluded'].includes(changes.failure_types[0])&&filtered[index]?.key===row.key)pendingAdvance={key:row.key,method:row.method,id:row.id,name,turn:row.turn,version:row.annotation_versions[name]};}
 let editState=null,saving=false,dirty=false,polling=false,reviewVersion=D.review_version||'';
 function isLabelled(a){return !!(a.human_label||a.failure_type||a.failure_types?.length);}
+function adjustPersonLabels(person,record,delta){
+ const codes=new Set(record.failure_types?.length?record.failure_types:record.failure_type?[record.failure_type]:[]);
+ const errors=[...codes].filter(code=>Object.hasOwn(person.label_counts,code));person.error_turns+=Number(errors.length>0)*delta;
+ for(const code of errors)person.label_counts[code]+=delta;
+ for(const code of codes)if(Object.hasOwn(names,code))person.outcomes[code]+=delta;
+ if(!codes.size)person.outcomes.correctness_only+=delta;
+ else if(!errors.length&&![...codes].some(code=>Object.hasOwn(names,code)))person.outcomes.other_labels+=delta;
+}
+function completeOverview(overview,rows){
+ // A running Python server may still have an older data builder loaded while
+ // reading this updated template. Its saved turn records remain authoritative.
+ if(overview&&D.annotators.every(name=>overview.annotators?.[name]?.label_counts&&overview.annotators[name].outcomes&&typeof overview.annotators[name].error_turns==='number'))return overview;
+ const methods=[...new Set([...(D.sources||[]).map(source=>source.method),...rows.map(row=>row.method)])];
+ const rebuilt={annotators:{},cohort:'all_annotators',total_annotations:0,annotated_turns:0,all_annotators:0};
+ for(const name of D.annotators)rebuilt.annotators[name]={total:0,by_method:Object.fromEntries(methods.map(method=>[method,0])),error_turns:0,label_counts:Object.fromEntries(Object.keys(D.labels).map(code=>[code,0])),outcomes:Object.fromEntries([...Object.keys(names),'correctness_only','other_labels'].map(code=>[code,0]))};
+ const seen=new Set();for(const row of rows){
+  const key=JSON.stringify([row.method,row.id,row.turn]);if(seen.has(key)||!D.annotators.every(name=>isLabelled(row.annotations?.[name]||{})))continue;seen.add(key);
+  rebuilt.annotated_turns++;rebuilt.all_annotators++;rebuilt.total_annotations+=D.annotators.length;
+  for(const name of D.annotators){const person=rebuilt.annotators[name];person.total++;person.by_method[row.method]++;adjustPersonLabels(person,row.annotations[name],1);}
+ }
+ return rebuilt;
+}
+function dashboardImageCanvas(name){
+ const person=D.overview.annotators[name];if(!person)throw Error('Unknown annotator');
+ const methods=Object.entries(person.by_method),labels=Object.entries(person.label_counts),outcomes=Object.entries(person.outcomes).filter(([code,count])=>!['correctness_only','other_labels'].includes(code)||count);
+ const width=600,scale=2,height=500+methods.length*26+labels.length*42+outcomes.length*26;
+ const canvas=document.createElement('canvas');canvas.width=width*scale;canvas.height=height*scale;const ctx=canvas.getContext('2d');if(!ctx)throw Error('Image export is unavailable');ctx.scale(scale,scale);
+ const accent=({PS:'#60845b',KH:'#8783a5',WN:'#ad8b50'})[name]||'#286047',ink='#203335',muted='#667779';ctx.fillStyle='#fff';ctx.fillRect(0,0,width,height);ctx.fillStyle=accent;ctx.fillRect(0,0,width,7);
+ function text(value,x,y,font='14px sans-serif',color=ink,align='left'){ctx.font=font;ctx.fillStyle=color;ctx.textAlign=align;ctx.fillText(clean(value),x,y);}
+ function line(y){ctx.fillStyle='#dfe6e0';ctx.fillRect(32,y,width-64,1);}
+ text('ANNOTATOR DASHBOARD',32,44,'600 13px sans-serif',muted);text(name,32,89,'700 32px sans-serif');text(person.total,width-32,89,'700 40px sans-serif',ink,'right');text('Shared turns annotated',32,116,'13px sans-serif',muted);line(136);
+ text(person.error_turns,32,175,'700 28px sans-serif');text(person.total-person.error_turns,318,175,'700 28px sans-serif');text('Turns with E labels',32,199,'13px sans-serif',muted);text('No failure or excluded',318,199,'13px sans-serif',muted);line(220);
+ text('Turns by method',32,250,'600 15px sans-serif');let y=278;
+ for(const [method,count] of methods){text(method,32,y,'14px sans-serif',muted);text(count,width-32,y,'600 14px sans-serif',ink,'right');y+=26;}
+ y+=8;text('Failure labels',32,y,'600 15px sans-serif');text('Turns / % of shared turns',width-32,y,'12px sans-serif',muted,'right');y+=28;
+ for(const [code,count] of labels){const percent=person.total?count/person.total*100:0;text(code,32,y,'700 12px sans-serif',accent);text(D.labels[code]||code,76,y,'14px sans-serif');text(count+' / '+percent.toFixed(1)+'%',width-32,y,'12px sans-serif',muted,'right');ctx.fillStyle='#edf1e9';ctx.fillRect(32,y+9,width-64,5);ctx.fillStyle=accent;ctx.fillRect(32,y+9,(width-64)*percent/100,5);y+=42;}
+ y+=12;line(y-18);text('Outcome breakdown',32,y,'600 15px sans-serif');y+=26;
+ for(const [code,count] of outcomes){text(names[code]||({correctness_only:'Correctness only',other_labels:'Other labels'})[code],32,y,'13px sans-serif',muted);text(count,width-32,y,'600 14px sans-serif',ink,'right');y+=26;}
+ y+=18;text('Only turns completed by PS, KH and WN are included.',32,y,'12px sans-serif',muted);text('Each label counts once per turn; a turn may have multiple labels.',32,y+20,'12px sans-serif',muted);
+ const output=document.createElement('canvas');output.width=canvas.width;output.height=Math.ceil((y+48)*scale);output.getContext('2d').drawImage(canvas,0,0);return output;
+}
+function downloadDashboardImage(name,button){
+ button.disabled=true;button.textContent='Preparing...';button.classList.remove('export-error');
+ try{
+  const encoded=dashboardImageCanvas(name).toDataURL('image/png'),bytes=Uint8Array.from(atob(encoded.split(',')[1]),character=>character.charCodeAt(0)),blob=new Blob([bytes],{type:'image/png'});
+  const url=URL.createObjectURL(blob),link=el('a');link.href=url;link.download=name+'_annotation_dashboard.png';document.body.append(link);
+  try{link.click();}finally{link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}button.textContent='Download PNG';
+ }catch(error){button.textContent='Retry PNG';button.classList.add('export-error');button.title=error.message;}
+ finally{button.disabled=false;}
+}
+function renderOverview(){
+ const overview=D.overview;if(!overview)return;
+ $('overview-summary').textContent=overview.annotated_turns+' shared turns / '+overview.annotated_turns+' per annotator';
+ const cards=$('overview-cards');cards.replaceChildren();
+ for(const name of D.annotators){
+  const person=overview.annotators[name],card=el('article','overview-card');card.dataset.person=name;card.setAttribute('aria-label',name+' dashboard');
+  const head=el('div','overview-person'),number=el('span','overview-number',person.total);number.dataset.overviewAnnotator=name;head.append(el('h3','',name),number);card.append(head);
+  const exportRow=el('div','overview-export-row'),download=el('button','download-dashboard','Download PNG');download.type='button';download.dataset.downloadAnnotator=name;download.setAttribute('aria-label','Download '+name+' dashboard as PNG');download.onclick=()=>downloadDashboardImage(name,download);exportRow.append(el('p','overview-label','shared turns annotated'),download);card.append(exportRow);
+  const metrics=el('div','overview-metrics');for(const [value,label] of [[person.error_turns,'Turns with E labels'],[person.total-person.error_turns,'No failure or excluded']]){const metric=el('div','overview-metric');metric.append(el('strong','',value),el('span','',label));metrics.append(metric);}card.append(metrics);
+  const methods=el('div','person-methods');methods.setAttribute('aria-label',name+' turns by method');for(const [method,count] of Object.entries(person.by_method)){const row=el('div','person-method');row.append(el('span','',method),el('strong','',count));methods.append(row);}card.append(methods);
+  const heading=el('div','distribution-heading');heading.append(el('h4','','Failure labels'),el('span','','Turns / % of shared turns'));card.append(heading);
+  const chart=el('div','person-distribution');chart.setAttribute('aria-label',name+' E1 to E16 distribution');
+  for(const [code,count] of Object.entries(person.label_counts)){const row=el('div','distribution-row'),percent=person.total?count/person.total*100:0;row.dataset.code=code;row.dataset.count=count;const track=el('div','distribution-track'),fill=el('div','distribution-fill');track.setAttribute('aria-hidden','true');fill.style.width=percent+'%';track.append(fill);row.append(el('span','distribution-code',code),el('span','distribution-name',D.labels[code]||code),el('span','distribution-value',count+' / '+percent.toFixed(1)+'%'),track);chart.append(row);}card.append(chart);
+  const outcomes=el('div','person-outcomes');for(const [code,count] of Object.entries(person.outcomes)){if(['correctness_only','other_labels'].includes(code)&&!count)continue;const row=el('div','person-outcome');row.append(el('span','',names[code]||({correctness_only:'Correctness only',other_labels:'Other labels'})[code]),el('strong','',count));outcomes.append(row);}card.append(outcomes);cards.append(card);
+ }
+}
+function acceptDecision(row,name,result){
+ const before=D.annotators.filter(person=>isLabelled(row.annotations[person])).length,delta=Number(isLabelled(result.record))-Number(isLabelled(row.annotations[name]));
+ const sharedDelta=Number(before+delta===D.annotators.length)-Number(before===D.annotators.length);
+ if(D.overview){const overview=D.overview;for(const annotator of D.annotators){const person=overview.annotators[annotator];if(before===D.annotators.length)adjustPersonLabels(person,row.annotations[annotator],-1);if(before+delta===D.annotators.length)adjustPersonLabels(person,annotator===name?result.record:row.annotations[annotator],1);person.total+=sharedDelta;person.by_method[row.method]+=sharedDelta;}overview.total_annotations+=sharedDelta*D.annotators.length;overview.annotated_turns+=sharedDelta;overview.all_annotators+=sharedDelta;renderOverview();}
+ row.annotations[name]=result.record;row.annotation_versions[name]=result.version;row.labelled_count=before+delta;
+}
 function applyFilters(){
  const key=filtered[index]?.key,q=$('search').value.toLowerCase().trim(),numberQuery=/^c\d+$/.test(q)?'C'+String(Number(q.slice(1))).padStart(2,'0'):null,coverage=$('coverage').value,scope=$('scope').value;
  filtered=D.rows.filter(r=>(!$('method').value||r.method===$('method').value)&&(scope==='everything'||(scope==='first'?r.queue_annotators?.length:r.labelled_count>0))&&(coverage==='any'||(coverage==='none'?r.labelled_count===0:coverage==='partial'?r.labelled_count<D.annotators.length:r.labelled_count===D.annotators.length))&&(!q||(numberQuery?r.conversation_number===numberQuery:[r.question,r.id,r.conversation_number,r.corpus_collection].join(' ').toLowerCase().includes(q))));
  index=Math.max(0,filtered.findIndex(r=>r.key===key));render();
+}
+function openRequestedTurn(params=new URLSearchParams(location.search)){
+ const conversation=params.get('conversation');if(!conversation)return false;
+ const method=params.get('method'),turn=Number(params.get('turn'));
+ if(method&&[...$('method').options].some(option=>option.value===method))$('method').value=method;
+ $('scope').value='everything';$('coverage').value='any';$('search').value=conversation;applyFilters();
+ const requested=Number.isInteger(turn)&&turn>0?filtered.findIndex(row=>row.turn===turn):0;
+ if(requested<0||!filtered.length)return false;
+ index=requested;render();document.querySelector('.workspace-grid').scrollIntoView({block:'start'});return true;
 }
 function renderQueue(){
  const root=$('conversation-queue');root.replaceChildren();$('queue-count').textContent=new Set(filtered.map(r=>r.method+':'+r.id)).size;
@@ -111,7 +201,7 @@ function inlineEditor(row,name){
  const feedback=el('p','inline-feedback');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
  const actions=el('div','inline-actions'),retry=el('button','','Retry save'),reload=el('button','','Load latest decision');retry.type=reload.type='button';
  retry.onclick=()=>{state.error=null;saveInline(state);};
- reload.onclick=()=>{if(!state.conflict)return;state.row.annotations[name]=state.conflict.record||{};state.row.annotation_versions[name]=state.conflict.version;state.changes={};state.busy=false;inlineDrafts.delete(key);render();};
+ reload.onclick=()=>{if(!state.conflict)return;acceptDecision(state.row,name,{record:state.conflict.record||{},version:state.conflict.version});state.changes={};state.busy=false;inlineDrafts.delete(key);render();};
  actions.append(retry,reload);root.append(outcome,errors,notes,feedback,actions);
  state.feedback=feedback;state.retry=retry;state.reload=reload;paintInline(state);return root;
 }
@@ -130,7 +220,7 @@ async function saveInline(state){
  try{
   const response=await fetch(D.review_api+'/'+state.row.method+'/'+state.name,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:state.row.id,turn:state.row.turn,changes,expected_version:state.version}),signal:AbortSignal.timeout(15000)}),result=await response.json();
   if(!response.ok){if(response.status===409)state.conflict=result;throw Error(result.error||'Could not save.');}
-  state.row.annotations[state.name]=result.record;state.row.annotation_versions[state.name]=result.version;state.version=result.version;
+  acceptDecision(state.row,state.name,result);state.version=result.version;
   state.row.labelled_count=D.annotators.filter(name=>isLabelled(state.row.annotations[name])).length;state.saved=true;state.error=null;requestAdvance(state.row,state.name,changes);renderQueue();
  }catch(error){state.changes={...changes,...state.changes};state.error=error.message;status('Unsaved changes for '+state.row.method+' / '+state.name+'. Return to this turn to retry.',true);}
  finally{state.busy=false;state.inflight=null;paintInline(state);if(!state.error&&Object.keys(state.changes).length)saveInline(state);else if(pendingAdvance)refreshReview();}
@@ -262,7 +352,7 @@ $('decision-form').onsubmit=async event=>{
  try{
   const response=await fetch(D.review_api+'/'+state.row.method+'/'+state.annotator,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:state.row.id,turn:state.row.turn,changes,expected_version:state.version}),signal:AbortSignal.timeout(15000)}),result=await response.json();
   if(!response.ok){if(response.status===409){state.conflict=result;$('edit-reload').hidden=false;}throw Error(result.error||'Could not save decision.');}
-  state.row.annotations[state.annotator]=result.record;state.row.annotation_versions[state.annotator]=result.version;state.row.labelled_count=D.annotators.filter(name=>isLabelled(state.row.annotations[name])).length;
+  acceptDecision(state.row,state.annotator,result);
   requestAdvance(state.row,state.annotator,changes);
   dirty=false;$('decision-editor').close();applyFilters();status('Saved '+state.row.method+' / '+state.annotator+'.'+(result.backup?' Previous file backed up.':''));
  }catch(error){$('edit-feedback').textContent=error.message;$('edit-feedback').className='edit-feedback edit-error';}
@@ -279,7 +369,7 @@ async function refreshReview(){
   const rows=await Promise.all(snapshot.rows.map(async meta=>{if(byKey.has(meta.key))return {...byKey.get(meta.key),...meta};const params=new URLSearchParams({method:meta.method,id:meta.id,turn:String(meta.turn)}),detail=await fetch(D.review_api+'/turn?'+params,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!detail.ok)throw Error('New turn could not be loaded. Retrying...');return (await detail.json()).row;}));
   if(editState||saving||inlinePending()||(!pendingAdvance&&document.activeElement?.closest('.inline-editor')))return;
   const oldKey=filtered[index]?.key,scrolls=[...document.querySelectorAll('.document-list')].map(node=>node.scrollTop);
-  D.rows=rows;D.warnings=snapshot.warnings;D.sources=snapshot.sources;reviewVersion=snapshot.version;renderSources();applyFilters();
+  D.rows=rows;D.warnings=snapshot.warnings;D.sources=snapshot.sources;D.overview=completeOverview(snapshot.overview,rows);reviewVersion=snapshot.version;renderOverview();renderSources();applyFilters();
   if(filtered[index]?.key===oldKey)document.querySelectorAll('.document-list').forEach((node,i)=>{node.scrollTop=scrolls[i]||0;});
   if(pendingAdvance){
    const advance=pendingAdvance;pendingAdvance=null;
@@ -294,7 +384,8 @@ async function refreshReview(){
  finally{polling=false;}
 }
 $('review-link').href=D.review_api?'/results':'http://127.0.0.1:8766/review';$('review-link').textContent=D.review_api?'Live agreement results':'Open editable review';
-status(D.review_api?'Live review. Saves go directly to Annotate_result.':'Offline snapshot. Open editable review to save changes.');renderSources();applyFilters();if(D.review_api)setInterval(refreshReview,3000);
+D.overview=completeOverview(D.overview,D.rows);
+status(D.review_api?'Live review. Saves go directly to Annotate_result.':'Offline snapshot. Open editable review to save changes.');renderOverview();renderSources();applyFilters();openRequestedTurn();if(D.review_api)setInterval(refreshReview,3000);
 </script>
 </body>
 </html>

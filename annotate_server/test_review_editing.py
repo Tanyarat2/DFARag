@@ -1,6 +1,7 @@
 """Direct review edits preserve exports and back up originals before replacement."""
 import copy
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -134,6 +135,10 @@ CHECKS = r"""<pre id="test-result"></pre><script>
  const save=async()=>{$('decision-form').requestSubmit();await pendingSave;};
  try{
   assert(D.review_api==='/api/review','Live review API');
+  assert(document.querySelectorAll('.overview-card').length===3,'All annotators share one overview');
+  assert([...document.querySelectorAll('.overview-card')].every(card=>card.getBoundingClientRect().height>0),'All live dashboard panels are visible');
+  assert($('coverage').value==='all'&&filtered.every(row=>row.labelled_count===3),'Default queue excludes incomplete turns');
+  $('scope').value='first';$('coverage').value='any';applyFilters();
   let copied='';Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{copied=text;}}});
   const copyRow=filtered[index],originalContexts=copyRow.contexts;copyRow.contexts=['First full selected passage.','Second full selected passage.'];
   document.getElementById('copy-turn').click();await waitFor(()=>copied&& !document.getElementById('copy-turn').disabled,'copy turn');
@@ -143,10 +148,13 @@ CHECKS = r"""<pre id="test-result"></pre><script>
   document.querySelector('.edit-decision[data-annotator="WN"]').click();
   assert($('decision-editor').open && $('edit-flagged').checked,'Editor opens with saved fields');
   const previous=index;document.body.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert(index===previous,'Modal blocks turn navigation');
+  const previousE6=D.overview.annotators.WN.label_counts.E6;
   choose('E6');$('edit-notes').value='Reviewed in browser';await save();
   await waitFor(()=>!$('decision-editor').open && !saving,'first save');
   let row=D.rows.find(r=>r.method==='Vector'&&r.id==='case'&&r.turn===1);
   assert(row.annotations.WN.failure_types.join(',')==='E6','Saved labels visible');
+  assert(D.overview.annotators.WN.label_counts.E6===previousE6+1,'Saved label updates the annotator chart immediately');
+  assert(Number(document.querySelector('.overview-card[data-person="WN"] .distribution-row[data-code="E6"]').dataset.count)===previousE6+1,'Saved label updates the visible WN dashboard immediately');
   assert(row.annotations.WN.evidence[0].quote==='Evidence quote' && row.annotations.WN.custom_field.keep===7,'Hidden fields preserved');
   const metrics=await (await fetch('/api/results')).json();
   assert(metrics.methods.Vector.rows[0].decisions.WN.labels[0]==='E6','Agreement reads saved export');
@@ -186,12 +194,23 @@ CHECKS = r"""<pre id="test-result"></pre><script>
   assert(inline.querySelector('input[value="E5"]').checked&&!inlinePending(),'Inline conflict loads latest decision');
   let outcome=inline.querySelector('select');outcome.value='not_a_failure';outcome.dispatchEvent(new Event('change'));
   await waitFor(()=>filtered[index]?.id==='case'&&filtered[index]?.turn===2&&!polling,'No failure advances to next incorrect');
+  const beforeNewDecision=D.overview.annotators.WN.total;
   assert(filtered[index].queue_annotators.includes('WN'),'Next turn is the WN target');
   assert(D.rows.find(r=>r.method==='Vector'&&r.id==='case'&&r.turn===1).queue_annotators.includes('PS'),'Other reviewers keep their earlier target');
   inline=document.querySelector('.inline-editor[data-annotator="WN"]');outcome=inline.querySelector('select');outcome.value='excluded';outcome.dispatchEvent(new Event('change'));
   await waitFor(()=>filtered[index]?.id==='case'&&filtered[index]?.turn===3&&!polling,'Excluded advances again to unannotated incorrect turn');
+  assert(D.overview.annotators.WN.total===beforeNewDecision,'Changing existing labels does not count another annotation');
+  assert(Number(document.querySelector('[data-overview-annotator="WN"]').textContent)===D.overview.annotators.WN.total,'Saved overall count is visible');
   inline=document.querySelector('.inline-editor[data-annotator="WN"]');outcome=inline.querySelector('select');outcome.value='not_a_failure';outcome.dispatchEvent(new Event('change'));
   await waitFor(()=>$('review-status').textContent.includes('No more incorrect turns')&&!polling,'End of conversation does not wrap');
+  assert(D.annotators.every(name=>D.overview.annotators[name].total===beforeNewDecision+1),'Third annotator completes the shared turn for everyone');
+  inline=document.querySelector('.inline-editor[data-annotator="WN"]');outcome=inline.querySelector('select');outcome.value='clear';outcome.dispatchEvent(new Event('change'));
+  await waitFor(()=>!inlinePending(),'clear saved decision');
+  assert(D.annotators.every(name=>D.overview.annotators[name].total===beforeNewDecision),'Clearing one decision excludes the turn for everyone');
+  const overviewSnapshot=await (await fetch('/api/review/annotations')).json();
+  const savedOverview=completeOverview(overviewSnapshot.overview,overviewSnapshot.rows);
+  assert(D.overview.annotators.WN.total===savedOverview.annotators.WN.total,'Overview matches saved export after edits');
+  assert(JSON.stringify(D.overview.annotators)===JSON.stringify(savedOverview.annotators),'All personal distributions match the saved exports after edits and conflict reloads');
   assert(document.documentElement.scrollWidth<=window.innerWidth,'No horizontal page overflow');
   result.dataset.status='pass';result.textContent='PASS';
  }catch(error){dirty=false;result.dataset.status='fail';result.textContent=error.stack;}
@@ -260,12 +279,29 @@ class ReviewHttpTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             results, runs, profiles = prepare(root)
+            for name in ('PS', 'KH'):
+                profiles[name]['case#3'] = {'failure_types': ['E12']}
             parent = make_handler(runs, results)
+            dashboard_schema = 'current'
+            def older_payload(data):
+                if dashboard_schema == 'missing':
+                    data.pop('overview', None)
+                elif dashboard_schema == 'totals_only':
+                    for person in data['overview']['annotators'].values():
+                        for field in ('error_turns', 'label_counts', 'outcomes'):
+                            person.pop(field, None)
+                return data
             class Harness(parent):
                 def respond(self, status, body, content_type='text/html; charset=utf-8', compressed=None):
                     if self.path == '/review' and status == 200:
                         body = body.decode('utf-8') if isinstance(body, bytes) else body
+                        if dashboard_schema != 'current':
+                            body = re.sub(r'(<script id="review-data" type="application/json">)(.*?)(</script>)',
+                                lambda match: match[1] + json.dumps(older_payload(json.loads(match[2]))).replace('<', r'\u003c') + match[3], body, flags=re.S)
                         body = body.replace('</body>', CHECKS + '</body>');compressed = None
+                    elif self.path == '/api/review/annotations' and status == 200 and dashboard_schema != 'current':
+                        body = json.dumps(older_payload(json.loads(body)))
+                        compressed = None
                     super().respond(status, body, content_type, compressed)
                 def do_POST(self):
                     if self.path == '/test-replace':
@@ -279,17 +315,18 @@ class ReviewHttpTests(unittest.TestCase):
             server = ThreadingHTTPServer(('127.0.0.1', 0), Harness)
             thread = threading.Thread(target=server.serve_forever, daemon=True);thread.start()
             try:
-                for width in (1440, 600):
+                for width, dashboard_schema in ((1440, 'current'), (600, 'current'),
+                                                (1440, 'totals_only'), (600, 'missing')):
                     write_exports(results, copy.deepcopy(profiles))
                     result = subprocess.run([browser, '--headless', '--disable-gpu', '--no-first-run',
                         '--no-default-browser-check', '--disable-background-networking', '--disable-extensions',
-                        '--disable-sync', '--user-data-dir=' + str(root / f'profile-{width}'),
+                        '--disable-sync', '--user-data-dir=' + str(root / f'profile-{width}-{dashboard_schema}'),
                         f'--window-size={width},1100', '--timeout=25000', '--virtual-time-budget=16000',
                         '--dump-dom', f'http://127.0.0.1:{server.server_port}/review'],
                         capture_output=True, encoding='utf-8', errors='replace', timeout=40)
                     report = result.stdout.split('<pre id="test-result"', 1)[-1].split('</pre>', 1)[0]
                     self.assertTrue('data-status="pass"' in report,
-                                    f'Width {width}: {report[-1800:]} {result.stderr[-500:]}')
+                                    f'Width {width}, schema {dashboard_schema}: {report[-1800:]} {result.stderr[-500:]}')
                 self.assertGreaterEqual(len(list((results / '.review_backups').rglob('*.json'))), 4)
             finally:
                 server.shutdown();server.server_close();thread.join(timeout=5)

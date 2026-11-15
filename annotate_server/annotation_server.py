@@ -102,7 +102,7 @@ code{background:#e9ebee;padding:2px 4px}
 .actions{display:flex;gap:12px;align-items:center;margin-top:20px}button{padding:8px 12px;border:1px solid #b9c0c8;border-radius:4px;background:white;cursor:pointer}
 </style></head><body><main><h1>RAG judge runs</h1>
 <p class='muted'>Local run folders; no database or browser API key. The list refreshes automatically while this page is open. Select a run to annotate the judge outputs currently available.</p>
-<div class='actions'><a href='/review'>Editable annotation review</a><a href='/results'>Live agreement results</a><button onclick='location.reload()'>Refresh list</button><span class='muted'>This page checks for new runs every 10 seconds.</span></div>
+<div class='actions'><a href='/review'>Annotator overview and review</a><a href='/results'>Live agreement results</a><button onclick='location.reload()'>Refresh list</button><span class='muted'>This page checks for new runs every 10 seconds.</span></div>
 <section class='runs'>%s</section>
 </main><script>setTimeout(()=>location.reload(),10000)</script></body></html>""" % listing
 
@@ -161,7 +161,7 @@ class RunPages:
             page = annotation.render_page(live)
             nav = ("<nav aria-label='Run navigation' style='padding:8px 24px;"
                    "background:#fff;border-bottom:1px solid #dce3e1;font:12px system-ui'>"
-                   "<a href='/'>All runs</a> &nbsp; / &nbsp; <a href='/results'>Live agreement results</a> &nbsp; / &nbsp; "
+                   "<a href='/'>All runs</a> &nbsp; / &nbsp; <a href='/review'>Annotator overview</a> &nbsp; / &nbsp; <a href='/results'>Live agreement results</a> &nbsp; / &nbsp; "
                    "<a href='/run/%s'>Refresh latest judge outputs</a></nav>" %
                    html.escape(work_dir.name, quote=True))
             payload = page.replace("<body>", "<body>" + nav, 1).encode("utf-8")

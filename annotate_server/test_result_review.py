@@ -14,8 +14,33 @@ BROWSER_CHECKS = r"""<script>
 const report=document.createElement('pre');report.id='test-result';
 try{
  const assert=(value,message)=>{if(!value)throw Error(message);};
- assert($('coverage').value==='any','Partial reviews visible by default');
- assert($('scope').value==='first'&&filtered.every(row=>row.queue_annotators.length),'Default queue shows each annotator current incorrect target');
+ assert(document.querySelectorAll('.overview-card').length===3,'All annotator totals visible together');
+ assert(!document.querySelector('.overview details')&&!document.querySelector('#overview-person'),'Dashboard has no collapsed panels or person selector');
+ const dashboardRects=[...document.querySelectorAll('.overview-card')].map(card=>card.getBoundingClientRect());
+ assert(dashboardRects.every(rect=>rect.width>0&&rect.height>0),'All three dashboards are rendered visibly');
+ if(window.innerWidth>650)assert(dashboardRects[0].left<dashboardRects[1].left&&dashboardRects[1].left<dashboardRects[2].left&&Math.abs(dashboardRects[0].top-dashboardRects[2].top)<2,'Annotator dashboards sit side by side');
+ assert(!/[\u0e00-\u0e7f]/.test(document.querySelector('.overview').innerText),'All dashboard interface text is English');
+ assert(document.querySelectorAll('.download-dashboard').length===3,'Each annotator can download their dashboard');
+ for(const name of D.annotators){
+  const button=document.querySelector('[data-download-annotator="'+name+'"]'),originalClick=HTMLAnchorElement.prototype.click,originalURL=URL.createObjectURL;let blob,filename;
+  try{HTMLAnchorElement.prototype.click=function(){filename=this.download;};URL.createObjectURL=value=>{blob=value;return originalURL.call(URL,value);};button.click();}
+  finally{HTMLAnchorElement.prototype.click=originalClick;URL.createObjectURL=originalURL;}
+  assert(filename===name+'_annotation_dashboard.png'&&blob?.type==='image/png','Download exports a named PNG for the selected person');
+  const bytes=Uint8Array.from(atob(dashboardImageCanvas(name).toDataURL('image/png').split(',')[1]),character=>character.charCodeAt(0)),header=new DataView(bytes.buffer);
+  assert(bytes[0]===137&&bytes[1]===80&&bytes[2]===78&&bytes[3]===71&&bytes.length>5000,'Download contains a real PNG image');
+  assert(header.getUint32(16)===1200&&header.getUint32(20)>2000,'PNG includes the full dashboard at high resolution');
+  assert(!button.disabled&&button.textContent==='Download PNG','Download button is ready for another export');
+ }
+ for(const name of D.annotators)assert(Number(document.querySelector('[data-overview-annotator="'+name+'"]').textContent)===D.overview.annotators[name].total,'Overall total matches exported decisions');
+ for(const name of D.annotators){const card=document.querySelector('.overview-card[data-person="'+name+'"]');assert(card.querySelectorAll('.distribution-row').length===16,'Every annotator has E1 to E16');for(const row of card.querySelectorAll('.distribution-row'))assert(Number(row.dataset.count)===D.overview.annotators[name].label_counts[row.dataset.code],'Chart counts belong to that annotator');}
+ const overviewText=$('overview-cards').textContent;
+ assert($('coverage').value==='all'&&$('scope').value==='annotated','Shared annotated turns visible by default');
+ assert(filtered.every(row=>row.labelled_count===D.annotators.length),'Turns missing an annotator are hidden initially');
+ const requestedRow=D.rows.find(row=>row.method==='HippoRag'&&row.conversation_number==='C58'&&row.turn===5);
+ assert(requestedRow&&openRequestedTurn(new URLSearchParams({method:'HippoRag',conversation:'C58',turn:'5'})),'C58 HippoRAG is accessible through a direct link');
+ assert(filtered[index].key===requestedRow.key&&$('coverage').value==='any'&&$('scope').value==='everything','Direct links reveal requested turns even with empty decisions');
+ $('method').value='';$('search').value='';$('scope').value='annotated';$('coverage').value='all';applyFilters();window.scrollTo(0,0);
+ $('coverage').value='any';$('coverage').dispatchEvent(new Event('change'));
  $('scope').value='everything';$('scope').dispatchEvent(new Event('change'));
  assert(filtered.length===D.rows.length && filtered.length>0,'Every imported review turn is available');
  const numbersById=new Map();for(const row of D.rows){assert(/^C\d{2,}$/.test(row.conversation_number),'Every turn has a conversation number');assert(!numbersById.has(row.id)||numbersById.get(row.id)===row.conversation_number,'Same ID has the same number across methods');numbersById.set(row.id,row.conversation_number);}
@@ -75,6 +100,7 @@ try{
  assert(document.querySelectorAll('.annotator').length===3,'Missing reviewers visible');
  $('search').value='no-match-XYZ';$('search').dispatchEvent(new Event('input'));
  assert(filtered.length===0,'Search');
+ assert($('overview-cards').textContent===overviewText,'Queue filters do not change overall totals');
  $('search').value='';$('search').dispatchEvent(new Event('input'));
  $('method').value='';$('method').dispatchEvent(new Event('change'));
  $('coverage').value='all';$('coverage').dispatchEvent(new Event('change'));
@@ -109,6 +135,43 @@ document.body.append(report);
 
 
 class ResultReviewTests(unittest.TestCase):
+    def test_overview_counts_only_turns_annotated_by_all_three_even_when_labels_differ(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for method, run in review.RUNS.items():
+                target = root / method
+                target.mkdir()
+                records = {'PS': [{'id': 'case', 'turn': 1, 'failure_types': ['E4', 'E9', 'E4']},
+                                  {'id': 'case', 'turn': 2, 'notes': 'Draft', 'review_complete': True},
+                                  {'id': 'case', 'turn': 3, 'failure_types': ['excluded']}],
+                           'KH': [{'id': 'case', 'turn': 1, 'failure_types': ['not_a_failure']},
+                                  {'id': 'case', 'turn': 4, 'human_label': 'correct'}],
+                           'WN': [{'id': 'case', 'turn': 1, 'failure_type': 'E12'},
+                                  {'id': 'case', 'turn': 5, 'flagged_for_review': True}]}
+                # SelfRAG has no WN export. It must still appear with zero.
+                for name, items in records.items():
+                    if method == 'SelfRAG' and name == 'WN':
+                        continue
+                    (target / f'annotations_{run}_{name}.json').write_text(json.dumps(items))
+            data = review.build_review(root, root, lambda _: {
+                'rows': [], 'coverage': {'mtrag': {'source': 'out.mtrag.json'}}})
+            overview = data['overview']
+            self.assertEqual({name: person['total'] for name, person in overview['annotators'].items()},
+                             {'PS': 3, 'KH': 3, 'WN': 3})
+            for person in overview['annotators'].values():
+                self.assertEqual(person['by_method']['SelfRAG'], 0)
+            self.assertEqual(overview['total_annotations'], 9)
+            self.assertEqual(overview['annotated_turns'], 3)
+            self.assertEqual(overview['all_annotators'], 3)
+            self.assertEqual(overview['annotators']['PS']['error_turns'], 3)
+            self.assertEqual(overview['annotators']['PS']['label_counts']['E4'], 3)
+            self.assertEqual(overview['annotators']['PS']['label_counts']['E9'], 3)
+            self.assertEqual(overview['annotators']['PS']['outcomes']['excluded'], 0)
+            self.assertEqual(overview['annotators']['KH']['error_turns'], 0)
+            self.assertEqual(overview['annotators']['KH']['outcomes']['not_a_failure'], 3)
+            self.assertEqual(overview['annotators']['WN']['label_counts']['E12'], 3)
+            self.assertEqual(review.annotation_snapshot(data)['overview'], overview)
+
     def test_no_failure_and_excluded_advance_each_annotator_independently(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

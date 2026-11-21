@@ -1,0 +1,174 @@
+{
+  "schema_version": 2,
+  "cohort": "Intersection of turns with an explicit saved annotation decision from each of PS, KH and WN. Turns with any missing or undecided annotation are omitted; review marks alone do not qualify.",
+  "filter": "Within the fully labelled cohort, remove only when all three annotators chose not_a_failure or excluded (in any combination). A correctness-only correct decision counts as not_a_failure.",
+  "human_annotations_in_records": false,
+  "history_policy": "All prior run-input messages; current turn stored separately; no future turns.",
+  "retrieval_policy": "retrieved_documents, retrieval_experiment and reranking_experiment come from a later retrieval experiment. They are not evidence of the candidates or reranking used for the original answer.",
+  "gold_document_policy": "Reference passages retain their full recorded text. full_document is null when the local source-document index is absent or the ID cannot be resolved. An empty gold_documents list can be valid for an unanswerable turn; check gold_support.status.",
+  "methods": {
+    "Vector": {
+      "reviewed_turns": 101,
+      "removed_turns": 13,
+      "omitted_incomplete_turns": 9,
+      "retained_turns": 88,
+      "gold_status": {
+        "available": 88
+      },
+      "gold_document_count": 178,
+      "full_gold_document_count": 0,
+      "generation_trace_matches": 88,
+      "generation_backend_mismatches": 0,
+      "retrieval_experiment_matches": 88,
+      "reranking_experiment_matches": 88,
+      "output": {
+        "file": "Vector.json",
+        "sha256": "502dd5f496517ea74e563cc581ed9a9772a2aaa6f9f3bba03d643e3b8bf39661"
+      }
+    },
+    "HippoRag": {
+      "reviewed_turns": 74,
+      "removed_turns": 5,
+      "omitted_incomplete_turns": 6,
+      "retained_turns": 69,
+      "gold_status": {
+        "available": 69
+      },
+      "gold_document_count": 137,
+      "full_gold_document_count": 0,
+      "generation_trace_matches": 69,
+      "generation_backend_mismatches": 0,
+      "retrieval_experiment_matches": 69,
+      "reranking_experiment_matches": 69,
+      "output": {
+        "file": "HippoRag.json",
+        "sha256": "696fb1639ae9480eabbe96341f945c0919e2c7f2f207cb45dd604a9788d1d99e"
+      }
+    },
+    "Raptor": {
+      "reviewed_turns": 24,
+      "removed_turns": 0,
+      "omitted_incomplete_turns": 1,
+      "retained_turns": 24,
+      "gold_status": {
+        "available": 24
+      },
+      "gold_document_count": 48,
+      "full_gold_document_count": 0,
+      "generation_trace_matches": 24,
+      "generation_backend_mismatches": 0,
+      "retrieval_experiment_matches": 24,
+      "reranking_experiment_matches": 24,
+      "output": {
+        "file": "Raptor.json",
+        "sha256": "02e5a1cb355aec1ef2c89fd82bbd66324b7be0cfb1bdf0c000b14f58fa75a393"
+      }
+    },
+    "SelfRAG": {
+      "reviewed_turns": 104,
+      "removed_turns": 7,
+      "omitted_incomplete_turns": 6,
+      "retained_turns": 97,
+      "gold_status": {
+        "available": 97
+      },
+      "gold_document_count": 199,
+      "full_gold_document_count": 0,
+      "generation_trace_matches": 97,
+      "generation_backend_mismatches": 0,
+      "retrieval_experiment_matches": 97,
+      "reranking_experiment_matches": 97,
+      "output": {
+        "file": "SelfRAG.json",
+        "sha256": "510a87796244ed9b4c22d6cbfd61e9e5aeeaac441ca398995ad6272a9b7ff82e"
+      }
+    }
+  },
+  "sources": [
+    {
+      "file": "judge_run/gold_support.json",
+      "sha256": "c853ae0fd949921ca589b5b58a5545407bfec2d9b5b4bed9cb79a04c1b0fcdb1"
+    },
+    {
+      "file": "judge_run/runs/convos_vector_q3_32b/input.json",
+      "sha256": "eab4e0de842ad9a5a9a3215d08d4cb54ffafa0a009111669da98c934d46ff0c9"
+    },
+    {
+      "file": "judge_run/runs/convos_vector_q3_32b/out.mtrag.json",
+      "sha256": "34a3953c7a854c0aee73de5ee506900722a4078508901b802802b25f2946d557"
+    },
+    {
+      "file": "Annotate_result/Vector/annotations_convos_vector_q3_32b_KH.json",
+      "sha256": "4a5c7e876c984083b761d0293d0e726ecfb3974e7f6b338931e7d96d5a93b373"
+    },
+    {
+      "file": "Annotate_result/Vector/annotations_convos_vector_q3_32b_PS.json",
+      "sha256": "78c1b8c5821214c81c88753a314f45e74d1c166ec8a9b90f71c4504993f5fbf7"
+    },
+    {
+      "file": "Annotate_result/Vector/annotations_convos_vector_q3_32b_WN.json",
+      "sha256": "da199b64d3e44e5641eab17e012c3d2115b7edae4bc3394af61e5de8c44b25ff"
+    },
+    {
+      "file": "judge_run/runs/convos_hipporag_q3_32b/input.json",
+      "sha256": "d5077720134028b50e03f6e52158dccd567912c3b980523b96ce92355ef8b0b1"
+    },
+    {
+      "file": "judge_run/runs/convos_hipporag_q3_32b/out.mtrag.json",
+      "sha256": "97c8afc90ea4a240dbda9980401c077689dd593d9ed8085851c57996ecf82f3c"
+    },
+    {
+      "file": "Annotate_result/HippoRag/annotations_convos_hipporag_q3_32b_KH.json",
+      "sha256": "fa38c7a8cc84e1ac21f0011dc67fcc174475710248541cc4a8da899c913b6b6f"
+    },
+    {
+      "file": "Annotate_result/HippoRag/annotations_convos_hipporag_q3_32b_PS.json",
+      "sha256": "1a5991b35b5b67faa8a8645dd1bc2d33b80c10f8e1fe354f9f3fda34626b738f"
+    },
+    {
+      "file": "Annotate_result/HippoRag/annotations_convos_hipporag_q3_32b_WN.json",
+      "sha256": "e7430eda24b8100f550f50bf456d8e32f8a682a45dddf02df157e3f2d37c36ea"
+    },
+    {
+      "file": "judge_run/runs/convos_raptor_q3_32b/input.json",
+      "sha256": "9de90a27680863f38d62a09732492aab23ca88b393badded3da777e55a710c76"
+    },
+    {
+      "file": "judge_run/runs/convos_raptor_q3_32b/out.mtrag.json",
+      "sha256": "8dc9367a046ce9dbacc3d2f22c1b622c2bef14daf267bda86b51aad771510541"
+    },
+    {
+      "file": "Annotate_result/Raptor/annotations_convos_raptor_q3_32b_KH.json",
+      "sha256": "93002d011d6169973bbb398999c9d64fac801d2fba8330e141ae92deff12fa86"
+    },
+    {
+      "file": "Annotate_result/Raptor/annotations_convos_raptor_q3_32b_PS.json",
+      "sha256": "b440250a1c5aa655444d002b3b882c5bbcaadb6f0afc287a43a6dc87a5beb347"
+    },
+    {
+      "file": "Annotate_result/Raptor/annotations_convos_raptor_q3_32b_WN.json",
+      "sha256": "3f2ff1e983e56c24d9cc67cc22aad04ea5e435fb4912725c212dd4f3aadef890"
+    },
+    {
+      "file": "judge_run/runs/convos_selfrag_q3_32b/input.json",
+      "sha256": "65ef7d0df1b83507acc49568e0d18d061dc0633159ae75872976791ce5a4942b"
+    },
+    {
+      "file": "judge_run/runs/convos_selfrag_q3_32b/out.mtrag.json",
+      "sha256": "fe9d795f02006f5b35b1ae047b6edb910a21ea5dd399d987774c679d94243f38"
+    },
+    {
+      "file": "Annotate_result/SelfRAG/annotations_convos_selfrag_q3_32b_KH.json",
+      "sha256": "5b415b4524bc705c3a06c488fd1743996561b923899b3a626f68fdf1809ed38b"
+    },
+    {
+      "file": "Annotate_result/SelfRAG/annotations_convos_selfrag_q3_32b_PS.json",
+      "sha256": "c2cc6db34533455cc16916e5b33fd0c11ba967c36ad6355df56cb321eecc88f6"
+    },
+    {
+      "file": "Annotate_result/SelfRAG/annotations_convos_selfrag_q3_32b_WN.json",
+      "sha256": "c06326364f6818a50255d31abe8974f0418c3139d1083cae18ba6caa551cd69c"
+    }
+  ],
+  "format": "Indented JSON array (UTF-8, two-space indentation)."
+}
